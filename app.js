@@ -288,21 +288,23 @@ const DEFAULT_JOBS_DATA = [
 const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
 
+// Global jobs reference
+let JOBS_DATA = DEFAULT_JOBS_DATA;
+
 // Get stored products or defaults
 function getStoredProducts() {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    const local = localStorage.getItem('sg_bakery_products');
-    if (local) {
-      try { return JSON.parse(local); } catch(e) {}
-    }
-  }
-  return DEFAULT_PRODUCTS_DATA;
+  return PRODUCTS_DATA;
+}
+
+// Get stored jobs or defaults
+function getStoredJobs() {
+  return JOBS_DATA;
 }
 
 // Fetch live products from Supabase Cloud
 async function loadProductsFromSupabase() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.asc`, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -312,22 +314,17 @@ async function loadProductsFromSupabase() {
       const data = await res.json();
       if (data && data.length > 0) {
         PRODUCTS_DATA = data;
-        if (typeof window !== 'undefined' && window.localStorage) {
-          localStorage.setItem('sg_bakery_products', JSON.stringify(data));
-        }
-        if (typeof renderHomePreviewGrid === 'function') renderHomePreviewGrid();
-        if (typeof renderFullProductsGrid === 'function') renderFullProductsGrid();
       }
     }
   } catch(e) {
-    console.log('Using local products cache:', e);
+    console.log('Supabase products unavailable, using defaults:', e.message);
   }
 }
 
 // Fetch live jobs from Supabase Cloud
 async function loadJobsFromSupabase() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=*`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/jobs?select=*&order=created_at.asc`, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -336,81 +333,95 @@ async function loadJobsFromSupabase() {
     if (res.ok) {
       const data = await res.json();
       if (data && data.length > 0) {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          localStorage.setItem('sg_bakery_jobs', JSON.stringify(data));
-        }
+        JOBS_DATA = data;
       }
     }
   } catch(e) {
-    console.log('Using local jobs cache:', e);
+    console.log('Supabase jobs unavailable, using defaults:', e.message);
   }
 }
 
-// Save products to local storage & sync to Supabase Cloud & Local Server API
+// Save a single product to Supabase (upsert)
+async function saveProductToSupabase(product) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify(product)
+    });
+  } catch(err) {
+    console.log('Supabase product sync error:', err.message);
+  }
+}
+
+// Delete a product from Supabase
+async function deleteProductFromSupabase(id) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+  } catch(err) {
+    console.log('Supabase product delete error:', err.message);
+  }
+}
+
+// Save a single job to Supabase (upsert)
+async function saveJobToSupabase(job) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/jobs`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify(job)
+    });
+  } catch(err) {
+    console.log('Supabase job sync error:', err.message);
+  }
+}
+
+// Delete a job from Supabase
+async function deleteJobFromSupabase(id) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/jobs?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+  } catch(err) {
+    console.log('Supabase job delete error:', err.message);
+  }
+}
+
+// Legacy compatibility wrappers used by admin.html
 function saveStoredProducts(products) {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    localStorage.setItem('sg_bakery_products', JSON.stringify(products));
-  }
-  
-  // Sync to local server disk file if backend available
-  fetch('./api/products', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(products, null, 2)
-  }).catch(() => {});
-
-  // Sync to Supabase Cloud Database
-  fetch(`${SUPABASE_URL}/rest/v1/products`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates'
-    },
-    body: JSON.stringify(products)
-  }).catch(err => console.log('Supabase sync notice:', err));
+  PRODUCTS_DATA = products;
+  // Upsert all products to Supabase
+  products.forEach(p => saveProductToSupabase(p));
 }
 
-// Get stored jobs or defaults
-function getStoredJobs() {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    const local = localStorage.getItem('sg_bakery_jobs');
-    if (local) {
-      try { return JSON.parse(local); } catch(e) {}
-    }
-  }
-  return DEFAULT_JOBS_DATA;
-}
-
-// Save jobs to local storage & sync to Supabase Cloud & Local Server API
 function saveStoredJobs(jobs) {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    localStorage.setItem('sg_bakery_jobs', JSON.stringify(jobs));
-  }
-
-  // Sync to local server disk file if backend available
-  fetch('./api/jobs', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(jobs, null, 2)
-  }).catch(() => {});
-
-  // Sync to Supabase Cloud Database
-  fetch(`${SUPABASE_URL}/rest/v1/jobs`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates'
-    },
-    body: JSON.stringify(jobs)
-  }).catch(err => console.log('Supabase sync notice:', err));
+  JOBS_DATA = jobs;
+  // Upsert all jobs to Supabase
+  jobs.forEach(j => saveJobToSupabase(j));
 }
 
 // Dynamic Products Reference
-let PRODUCTS_DATA = getStoredProducts();
+let PRODUCTS_DATA = DEFAULT_PRODUCTS_DATA;
 
 // 2. SHOPPING CART STATE
 let cartItems = (typeof window !== 'undefined' && window.localStorage)
@@ -420,15 +431,17 @@ let activeCategoryFilter = 'all';
 let activeSearchQuery = '';
 
 // DOM Initialization
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load from Supabase first, then render
+  await Promise.all([
+    loadProductsFromSupabase(),
+    loadJobsFromSupabase()
+  ]);
+
   renderHomePreviewGrid();
   renderFullProductsGrid();
   updateCartUI();
   setupEventListeners();
-
-  // Load latest data from Supabase Cloud
-  loadProductsFromSupabase();
-  loadJobsFromSupabase();
 });
 
 // 3. RENDER HOME PAGE PREVIEW GRID (First 8 Items)
@@ -587,7 +600,9 @@ function updateQuantity(productId, delta) {
 }
 
 function saveCart() {
-  localStorage.setItem('sg_bakery_cart', JSON.stringify(cartItems));
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.setItem('sg_bakery_cart', JSON.stringify(cartItems));
+  }
 }
 
 function updateCartUI() {

@@ -430,9 +430,15 @@
     let productsList = [];
     let jobsList = [];
 
-    function loadAdminData() {
-      productsList = getStoredProducts();
-      jobsList = getStoredJobs();
+    async function loadAdminData() {
+      // Fetch live from Supabase
+      await Promise.all([
+        loadProductsFromSupabase(),
+        loadJobsFromSupabase()
+      ]);
+
+      productsList = [...PRODUCTS_DATA];
+      jobsList = [...JOBS_DATA];
 
       renderCakesTable();
       renderJobsTable();
@@ -528,17 +534,9 @@
     function deleteCake(id) {
       if (confirm('Are you sure you want to delete this cake?')) {
         productsList = productsList.filter(p => p.id !== id);
-        saveStoredProducts(productsList);
+        PRODUCTS_DATA = productsList;
         renderCakesTable();
-
-        // Delete from Supabase Cloud
-        fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${id}`, {
-          method: 'DELETE',
-          headers: {
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-          }
-        }).catch(() => {});
+        deleteProductFromSupabase(id);
       }
     }
 
@@ -592,10 +590,11 @@
         productsList.push(updatedCake);
       }
 
-      saveStoredProducts(productsList);
+      PRODUCTS_DATA = productsList;
+      saveProductToSupabase(updatedCake);
       renderCakesTable();
       closeCakeModal();
-      alert('Cake saved & synced successfully!');
+      alert('Cake saved & synced to Supabase successfully!');
     }
 
     // JOB EDIT & ADD FUNCTIONS
@@ -632,17 +631,9 @@
     function deleteJob(id) {
       if (confirm('Are you sure you want to delete this job opening?')) {
         jobsList = jobsList.filter(j => j.id !== id);
-        saveStoredJobs(jobsList);
+        JOBS_DATA = jobsList;
         renderJobsTable();
-
-        // Delete from Supabase Cloud
-        fetch(`${SUPABASE_URL}/rest/v1/jobs?id=eq.${id}`, {
-          method: 'DELETE',
-          headers: {
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-          }
-        }).catch(() => {});
+        deleteJobFromSupabase(id);
       }
     }
 
@@ -668,10 +659,11 @@
         jobsList.push(updatedJob);
       }
 
-      saveStoredJobs(jobsList);
+      JOBS_DATA = jobsList;
+      saveJobToSupabase(updatedJob);
       renderJobsTable();
       closeJobModal();
-      alert('Job opening saved & synced successfully!');
+      alert('Job opening saved & synced to Supabase successfully!');
     }
 
     // BACKUP JSON EXPORT & IMPORT
