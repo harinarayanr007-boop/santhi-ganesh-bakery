@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Santhi Ganesh Bakery Tirunelveli</title>
+  <meta name="description" content="Get in touch with Santhi Ganesh Bakery in Tirunelveli. Visit our store at 92 Cheranmahadevi Rd or contact us via WhatsApp for custom cake orders and delivery.">
+  
+  <!-- Google Fonts: Aboreto & Lora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <!-- Master Stylesheet & Phosphor Icons -->
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="./i18n.js"></script>
+  
+  <style>
+    /* Contact Page Layout (Figma Node 10318:72654) */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    
+    .contact-col-info {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .contact-info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(166, 96, 27, 0.12);
+      color: var(--color-desert);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .contact-block-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+    
+    .contact-block-sub {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+    }
+    
+    .contact-link {
+      font-size: 1.1rem;
+      color: var(--color-text-main);
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color var(--transition-fast);
+    }
+    
+    .contact-link:hover {
+      color: var(--color-desert);
+    }
+    
+    .map-container-box {
+      width: 100%;
+      height: 520px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 8px 24px rgba(10, 4, 4, 0.08);
+      position: relative;
+    }
+    
+    .map-container-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .map-container-box {
+        height: 380px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. STICKY NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <!-- Brand Logo -->
+      <a href="./index.html" class="brand-logo">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - The Best Bakery Tirunelveli" class="brand-logo-img">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="./index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
+          <li><a href="./index.html#about" class="nav-link" data-i18n="nav_about">About Us</a></li>
+          <li><a href="./products.html" class="nav-link" data-i18n="nav_cakes">Cakes & Bakes</a></li>
+          <li><a href="./careers.html" class="nav-link" data-i18n="nav_careers">Careers</a></li>
+          <li><a href="./contact.html" class="nav-link active" style="color: var(--color-desert); font-weight: 600;" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Language Switcher Pill -->
+        <button id="lang-toggle-btn" class="lang-toggle-btn" onclick="toggleLanguage()" title="Switch Language">
+          <i class="ph ph-globe"></i>
+          <span id="current-lang-label">தமிழ்</span>
+        </button>
+
+        <button id="cart-btn" class="btn-icon-pill" title="View Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-badge cart-badge-count">0</span>
+        </button>
+        <a href="./products.html" class="btn btn-primary" data-i18n="nav_explore">Order Now</a>
+        <button id="mobile-menu-toggle-btn" class="mobile-menu-toggle" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER & OVERLAY -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div>
+      <div class="mobile-drawer-header">
+        <a href="./index.html" class="brand-logo">
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 52px;">
+        </a>
+        <button id="close-drawer-btn" style="font-size: 1.5rem;">✕</button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a></li>
+        <li><a href="./index.html#about" class="mobile-nav-link" data-i18n="nav_about">About Us</a></li>
+        <li><a href="./products.html" class="mobile-nav-link" data-i18n="nav_cakes">Cakes Catalog</a></li>
+        <li><a href="./careers.html" class="mobile-nav-link" data-i18n="nav_careers">Careers</a></li>
+        <li><a href="./contact.html" class="mobile-nav-link" style="color: var(--color-desert);" data-i18n="nav_contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div style="margin-top: 32px;">
+      <a href="./products.html" class="btn btn-primary" style="width: 100%;" data-i18n="nav_explore">Explore Cakes</a>
+    </div>
+  </aside>
+
+  <!-- 2. CONTACT US PAGE MAIN SECTION (FIGMA NODE 10318-72654) -->
+  <section class="section-padding" style="background-color: var(--color-bg-primary);">
+    <div class="container">
+      
+      <!-- Section Header -->
+      <div style="max-width: 680px; margin-bottom: 64px;">
+        <p class="text-tagline" style="margin-bottom: 8px;" data-i18n="contact_tagline">Reach Out to Us</p>
+        <h1 class="text-h2" style="font-size: 3.2rem; margin-bottom: 16px;" data-i18n="contact_title">CONTACT US</h1>
+        <p class="text-medium" style="color: var(--color-text-muted);" data-i18n="contact_sub">
+          Hear from the people who eat our cakes in Tirunelveli. Drop by our store or order online.
+        </p>
+      </div>
+
+      <!-- Main Contact Grid (2 Columns) -->
+      <div class="contact-grid">
+        
+        <!-- Left Column: Contact Details (Node 10318:72663) -->
+        <div class="contact-col-info">
+          
+          <!-- Email Block -->
+          <div class="contact-info-block">
+            <div class="contact-icon"><i class="ph ph-envelope-simple" style="font-size: 1.8rem; color: var(--color-desert);"></i></div>
+            <h2 class="contact-block-title">Email</h2>
+            <p class="contact-block-sub">Home baker, Tirunelveli</p>
+            <a href="mailto:Orders@santhiganesh.com" class="contact-link">Orders@santhiganesh.com</a>
+          </div>
+
+          <!-- Phone Block -->
+          <div class="contact-info-block">
+            <div class="contact-icon"><i class="ph ph-phone" style="font-size: 1.8rem; color: var(--color-desert);"></i></div>
+            <h2 class="contact-block-title">Phone</h2>
+            <p class="contact-block-sub">Santhi Ganesh Bakery</p>
+            <a href="tel:+917339073844" class="contact-link">+91 733 907 3844</a>
+            <div style="margin-top: 8px;">
+              <button onclick="sendDirectWhatsAppInquiry()" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="ph ph-whatsapp-logo" style="font-size: 1.1rem;"></i> Chat on WhatsApp
+              </button>
+            </div>
+          </div>
+
+          <!-- Location Block -->
+          <div class="contact-info-block">
+            <div class="contact-icon"><i class="ph ph-map-pin" style="font-size: 1.8rem; color: var(--color-desert);"></i></div>
+            <h2 class="contact-block-title">Location</h2>
+            <p class="contact-block-sub" style="line-height: 1.6; max-width: 360px;">
+              92, Cheranmahadevi Rd, Thirunagar, Nellai Nagaram, Tirunelveli, Tamil Nadu 627006, India
+            </p>
+            <div>
+              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 1rem; margin-top: 8px;">
+                <span><i class="ph ph-map-trifold" style="font-size: 1.2rem;"></i> Open in Maps</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Store Location Map & Direct Form -->
+        <div>
+          <div class="map-container-box">
+            <iframe 
+              src="https://maps.google.com/maps?q=Santhi+Ganesh+Bakery,+Cheranmahadevi+Rd,+Thirunagar,+Tirunelveli&t=&z=18&ie=UTF8&iwloc=B&output=embed" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. SLIDE-OVER SHOPPING CART DRAWER -->
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="ph ph-shopping-bag" style="font-size: 1.4rem; color: var(--color-desert);"></i>
+        <h3 style="font-size: 1.2rem; font-weight: 700;">Your Order Cart</h3>
+      </div>
+      <button id="close-cart-btn" style="font-size: 1.4rem; padding: 4px;"><i class="ph ph-x"></i></button>
+    </div>
+
+    <div id="cart-items-container" class="cart-body">
+      <!-- Populated by app.js -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Subtotal Amount:</span>
+        <span id="cart-total-amount">₹0</span>
+      </div>
+      <button onclick="sendWhatsAppOrder()" class="btn btn-whatsapp-order">
+        <i class="ph ph-whatsapp-logo" style="font-size: 1.2rem;"></i> Order via WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- 4. FOOTER -->
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="./index.html" class="brand-logo" style="margin-bottom: 16px; display: inline-block;">
+            <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px;">
+          </a>
+          <p class="text-small" style="opacity: 0.8; max-width: 320px; line-height: 1.6;" data-i18n="footer_desc">
+            Crafting Tirunelveli's favorite custom cakes, pastries, and artisanal chocolates with passion and pure ingredients.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="quick_links">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="./index.html" data-i18n="footer_home">Home</a></li>
+            <li><a href="./products.html" data-i18n="footer_catalog">Cakes Catalog</a></li>
+            <li><a href="./careers.html" data-i18n="footer_careers">Careers & Hiring</a></li>
+            <li><a href="./contact.html" data-i18n="footer_contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="categories">Categories</h4>
+          <ul class="footer-links">
+            <li><a href="./products.html" data-i18n="cat_birthday">Birthday Cakes</a></li>
+            <li><a href="./products.html" data-i18n="cat_wedding_tier">Wedding Tiers</a></li>
+            <li><a href="./products.html" data-i18n="cat_baby">Baby Shower Cakes</a></li>
+            <li><a href="./products.html" data-i18n="cat_cookies">Almond Cookies & Bakes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="store_contact">Store & Contact</h4>
+          <p class="text-small" style="opacity: 0.8; margin-bottom: 8px;"><i class="ph ph-map-pin" style="color: var(--color-desert);"></i> <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">92 Cheranmahadevi Rd, Thirunagar, Tirunelveli</a></p>
+          <p class="text-small" style="opacity: 0.8; margin-bottom: 8px;"><i class="ph ph-phone" style="color: var(--color-desert);"></i> +91 733 907 3844</p>
+          <p class="text-small" style="opacity: 0.8;"><i class="ph ph-clock" style="color: var(--color-desert);"></i> <span data-i18n="hours_daily">Open Daily: 8:00 AM – 10:00 PM</span></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="copyright">© 2026 Santhi Ganesh Bakery, Tirunelveli. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactivity Script -->
+  <script src="./app.js"></script>
+  
+  <script>
+    function sendDirectWhatsAppInquiry() {
+      const phone = "917339073844";
+      const message = `Hello Santhi Ganesh Bakery! 🧁\n\nI would like to inquire about cake orders and delivery details in Tirunelveli.`;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>

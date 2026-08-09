@@ -1,0 +1,210 @@
+[
+  {
+    "id": "prod-1",
+    "title": "Signature Black Forest Cake",
+    "category": "birthday-her",
+    "price": 550,
+    "weight": "1 kg",
+    "weights": [
+      "1 kg"
+    ],
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 550
+      }
+    ],
+    "isVeg": false,
+    "image": "./Birthday cakes for her/Choco_Truffle_500_gms.jpg",
+    "gallery": [
+      "./Birthday cakes for her/Choco_Truffle_500_gms.jpg"
+    ],
+    "description": "Rich dark chocolate layers with fresh whipped cream and juicy cherries. Tirunelveli’s favorite!"
+  },
+  {
+    "id": "prod-2",
+    "title": "Royal Crown Princess Cake",
+    "category": "birthday-her",
+    "price": 850,
+    "weight": "1.5 kg",
+    "isVeg": true,
+    "image": "./Birthday cakes for her/0000_cake_0014_TheCrownCake_360x.jpg",
+    "gallery": [
+      "./Birthday cakes for her/0000_cake_0014_TheCrownCake_360x.jpg",
+      "./Birthday cakes for her/0015_PinkRosesCake_2_360x.jpg"
+    ],
+    "description": "Golden tiara custom birthday cake crafted with pastel buttercream flowers."
+  },
+  {
+    "id": "prod-3",
+    "title": "Pink Rose Cascade Cake",
+    "category": "birthday-her",
+    "price": 650,
+    "weight": "1 kg",
+    "isVeg": true,
+    "image": "./Birthday cakes for her/0015_PinkRosesCake_2_360x.jpg",
+    "gallery": [
+      "./Birthday cakes for her/0015_PinkRosesCake_2_360x.jpg",
+      "./Birthday cakes for her/Choco_Truffle_500_gms.jpg"
+    ],
+    "description": "Elegant pink buttercream rose piping with rich vanilla truffle sponge."
+  },
+  {
+    "id": "prod-4",
+    "title": "Good Ol Pineapple Delight",
+    "category": "birthday-her",
+    "price": 480,
+    "weight": "1 kg",
+    "isVeg": true,
+    "image": "./Birthday cakes for her/Good-Ol-Pineapple-Cake1.jpg",
+    "gallery": [
+      "./Birthday cakes for her/Good-Ol-Pineapple-Cake1.jpg",
+      "./Birthday cakes for her/Choco_Truffle_500_gms.jpg"
+    ],
+    "description": "Fresh pineapple bits layered with fluffy vanilla sponge and whipped cream."
+  },
+  {
+    "id": "prod-5",
+    "title": "Lamborghini Speedster Cake",
+    "category": "birthday-him",
+    "price": 950,
+    "weight": "1.5 kg",
+    "isVeg": true,
+    "image": "./Birthday cakes for him/0001_cake_0013_TheLamborghiniCake_360x.jpg",
+    "gallery": [
+      "./Birthday cakes for him/0001_cake_0013_TheLamborghiniCake_360x.jpg",
+      "./Birthday cakes for him/0001s_0010_GamersX-BoxCake_360x.jpg"
+    ],
+    "description": "Custom sports car themed birthday cake with rich chocolate fudge fill."
+  },
+  {
+    "id": "prod-6",
+    "title": "Gamers X-Box Edition Cake",
+    "category": "birthday-him",
+    "price": 890,
+    "weight": "1.5 kg",
+    "isVeg": true,
+    "image": "./Birthday cakes for him/0001s_0010_GamersX-BoxCake_360x.jpg",
+    "gallery": [
+      "./Birthday cakes for him/0001s_0010_GamersX-BoxCake_360x.jpg",
+      "./Birthday cakes for him/0001_cake_0013_TheLamborghiniCake_360x.jpg"
+    ],
+    "description": "Hand-sculpted controller & console design for video game enthusiasts."
+  },
+  {
+    "id": "prod-7",
+    "title": "3-Tier Floral Wedding Cake",
+    "category": "wedding",
+    "price": 2400,
+    "weight": "3 kg",
+    "isVeg": true,
+    "image": "./Engagement, wedding cakes/0012_Floral3TierCake_360x.jpg",
+    "gallery": [
+      "./Engagement, wedding cakes/0012_Floral3TierCake_360x.jpg",
+      "./Engagement, wedding cakes/0013_Floral2TierWeddingCake_360x.jpg",
+      "./Engagement, wedding cakes/0000_WeddingFlowerCake_360x.jpg"
+    ],
+    "description": "Grand 3-tiered wedding cake adorned with handcrafted sugar orchids and golden accents."
+  },
+  {
+    "id": "prod-8",
+    "title": "Engagement Diamond Ring Cake",
+    "category": "wedding",
+    "price": 1350,
+    "weight": "2 kg",
+    "isVeg": true,
+    "image": "./Engagement, wedding cakes/Engagement_Ring_Cake_-_Smoor-4708887_360x.jpg",
+    "gallery": [
+      "./Engagement, wedding cakes/Engagement_Ring_Cake_-_Smoor-4708887_360x.jpg",
+      "./Engagement, wedding cakes/0012_Floral3TierCake_360x.jpg"
+    ],
+    "description": "Luxurious engagement ring box theme cake in white and royal velvet."
+  },
+  {
+    "id": "prod-9",
+    "title": "Baby Stroller Celebration Cake",
+    "category": "baby-shower",
+    "price": 780,
+    "weight": "1 kg",
+    "isVeg": true,
+    "image": "./Baby Shower cakes/0001_BabyStrollerCake_360x.jpg",
+    "gallery": [
+      "./Baby Shower cakes/0001_BabyStrollerCake_360x.jpg",
+      "./Baby Shower cakes/0005_SkyThemedCake_360x.jpg"
+    ],
+    "description": "Adorable baby stroller fondant cake in sweet pastel blue and yellow."
+  },
+  {
+    "id": "prod-10",
+    "title": "Sky Theme Baby Shower Cake",
+    "category": "baby-shower",
+    "price": 820,
+    "weight": "1.2 kg",
+    "isVeg": true,
+    "image": "./Baby Shower cakes/0005_SkyThemedCake_360x.jpg",
+    "gallery": [
+      "./Baby Shower cakes/0005_SkyThemedCake_360x.jpg"
+    ],
+    "description": "Fluffy clouds and star fondant decorations on soft vanilla bean cake."
+  },
+  {
+    "id": "prod-11",
+    "title": "Crispy Almond Snaps (Pack of 12)",
+    "category": "specialty",
+    "price": 220,
+    "weight": "250g",
+    "isVeg": true,
+    "image": "./Birthday cakes for her/almond-snaps-12pc.jpg",
+    "gallery": [
+      "./Birthday cakes for her/almond-snaps-12pc.jpg",
+      "./Birthday cakes for her/Kunafa-Bites_jpg.jpg"
+    ],
+    "description": "Handcrafted roasted almond thin cookies baked to golden perfection."
+  },
+  {
+    "id": "prod-12",
+    "title": "Authentic Kunafa Bites Box",
+    "category": "specialty",
+    "price": 340,
+    "weight": "300g",
+    "isVeg": true,
+    "image": "./Birthday cakes for her/Kunafa-Bites_jpg.jpg",
+    "gallery": [
+      "./Birthday cakes for her/Kunafa-Bites_jpg.jpg",
+      "./Birthday cakes for her/almond-snaps-12pc.jpg"
+    ],
+    "description": "Middle-Eastern dessert crisp filled with sweet cheese and pistachios."
+  },
+  {
+    "id": "prod-1786308046279",
+    "title": "Randiom test",
+    "category": "specialty",
+    "price": 1023941,
+    "weight": "2kg",
+    "weights": [
+      "2kg",
+      "3kg",
+      "4kg"
+    ],
+    "variants": [
+      {
+        "weight": "2kg",
+        "price": 1023941
+      },
+      {
+        "weight": "3kg",
+        "price": 12312423
+      },
+      {
+        "weight": "4kg",
+        "price": 123121
+      }
+    ],
+    "isVeg": true,
+    "image": "",
+    "gallery": [
+      ""
+    ],
+    "description": "sdvaevgs23452435sdfavcxzvad"
+  }
+]

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cakes & Confectionery Catalog | Santhi Ganesh Bakery Tirunelveli</title>
+  <meta name="description" content="Explore our full collection of fresh birthday cakes, wedding tiers, baby shower bakes, and specialty cookies at Santhi Ganesh Bakery Tirunelveli.">
+  
+  <!-- Google Fonts: Aboreto & Lora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <!-- Master Stylesheet & Phosphor Icons -->
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="./i18n.js"></script>
+  
+  <style>
+    /* Products Page Specific Styles (Figma Node 10320:80752) */
+    .products-header-flex {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    
+    .search-box-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 48px 12px 20px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-neutral-overlay-5);
+      border: 1px solid var(--color-neutral-overlay-15);
+      border-bottom: 4px solid rgba(10, 4, 4, 0.18);
+      color: var(--color-text-main);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    
+    .search-input:focus {
+      border-color: var(--color-desert);
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(166, 96, 27, 0.15);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--color-desert);
+    }
+    
+    .products-page-tabs {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. STICKY NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <!-- Brand Logo -->
+      <a href="./index.html" class="brand-logo">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - The Best Bakery Tirunelveli" class="brand-logo-img">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="./index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
+          <li><a href="./index.html#about" class="nav-link" data-i18n="nav_about">About Us</a></li>
+          <li><a href="./products.html" class="nav-link active" style="color: var(--color-desert); font-weight: 600;" data-i18n="nav_cakes">Cakes & Bakes</a></li>
+          <li><a href="./careers.html" class="nav-link" data-i18n="nav_careers">Careers</a></li>
+          <li><a href="./contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Language Switcher Pill -->
+        <button id="lang-toggle-btn" class="lang-toggle-btn" onclick="toggleLanguage()" title="Switch Language">
+          <i class="ph ph-globe"></i>
+          <span id="current-lang-label">தமிழ்</span>
+        </button>
+
+        <button id="cart-btn" class="btn-icon-pill" title="View Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-badge cart-badge-count">0</span>
+        </button>
+        <a href="#full-products" class="btn btn-primary" data-i18n="nav_explore">Order Now</a>
+        <button id="mobile-menu-toggle-btn" class="mobile-menu-toggle" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER & OVERLAY -->
+  <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div>
+      <div class="mobile-drawer-header">
+        <a href="./index.html" class="brand-logo">
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 52px;">
+        </a>
+        <button id="close-drawer-btn" style="font-size: 1.5rem;">✕</button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a></li>
+        <li><a href="./index.html#about" class="mobile-nav-link" data-i18n="nav_about">About Us</a></li>
+        <li><a href="./products.html" class="mobile-nav-link" style="color: var(--color-desert);" data-i18n="nav_cakes">Cakes Catalog</a></li>
+        <li><a href="./careers.html" class="mobile-nav-link" data-i18n="nav_careers">Careers</a></li>
+        <li><a href="./contact.html" class="mobile-nav-link" data-i18n="nav_contact">Contact & Delivery</a></li>
+      </ul>
+    </div>
+    <div style="margin-top: 32px;">
+      <a href="#full-products" class="btn btn-primary" style="width: 100%;" data-i18n="nav_explore">Explore Cakes</a>
+    </div>
+  </aside>
+
+  <!-- 2. PRODUCTS PAGE HERO & HEADER (FIGMA NODE 10320-80752) -->
+  <section id="full-products" class="section-padding" style="padding-top: 28px;">
+    <div class="container">
+      <div class="products-header-flex">
+        <div style="max-width: 600px;">
+          <p class="text-tagline" style="margin-bottom: 8px; font-size: 1rem; font-weight: 600; text-transform: none; letter-spacing: normal;" data-i18n="catalog_browse">Browse</p>
+          <h2 class="text-h2" style="font-size: 3.2rem; margin-bottom: 12px;" data-i18n="catalog_title">Cakes</h2>
+          <p class="text-regular" style="color: var(--color-text-muted); font-size: 1.1rem;" data-i18n="catalog_sub">
+            Browse our most loved bakes made fresh every morning in Tirunelveli.
+          </p>
+        </div>
+
+        <!-- Live Search Bar (Figma Node 10320:80952) -->
+        <div class="search-box-wrapper">
+          <input type="text" id="product-search-input" class="search-input" placeholder="Search cakes..." />
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills (Moved from Home Page as requested) -->
+      <div class="products-page-tabs category-tabs">
+        <button class="category-tab active" data-category="all" data-i18n="cat_all">All Bakes</button>
+        <button class="category-tab" data-category="birthday-her" data-i18n="cat_birthday_her">Birthday (Her)</button>
+        <button class="category-tab" data-category="birthday-him" data-i18n="cat_birthday_him">Birthday (Him)</button>
+        <button class="category-tab" data-category="wedding" data-i18n="cat_wedding">Wedding & Tiers</button>
+        <button class="category-tab" data-category="baby-shower" data-i18n="cat_baby_shower">Baby Shower</button>
+        <button class="category-tab" data-category="specialty" data-i18n="cat_specialty">Specialties & Cookies</button>
+      </div>
+
+      <!-- Full Interactive Products Grid -->
+      <div id="full-products-grid" class="products-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SLIDE-OVER SHOPPING CART DRAWER -->
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="ph ph-shopping-bag" style="font-size: 1.4rem; color: var(--color-desert);"></i>
+        <h3 style="font-size: 1.2rem; font-weight: 700;">Your Order Cart</h3>
+      </div>
+      <button id="close-cart-btn" style="font-size: 1.4rem; padding: 4px;"><i class="ph ph-x"></i></button>
+    </div>
+
+    <div id="cart-items-container" class="cart-body">
+      <!-- Populated by app.js -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Subtotal Amount:</span>
+        <span id="cart-total-amount">₹0</span>
+      </div>
+      <button onclick="sendWhatsAppOrder()" class="btn btn-whatsapp-order">
+        <i class="ph ph-whatsapp-logo" style="font-size: 1.2rem;"></i> Order via WhatsApp
+      </button>
+      <p class="text-small" style="text-align: center; color: var(--color-text-muted); margin-top: 12px;">
+        Direct ordering with doorstep delivery confirmation in Tirunelveli.
+      </p>
+    </div>
+  </aside>
+
+  <!-- 4. FOOTER -->
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="./index.html" class="brand-logo" style="margin-bottom: 16px; display: inline-block;">
+            <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px;">
+          </a>
+          <p class="text-small" style="opacity: 0.8; max-width: 320px; line-height: 1.6;" data-i18n="footer_desc">
+            Crafting Tirunelveli's favorite custom cakes, pastries, and artisanal chocolates with passion and pure ingredients.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="quick_links">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="./index.html" data-i18n="footer_home">Home</a></li>
+            <li><a href="./products.html" data-i18n="footer_catalog">Cakes Catalog</a></li>
+            <li><a href="./careers.html" data-i18n="footer_careers">Careers & Hiring</a></li>
+            <li><a href="./contact.html" data-i18n="footer_contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="categories">Categories</h4>
+          <ul class="footer-links">
+            <li><a href="./products.html" data-i18n="cat_birthday">Birthday Cakes</a></li>
+            <li><a href="./products.html" data-i18n="cat_wedding_tier">Wedding Tiers</a></li>
+            <li><a href="./products.html" data-i18n="cat_baby">Baby Shower Cakes</a></li>
+            <li><a href="./products.html" data-i18n="cat_cookies">Almond Cookies & Bakes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="store_contact">Store & Contact</h4>
+          <p class="text-small" style="opacity: 0.8; margin-bottom: 8px;"><i class="ph ph-map-pin" style="color: var(--color-desert);"></i> <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">92 Cheranmahadevi Rd, Thirunagar, Tirunelveli</a></p>
+          <p class="text-small" style="opacity: 0.8; margin-bottom: 8px;"><i class="ph ph-phone" style="color: var(--color-desert);"></i> +91 733 907 3844</p>
+          <p class="text-small" style="opacity: 0.8;"><i class="ph ph-clock" style="color: var(--color-desert);"></i> <span data-i18n="hours_daily">Open Daily: 8:00 AM – 10:00 PM</span></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="copyright">© 2026 Santhi Ganesh Bakery, Tirunelveli. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactivity Script -->
+  <script src="./app.js"></script>
+</body>
+</html>

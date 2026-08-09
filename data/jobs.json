@@ -1,0 +1,47 @@
+[
+  {
+    "id": "job-1",
+    "title": "Cleaner",
+    "type": "Full Time",
+    "pay": "₹350 per day",
+    "location": "Onsite",
+    "schedule": "Daily Shift",
+    "description": "Maintain immaculate hygienic standards for our baking hall, equipment, and store counters."
+  },
+  {
+    "id": "job-2",
+    "title": "Supplier",
+    "type": "Logistics & Stock",
+    "pay": "₹350 - ₹450 per day",
+    "location": "Onsite",
+    "schedule": "Delivery",
+    "description": "Manage fresh stock delivery and ingredient supply chain across our Tirunelveli bakery branches."
+  },
+  {
+    "id": "job-3",
+    "title": "Waiter / Server",
+    "type": "Front Counter & Service",
+    "pay": "₹350 - ₹450 per day",
+    "location": "Onsite",
+    "schedule": "Hospitality",
+    "description": "Deliver warm, friendly service to guests, manage cake display counters, and handle customer seating."
+  },
+  {
+    "id": "job-4",
+    "title": "Social Media Manager",
+    "type": "Marketing & Content",
+    "pay": "₹5k - ₹7k per month",
+    "location": "Hybrid / Onsite",
+    "schedule": "Standard",
+    "description": "Create engaging video reels, cake showcase photos, and grow our Instagram & Facebook presence in Tirunelveli."
+  },
+  {
+    "id": "job-5",
+    "title": "Social Media Intern",
+    "type": "Internship",
+    "pay": "Incentives Included",
+    "location": "Hybrid / Remote",
+    "schedule": "Photography",
+    "description": "Assist our media team with daily bakery photography, event coverage, and creative story updates."
+  }
+]

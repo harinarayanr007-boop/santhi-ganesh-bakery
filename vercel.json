@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/api/products", "dest": "/api/products.js" },
+    { "src": "/api/jobs", "dest": "/api/jobs.js" }
+  ]
+}

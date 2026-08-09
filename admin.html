@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Manager Dashboard | Santhi Ganesh Bakery</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Google Fonts: Aboreto & Lora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <style>
+    body {
+      background-color: #F6EFE8;
+      color: #0A0404;
+      font-family: 'Lora', Georgia, serif;
+    }
+    
+    .admin-header {
+      background-color: #0A0404;
+      color: #FFFFFF;
+      padding: 16px 0;
+    }
+    
+    .admin-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .admin-title {
+      font-family: 'Aboreto', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      color: var(--color-desert);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .admin-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    
+    .admin-tabs {
+      display: flex;
+      gap: 16px;
+      border-bottom: 2px solid rgba(10, 4, 4, 0.1);
+      margin-bottom: 32px;
+    }
+    
+    .admin-tab-btn {
+      padding: 12px 24px;
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      color: #0A0404;
+      transition: all 0.2s ease;
+    }
+    
+    .admin-tab-btn.active {
+      border-bottom-color: #A6601B;
+      color: #A6601B;
+    }
+    
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #EDDFD1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(10, 4, 4, 0.08);
+      margin-top: 16px;
+    }
+    
+    .admin-table th, .admin-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(10, 4, 4, 0.1);
+    }
+    
+    .admin-table th {
+      background-color: rgba(10, 4, 4, 0.06);
+      font-family: 'Aboreto', sans-serif;
+      font-size: 0.95rem;
+      color: #0A0404;
+    }
+    
+    .item-img-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    
+    .btn-edit {
+      background-color: #A6601B;
+      color: #FFFFFF;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-right: 6px;
+    }
+    
+    .btn-delete {
+      background-color: #C94C4C;
+      color: #FFFFFF;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Modal Form Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(10, 4, 4, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: #F6EFE8;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(10, 4, 4, 0.3);
+      border: 1px solid rgba(10, 4, 4, 0.15);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(10, 4, 4, 0.2);
+      background-color: #FFFFFF;
+      outline: none;
+    }
+
+    .login-box {
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #EDDFD1;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(10, 4, 4, 0.15);
+      box-shadow: 0 12px 32px rgba(10, 4, 4, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN AUTH SCREEN -->
+  <div id="auth-screen" class="login-box">
+    <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 64px; margin-bottom: 16px;">
+    <h2 style="font-family: 'Aboreto'; margin-bottom: 12px;">Admin Manager</h2>
+    <p style="font-size: 0.95rem; color: #555; margin-bottom: 24px;">Enter PIN code to manage cakes, prices & jobs.</p>
+    <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter Admin PIN (Default: 2026)" style="text-align: center; margin-bottom: 16px;">
+    <button onclick="checkAdminAuth()" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+  </div>
+
+  <!-- MAIN ADMIN DASHBOARD (Hidden until auth) -->
+  <div id="admin-dashboard" style="display: none;">
+    
+    <header class="admin-header">
+      <div class="container admin-nav">
+        <div class="admin-title">
+          <img src="./sg-bakery-logo.png" alt="Logo" style="height: 44px; filter: brightness(0) invert(1);">
+          <span>Content Manager</span>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <a href="./index.html" class="btn btn-secondary" style="color: #FFF; border-color: #FFF; padding: 6px 14px; font-size: 0.9rem;">View Website ↗</a>
+          <button onclick="logoutAdmin()" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.9rem;">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-container">
+      
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" onclick="switchTab('cakes')"><i class="ph ph-cake"></i> Cakes & Pricing</button>
+        <button class="admin-tab-btn" onclick="switchTab('jobs')"><i class="ph ph-briefcase"></i> Job Openings</button>
+        <button class="admin-tab-btn" onclick="switchTab('backup')"><i class="ph ph-floppy-disk"></i> Backup & Sync</button>
+      </div>
+
+      <!-- TAB 1: CAKES & PRICING MANAGER -->
+      <div id="tab-cakes" class="tab-content">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <h2>Manage Cakes & Prices</h2>
+          <button onclick="openCakeModal()" class="btn btn-primary"><i class="ph ph-plus"></i> Add New Cake</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Cake Title</th>
+              <th>Category</th>
+              <th>Weight</th>
+              <th>Price (₹)</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="cakes-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB 2: JOBS MANAGER -->
+      <div id="tab-jobs" class="tab-content" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <h2>Manage Job Openings</h2>
+          <button onclick="openJobModal()" class="btn btn-primary"><i class="ph ph-plus"></i> Add New Job Opening</button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Role Title</th>
+              <th>Type / Tag</th>
+              <th>Pay / Salary</th>
+              <th>Location</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobs-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB 3: BACKUP & SYNC -->
+      <div id="tab-backup" class="tab-content" style="display: none;">
+        <h2>Data Backup & Global Domain Sync</h2>
+        <p style="margin-top: 8px; color: var(--color-text-muted);">
+          Edits saved in this dashboard are automatically synced to local storage and written to your server database files.
+        </p>
+
+        <div style="display: flex; gap: 16px; margin-top: 24px;">
+          <button onclick="exportBackupJSON()" class="btn btn-primary">
+            <i class="ph ph-download-simple"></i> Download JSON Backup File
+          </button>
+          <button onclick="document.getElementById('import-file-input').click()" class="btn btn-secondary">
+            <i class="ph ph-upload-simple"></i> Restore / Upload JSON File
+          </button>
+          <input type="file" id="import-file-input" style="display: none;" accept=".json" onchange="importBackupJSON(event)">
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- CAKE EDIT / ADD MODAL -->
+  <div id="cake-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="cake-modal-title" style="font-family: 'Aboreto'; margin-bottom: 20px;">Edit Cake</h3>
+      
+      <input type="hidden" id="modal-cake-id">
+      
+      <div class="form-group">
+        <label>Cake Name / Title</label>
+        <input type="text" id="modal-cake-name" class="form-control" placeholder="e.g. Royal Strawberry Truffle">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="modal-cake-category" class="form-control">
+          <option value="birthday-her">Birthday (Her)</option>
+          <option value="birthday-him">Birthday (Him)</option>
+          <option value="wedding">Wedding & Tiers</option>
+          <option value="baby-shower">Baby Shower</option>
+          <option value="specialty">Specialties & Cookies</option>
+        </select>
+      </div>
+
+      <div style="background-color: rgba(10, 4, 4, 0.04); padding: 16px; border-radius: 8px; margin-bottom: 16px; border: 1px solid rgba(10, 4, 4, 0.08);">
+        <label style="font-weight: 700; display: block; margin-bottom: 12px; color: var(--color-desert);">⚖️ Weight & Price Variants</label>
+        
+        <!-- Variant 1 -->
+        <div style="display: flex; gap: 12px; margin-bottom: 8px; align-items: center;">
+          <input type="text" id="v1-weight" class="form-control" placeholder="Variant 1 Weight (e.g. 1 kg)" style="flex: 1;">
+          <span style="font-weight: bold;">: ₹</span>
+          <input type="number" id="v1-price" class="form-control" placeholder="Price (550)" style="flex: 1;">
+        </div>
+
+        <!-- Variant 2 -->
+        <div style="display: flex; gap: 12px; margin-bottom: 8px; align-items: center;">
+          <input type="text" id="v2-weight" class="form-control" placeholder="Variant 2 Weight (e.g. 1.5 kg)" style="flex: 1;">
+          <span style="font-weight: bold;">: ₹</span>
+          <input type="number" id="v2-price" class="form-control" placeholder="Price (800)" style="flex: 1;">
+        </div>
+
+        <!-- Variant 3 -->
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <input type="text" id="v3-weight" class="form-control" placeholder="Variant 3 Weight (e.g. 2 kg)" style="flex: 1;">
+          <span style="font-weight: bold;">: ₹</span>
+          <input type="number" id="v3-price" class="form-control" placeholder="Price (1050)" style="flex: 1;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Image File Path or URL</label>
+        <input type="text" id="modal-cake-image" class="form-control" placeholder="./Birthday cakes for her/Choco_Truffle_500_gms.jpg">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="modal-cake-desc" class="form-control" rows="3" placeholder="Cake description..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+        <button onclick="closeCakeModal()" class="btn btn-secondary">Cancel</button>
+        <button onclick="saveCakeForm()" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOB EDIT / ADD MODAL -->
+  <div id="job-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="job-modal-title" style="font-family: 'Aboreto'; margin-bottom: 20px;">Edit Job Opening</h3>
+      
+      <input type="hidden" id="modal-job-id">
+      
+      <div class="form-group">
+        <label>Job Role Title</label>
+        <input type="text" id="modal-job-title" class="form-control" placeholder="e.g. Pastry Chef">
+      </div>
+
+      <div class="form-group">
+        <label>Type / Tag</label>
+        <input type="text" id="modal-job-type" class="form-control" placeholder="Full Time">
+      </div>
+
+      <div class="form-group">
+        <label>Pay / Salary</label>
+        <input type="text" id="modal-job-pay" class="form-control" placeholder="₹400 - ₹500 per day">
+      </div>
+
+      <div class="form-group">
+        <label>Work Location</label>
+        <input type="text" id="modal-job-location" class="form-control" placeholder="Onsite - Tirunelveli">
+      </div>
+
+      <div class="form-group">
+        <label>Job Description</label>
+        <textarea id="modal-job-desc" class="form-control" rows="3" placeholder="Job duties..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+        <button onclick="closeJobModal()" class="btn btn-secondary">Cancel</button>
+        <button onclick="saveJobForm()" class="btn btn-primary">Save Job</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactivity Script -->
+  <script src="./app.js"></script>
+  
+  <script>
+    // PIN Authentication
+    function checkAdminAuth() {
+      const pin = document.getElementById('admin-pin-input').value;
+      if (pin === '2026' || pin === 'sgadmin' || pin === 'admin') {
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('admin-dashboard').style.display = 'block';
+        loadAdminData();
+      } else {
+        alert('Incorrect PIN Code! (Default PIN: 2026)');
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('admin-dashboard').style.display = 'none';
+      document.getElementById('auth-screen').style.display = 'block';
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById(`tab-${tabName}`).style.display = 'block';
+    }
+
+    // Load Products and Jobs into Admin Tables
+    let productsList = [];
+    let jobsList = [];
+
+    function loadAdminData() {
+      productsList = getStoredProducts();
+      jobsList = getStoredJobs();
+
+      renderCakesTable();
+      renderJobsTable();
+    }
+
+    function renderCakesTable() {
+      const tbody = document.getElementById('cakes-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = productsList.map(p => {
+        const variantSummary = (p.variants && p.variants.length > 0)
+          ? p.variants.map(v => `${v.weight}: ₹${v.price}`).join(' | ')
+          : `${p.weight}: ₹${p.price}`;
+
+        return `
+          <tr>
+            <td><img src="${p.image}" class="item-img-thumb" alt="${p.title}"></td>
+            <td><strong>${p.title}</strong></td>
+            <td>${p.category}</td>
+            <td style="font-size: 0.9rem;">${variantSummary}</td>
+            <td><strong>From ₹${p.price}</strong></td>
+            <td>
+              <button onclick="editCake('${p.id}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
+              <button onclick="deleteCake('${p.id}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderJobsTable() {
+      const tbody = document.getElementById('jobs-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = jobsList.map(j => `
+        <tr>
+          <td><strong>${j.title}</strong></td>
+          <td>${j.type}</td>
+          <td>${j.pay}</td>
+          <td>${j.location}</td>
+          <td>
+            <button onclick="editJob('${j.id}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
+            <button onclick="deleteJob('${j.id}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // CAKE EDIT & ADD FUNCTIONS
+    function openCakeModal(cake = null) {
+      document.getElementById('cake-modal').classList.add('active');
+      if (cake) {
+        document.getElementById('cake-modal-title').textContent = 'Modify / Edit Cake';
+        document.getElementById('modal-cake-id').value = cake.id;
+        document.getElementById('modal-cake-name').value = cake.title;
+        document.getElementById('modal-cake-category').value = cake.category;
+        document.getElementById('modal-cake-image').value = cake.image;
+        document.getElementById('modal-cake-desc').value = cake.description;
+
+        const vars = cake.variants || [{ weight: cake.weight, price: cake.price }];
+        document.getElementById('v1-weight').value = vars[0] ? vars[0].weight : '1 kg';
+        document.getElementById('v1-price').value = vars[0] ? vars[0].price : cake.price;
+
+        document.getElementById('v2-weight').value = vars[1] ? vars[1].weight : '';
+        document.getElementById('v2-price').value = vars[1] ? vars[1].price : '';
+
+        document.getElementById('v3-weight').value = vars[2] ? vars[2].weight : '';
+        document.getElementById('v3-price').value = vars[2] ? vars[2].price : '';
+      } else {
+        document.getElementById('cake-modal-title').textContent = 'Add New Cake';
+        document.getElementById('modal-cake-id').value = '';
+        document.getElementById('modal-cake-name').value = '';
+        document.getElementById('v1-weight').value = '1 kg';
+        document.getElementById('v1-price').value = '550';
+        document.getElementById('v2-weight').value = '1.5 kg';
+        document.getElementById('v2-price').value = '800';
+        document.getElementById('v3-weight').value = '2 kg';
+        document.getElementById('v3-price').value = '1050';
+        document.getElementById('modal-cake-image').value = './Birthday cakes for her/Choco_Truffle_500_gms.jpg';
+        document.getElementById('modal-cake-desc').value = '';
+      }
+    }
+
+    function closeCakeModal() {
+      document.getElementById('cake-modal').classList.remove('active');
+    }
+
+    function editCake(id) {
+      const cake = productsList.find(p => p.id === id);
+      if (cake) openCakeModal(cake);
+    }
+
+    function deleteCake(id) {
+      if (confirm('Are you sure you want to delete this cake?')) {
+        productsList = productsList.filter(p => p.id !== id);
+        saveStoredProducts(productsList);
+        renderCakesTable();
+
+        // Delete from Supabase Cloud
+        fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${id}`, {
+          method: 'DELETE',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        }).catch(() => {});
+      }
+    }
+
+    function saveCakeForm() {
+      const id = document.getElementById('modal-cake-id').value || `prod-${Date.now()}`;
+      const title = document.getElementById('modal-cake-name').value;
+      const category = document.getElementById('modal-cake-category').value;
+      const image = document.getElementById('modal-cake-image').value;
+      const description = document.getElementById('modal-cake-desc').value;
+
+      // Construct variants array
+      const variants = [];
+      const w1 = document.getElementById('v1-weight').value.trim();
+      const p1 = parseFloat(document.getElementById('v1-price').value);
+      if (w1 && !isNaN(p1)) variants.push({ weight: w1, price: p1 });
+
+      const w2 = document.getElementById('v2-weight').value.trim();
+      const p2 = parseFloat(document.getElementById('v2-price').value);
+      if (w2 && !isNaN(p2)) variants.push({ weight: w2, price: p2 });
+
+      const w3 = document.getElementById('v3-weight').value.trim();
+      const p3 = parseFloat(document.getElementById('v3-price').value);
+      if (w3 && !isNaN(p3)) variants.push({ weight: w3, price: p3 });
+
+      if (!title || variants.length === 0) {
+        alert('Please enter a valid cake title and at least 1 weight variant with price!');
+        return;
+      }
+
+      const basePrice = variants[0].price;
+      const baseWeight = variants[0].weight;
+      const weightsArray = variants.map(v => v.weight);
+
+      const existingIndex = productsList.findIndex(p => p.id === id);
+      const updatedCake = {
+        id,
+        title,
+        category,
+        price: basePrice,
+        weight: baseWeight,
+        weights: weightsArray,
+        variants,
+        image,
+        gallery: [image],
+        description
+      };
+
+      if (existingIndex >= 0) {
+        productsList[existingIndex] = updatedCake;
+      } else {
+        productsList.push(updatedCake);
+      }
+
+      saveStoredProducts(productsList);
+      renderCakesTable();
+      closeCakeModal();
+      alert('Cake saved & synced successfully!');
+    }
+
+    // JOB EDIT & ADD FUNCTIONS
+    function openJobModal(job = null) {
+      document.getElementById('job-modal').classList.add('active');
+      if (job) {
+        document.getElementById('job-modal-title').textContent = 'Modify Job Opening';
+        document.getElementById('modal-job-id').value = job.id;
+        document.getElementById('modal-job-title').value = job.title;
+        document.getElementById('modal-job-type').value = job.type;
+        document.getElementById('modal-job-pay').value = job.pay;
+        document.getElementById('modal-job-location').value = job.location;
+        document.getElementById('modal-job-desc').value = job.description;
+      } else {
+        document.getElementById('job-modal-title').textContent = 'Add New Job Opening';
+        document.getElementById('modal-job-id').value = '';
+        document.getElementById('modal-job-title').value = '';
+        document.getElementById('modal-job-type').value = 'Full Time';
+        document.getElementById('modal-job-pay').value = '₹400 per day';
+        document.getElementById('modal-job-location').value = 'Onsite - Tirunelveli';
+        document.getElementById('modal-job-desc').value = '';
+      }
+    }
+
+    function closeJobModal() {
+      document.getElementById('job-modal').classList.remove('active');
+    }
+
+    function editJob(id) {
+      const job = jobsList.find(j => j.id === id);
+      if (job) openJobModal(job);
+    }
+
+    function deleteJob(id) {
+      if (confirm('Are you sure you want to delete this job opening?')) {
+        jobsList = jobsList.filter(j => j.id !== id);
+        saveStoredJobs(jobsList);
+        renderJobsTable();
+
+        // Delete from Supabase Cloud
+        fetch(`${SUPABASE_URL}/rest/v1/jobs?id=eq.${id}`, {
+          method: 'DELETE',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        }).catch(() => {});
+      }
+    }
+
+    function saveJobForm() {
+      const id = document.getElementById('modal-job-id').value || `job-${Date.now()}`;
+      const title = document.getElementById('modal-job-title').value;
+      const type = document.getElementById('modal-job-type').value;
+      const pay = document.getElementById('modal-job-pay').value;
+      const location = document.getElementById('modal-job-location').value;
+      const description = document.getElementById('modal-job-desc').value;
+
+      if (!title) {
+        alert('Please enter a valid job title!');
+        return;
+      }
+
+      const existingIndex = jobsList.findIndex(j => j.id === id);
+      const updatedJob = { id, title, type, pay, location, schedule: 'Standard', description };
+
+      if (existingIndex >= 0) {
+        jobsList[existingIndex] = updatedJob;
+      } else {
+        jobsList.push(updatedJob);
+      }
+
+      saveStoredJobs(jobsList);
+      renderJobsTable();
+      closeJobModal();
+      alert('Job opening saved & synced successfully!');
+    }
+
+    // BACKUP JSON EXPORT & IMPORT
+    function exportBackupJSON() {
+      const data = {
+        products: getStoredProducts(),
+        jobs: getStoredJobs()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `santhi-ganesh-bakery-data-${Date.now()}.json`;
+      a.click();
+    }
+
+    function importBackupJSON(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+          if (data.products) saveStoredProducts(data.products);
+          if (data.jobs) saveStoredJobs(data.jobs);
+          loadAdminData();
+          alert('Backup restored successfully!');
+        } catch (err) {
+          alert('Invalid backup JSON file!');
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
