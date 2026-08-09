@@ -2,8 +2,5 @@
   "name": "santhi-ganesh-bakery",
   "version": "1.0.0",
   "private": true,
-  "description": "Santhi Ganesh Bakery - Public Website and Admin Panel",
-  "scripts": {
-    "start": "node server.js"
-  }
+  "description": "Santhi Ganesh Bakery - Public Website and Admin Panel"
 }

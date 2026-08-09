@@ -1,8 +1,8 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "routes": [
-    { "src": "/api/products", "dest": "/api/products.js" },
-    { "src": "/api/jobs", "dest": "/api/jobs.js" }
+  "rewrites": [
+    { "source": "/api/products", "destination": "/api/products.js" },
+    { "source": "/api/jobs", "destination": "/api/jobs.js" }
   ]
 }
