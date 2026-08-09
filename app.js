@@ -344,7 +344,20 @@ async function loadJobsFromSupabase() {
 // Save a single product to Supabase (upsert)
 async function saveProductToSupabase(product) {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+    // Only send columns that exist in the Supabase table
+    const clean = {
+      id: product.id,
+      title: product.title,
+      category: product.category,
+      price: product.price,
+      weight: product.weight,
+      variants: product.variants || [],
+      image: product.image || '',
+      gallery: product.gallery || [],
+      description: product.description || '',
+      updated_at: new Date().toISOString()
+    };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
@@ -352,10 +365,14 @@ async function saveProductToSupabase(product) {
         'Content-Type': 'application/json',
         'Prefer': 'resolution=merge-duplicates'
       },
-      body: JSON.stringify(product)
+      body: JSON.stringify(clean)
     });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Supabase product save failed:', res.status, err);
+    }
   } catch(err) {
-    console.log('Supabase product sync error:', err.message);
+    console.error('Supabase product sync error:', err.message);
   }
 }
 
@@ -377,7 +394,18 @@ async function deleteProductFromSupabase(id) {
 // Save a single job to Supabase (upsert)
 async function saveJobToSupabase(job) {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/jobs`, {
+    // Only send columns that exist in the Supabase table
+    const clean = {
+      id: job.id,
+      title: job.title,
+      type: job.type,
+      pay: job.pay,
+      location: job.location,
+      schedule: job.schedule || 'Standard',
+      description: job.description || '',
+      updated_at: new Date().toISOString()
+    };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/jobs`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
@@ -385,10 +413,14 @@ async function saveJobToSupabase(job) {
         'Content-Type': 'application/json',
         'Prefer': 'resolution=merge-duplicates'
       },
-      body: JSON.stringify(job)
+      body: JSON.stringify(clean)
     });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Supabase job save failed:', res.status, err);
+    }
   } catch(err) {
-    console.log('Supabase job sync error:', err.message);
+    console.error('Supabase job sync error:', err.message);
   }
 }
 
