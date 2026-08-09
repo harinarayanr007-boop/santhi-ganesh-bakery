@@ -193,11 +193,13 @@ let currentLang = 'en';
 
 // Detect Device Language or Saved Preference
 function initI18n() {
-  const savedLang = localStorage.getItem('sg_bakery_lang');
+  const savedLang = (typeof window !== 'undefined' && window.localStorage)
+    ? localStorage.getItem('sg_bakery_lang')
+    : null;
   
   if (savedLang) {
     currentLang = savedLang;
-  } else {
+  } else if (typeof navigator !== 'undefined') {
     // Detect Device Language
     const deviceLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
     if (deviceLang.startsWith('ta')) {
@@ -213,7 +215,9 @@ function initI18n() {
 // Toggle Language between English and Tamil
 function toggleLanguage() {
   currentLang = (currentLang === 'en') ? 'ta' : 'en';
-  localStorage.setItem('sg_bakery_lang', currentLang);
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.setItem('sg_bakery_lang', currentLang);
+  }
   applyLanguage(currentLang);
 }
 

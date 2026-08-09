@@ -290,9 +290,11 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 // Get stored products or defaults
 function getStoredProducts() {
-  const local = localStorage.getItem('sg_bakery_products');
-  if (local) {
-    try { return JSON.parse(local); } catch(e) {}
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const local = localStorage.getItem('sg_bakery_products');
+    if (local) {
+      try { return JSON.parse(local); } catch(e) {}
+    }
   }
   return DEFAULT_PRODUCTS_DATA;
 }
@@ -310,9 +312,11 @@ async function loadProductsFromSupabase() {
       const data = await res.json();
       if (data && data.length > 0) {
         PRODUCTS_DATA = data;
-        localStorage.setItem('sg_bakery_products', JSON.stringify(data));
-        renderHomePreviewGrid();
-        renderFullProductsGrid();
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('sg_bakery_products', JSON.stringify(data));
+        }
+        if (typeof renderHomePreviewGrid === 'function') renderHomePreviewGrid();
+        if (typeof renderFullProductsGrid === 'function') renderFullProductsGrid();
       }
     }
   } catch(e) {
@@ -332,7 +336,9 @@ async function loadJobsFromSupabase() {
     if (res.ok) {
       const data = await res.json();
       if (data && data.length > 0) {
-        localStorage.setItem('sg_bakery_jobs', JSON.stringify(data));
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('sg_bakery_jobs', JSON.stringify(data));
+        }
       }
     }
   } catch(e) {
@@ -342,7 +348,9 @@ async function loadJobsFromSupabase() {
 
 // Save products to local storage & sync to Supabase Cloud & Local Server API
 function saveStoredProducts(products) {
-  localStorage.setItem('sg_bakery_products', JSON.stringify(products));
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.setItem('sg_bakery_products', JSON.stringify(products));
+  }
   
   // Sync to local server disk file if backend available
   fetch('./api/products', {
@@ -366,16 +374,20 @@ function saveStoredProducts(products) {
 
 // Get stored jobs or defaults
 function getStoredJobs() {
-  const local = localStorage.getItem('sg_bakery_jobs');
-  if (local) {
-    try { return JSON.parse(local); } catch(e) {}
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const local = localStorage.getItem('sg_bakery_jobs');
+    if (local) {
+      try { return JSON.parse(local); } catch(e) {}
+    }
   }
   return DEFAULT_JOBS_DATA;
 }
 
 // Save jobs to local storage & sync to Supabase Cloud & Local Server API
 function saveStoredJobs(jobs) {
-  localStorage.setItem('sg_bakery_jobs', JSON.stringify(jobs));
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.setItem('sg_bakery_jobs', JSON.stringify(jobs));
+  }
 
   // Sync to local server disk file if backend available
   fetch('./api/jobs', {
@@ -401,7 +413,9 @@ function saveStoredJobs(jobs) {
 let PRODUCTS_DATA = getStoredProducts();
 
 // 2. SHOPPING CART STATE
-let cartItems = JSON.parse(localStorage.getItem('sg_bakery_cart') || '[]');
+let cartItems = (typeof window !== 'undefined' && window.localStorage)
+  ? JSON.parse(localStorage.getItem('sg_bakery_cart') || '[]')
+  : [];
 let activeCategoryFilter = 'all';
 let activeSearchQuery = '';
 
