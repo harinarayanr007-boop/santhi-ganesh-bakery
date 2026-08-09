@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/api/products", "destination": "/api/products.js" },
-    { "source": "/api/jobs", "destination": "/api/jobs.js" }
-  ]
+  "framework": null,
+  "cleanUrls": true
 }
