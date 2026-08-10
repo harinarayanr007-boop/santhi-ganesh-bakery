@@ -6839,19 +6839,35 @@ async function deleteProductFromSupabase(id) {
   }
 }
 
-// Global Event Tracking Helper (pageviews, orders, cart adds, searches)
+// Global Event Tracking Helper (100% Pure Production Domain Analytics)
 async function trackEvent(eventType, eventData = {}) {
   try {
+    if (typeof window === 'undefined') return;
+
+    const hostname = window.location.hostname;
+    const pathname = window.location.pathname;
+
+    // Exclude localhost & dev testing from polluting analytics
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.')) {
+      return;
+    }
+
+    // Exclude Admin dashboard pages from polluting customer analytics
+    if (pathname.includes('admin')) {
+      return;
+    }
+
     const payload = {
       event_type: eventType,
       event_data: {
         ...eventData,
-        page: (typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() || 'index.html') : 'index.html'),
+        host: hostname,
+        page: pathname.split('/').pop() || 'index.html',
         timestamp: new Date().toISOString()
       }
     };
 
-    if (typeof window !== 'undefined' && window.localStorage) {
+    if (window.localStorage) {
       const history = JSON.parse(localStorage.getItem('sg_tracking_events') || '[]');
       history.unshift(payload);
       if (history.length > 200) history.pop();
