@@ -40,7 +40,7 @@ const TRANSLATIONS = {
     cat_birthday_him: "Birthday (Him)",
     cat_wedding: "Wedding & Tiers",
     cat_baby_shower: "Baby Shower",
-    cat_specialty: "Specialties & Cookies",
+    cat_kids: "Kids Cakes",
 
     // Contact Page
     contact_tagline: "Reach Out to Us",
@@ -135,7 +135,7 @@ const TRANSLATIONS = {
     cat_birthday_him: "பிறந்தநாள் (ஆண்கள்)",
     cat_wedding: "திருமண கேக்குகள்",
     cat_baby_shower: "வளைகாப்பு கேக்குகள்",
-    cat_specialty: "சிறப்பு பிஸ்கட் & சுவைகள்",
+    cat_kids: "குழந்தைகள் கேக்குகள்",
 
     // Contact Page
     contact_tagline: "எங்களை தொடர்பு கொள்ளுங்கள்",
