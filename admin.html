@@ -399,9 +399,27 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Image File Path or URL</label>
-        <input type="text" id="modal-cake-image" class="form-control" placeholder="./Birthday cakes for her/Choco_Truffle_500_gms.jpg">
+      <div class="form-group" style="background-color: rgba(10, 4, 4, 0.03); padding: 14px; border-radius: 8px; border: 1px dashed rgba(10, 4, 4, 0.2);">
+        <label style="font-weight: 700; display: block; margin-bottom: 8px; color: var(--color-desert);">📷 Cake Photo (Upload to Cloud or enter Path/URL)</label>
+        
+        <!-- File upload button -->
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap;">
+          <input type="file" id="modal-cake-file" accept="image/*" style="display: none;" onchange="handleModalImageFileUpload(event)">
+          <button type="button" onclick="document.getElementById('modal-cake-file').click()" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.88rem;">
+            <i class="ph ph-upload-simple"></i> Upload Photo to Supabase Cloud
+          </button>
+          <span id="upload-status-text" style="font-size: 0.85rem; font-weight: 600; color: #555;"></span>
+        </div>
+
+        <!-- Manual path / URL input -->
+        <label style="font-size: 0.8rem; font-weight: 600; color: #666; margin-bottom: 4px; display: block;">Or enter relative image path / URL:</label>
+        <input type="text" id="modal-cake-image" class="form-control" placeholder="./Cakes for her/Choco_Truffle.jpg or https://..." oninput="updateImagePreview(this.value)">
+        
+        <!-- Live Image Preview Box -->
+        <div id="image-preview-container" style="margin-top: 10px; display: flex; align-items: center; gap: 12px;">
+          <img id="modal-cake-preview-img" src="" alt="Cake Preview" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(10,4,4,0.15); display: none;" onerror="this.style.display='none'; document.getElementById('preview-filename-text').textContent='⚠️ Image preview failed (invalid path or URL)';" onload="this.style.display='block'; document.getElementById('preview-filename-text').textContent='✓ Image loaded successfully';">
+          <span id="preview-filename-text" style="font-size: 0.82rem; color: #666; font-style: italic;"></span>
+        </div>
       </div>
 
       <div class="form-group">
@@ -565,7 +583,7 @@
 
         return `
           <tr style="${!isAvailable ? 'opacity: 0.65; background-color: rgba(198,40,40,0.05);' : ''}">
-            <td><img src="${p.image}" class="item-img-thumb" alt="${p.title}"></td>
+            <td><img src="${p.image}" class="item-img-thumb" alt="${p.title}" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';"></td>
             <td><strong>${p.title}</strong></td>
             <td>${p.category}</td>
             <td style="font-size: 0.9rem;">${variantSummary}</td>
@@ -607,8 +625,64 @@
     }
 
     // CAKE EDIT & ADD FUNCTIONS
+    function updateImagePreview(src) {
+      const previewImg = document.getElementById('modal-cake-preview-img');
+      const filenameText = document.getElementById('preview-filename-text');
+      if (src && src.trim()) {
+        previewImg.src = src;
+      } else {
+        previewImg.style.display = 'none';
+        filenameText.textContent = '';
+      }
+    }
+
+    async function handleModalImageFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const statusText = document.getElementById('upload-status-text');
+      statusText.style.color = '#FC8019';
+      statusText.textContent = '⏳ Uploading image to Supabase Cloud Storage...';
+
+      try {
+        const sanitizeName = file.name.replace(/[^a-zA-Z0-9_.-]/g, '_');
+        const fileName = `${Date.now()}_${sanitizeName}`;
+        const uploadUrl = `${SUPABASE_URL}/storage/v1/object/cake-images/${fileName}`;
+
+        const res = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': file.type || 'image/jpeg',
+            'x-upsert': 'true'
+          },
+          body: file
+        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`Upload failed (${res.status}): ${errText}`);
+        }
+
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/cake-images/${fileName}`;
+        document.getElementById('modal-cake-image').value = publicUrl;
+        updateImagePreview(publicUrl);
+
+        statusText.style.color = '#2e7d32';
+        statusText.textContent = '✅ Uploaded to Supabase Cloud!';
+      } catch (err) {
+        console.error('Image upload error:', err);
+        statusText.style.color = '#c62828';
+        statusText.textContent = '❌ Upload failed: ' + err.message;
+      }
+    }
+
     function openCakeModal(cake = null) {
       document.getElementById('cake-modal').classList.add('active');
+      const statusText = document.getElementById('upload-status-text');
+      if (statusText) statusText.textContent = '';
+
       if (cake) {
         document.getElementById('cake-modal-title').textContent = 'Modify / Edit Cake';
         document.getElementById('modal-cake-id').value = cake.id;
@@ -638,9 +712,11 @@
         document.getElementById('v2-price').value = '800';
         document.getElementById('v3-weight').value = '2 kg';
         document.getElementById('v3-price').value = '1050';
-        document.getElementById('modal-cake-image').value = './Birthday cakes for her/Choco_Truffle_500_gms.jpg';
+        document.getElementById('modal-cake-image').value = './Cakes for her/Choco_Truffle_500_gms.jpg';
         document.getElementById('modal-cake-desc').value = '';
       }
+
+      updateImagePreview(document.getElementById('modal-cake-image').value);
     }
 
     function closeCakeModal() {

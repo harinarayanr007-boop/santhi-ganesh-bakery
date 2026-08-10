@@ -6980,7 +6980,7 @@ function createProductCardHTML(product) {
   return `
     <article class="product-card">
       <a href="./product-detail.html?id=${product.id}" class="product-image-box" style="display: block; text-decoration: none;">
-        <img src="${product.image}" alt="${product.title}" loading="lazy" />
+        <img src="${product.image}" alt="${product.title}" loading="lazy" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';" />
       </a>
       <div class="product-info">
         <h3 class="product-title">
