@@ -231,6 +231,55 @@
           <button onclick="openCakeModal()" class="btn btn-primary"><i class="ph ph-plus"></i> Add New Cake</button>
         </div>
 
+        <!-- FILTER & SORT CONTROLS BAR -->
+        <div style="background-color: #EDDFD1; padding: 16px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(10, 4, 4, 0.12); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <!-- Category Filter -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Filter Category:</label>
+              <select id="admin-category-filter" onchange="filterAndRenderCakesTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 150px;">
+                <option value="all">All Categories</option>
+                <option value="kids">Kids Cakes</option>
+                <option value="birthday-her">Birthday (Her)</option>
+                <option value="birthday-him">Birthday (Him)</option>
+                <option value="wedding">Wedding & Tiers</option>
+                <option value="baby-shower">Baby Shower</option>
+              </select>
+            </div>
+
+            <!-- Status Filter (ON / OFF) -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Filter Status (ON / OFF):</label>
+              <select id="admin-status-filter" onchange="filterAndRenderCakesTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 170px;">
+                <option value="all">All Statuses (ON & OFF)</option>
+                <option value="on">🟢 Turned ON (Available)</option>
+                <option value="off">🔴 Turned OFF (Disabled)</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Sort By:</label>
+              <select id="admin-sort-filter" onchange="filterAndRenderCakesTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 160px;">
+                <option value="default">Default (Catalog Order)</option>
+                <option value="title-asc">Title (A - Z)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="on-first">Status: ON First</option>
+                <option value="off-first">Status: OFF First</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Search Input & Count Badge -->
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" id="admin-search-input" oninput="filterAndRenderCakesTable()" placeholder="🔍 Search cake title..." class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: 190px;">
+            <span id="admin-count-badge" style="background: rgba(10,4,4,0.1); padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; white-space: nowrap;">0 Cakes</span>
+          </div>
+
+        </div>
+
         <table class="admin-table">
           <thead>
             <tr>
@@ -449,15 +498,62 @@
       productsList = [...PRODUCTS_DATA];
       jobsList = [...JOBS_DATA];
 
-      renderCakesTable();
+      filterAndRenderCakesTable();
       renderJobsTable();
     }
 
-    function renderCakesTable() {
+    function filterAndRenderCakesTable() {
+      const categoryVal = document.getElementById('admin-category-filter')?.value || 'all';
+      const statusVal = document.getElementById('admin-status-filter')?.value || 'all';
+      const sortVal = document.getElementById('admin-sort-filter')?.value || 'default';
+      const queryVal = (document.getElementById('admin-search-input')?.value || '').toLowerCase().trim();
+
+      let result = [...productsList];
+
+      // 1. Filter by Category
+      if (categoryVal !== 'all') {
+        result = result.filter(p => p.category === categoryVal);
+      }
+
+      // 2. Filter by Status (ON / OFF)
+      if (statusVal === 'on') {
+        result = result.filter(p => p.is_available !== false);
+      } else if (statusVal === 'off') {
+        result = result.filter(p => p.is_available === false);
+      }
+
+      // 3. Filter by Search Query
+      if (queryVal) {
+        result = result.filter(p => p.title.toLowerCase().includes(queryVal));
+      }
+
+      // 4. Sort Order
+      if (sortVal === 'title-asc') {
+        result.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (sortVal === 'price-asc') {
+        result.sort((a, b) => a.price - b.price);
+      } else if (sortVal === 'price-desc') {
+        result.sort((a, b) => b.price - a.price);
+      } else if (sortVal === 'on-first') {
+        result.sort((a, b) => (b.is_available !== false) - (a.is_available !== false));
+      } else if (sortVal === 'off-first') {
+        result.sort((a, b) => (a.is_available !== false) - (b.is_available !== false));
+      }
+
+      // Update count badge
+      const badge = document.getElementById('admin-count-badge');
+      if (badge) {
+        badge.textContent = `Showing ${result.length} of ${productsList.length} Cakes`;
+      }
+
+      renderCakesTableRows(result);
+    }
+
+    function renderCakesTableRows(list) {
       const tbody = document.getElementById('cakes-table-body');
       if (!tbody) return;
 
-      tbody.innerHTML = productsList.map(p => {
+      tbody.innerHTML = list.map(p => {
         const variantSummary = (p.variants && p.variants.length > 0)
           ? p.variants.map(v => `${v.weight}: ₹${v.price}`).join(' | ')
           : `${p.weight}: ₹${p.price}`;
@@ -488,7 +584,7 @@
       const cake = productsList.find(p => p.id === id);
       if (!cake) return;
       cake.is_available = (cake.is_available === false) ? true : false;
-      renderCakesTable();
+      filterAndRenderCakesTable();
       await saveProductToSupabase(cake);
     }
 
@@ -560,12 +656,12 @@
       if (confirm('Are you sure you want to delete this cake?')) {
         productsList = productsList.filter(p => p.id !== id);
         PRODUCTS_DATA = productsList;
-        renderCakesTable();
+        filterAndRenderCakesTable();
         deleteProductFromSupabase(id);
       }
     }
 
-    function saveCakeForm() {
+    async function saveCakeForm() {
       const id = document.getElementById('modal-cake-id').value || `prod-${Date.now()}`;
       const title = document.getElementById('modal-cake-name').value;
       const category = document.getElementById('modal-cake-category').value;
@@ -573,7 +669,7 @@
       const image = document.getElementById('modal-cake-image').value;
       const description = document.getElementById('modal-cake-desc').value;
 
-      // Construct variants array
+      // Construct variants array - only non-empty entries
       const variants = [];
       const w1 = document.getElementById('v1-weight').value.trim();
       const p1 = parseFloat(document.getElementById('v1-price').value);
@@ -593,7 +689,7 @@
       }
 
       const basePrice = variants[0].price;
-      const baseWeight = variants[0].weight;
+      const baseWeight = variants.map(v => v.weight).join(', ');
       const weightsArray = variants.map(v => v.weight);
 
       const existingIndex = productsList.findIndex(p => p.id === id);
@@ -618,9 +714,10 @@
       }
 
       PRODUCTS_DATA = productsList;
-      saveProductToSupabase(updatedCake);
-      renderCakesTable();
+      filterAndRenderCakesTable();
       closeCakeModal();
+
+      await saveProductToSupabase(updatedCake);
       alert('Cake saved & synced to Supabase successfully!');
     }
 

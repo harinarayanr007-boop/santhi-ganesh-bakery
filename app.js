@@ -6973,6 +6973,10 @@ function renderFullProductsGrid() {
 
 // Helper: Product Card HTML Template
 function createProductCardHTML(product) {
+  const displayWeight = (product.variants && product.variants.length > 0)
+    ? product.variants.map(v => v.weight).join(', ')
+    : (product.weight || '1 kg');
+
   return `
     <article class="product-card">
       <a href="./product-detail.html?id=${product.id}" class="product-image-box" style="display: block; text-decoration: none;">
@@ -6983,7 +6987,7 @@ function createProductCardHTML(product) {
           <a href="./product-detail.html?id=${product.id}" style="color: inherit; text-decoration: none;">${product.title}</a>
         </h3>
         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-          <p class="product-weight">Weight: ${product.weight}</p>
+          <p class="product-weight">Weight: ${displayWeight}</p>
           <span style="font-size: 0.8rem; font-weight: 600; color: #FC8019; background: rgba(252, 128, 25, 0.1); padding: 2px 8px; border-radius: 12px;" data-i18n="swiggy_badge">★ 4.3 Swiggy</span>
         </div>
       </div>

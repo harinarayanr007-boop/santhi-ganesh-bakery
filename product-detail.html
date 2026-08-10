@@ -468,7 +468,11 @@
     let selectedWeight = '1 kg';
     let currentImageIndex = 0;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof loadProductsFromSupabase === 'function') {
+        await loadProductsFromSupabase();
+      }
+
       const urlParams = new URLSearchParams(window.location.search);
       const prodId = urlParams.get('id') || 'prod-1';
       
@@ -482,7 +486,7 @@
 
         document.getElementById('detail-title').textContent = currentProduct.title;
         document.getElementById('detail-title-crumb').textContent = currentProduct.title;
-        document.getElementById('detail-category-crumb').textContent = currentProduct.category.toUpperCase();
+        document.getElementById('detail-category-crumb').textContent = (currentProduct.category || '').toUpperCase();
         document.getElementById('detail-price').textContent = `₹${currentProduct.price}`;
         document.getElementById('detail-desc').textContent = currentProduct.description;
 
