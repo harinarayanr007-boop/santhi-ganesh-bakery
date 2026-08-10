@@ -219,10 +219,10 @@
     <main class="admin-container">
       
       <div class="admin-tabs">
-        <button class="admin-tab-btn active" onclick="switchTab('cakes')"><i class="ph ph-cake"></i> Cakes & Pricing</button>
-        <button class="admin-tab-btn" onclick="switchTab('jobs')"><i class="ph ph-briefcase"></i> Job Openings</button>
-        <button class="admin-tab-btn" onclick="switchTab('backup')"><i class="ph ph-floppy-disk"></i> Backup & Sync</button>
-        <button class="admin-tab-btn" onclick="switchTab('tracking')"><i class="ph ph-chart-line-up"></i> Tracking & Analytics</button>
+        <button class="admin-tab-btn active" onclick="switchTab('cakes', this)"><i class="ph ph-cake"></i> Cakes & Pricing</button>
+        <button class="admin-tab-btn" onclick="switchTab('jobs', this)"><i class="ph ph-briefcase"></i> Job Openings</button>
+        <button class="admin-tab-btn" onclick="switchTab('backup', this)"><i class="ph ph-floppy-disk"></i> Backup & Sync</button>
+        <button class="admin-tab-btn" onclick="switchTab('tracking', this)"><i class="ph ph-chart-line-up"></i> Tracking & Analytics</button>
       </div>
 
       <!-- TAB 1: CAKES & PRICING MANAGER -->
@@ -577,12 +577,23 @@
       document.getElementById('auth-screen').style.display = 'block';
     }
 
-    function switchTab(tabName) {
+    function switchTab(tabName, btnElement) {
       document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
       
-      event.target.classList.add('active');
-      document.getElementById(`tab-${tabName}`).style.display = 'block';
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else if (typeof event !== 'undefined' && event && event.target) {
+        const btn = event.target.closest('.admin-tab-btn');
+        if (btn) btn.classList.add('active');
+      }
+      
+      const targetTab = document.getElementById(`tab-${tabName}`);
+      if (targetTab) targetTab.style.display = 'block';
+
+      if (tabName === 'tracking' && typeof loadTrackingAnalytics === 'function') {
+        loadTrackingAnalytics();
+      }
     }
 
     // Load Products and Jobs into Admin Tables
