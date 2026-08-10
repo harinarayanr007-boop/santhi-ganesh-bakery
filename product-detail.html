@@ -310,8 +310,8 @@
             <span id="detail-price" class="detail-price">₹550</span>
             <div class="price-divider"></div>
             <div class="star-rating">
-              <span style="color: var(--color-desert);">⭐⭐⭐⭐⭐</span>
-              <span>4.8 stars from 42 reviews</span>
+              <span style="color: #FC8019; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">★ 4.3</span>
+              <span data-i18n="star_rating_text" style="font-weight: 500;">4.3★ Swiggy Store Rating (500+ reviews)</span>
             </div>
           </div>
 
@@ -486,9 +486,20 @@
         document.getElementById('detail-price').textContent = `₹${currentProduct.price}`;
         document.getElementById('detail-desc').textContent = currentProduct.description;
 
-        document.getElementById('add-to-cart-detail-btn').onclick = () => {
-          addToCart(currentProduct.id);
-        };
+        // Check availability status
+        if (currentProduct.is_available === false) {
+          const addToCartBtn = document.getElementById('add-to-cart-detail-btn');
+          if (addToCartBtn) {
+            addToCartBtn.disabled = true;
+            addToCartBtn.style.backgroundColor = '#888888';
+            addToCartBtn.style.cursor = 'not-allowed';
+            addToCartBtn.innerHTML = '🔴 Currently Out of Stock';
+          }
+        } else {
+          document.getElementById('add-to-cart-detail-btn').onclick = () => {
+            addToCart(currentProduct.id);
+          };
+        }
       }
     });
 

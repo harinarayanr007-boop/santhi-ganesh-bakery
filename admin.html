@@ -239,6 +239,7 @@
               <th>Category</th>
               <th>Weight</th>
               <th>Price (₹)</th>
+              <th>Status (ON / OFF)</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -313,6 +314,14 @@
           <option value="wedding">Wedding & Tiers</option>
           <option value="baby-shower">Baby Shower</option>
           <option value="specialty">Specialties & Cookies</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Store Availability (ON / OFF)</label>
+        <select id="modal-cake-available" class="form-control">
+          <option value="true">🟢 ON (Active on Storefront)</option>
+          <option value="false">🔴 OFF (Out of Stock / Hidden)</option>
         </select>
       </div>
 
@@ -453,13 +462,19 @@
           ? p.variants.map(v => `${v.weight}: ₹${v.price}`).join(' | ')
           : `${p.weight}: ₹${p.price}`;
 
+        const isAvailable = p.is_available !== false;
+        const statusBadgeHTML = isAvailable
+          ? `<button onclick="quickToggleStatus('${p.id}')" style="background:#2e7d32; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🟢 ON (Available)</button>`
+          : `<button onclick="quickToggleStatus('${p.id}')" style="background:#c62828; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🔴 OFF (Disabled)</button>`;
+
         return `
-          <tr>
+          <tr style="${!isAvailable ? 'opacity: 0.65; background-color: rgba(198,40,40,0.05);' : ''}">
             <td><img src="${p.image}" class="item-img-thumb" alt="${p.title}"></td>
             <td><strong>${p.title}</strong></td>
             <td>${p.category}</td>
             <td style="font-size: 0.9rem;">${variantSummary}</td>
             <td><strong>From ₹${p.price}</strong></td>
+            <td>${statusBadgeHTML}</td>
             <td>
               <button onclick="editCake('${p.id}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
               <button onclick="deleteCake('${p.id}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
@@ -467,6 +482,14 @@
           </tr>
         `;
       }).join('');
+    }
+
+    async function quickToggleStatus(id) {
+      const cake = productsList.find(p => p.id === id);
+      if (!cake) return;
+      cake.is_available = (cake.is_available === false) ? true : false;
+      renderCakesTable();
+      await saveProductToSupabase(cake);
     }
 
     function renderJobsTable() {
@@ -495,6 +518,7 @@
         document.getElementById('modal-cake-id').value = cake.id;
         document.getElementById('modal-cake-name').value = cake.title;
         document.getElementById('modal-cake-category').value = cake.category;
+        document.getElementById('modal-cake-available').value = cake.is_available === false ? 'false' : 'true';
         document.getElementById('modal-cake-image').value = cake.image;
         document.getElementById('modal-cake-desc').value = cake.description;
 
@@ -511,6 +535,7 @@
         document.getElementById('cake-modal-title').textContent = 'Add New Cake';
         document.getElementById('modal-cake-id').value = '';
         document.getElementById('modal-cake-name').value = '';
+        document.getElementById('modal-cake-available').value = 'true';
         document.getElementById('v1-weight').value = '1 kg';
         document.getElementById('v1-price').value = '550';
         document.getElementById('v2-weight').value = '1.5 kg';
@@ -544,6 +569,7 @@
       const id = document.getElementById('modal-cake-id').value || `prod-${Date.now()}`;
       const title = document.getElementById('modal-cake-name').value;
       const category = document.getElementById('modal-cake-category').value;
+      const is_available = document.getElementById('modal-cake-available').value === 'true';
       const image = document.getElementById('modal-cake-image').value;
       const description = document.getElementById('modal-cake-desc').value;
 
@@ -581,7 +607,8 @@
         variants,
         image,
         gallery: [image],
-        description
+        description,
+        is_available
       };
 
       if (existingIndex >= 0) {

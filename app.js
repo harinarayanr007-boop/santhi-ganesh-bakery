@@ -355,6 +355,7 @@ async function saveProductToSupabase(product) {
       image: product.image || '',
       gallery: product.gallery || [],
       description: product.description || '',
+      is_available: product.is_available !== false,
       updated_at: new Date().toISOString()
     };
     const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
@@ -374,6 +375,14 @@ async function saveProductToSupabase(product) {
   } catch(err) {
     console.error('Supabase product sync error:', err.message);
   }
+}
+
+// Toggle product availability status (ON / OFF)
+async function toggleProductAvailability(id) {
+  const product = PRODUCTS_DATA.find(p => p.id === id);
+  if (!product) return;
+  product.is_available = (product.is_available === false) ? true : false;
+  await saveProductToSupabase(product);
 }
 
 // Delete a product from Supabase
@@ -481,7 +490,8 @@ function renderHomePreviewGrid() {
   const container = document.getElementById('products-grid-container');
   if (!container) return;
 
-  const previewItems = PRODUCTS_DATA.slice(0, 8);
+  const availableItems = PRODUCTS_DATA.filter(p => p.is_available !== false);
+  const previewItems = availableItems.slice(0, 8);
   container.innerHTML = previewItems.map(product => createProductCardHTML(product)).join('');
 }
 
@@ -490,7 +500,8 @@ function renderFullProductsGrid() {
   const container = document.getElementById('full-products-grid');
   if (!container) return;
 
-  let filtered = PRODUCTS_DATA;
+  // Filter only active/available items for the store
+  let filtered = PRODUCTS_DATA.filter(p => p.is_available !== false);
 
   // Apply Category Filter
   if (activeCategoryFilter !== 'all') {
@@ -532,7 +543,10 @@ function createProductCardHTML(product) {
         <h3 class="product-title">
           <a href="./product-detail.html?id=${product.id}" style="color: inherit; text-decoration: none;">${product.title}</a>
         </h3>
-        <p class="product-weight">Weight: ${product.weight}</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+          <p class="product-weight">Weight: ${product.weight}</p>
+          <span style="font-size: 0.8rem; font-weight: 600; color: #FC8019; background: rgba(252, 128, 25, 0.1); padding: 2px 8px; border-radius: 12px;" data-i18n="swiggy_badge">★ 4.3 Swiggy</span>
+        </div>
       </div>
       <div class="product-footer">
         <span class="product-price">₹${product.price}</span>
