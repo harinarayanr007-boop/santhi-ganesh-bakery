@@ -7174,7 +7174,7 @@ function updateCartUI() {
 
     return `
       <div class="cart-item">
-        <img class="cart-item-img" src="${item.image}" alt="${item.title}">
+        <img class="cart-item-img" src="${item.image}" alt="${item.title}" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';">
         <div class="cart-item-details">
           <div class="cart-item-title">${item.title}</div>
           <div class="cart-item-price">₹${item.price} x ${item.quantity} = ₹${itemTotal}</div>
