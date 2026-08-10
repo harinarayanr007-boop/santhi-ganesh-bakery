@@ -6456,6 +6456,222 @@ const DEFAULT_PRODUCTS_DATA = [
     ],
     "description": "Delicious handcrafted Truffles baked fresh with premium ingredients for celebrations in Tirunelveli.",
     "is_available": true
+  },
+  {
+    "id": "prod-240",
+    "title": "Baby Stroller Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/0001_BabyStrollerCake_360x 2.png",
+    "gallery": [
+      "./Baby shower/0001_BabyStrollerCake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted 0001 Baby Stroller Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-241",
+    "title": "Over The Moon Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/0004s_0000_OverTheMoonCake_360x 2.png",
+    "gallery": [
+      "./Baby shower/0004s_0000_OverTheMoonCake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Over The Moon Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-242",
+    "title": "Baby Shower Delight Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/0004s_0002_BabyShowerDelightCake_360x 2.png",
+    "gallery": [
+      "./Baby shower/0004s_0002_BabyShowerDelightCake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Baby Shower Delight Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-243",
+    "title": "Baby Shoes Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/0004s_0003_Baby_Shoes_Cake_360x 2.png",
+    "gallery": [
+      "./Baby shower/0004s_0003_Baby_Shoes_Cake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Baby Shoes Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-244",
+    "title": "Sky Themed Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/0005_SkyThemedCake_360x 2.png",
+    "gallery": [
+      "./Baby shower/0005_SkyThemedCake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted 0005 Sky Themed Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-245",
+    "title": "Pastel Dream Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/Newcakes__0001_ColorBalance1_360x 2.png",
+    "gallery": [
+      "./Baby shower/Newcakes__0001_ColorBalance1_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Color Balance1 baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-246",
+    "title": "Nesting Love Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/Newcakes__0022_Nesting_Love_Cake_360x 2.png",
+    "gallery": [
+      "./Baby shower/Newcakes__0022_Nesting_Love_Cake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Nesting Love Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
+  },
+  {
+    "id": "prod-247",
+    "title": "Twin Baby Cake",
+    "category": "baby-shower",
+    "price": 720,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "1 kg",
+        "price": 720
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1044
+      },
+      {
+        "weight": "2 kg",
+        "price": 1332
+      }
+    ],
+    "image": "./Baby shower/Newcakes__0062_Twin_Baby_Cake_360x 2.png",
+    "gallery": [
+      "./Baby shower/Newcakes__0062_Twin_Baby_Cake_360x 2.png"
+    ],
+    "description": "Delicious handcrafted Twin Baby Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
+    "is_available": true
   }
 ];
 
