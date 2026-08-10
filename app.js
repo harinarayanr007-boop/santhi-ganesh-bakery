@@ -6839,6 +6839,37 @@ async function deleteProductFromSupabase(id) {
   }
 }
 
+// Global Event Tracking Helper (pageviews, orders, cart adds, searches)
+async function trackEvent(eventType, eventData = {}) {
+  try {
+    const payload = {
+      event_type: eventType,
+      event_data: {
+        ...eventData,
+        page: (typeof window !== 'undefined' ? (window.location.pathname.split('/').pop() || 'index.html') : 'index.html'),
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const history = JSON.parse(localStorage.getItem('sg_tracking_events') || '[]');
+      history.unshift(payload);
+      if (history.length > 200) history.pop();
+      localStorage.setItem('sg_tracking_events', JSON.stringify(history));
+    }
+
+    fetch(`${SUPABASE_URL}/rest/v1/tracking_events`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  } catch(e) {}
+}
+
 // Save a single job to Supabase (upsert)
 async function saveJobToSupabase(job) {
   try {
@@ -7070,6 +7101,8 @@ function addToCart(productId) {
   saveCart();
   updateCartUI();
 
+  trackEvent('add_to_cart', { product_id: productId, title: product.title, price: product.price });
+
   // Open cart slide drawer automatically
   const cartDrawer = document.getElementById('cart-drawer');
   if (cartDrawer) cartDrawer.classList.add('open');
@@ -7161,6 +7194,8 @@ function sendWhatsAppOrder() {
 
   text += `\n*Total Amount:* ₹${total}`;
   text += `\n\nPlease confirm availability and delivery time. Thank you!`;
+
+  trackEvent('whatsapp_order', { count: cartItems.length, items: cartItems.map(i => i.title).join(', '), title: cartItems.map(i => i.title).join(', '), total: total });
 
   const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
   window.open(encodedUrl, '_blank');

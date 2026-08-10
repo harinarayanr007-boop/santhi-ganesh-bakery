@@ -547,6 +547,9 @@
 
     function orderDetailWhatsApp() {
       if (!currentProduct) return;
+      if (typeof trackEvent === 'function') {
+        trackEvent('whatsapp_order', { title: currentProduct.title, weight: selectedWeight, price: selectedPrice || currentProduct.price });
+      }
       const phone = "917339073844";
       const message = `Hello Santhi Ganesh Bakery! 🧁\n\nI would like to order *${currentProduct.title}* (${selectedWeight}) priced at ₹${selectedPrice || currentProduct.price}.\n\nPlease confirm availability and delivery slot in Tirunelveli. Thank you!`;
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
