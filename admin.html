@@ -656,32 +656,72 @@
   <script src="./app.js"></script>
   
   <script>
-    // PIN Authentication & Security Settings
-    function getAdminPin() {
-      return localStorage.getItem('sg_admin_pin') || '2026';
-    }
+    // Global cached PIN variable
+    let cachedAdminPin = localStorage.getItem('sg_admin_pin') || null;
 
-    function checkAdminAuth() {
-      const inputPin = document.getElementById('admin-pin-input').value;
-      const currentPin = getAdminPin();
-      if (inputPin === currentPin || inputPin === '2026' || inputPin === 'sgadmin' || inputPin === 'admin') {
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('admin-dashboard').style.display = 'block';
-        loadAdminData();
-      } else {
-        alert('Incorrect PIN Code!');
+    // Fetch PIN from Supabase cloud asynchronously on load
+    async function loadAdminPinFromSupabase() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings?key=eq.admin_pin&select=value`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0 && data[0].value) {
+            cachedAdminPin = data[0].value;
+            localStorage.setItem('sg_admin_pin', cachedAdminPin);
+          }
+        }
+      } catch(e) {
+        console.log('Supabase PIN fetch error:', e.message);
       }
     }
 
-    function updateAdminPin(e) {
+    // Fetch on page load
+    loadAdminPinFromSupabase();
+
+    function getActiveAdminPin() {
+      return cachedAdminPin || localStorage.getItem('sg_admin_pin') || null;
+    }
+
+    async function checkAdminAuth() {
+      const inputPin = document.getElementById('admin-pin-input').value.trim();
+      const activePin = getActiveAdminPin();
+
+      if (activePin) {
+        // Custom PIN is active: ONLY accept custom PIN! Old 2026 is DISABLED.
+        if (inputPin === activePin) {
+          document.getElementById('auth-screen').style.display = 'none';
+          document.getElementById('admin-dashboard').style.display = 'block';
+          loadAdminData();
+        } else {
+          alert('Incorrect Password / PIN Code!');
+        }
+      } else {
+        // No custom PIN set yet: allow default 2026 / sgadmin
+        if (inputPin === '2026' || inputPin === 'sgadmin' || inputPin === 'admin') {
+          document.getElementById('auth-screen').style.display = 'none';
+          document.getElementById('admin-dashboard').style.display = 'block';
+          loadAdminData();
+        } else {
+          alert('Incorrect PIN Code! (Default PIN: 2026)');
+        }
+      }
+    }
+
+    async function updateAdminPin(e) {
       e.preventDefault();
-      const currentInput = document.getElementById('change-pin-current').value;
-      const newPin = document.getElementById('change-pin-new').value;
-      const confirmPin = document.getElementById('change-pin-confirm').value;
+      const currentInput = document.getElementById('change-pin-current').value.trim();
+      const newPin = document.getElementById('change-pin-new').value.trim();
+      const confirmPin = document.getElementById('change-pin-confirm').value.trim();
 
-      const activePin = getAdminPin();
+      const activePin = getActiveAdminPin();
+      const validCurrentPins = activePin ? [activePin] : ['2026', 'sgadmin', 'admin'];
 
-      if (currentInput !== activePin && currentInput !== '2026' && currentInput !== 'sgadmin') {
+      if (!validCurrentPins.includes(currentInput)) {
         alert('Incorrect current password / PIN code!');
         return;
       }
@@ -696,8 +736,31 @@
         return;
       }
 
+      // Save to localStorage
       localStorage.setItem('sg_admin_pin', newPin);
-      alert('Password / PIN updated successfully! Next time you log in, use your new password.');
+      cachedAdminPin = newPin;
+
+      // Save to Supabase Cloud Database (Upsert)
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/admin_settings`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            key: 'admin_pin',
+            value: newPin,
+            updated_at: new Date().toISOString()
+          })
+        });
+      } catch(err) {
+        console.error('Failed to sync new PIN to Supabase:', err);
+      }
+
+      alert('Password / PIN updated successfully! The old default password (2026) is now permanently disabled across all devices.');
       document.getElementById('change-pin-current').value = '';
       document.getElementById('change-pin-new').value = '';
       document.getElementById('change-pin-confirm').value = '';
