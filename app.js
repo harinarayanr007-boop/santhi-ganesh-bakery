@@ -7035,7 +7035,6 @@ function createProductCardHTML(product) {
         </h3>
         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
           <p class="product-weight">Weight: ${displayWeight}</p>
-          <span style="font-size: 0.8rem; font-weight: 600; color: #FC8019; background: rgba(252, 128, 25, 0.1); padding: 2px 8px; border-radius: 12px;" data-i18n="swiggy_badge">★ 4.3 Swiggy</span>
         </div>
       </div>
       <div class="product-footer">

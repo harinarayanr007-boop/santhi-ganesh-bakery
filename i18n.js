@@ -128,9 +128,7 @@ const TRANSLATIONS = {
     btn_order_whatsapp: "Order via WhatsApp",
     acc_details: "Details",
     acc_shipping: "Shipping & Delivery",
-    acc_returns: "Quality & Guarantee",
-    star_rating_text: "4.3★ Swiggy Store Rating (500+ reviews)",
-    swiggy_badge: "★ 4.3 Swiggy"
+    acc_returns: "Quality & Guarantee"
   },
 
   ta: {
@@ -263,9 +261,7 @@ const TRANSLATIONS = {
     btn_order_whatsapp: "வாட்ஸ்அப் மூலம் ஆர்டர் செய்ய",
     acc_details: "விவரங்கள்",
     acc_shipping: "டெலிவரி விவரங்கள்",
-    acc_returns: "தரமான உத்தரவாதம்",
-    star_rating_text: "4.3★ ஸ்விக்கி ஸ்டோர் ரேட்டிங் (500+ விமர்சனங்கள்)",
-    swiggy_badge: "★ 4.3 ஸ்விக்கி"
+    acc_returns: "தரமான உத்தரவாதம்"
   }
 };
 

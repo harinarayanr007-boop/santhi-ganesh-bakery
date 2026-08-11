@@ -836,10 +836,7 @@ html[lang="ta"] .hero-title {
     text-overflow: ellipsis !important;
   }
 
-  .product-info [data-i18n="swiggy_badge"] {
-    font-size: 0.65rem !important;
-    padding: 1px 4px !important;
-  }
+
 
   .product-footer {
     margin-top: 6px !important;
