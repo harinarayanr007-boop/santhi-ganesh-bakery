@@ -316,10 +316,19 @@
       `).join('');
     }
 
-    // Direct WhatsApp Job Application Redirection
+    let lastCareerWhatsAppTime = 0;
     function applyJobWhatsApp(jobRole) {
+      const now = Date.now();
+      if (now - lastCareerWhatsAppTime < 15000) {
+        const remainingSecs = Math.ceil((15000 - (now - lastCareerWhatsAppTime)) / 1000);
+        alert(`⏳ Please wait ${remainingSecs}s before submitting another application inquiry!`);
+        return;
+      }
+      lastCareerWhatsAppTime = now;
+
+      const appRef = 'JOB-' + Math.floor(100000 + Math.random() * 900000);
       const phone = "917339073844";
-      const message = `Hello Santhi Ganesh Bakery Team! 🧁\n\nI am interested in applying for the position of *${jobRole}* at your bakery in Tirunelveli.\n\nPlease let me know the details and steps to submit my application. Thank you!`;
+      const message = `Hello Santhi Ganesh Bakery Team! 🧁\n*App Ref:* #${appRef}\n\nI am interested in applying for the position of *${jobRole}* at your bakery in Tirunelveli.\n\nPlease let me know the details and steps to submit my application. Thank you!`;
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     }

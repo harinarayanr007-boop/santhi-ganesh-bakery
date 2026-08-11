@@ -327,9 +327,19 @@
   <script src="./app.js"></script>
   
   <script>
+    let lastContactWhatsAppTime = 0;
     function sendDirectWhatsAppInquiry() {
+      const now = Date.now();
+      if (now - lastContactWhatsAppTime < 15000) {
+        const remainingSecs = Math.ceil((15000 - (now - lastContactWhatsAppTime)) / 1000);
+        alert(`⏳ Please wait ${remainingSecs}s before launching another inquiry!`);
+        return;
+      }
+      lastContactWhatsAppTime = now;
+
+      const inqRef = 'INQ-' + Math.floor(100000 + Math.random() * 900000);
       const phone = "917339073844";
-      const message = `Hello Santhi Ganesh Bakery! 🧁\n\nI would like to inquire about cake orders and delivery details in Tirunelveli.`;
+      const message = `Hello Santhi Ganesh Bakery! 🧁\n*Inquiry Ref:* #${inqRef}\n\nI would like to inquire about cake orders and delivery details in Tirunelveli.`;
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     }
