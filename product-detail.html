@@ -593,10 +593,14 @@
             });
           }
 
+          const activeLang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : (localStorage.getItem('sg_bakery_lang') || 'en');
+          const isTa = (activeLang === 'ta');
+          const nameHeader = isTa ? "*வாடிக்கையாளர் பெயர்:*" : "*Customer Name:*";
+
           const phone = "917339073844";
           let message = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n`;
           if (customerName) {
-            message += `*Customer Name:* ${customerName}\n`;
+            message += `${nameHeader} ${customerName}\n`;
           }
           message += `\nI would like to order *${currentProduct.title}* (${selectedWeight}) priced at ₹${price}.\n\nPlease confirm availability and delivery slot in Tirunelveli. Thank you!`;
           const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;

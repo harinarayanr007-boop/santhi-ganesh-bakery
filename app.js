@@ -7195,37 +7195,48 @@ function updateCartUI() {
 let lastWhatsAppOrderTime = 0;
 
 function promptWhatsAppCustomerName(onComplete) {
+  const activeLang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : (localStorage.getItem('sg_bakery_lang') || 'en');
+  const isTa = (activeLang === 'ta');
+
+  const titleText = isTa ? "உங்கள் பெயர் (விருப்பத்திற்குரியது)" : "Your Name (Optional)";
+  const subText = isTa ? "ஆர்டர் செய்பவர் யார் என்று சாந்தி கணேஷ் பேக்கரி குழுவிற்கு தெரிய உங்கள் பெயரை உள்ளிடவும்." : "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.";
+  const labelText = isTa ? "வாடிக்கையாளர் பெயர்:" : "Customer Name:";
+  const placeholderText = isTa ? "எ.கா. ரமேஷ்" : "e.g. Ramesh";
+  const skipLabel = isTa ? "தவிர்" : "Skip";
+  const continueText = isTa ? "தொடரவும் ➔" : "Continue ➔";
+
   let modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
   
   if (!modalOverlay) {
     modalOverlay = document.createElement('div');
     modalOverlay.id = 'whatsapp-name-modal-overlay';
     modalOverlay.className = 'whatsapp-name-modal-overlay';
-    modalOverlay.innerHTML = `
-      <div class="whatsapp-name-modal-card">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-          <i class="ph ph-user-circle" style="font-size: 2.2rem; color: var(--color-desert);"></i>
-          <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0; color: var(--color-text-main);">Your Name (Optional)</h3>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.4;">
-          Enter your name so Santhi Ganesh Bakery team knows who is placing the order.
-        </p>
-
-        <form id="whatsapp-name-form" onsubmit="event.preventDefault(); submitWhatsAppNameModal();">
-          <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">Customer Name:</label>
-            <input type="text" id="whatsapp-cust-name-input" placeholder="e.g. Ramesh" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px;">
-          </div>
-
-          <div style="display: flex; gap: 10px;">
-            <button type="button" id="whatsapp-skip-btn" onclick="closeWhatsAppNameModal(true)" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 10px;">Skip (30s)</button>
-            <button type="submit" class="btn btn-primary" style="flex: 2; justify-content: center; padding: 10px;">Continue ➔</button>
-          </div>
-        </form>
-      </div>
-    `;
     document.body.appendChild(modalOverlay);
   }
+
+  modalOverlay.innerHTML = `
+    <div class="whatsapp-name-modal-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <i class="ph ph-user-circle" style="font-size: 2.2rem; color: var(--color-desert);"></i>
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0; color: var(--color-text-main);">${titleText}</h3>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.4;">
+        ${subText}
+      </p>
+
+      <form id="whatsapp-name-form" onsubmit="event.preventDefault(); submitWhatsAppNameModal();">
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">${labelText}</label>
+          <input type="text" id="whatsapp-cust-name-input" placeholder="${placeholderText}" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px;">
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" id="whatsapp-skip-btn" onclick="closeWhatsAppNameModal(true)" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 10px;">${skipLabel} (30s)</button>
+          <button type="submit" class="btn btn-primary" style="flex: 2; justify-content: center; padding: 10px;">${continueText}</button>
+        </div>
+      </form>
+    </div>
+  `;
 
   // Pre-fill existing saved name
   const savedName = localStorage.getItem('sg_customer_name') || '';
@@ -7239,12 +7250,12 @@ function promptWhatsAppCustomerName(onComplete) {
   // Start 30-Second Auto-Skip Timer
   if (window._autoSkipInterval) clearInterval(window._autoSkipInterval);
   let remainingSecs = 30;
-  if (skipBtn) skipBtn.textContent = `Skip (${remainingSecs}s)`;
+  if (skipBtn) skipBtn.textContent = `${skipLabel} (${remainingSecs}s)`;
 
   window._autoSkipInterval = setInterval(() => {
     remainingSecs--;
     if (skipBtn && !inputEl.value.trim()) {
-      skipBtn.textContent = `Skip (${remainingSecs}s)`;
+      skipBtn.textContent = `${skipLabel} (${remainingSecs}s)`;
     }
     if (remainingSecs <= 0) {
       clearInterval(window._autoSkipInterval);
@@ -7259,7 +7270,7 @@ function promptWhatsAppCustomerName(onComplete) {
       if (window._autoSkipInterval) {
         clearInterval(window._autoSkipInterval);
         window._autoSkipInterval = null;
-        if (skipBtn) skipBtn.textContent = 'Skip';
+        if (skipBtn) skipBtn.textContent = skipLabel;
       }
     };
   }
@@ -7323,9 +7334,13 @@ function sendWhatsAppOrder() {
     const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
     const bakeryPhone = '917339073844';
 
+    const activeLang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : (localStorage.getItem('sg_bakery_lang') || 'en');
+    const isTa = (activeLang === 'ta');
+    const nameHeader = isTa ? "*வாடிக்கையாளர் பெயர்:*" : "*Customer Name:*";
+
     let text = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n`;
     if (customerName) {
-      text += `*Customer Name:* ${customerName}\n`;
+      text += `${nameHeader} ${customerName}\n`;
     }
     text += `\nI would like to place an order for delivery in Tirunelveli:\n\n`;
 

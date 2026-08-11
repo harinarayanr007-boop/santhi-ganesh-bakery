@@ -60,11 +60,17 @@ const TRANSLATIONS = {
     careers_sub: "Join the team behind Tirunelveli's favorite bakery. Baked fresh before dawn across our local branches.",
     btn_apply_now: "Apply Now",
 
-    // Cart Drawer
+    // Cart Drawer & Modals
     cart_title: "Your Order Cart",
-    subtotal: "Subtotal Amount",
-    cart_empty_title: "Your cart is empty.",
-    cart_empty_sub: "Add your favorite bakes to begin!",
+    subtotal: "Subtotal Amount:",
+    cart_empty_title: "Your cart is currently empty.",
+    cart_empty_sub: "Add some delicious bakes to get started!",
+    modal_name_title: "Your Name (Optional)",
+    modal_name_sub: "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.",
+    modal_name_label: "Customer Name:",
+    modal_name_placeholder: "e.g. Ramesh",
+    modal_btn_skip: "Skip",
+    modal_btn_continue: "Continue ➔",
 
     // Footer
     footer_desc: "Crafting Tirunelveli's favorite custom cakes, pastries, and artisanal chocolates with passion and pure ingredients.",
@@ -155,11 +161,17 @@ const TRANSLATIONS = {
     careers_sub: "திருநெல்வேலியின் விருப்பமான பேக்கரி குழுவில் இணையுங்கள்.",
     btn_apply_now: "இப்போதே விண்ணப்பிக்க",
 
-    // Cart Drawer
+    // Cart Drawer & Modals
     cart_title: "உங்கள் ஆர்டர் கூடை",
     subtotal: "மொத்த தொகை",
     cart_empty_title: "உங்கள் கூடை காலியாக உள்ளது.",
     cart_empty_sub: "உங்களுக்கு பிடித்த கேக்குகளை சேர்க்கவும்!",
+    modal_name_title: "உங்கள் பெயர் (விருப்பத்திற்குரியது)",
+    modal_name_sub: "ஆர்டர் செய்பவர் யார் என்று சாந்தி கணேஷ் பேக்கரி குழுவிற்கு தெரிய உங்கள் பெயரை உள்ளிடவும்.",
+    modal_name_label: "வாடிக்கையாளர் பெயர்:",
+    modal_name_placeholder: "எ.கா. ரமேஷ்",
+    modal_btn_skip: "தவிர்",
+    modal_btn_continue: "தொடரவும் ➔",
 
     // Footer
     footer_desc: "திருநெல்வேலியின் விருப்பமான கேக்குகள், பேஸ்ட்ரிகள் மற்றும் சாக்லேட்டுகளை தரமான பொருட்களுடன் அன்போடு தயாரிக்கிறோம்.",
