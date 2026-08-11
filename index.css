@@ -793,6 +793,11 @@ html[lang="ta"] .hero-title {
 }
 
 @media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
   .category-tabs,
   .products-page-tabs {
     display: flex;
@@ -821,18 +826,23 @@ html[lang="ta"] .hero-title {
 
 @media (max-width: 640px) {
   .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
 
   .product-card {
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .product-image-box {
     aspect-ratio: 1 / 1;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    overflow: hidden;
   }
 
   .product-veg-tag {
@@ -843,33 +853,35 @@ html[lang="ta"] .hero-title {
   }
 
   .product-title {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     line-height: 1.25;
+    margin-bottom: 4px;
   }
 
   .product-weight {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .product-footer {
-    margin-top: 10px;
-    padding-top: 8px;
+    margin-top: 8px;
+    padding-top: 6px;
     gap: 6px;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .product-price {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
+    font-weight: 700;
     text-align: left;
   }
 
   .btn-add-cart {
-    padding: 8px 10px;
-    font-size: 0.825rem;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    width: auto;
+    border-radius: 6px;
   }
 
   .products-header-flex {
@@ -886,8 +898,25 @@ html[lang="ta"] .hero-title {
 
 @media (max-width: 360px) {
   .products-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .product-card {
+    padding: 8px;
+  }
+
+  .product-title {
+    font-size: 0.82rem;
+  }
+
+  .product-price {
+    font-size: 0.9rem;
+  }
+
+  .btn-add-cart {
+    padding: 5px 8px;
+    font-size: 0.72rem;
   }
 }
 
