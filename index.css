@@ -224,17 +224,20 @@ h3, .text-h3 {
   border-bottom-width: 2px;
 }
 
-/* Pill Cart Button */
+/* Circle Cart Button */
 .btn-icon-pill {
   background-color: var(--color-neutral-overlay-5);
   border: 1px solid var(--color-neutral-overlay-15);
   border-bottom: 4px solid rgba(10, 4, 4, 0.18);
-  border-radius: var(--radius-pill);
-  padding: 8px 20px;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   position: relative;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .btn-icon-pill:hover {
@@ -244,11 +247,20 @@ h3, .text-h3 {
 .cart-badge {
   background-color: var(--color-berry);
   color: #FFFFFF;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 12px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 /* Language Switcher Pill */
@@ -377,8 +389,9 @@ h3, .text-h3 {
     gap: 4px;
   }
   .btn-icon-pill {
-    padding: 5px 10px;
-    font-size: 0.8rem;
+    width: 38px;
+    height: 38px;
+    padding: 0;
   }
 }
 
@@ -1055,6 +1068,26 @@ html[lang="ta"] .hero-title {
   height: 760px;
   overflow: hidden;
   position: relative;
+}
+
+.testimonial-left-col {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.testimonial-right-col {
+  display: flex;
+  gap: 16px;
+  padding: 24px 32px 24px 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Fade mask at top and bottom */
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
 @media (max-width: 992px) {
