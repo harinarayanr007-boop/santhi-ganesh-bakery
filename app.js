@@ -7214,7 +7214,7 @@ function promptWhatsAppCustomerName(onComplete) {
         <form id="whatsapp-name-form" onsubmit="event.preventDefault(); submitWhatsAppNameModal();">
           <div style="margin-bottom: 20px;">
             <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">Customer Name:</label>
-            <input type="text" id="whatsapp-cust-name-input" class="form-control" placeholder="e.g. Ramesh" style="font-size: 1rem; padding: 12px 16px;">
+            <input type="text" id="whatsapp-cust-name-input" placeholder="e.g. Ramesh" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px;">
           </div>
 
           <div style="display: flex; gap: 10px;">

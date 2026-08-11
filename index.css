@@ -1476,10 +1476,31 @@ html[lang="ta"] .hero-title {
   border: 1px solid var(--color-border-subtle);
   transform: translateY(20px);
   transition: transform var(--transition-fast);
+  box-sizing: border-box;
 }
 
 .whatsapp-name-modal-overlay.active .whatsapp-name-modal-card {
   transform: translateY(0);
+}
+
+.whatsapp-name-modal-card input[type="text"] {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  padding: 12px 16px !important;
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  border-radius: var(--radius-sm) !important;
+  background-color: #FFFFFF !important;
+  border: 1.5px solid var(--color-border-subtle) !important;
+  color: var(--color-text-main) !important;
+  outline: none !important;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
+}
+
+.whatsapp-name-modal-card input[type="text"]:focus {
+  border-color: var(--color-desert) !important;
+  box-shadow: 0 0 0 3px rgba(166, 96, 27, 0.15) !important;
 }
 
 .cart-total-row {
