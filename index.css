@@ -795,7 +795,71 @@ html[lang="ta"] .hero-title {
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .product-card {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product-image-box {
+    aspect-ratio: 1 / 1;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .product-title {
+    font-size: 0.82rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 2px !important;
+    word-break: break-word !important;
+  }
+
+  .product-title a {
+    font-size: 0.82rem !important;
+  }
+
+  .product-weight {
+    font-size: 0.68rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .product-info [data-i18n="swiggy_badge"] {
+    font-size: 0.65rem !important;
+    padding: 1px 4px !important;
+  }
+
+  .product-footer {
+    margin-top: 6px !important;
+    padding-top: 4px !important;
+    gap: 4px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .product-price {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+  }
+
+  .btn-add-cart {
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
+    border-radius: 6px !important;
+    width: auto !important;
   }
 
   .category-tabs,
@@ -805,7 +869,7 @@ html[lang="ta"] .hero-title {
     overflow-x: auto;
     justify-content: flex-start;
     padding-bottom: 8px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -819,76 +883,15 @@ html[lang="ta"] .hero-title {
   .category-tab {
     flex-shrink: 0;
     white-space: nowrap;
-    padding: 6px 16px;
-    font-size: 0.875rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-  }
-
-  .product-card {
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .product-image-box {
-    aspect-ratio: 1 / 1;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .product-veg-tag {
-    top: 6px;
-    left: 6px;
-    padding: 2px 4px;
-    font-size: 0.7rem;
-  }
-
-  .product-title {
-    font-size: 0.88rem;
-    line-height: 1.25;
-    margin-bottom: 4px;
-  }
-
-  .product-weight {
-    font-size: 0.72rem;
-  }
-
-  .product-footer {
-    margin-top: 8px;
-    padding-top: 6px;
-    gap: 6px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .product-price {
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-align: left;
-  }
-
-  .btn-add-cart {
-    padding: 6px 12px;
-    font-size: 0.78rem;
-    width: auto;
-    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
   }
 
   .products-header-flex {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 12px;
+    margin-bottom: 20px;
   }
 
   .search-box-wrapper {
@@ -896,27 +899,36 @@ html[lang="ta"] .hero-title {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
   }
 
   .product-card {
-    padding: 8px;
+    padding: 6px !important;
   }
 
   .product-title {
-    font-size: 0.82rem;
+    font-size: 0.78rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .product-title a {
+    font-size: 0.78rem !important;
+  }
+
+  .product-weight {
+    font-size: 0.65rem !important;
   }
 
   .product-price {
-    font-size: 0.9rem;
+    font-size: 0.82rem !important;
   }
 
   .btn-add-cart {
-    padding: 5px 8px;
-    font-size: 0.72rem;
+    padding: 3px 6px !important;
+    font-size: 0.68rem !important;
   }
 }
 
