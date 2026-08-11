@@ -61,11 +61,10 @@
   background-size: 320px auto;
   opacity: 0.09;
   pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: multiply;
+  z-index: 0;
 }
 
-/* Elevate all content cards above pattern overlay with clean solid backgrounds */
+/* Strictly isolate all content cards above pattern overlay with solid white backgrounds */
 .product-card,
 .heritage-card,
 .feature-col,
@@ -78,8 +77,10 @@
 .price-review-row,
 .accordion-item,
 .modal-card {
-  position: relative;
-  z-index: 2;
+  position: relative !important;
+  z-index: 10 !important;
+  isolation: isolate !important;
+  background-color: #FFFFFF !important;
 }
 
 .product-card {
