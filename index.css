@@ -62,8 +62,13 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-body {
-  font-family: var(--font-body);
+/* Global Bakery Hand-Drawn Pattern Background for All Pages */
+body,
+.section-padding,
+.products-page,
+.product-detail-page,
+.careers-page,
+.contact-page {
   background-color: var(--color-bg-primary);
   background-image: linear-gradient(rgba(246, 239, 232, 0.92), rgba(246, 239, 232, 0.92)), url('./assets/bakery_pattern.jpg');
   background-repeat: repeat;
