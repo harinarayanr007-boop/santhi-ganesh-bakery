@@ -7191,15 +7191,31 @@ function updateCartUI() {
   if (cartTotalEl) cartTotalEl.textContent = `₹${totalAmount}`;
 }
 
-// 7. DIRECT WHATSAPP ORDER GENERATOR
+// 7. DIRECT WHATSAPP ORDER GENERATOR WITH ABUSE PREVENTION
+let lastWhatsAppOrderTime = 0;
+
 function sendWhatsAppOrder() {
   if (cartItems.length === 0) {
     alert('Please add at least one cake to your cart before ordering!');
     return;
   }
 
+  // Rate Limiting Cooldown (15 seconds)
+  const now = Date.now();
+  const cooldownMs = 15000;
+  if (now - lastWhatsAppOrderTime < cooldownMs) {
+    const remainingSecs = Math.ceil((cooldownMs - (now - lastWhatsAppOrderTime)) / 1000);
+    alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
+    return;
+  }
+
+  lastWhatsAppOrderTime = now;
+
+  // Generate Unique Order Reference Code (#SG-XXXXXX)
+  const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
+
   const bakeryPhone = '917339073844';
-  let text = `Hello Santhi Ganesh Bakery! 🧁\nI would like to place an order for delivery in Tirunelveli:\n\n`;
+  let text = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n\nI would like to place an order for delivery in Tirunelveli:\n\n`;
 
   let total = 0;
   cartItems.forEach((item, idx) => {
@@ -7211,7 +7227,13 @@ function sendWhatsAppOrder() {
   text += `\n*Total Amount:* ₹${total}`;
   text += `\n\nPlease confirm availability and delivery time. Thank you!`;
 
-  trackEvent('whatsapp_order', { count: cartItems.length, items: cartItems.map(i => i.title).join(', '), title: cartItems.map(i => i.title).join(', '), total: total });
+  trackEvent('whatsapp_order', { 
+    order_ref: `#${orderRef}`, 
+    count: cartItems.length, 
+    items: cartItems.map(i => i.title).join(', '), 
+    title: cartItems.map(i => i.title).join(', '), 
+    total: total 
+  });
 
   const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
   window.open(encodedUrl, '_blank');
