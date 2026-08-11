@@ -17,11 +17,42 @@ const TRANSLATIONS = {
     hero_btn_explore: "Browse Cake Catalog",
     hero_btn_whatsapp: "Order via WhatsApp",
 
-    // Featured Products
-    featured_tagline: "Fresh From Our Oven",
-    featured_title: "Signature Bakes",
-    featured_sub: "Our most loved cakes, crafted daily for birthdays, weddings, and everyday celebrations in Tirunelveli.",
-    view_full_catalog: "View Full Catalog →",
+    // Featured & Why Section
+    featured_tagline: "Fresh Baked Daily",
+    featured_title: "Signature Bakery Collection",
+    featured_sub: "Browse our most loved bakes made fresh every morning in Tirunelveli.",
+    view_full_catalog: "View All Cakes & Bakes →",
+    why_tagline: "Why Santhi Ganesh Bakery",
+    why_title: "Baked with Passion in Tirunelveli",
+    why_card1_title: "Pure & Fresh Ingredients",
+    why_card1_text: "We use 100% farm-fresh butter, rich couverture cocoa, and fresh fruits with zero artificial preservatives.",
+    why_card2_title: "Custom Cake Artistry",
+    why_card2_text: "From 3-tier wedding centerpieces to personalized birthday themes, our master bakers bring your dream cake to life.",
+    why_card3_title: "Same-Day Doorstep Delivery",
+    why_card3_text: "Fast and safe temperature-controlled cake delivery right to your doorstep across Tirunelveli city.",
+
+    // Testimonials
+    testi_tagline: "Loved across town",
+    testi_title: "Customer testimonials",
+    testi_sub: "Hear from the people who eat our cakes in Tirunelveli. Real stories from real celebrations.",
+    testi_btn_stories: "Read Stories",
+    testi_btn_feedback: "Share Feedback →",
+
+    // Proof Logo Bar
+    proof_title: "Trusted by local businesses and event organizers across Tirunelveli",
+    proof_item1: "🏢 Royal Weddings",
+    proof_item2: "🏛️ City Convention",
+    proof_item3: "🎉 Palayam Caterers",
+    proof_item4: "🏦 Indian Bank Events",
+    proof_item5: "🏫 Nellai Academy",
+
+    // Dual CTA Columns
+    cta_col1_title: "SEE THE FULL COLLECTION",
+    cta_col1_sub: "Birthday cakes, wedding cakes, pastries, and puffs. All of it is waiting for you.",
+    cta_col2_title: "FIND YOUR CAKE",
+    cta_col2_sub: "Birthday cakes, wedding cakes, pastries, and puffs. All of it is waiting for you.",
+    btn_products: "Products",
+    btn_chat: "Chat",
 
     // Heritage Section
     heritage_tagline: "Pure Ingredients & Tradition",
@@ -124,8 +155,42 @@ const TRANSLATIONS = {
     featured_sub: "திருநெல்வேலியில் பிறந்தநாள், திருமணம் மற்றும் விழா கொண்டாட்டங்களுக்கு தினமும் தயாரிக்கப்படும் கேக்குகள்.",
     view_full_catalog: "முழு பட்டியலை பார்க்க →",
 
-    // Heritage Section
-    heritage_tagline: "தூய்மையான பொருட்கள் & பாரம்பரியம்",
+    // Featured & Why Section
+    featured_tagline: "தினமும் சுடப்படும் புதிய தயாரிப்புகள்",
+    featured_title: "சிறப்பு பேக்கரி தயாரிப்புகள்",
+    featured_sub: "திருநெல்வேலியில் தினமும் காலை புதிதாக சுடப்படும் சுவையான கேக்குகளை பார்க்கவும்.",
+    view_full_catalog: "அனைத்து கேக்குகளையும் பார்க்க →",
+    why_tagline: "ஏன் சாந்தி கணேஷ் பேக்கரி",
+    why_title: "திருநெல்வேலியில் அன்போடு தயாரிக்கப்படும் கேக்குகள்",
+    why_card1_title: "தூய்மையான & புதிய பொருட்கள்",
+    why_card1_text: "100% பண்ணை நல் வெண்ணெய், தரமான சாக்லேட் மற்றும் செயற்கை பொருட்கள் இல்லாத புதிய பழங்களை மட்டுமே பயன்படுத்துகிறோம்.",
+    why_card2_title: "அற்புதமான கேக் கலை வடிவமைப்பு",
+    why_card2_text: "3-அடுக்கு திருமண கேக்குகள் முதல் விருப்பமான பிறந்தநாள் கேக்குகள் வரை, உங்கள் கனவு கேக்கை நிஜமாக்குகிறோம்.",
+    why_card3_title: "ஒரே நாளில் வீடு தேடி டெலிவரி",
+    why_card3_text: "திருநெல்வேலி நகரம் முழுவதும் பாதுகாப்பான மற்றும் வேகமான கேக் டெலிவரி வசதி.",
+
+    // Testimonials
+    testi_tagline: "ஊர் முழுவதும் மக்களின் அன்பு",
+    testi_title: "வாடிக்கையாளர் கருத்துகள்",
+    testi_sub: "திருநெல்வேலியில் எங்கள் கேக்குகளை ருசித்தவர்களின் உண்மையான அனுபவங்கள்.",
+    testi_btn_stories: "கருத்துகளை படிக்க",
+    testi_btn_feedback: "கருத்து பகிர →",
+
+    // Proof Logo Bar
+    proof_title: "திருநெல்வேலியின் முன்னணி நிறுவனங்கள் மற்றும் விழாக்களின் நம்பிக்கை பெற்ற பேக்கரி",
+    proof_item1: "🏢 ராயல் வெடிங்க்ஸ்",
+    proof_item2: "🏛️ சிட்டி கன்வென்ஷன்",
+    proof_item3: "🎉 பாளையம் கேட்டரிங்",
+    proof_item4: "🏦 இந்தியன் வங்கி விழாக்கள்",
+    proof_item5: "🏫 நெல்லை அகாடமி",
+
+    // Dual CTA Columns
+    cta_col1_title: "முழு தயாரிப்புகளையும் பார்க்க",
+    cta_col1_sub: "பிறந்தநாள் கேக்குகள், திருமண கேக்குகள், பேஸ்ட்ரிகள் மற்றும் பஃப்ஸ். அனைத்தும் உங்களுக்காக.",
+    cta_col2_title: "உங்களுக்கு பிடித்த கேக்கை தேர்ந்தெடுக்க",
+    cta_col2_sub: "பிறந்தநாள் கேக்குகள், திருமண கேக்குகள், பேஸ்ட்ரிகள் மற்றும் பஃப்ஸ். அனைத்தும் உங்களுக்காக.",
+    btn_products: "தயாரிப்புகள்",
+    btn_chat: "வாட்ஸ்அப் சாட்",
     heritage_title: "திருநெல்வேலியில் இனிப்பான நினைவுகளை உருவாக்குகிறது",
     heritage_desc: "முதல் நாளில் இருந்தே, சாந்தி கணேஷ் பேக்கரி புதிய சுவைக்கும் தரம் சார்ந்த தயாரிப்புகளுக்கும் பெயர் பெற்றது. பிளாக் ஃபாரஸ்ட் முதல் திருமண கேக்குகள் வரை அன்புடன் சுடப்படுகிறது.",
 
