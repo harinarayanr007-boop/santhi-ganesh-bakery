@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-Store Digital Menu | Santhi Ganesh Bakery Tirunelveli</title>
+
+  <!-- Google Fonts & Phosphor Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- StPageFlip 3D Book Library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    body {
+      background-color: #2A211B;
+      color: #EDDFD1;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar Header */
+    .menu-header {
+      background-color: #1F1712;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(237, 223, 209, 0.15);
+      position: relative;
+      z-index: 100;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-title h1 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      margin: 0;
+      color: #F4E8DC;
+      letter-spacing: 1px;
+    }
+
+    .header-badge {
+      background-color: var(--color-desert);
+      color: #FFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    /* Flipbook Container */
+    .flipbook-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      position: relative;
+    }
+
+    .flipbook-container {
+      width: 100%;
+      max-width: 900px;
+      height: 600px;
+      margin: 0 auto;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+    }
+
+    /* Page Styling */
+    .page {
+      background-color: #F8F3ED;
+      color: #332419;
+      padding: 28px 24px;
+      box-sizing: border-box;
+      border: 1px solid #E6D9CC;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Cover Page */
+    .page-cover {
+      background: linear-gradient(135deg, #3D2B20 0%, #1F140E 100%);
+      color: #F4E8DC;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 6px solid #C49A6C;
+      position: relative;
+    }
+
+    .cover-border {
+      border: 2px solid rgba(196, 154, 108, 0.4);
+      padding: 40px 24px;
+      border-radius: 8px;
+      width: 80%;
+    }
+
+    .cover-logo {
+      height: 80px;
+      margin-bottom: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    .cover-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      margin: 12px 0 8px;
+      color: #E8BF96;
+      letter-spacing: 2px;
+    }
+
+    .cover-subtitle {
+      font-size: 0.9rem;
+      color: #C4B5A5;
+      margin-bottom: 24px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid #C49A6C;
+      color: #E8BF96;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Inner Page Headers */
+    .page-header {
+      border-bottom: 2px solid #D9C5B2;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: #613C20;
+      margin: 0;
+    }
+
+    .page-category-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-desert);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Item Grid in Page */
+    .menu-item-card {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px dashed #E2D3C4;
+      align-items: center;
+    }
+
+    .menu-item-card:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #D9C5B2;
+      flex-shrink: 0;
+    }
+
+    .menu-item-info {
+      flex: 1;
+    }
+
+    .menu-item-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #2C1B10;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-item-price {
+      color: var(--color-desert);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .menu-item-desc {
+      font-size: 0.8rem;
+      color: #6E5A4B;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .item-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      background-color: #E8F5E9;
+      color: #2E7D32;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .item-tag.hot {
+      background-color: #FFEBEE;
+      color: #C62828;
+    }
+
+    .item-tag.bestseller {
+      background-color: #FFF8E1;
+      color: #F57F17;
+    }
+
+    /* Navigation Controls Bar */
+    .menu-controls {
+      background-color: #1F1712;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(237, 223, 209, 0.15);
+    }
+
+    .nav-btn {
+      background-color: #3D2B20;
+      color: #F4E8DC;
+      border: 1px solid #5A4333;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--color-desert);
+      border-color: var(--color-desert);
+    }
+
+    .page-indicator {
+      font-size: 0.88rem;
+      color: #C4B5A5;
+      font-weight: 600;
+    }
+
+    /* Responsiveness for Mobile */
+    @media (max-width: 768px) {
+      .flipbook-container {
+        height: 520px;
+      }
+      .page {
+        padding: 20px 16px;
+      }
+      .cover-title {
+        font-size: 1.4rem;
+      }
+      .menu-item-img {
+        width: 52px;
+        height: 52px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="menu-header">
+    <div class="brand-title">
+      <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 36px;">
+      <h1>SANTHI GANESH BAKERY</h1>
+    </div>
+    <span class="header-badge">📱 In-Store Menu</span>
+  </header>
+
+  <!-- 3D FLIPBOOK VIEWPORT -->
+  <main class="flipbook-viewport">
+    <div id="flipbook" class="flipbook-container">
+      
+      <!-- PAGE 1: COVER -->
+      <div class="page page-cover">
+        <div class="cover-border">
+          <img src="./sg-bakery-logo.png" alt="Logo" class="cover-logo">
+          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #C49A6C; margin: 0;">Tirunelveli Store</p>
+          <h1 class="cover-title">DAILY FRESH MENU</h1>
+          <p class="cover-subtitle">Handcrafted Pastries, Hot Savories & Custom Celebration Cakes</p>
+          <div class="cover-badge">
+            <i class="ph ph-hand-swipe-left"></i> Flip Pages to Browse
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE 2: HOT SAVORIES & PUFFS -->
+      <div class="page">
+        <div>
+          <div class="page-header">
+            <h2>🥐 Hot Savories & Puffs</h2>
+            <span class="page-category-tag">Fresh Oven</span>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./sg-bakery-logo.png" alt="Veg Puff" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Crispy Veg Puff</span>
+                <span class="menu-item-price">₹25</span>
+              </div>
+              <p class="menu-item-desc">Flaky 100-layer golden puff stuffed with spiced potato & vegetable masala.</p>
+              <span class="item-tag hot">🔥 Fresh & Hot</span>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./sg-bakery-logo.png" alt="Egg Puff" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Classic Egg Puff</span>
+                <span class="menu-item-price">₹30</span>
+              </div>
+              <p class="menu-item-desc">Whole boiled egg wrapped in buttery flaky pastry dough with onion masala.</p>
+              <span class="item-tag bestseller">🌟 Store Bestseller</span>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./sg-bakery-logo.png" alt="Paneer Roll" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Spiced Paneer Roll</span>
+                <span class="menu-item-price">₹45</span>
+              </div>
+              <p class="menu-item-desc">Tandoori cottage cheese cubes sautéed with herbs wrapped in soft bake.</p>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./sg-bakery-logo.png" alt="Chicken Puff" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Special Chicken Puff</span>
+                <span class="menu-item-price">₹45</span>
+              </div>
+              <p class="menu-item-desc">Shredded chicken cooked in Nellai pepper masala inside flaky puff.</p>
+              <span class="item-tag hot">🔥 Hot & Fresh</span>
+            </div>
+          </div>
+        </div>
+        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 2</p>
+      </div>
+
+      <!-- PAGE 3: SIGNATURE PASTRIES -->
+      <div class="page">
+        <div>
+          <div class="page-header">
+            <h2>🍰 Signature Pastries</h2>
+            <span class="page-category-tag">Sweet Slices</span>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./Cakes for her/0002s_0021_Barbie-Pink-Cake_360x 2.png" alt="Black Forest" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Black Forest Slice</span>
+                <span class="menu-item-price">₹65</span>
+              </div>
+              <p class="menu-item-desc">Layers of chocolate sponge, fresh whipped cream, and red dark cherries.</p>
+              <span class="item-tag bestseller">🌟 Tirunelveli Favorite</span>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./Cakes for her/0000_cake_0014_TheCrownCake_360x 2.png" alt="Red Velvet" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Red Velvet Cream Slice</span>
+                <span class="menu-item-price">₹85</span>
+              </div>
+              <p class="menu-item-desc">Rich red velvet cocoa sponge frosted with signature cheese cream.</p>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./for him/0001s_0010_GamersX-BoxCake_360x 2.png" alt="Butterscotch" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Crunchy Butterscotch</span>
+                <span class="menu-item-price">₹60</span>
+              </div>
+              <p class="menu-item-desc">Vanilla sponge layered with caramel cream & caramelized praline nuts.</p>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./Baby shower/0001_BabyStrollerCake_360x 2.png" alt="Choco Lava" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Warm Choco Lava Cup</span>
+                <span class="menu-item-price">₹70</span>
+              </div>
+              <p class="menu-item-desc">Warm chocolate molten cake oozing with hot couverture chocolate ganache.</p>
+              <span class="item-tag hot">🔥 Served Warm</span>
+            </div>
+          </div>
+        </div>
+        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 3</p>
+      </div>
+
+      <!-- PAGE 4: CELEBRATION CAKES -->
+      <div class="page">
+        <div>
+          <div class="page-header">
+            <h2>🎂 Celebration Cakes</h2>
+            <span class="page-category-tag">Custom Themes</span>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./Cakes for her/0000_cake_0014_TheCrownCake_360x 2.png" alt="Crown Cake" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>The Crown Cake</span>
+                <span class="menu-item-price">₹650 / kg</span>
+              </div>
+              <p class="menu-item-desc">Royal gold tiara crowned celebration cake with cream frosting.</p>
+              <span class="item-tag bestseller">🌟 Popular for Her</span>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./for him/0001s_0010_GamersX-BoxCake_360x 2.png" alt="Fitness Freak Cake" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Fitness Freak Gym Cake</span>
+                <span class="menu-item-price">₹650 / kg</span>
+              </div>
+              <p class="menu-item-desc">Handcrafted dumbbell & weights theme cake for fitness enthusiasts.</p>
+            </div>
+          </div>
+
+          <div class="menu-item-card">
+            <img src="./engagement and wedding cakes/0000_WeddingFlowerCake_360x 2.png" alt="Wedding Cake" class="menu-item-img">
+            <div class="menu-item-info">
+              <div class="menu-item-name">
+                <span>Grand Wedding Tier Cake</span>
+                <span class="menu-item-price">₹850 / kg</span>
+              </div>
+              <p class="menu-item-desc">Elegant 3-tier floral centerpiece cake custom baked for wedding receptions.</p>
+            </div>
+          </div>
+        </div>
+        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 4</p>
+      </div>
+
+      <!-- PAGE 5: BACK COVER / STORE CONTACT -->
+      <div class="page page-cover" style="border-color: #8C6D4F;">
+        <div class="cover-border" style="width: 85%; padding: 30px 20px;">
+          <h2 style="font-family: var(--font-heading); font-size: 1.4rem; color: #E8BF96; margin-bottom: 12px;">THANK YOU FOR VISITING!</h2>
+          <p style="font-size: 0.85rem; color: #C4B5A5; line-height: 1.5; margin-bottom: 24px;">
+            Santhi Ganesh Bakery, Tirunelveli.<br>
+            Fresh baked every morning with pure butter & love.
+          </p>
+          <a href="./index.html" class="btn btn-primary" style="background-color: var(--color-desert); color: #FFF; text-decoration: none; display: inline-block; padding: 10px 20px; border-radius: 20px; font-weight: 600;">
+            🌐 Visit Website
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- BOTTOM NAVIGATION CONTROLS -->
+  <footer class="menu-controls">
+    <button id="prev-page-btn" class="nav-btn">
+      <i class="ph ph-caret-left"></i> Prev
+    </button>
+
+    <div class="page-indicator">
+      <span id="current-page-num">1</span> / <span id="total-pages-num">5</span>
+    </div>
+
+    <button id="next-page-btn" class="nav-btn">
+      Next <i class="ph ph-caret-right"></i>
+    </button>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageFlip = new St.PageFlip(
+        document.getElementById('flipbook'),
+        {
+          width: 440,
+          height: 600,
+          size: 'stretch',
+          minWidth: 320,
+          maxWidth: 900,
+          minHeight: 480,
+          maxHeight: 700,
+          maxShadowOpacity: 0.5,
+          showCover: true,
+          mobileScrollSupport: false
+        }
+      );
+
+      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+      // Update Page Numbers
+      pageFlip.on('flip', (e) => {
+        document.getElementById('current-page-num').textContent = e.data + 1;
+      });
+
+      document.getElementById('total-pages-num').textContent = pageFlip.getPageCount();
+
+      // Button Controls
+      document.getElementById('prev-page-btn').addEventListener('click', () => {
+        pageFlip.flipPrev();
+      });
+
+      document.getElementById('next-page-btn').addEventListener('click', () => {
+        pageFlip.flipNext();
+      });
+    });
+  </script>
+</body>
+</html>
