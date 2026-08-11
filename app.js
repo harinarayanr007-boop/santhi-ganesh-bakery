@@ -7204,7 +7204,7 @@ function promptWhatsAppCustomerName(onComplete) {
     modalOverlay.innerHTML = `
       <div class="whatsapp-name-modal-card">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-          <span style="font-size: 1.8rem;">🧁</span>
+          <i class="ph ph-user-circle" style="font-size: 2.2rem; color: var(--color-desert);"></i>
           <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0; color: var(--color-text-main);">Your Name (Optional)</h3>
         </div>
         <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.4;">
@@ -7218,7 +7218,7 @@ function promptWhatsAppCustomerName(onComplete) {
           </div>
 
           <div style="display: flex; gap: 10px;">
-            <button type="button" onclick="closeWhatsAppNameModal(true)" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 10px;">Skip</button>
+            <button type="button" id="whatsapp-skip-btn" onclick="closeWhatsAppNameModal(true)" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 10px;">Skip (30s)</button>
             <button type="submit" class="btn btn-primary" style="flex: 2; justify-content: center; padding: 10px;">Continue ➔</button>
           </div>
         </form>
@@ -7230,10 +7230,39 @@ function promptWhatsAppCustomerName(onComplete) {
   // Pre-fill existing saved name
   const savedName = localStorage.getItem('sg_customer_name') || '';
   const inputEl = document.getElementById('whatsapp-cust-name-input');
+  const skipBtn = document.getElementById('whatsapp-skip-btn');
   if (inputEl) inputEl.value = savedName;
 
   window._pendingWhatsAppCallback = onComplete;
   modalOverlay.classList.add('active');
+
+  // Start 30-Second Auto-Skip Timer
+  if (window._autoSkipInterval) clearInterval(window._autoSkipInterval);
+  let remainingSecs = 30;
+  if (skipBtn) skipBtn.textContent = `Skip (${remainingSecs}s)`;
+
+  window._autoSkipInterval = setInterval(() => {
+    remainingSecs--;
+    if (skipBtn && !inputEl.value.trim()) {
+      skipBtn.textContent = `Skip (${remainingSecs}s)`;
+    }
+    if (remainingSecs <= 0) {
+      clearInterval(window._autoSkipInterval);
+      window._autoSkipInterval = null;
+      closeWhatsAppNameModal(true);
+    }
+  }, 1000);
+
+  // Pause/stop timer when user types
+  if (inputEl) {
+    inputEl.oninput = () => {
+      if (window._autoSkipInterval) {
+        clearInterval(window._autoSkipInterval);
+        window._autoSkipInterval = null;
+        if (skipBtn) skipBtn.textContent = 'Skip';
+      }
+    };
+  }
 
   setTimeout(() => {
     if (inputEl) inputEl.focus();
@@ -7250,6 +7279,11 @@ function submitWhatsAppNameModal() {
 }
 
 function closeWhatsAppNameModal(skip = false, namePassed = '') {
+  if (window._autoSkipInterval) {
+    clearInterval(window._autoSkipInterval);
+    window._autoSkipInterval = null;
+  }
+
   const modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
   if (modalOverlay) modalOverlay.classList.remove('active');
 
