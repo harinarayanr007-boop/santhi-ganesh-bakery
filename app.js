@@ -7224,6 +7224,9 @@ function promptWhatsAppCustomerName(onComplete) {
       </p>
 
       <form id="whatsapp-name-form" onsubmit="event.preventDefault(); submitWhatsAppNameModal();">
+        <!-- Invisible Honeypot Trap Field (Catches automated spam bots) -->
+        <input type="text" id="sg-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
+
         <div style="margin-bottom: 20px;">
           <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">${labelText}</label>
           <input type="text" id="whatsapp-cust-name-input" placeholder="${placeholderText}" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px;">
@@ -7280,6 +7283,17 @@ function promptWhatsAppCustomerName(onComplete) {
 }
 
 function submitWhatsAppNameModal() {
+  // Honeypot Anti-Bot Verification
+  const honeypot = document.getElementById('sg-honeypot-trap');
+  if (honeypot && honeypot.value.trim() !== '') {
+    console.warn('⚠️ Spam bot submission detected via Honeypot trap. Silently dropping request.');
+    if (window._autoSkipInterval) clearInterval(window._autoSkipInterval);
+    const modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
+    if (modalOverlay) modalOverlay.classList.remove('active');
+    window._pendingWhatsAppCallback = null;
+    return; // Block bot submission!
+  }
+
   const inputEl = document.getElementById('whatsapp-cust-name-input');
   const name = inputEl ? inputEl.value.trim() : '';
   if (name) {
