@@ -127,6 +127,47 @@
       font-weight: 600;
     }
 
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        padding: 12px 0;
+      }
+      .admin-nav {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .admin-container {
+        padding: 0 16px;
+        margin: 20px auto;
+      }
+      .admin-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 6px;
+      }
+      .admin-tab-btn {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+      .admin-table {
+        min-width: 600px;
+      }
+      .modal-box {
+        padding: 20px 16px;
+        max-width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+    }
+
     /* Modal Form Overlay */
     .modal-overlay {
       position: fixed;
@@ -281,22 +322,24 @@
 
         </div>
 
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Cake Title</th>
-              <th>Category</th>
-              <th>Weight</th>
-              <th>Price (₹)</th>
-              <th>Status (ON / OFF)</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="cakes-table-body">
-            <!-- Populated by JS -->
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Cake Title</th>
+                <th>Category</th>
+                <th>Weight</th>
+                <th>Price (₹)</th>
+                <th>Status (ON / OFF)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cakes-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- TAB 2: JOBS MANAGER -->
@@ -306,20 +349,22 @@
           <button onclick="openJobModal()" class="btn btn-primary"><i class="ph ph-plus"></i> Add New Job Opening</button>
         </div>
 
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Role Title</th>
-              <th>Type / Tag</th>
-              <th>Pay / Salary</th>
-              <th>Location</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="jobs-table-body">
-            <!-- Populated by JS -->
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Role Title</th>
+                <th>Type / Tag</th>
+                <th>Pay / Salary</th>
+                <th>Location</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="jobs-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- TAB 3: BACKUP & SYNC -->
@@ -405,19 +450,21 @@
         <!-- RECENT LIVE EVENT TRACKING LOG TABLE -->
         <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12);">
           <h3 style="font-size: 1.1rem; margin-bottom: 14px; font-family: 'Aboreto';">📜 Live Event & Order Log</h3>
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Event Type</th>
-                <th>Details / Product</th>
-                <th>Page Source</th>
-              </tr>
-            </thead>
-            <tbody id="tracking-events-table-body">
-              <tr><td colspan="4" style="text-align: center; color: #666;">Loading live events...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Event Type</th>
+                  <th>Details / Product</th>
+                  <th>Page Source</th>
+                </tr>
+              </thead>
+              <tbody id="tracking-events-table-body">
+                <tr><td colspan="4" style="text-align: center; color: #666;">Loading live events...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>

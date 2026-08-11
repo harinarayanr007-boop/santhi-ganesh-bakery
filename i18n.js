@@ -228,6 +228,8 @@ function toggleLanguage() {
 // Apply Selected Language across DOM
 function applyLanguage(lang) {
   currentLang = lang;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.lang = lang;
   const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
 
   // Update elements with data-i18n
