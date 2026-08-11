@@ -1075,16 +1075,29 @@ html[lang="ta"] .hero-title {
 }
 
 .heritage-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: rgba(166, 96, 27, 0.12);
-  color: var(--color-desert);
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  background-color: rgba(166, 96, 27, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
   margin: 0 auto 20px auto;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(61, 43, 32, 0.08);
+  border: 1px solid rgba(196, 154, 108, 0.2);
+}
+
+.heritage-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.heritage-card:hover .heritage-icon img {
+  transform: scale(1.08);
 }
 
 .heritage-title {
