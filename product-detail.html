@@ -575,25 +575,42 @@
         alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
         return;
       }
-      lastDetailWhatsAppTime = now;
 
-      // Generate Unique Order Reference Code (#SG-XXXXXX)
-      const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
-      const price = selectedPrice || currentProduct.price;
+      if (typeof promptWhatsAppCustomerName === 'function') {
+        promptWhatsAppCustomerName((customerName) => {
+          lastDetailWhatsAppTime = Date.now();
 
-      if (typeof trackEvent === 'function') {
-        trackEvent('whatsapp_order', { 
-          order_ref: `#${orderRef}`, 
-          title: currentProduct.title, 
-          weight: selectedWeight, 
-          total: price 
+          const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
+          const price = selectedPrice || currentProduct.price;
+
+          if (typeof trackEvent === 'function') {
+            trackEvent('whatsapp_order', { 
+              order_ref: `#${orderRef}`, 
+              customer_name: customerName || 'Anonymous',
+              title: currentProduct.title, 
+              weight: selectedWeight, 
+              total: price 
+            });
+          }
+
+          const phone = "917339073844";
+          let message = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n`;
+          if (customerName) {
+            message += `*Customer Name:* ${customerName}\n`;
+          }
+          message += `\nI would like to order *${currentProduct.title}* (${selectedWeight}) priced at ₹${price}.\n\nPlease confirm availability and delivery slot in Tirunelveli. Thank you!`;
+          const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
         });
+      } else {
+        lastDetailWhatsAppTime = Date.now();
+        const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
+        const price = selectedPrice || currentProduct.price;
+        const phone = "917339073844";
+        const message = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n\nI would like to order *${currentProduct.title}* (${selectedWeight}) priced at ₹${price}.\n\nPlease confirm availability and delivery slot in Tirunelveli. Thank you!`;
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
       }
-
-      const phone = "917339073844";
-      const message = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n\nI would like to order *${currentProduct.title}* (${selectedWeight}) priced at ₹${price}.\n\nPlease confirm availability and delivery slot in Tirunelveli. Thank you!`;
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
     }
   </script>
 </body>

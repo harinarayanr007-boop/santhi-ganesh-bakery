@@ -7191,8 +7191,80 @@ function updateCartUI() {
   if (cartTotalEl) cartTotalEl.textContent = `₹${totalAmount}`;
 }
 
-// 7. DIRECT WHATSAPP ORDER GENERATOR WITH ABUSE PREVENTION
+// 7. DIRECT WHATSAPP ORDER GENERATOR WITH ABUSE PREVENTION & NAME MODAL
 let lastWhatsAppOrderTime = 0;
+
+function promptWhatsAppCustomerName(onComplete) {
+  let modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
+  
+  if (!modalOverlay) {
+    modalOverlay = document.createElement('div');
+    modalOverlay.id = 'whatsapp-name-modal-overlay';
+    modalOverlay.className = 'whatsapp-name-modal-overlay';
+    modalOverlay.innerHTML = `
+      <div class="whatsapp-name-modal-card">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-size: 1.8rem;">🧁</span>
+          <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0; color: var(--color-text-main);">Your Name (Optional)</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 20px; line-height: 1.4;">
+          Enter your name so Santhi Ganesh Bakery team knows who is placing the order.
+        </p>
+
+        <form id="whatsapp-name-form" onsubmit="event.preventDefault(); submitWhatsAppNameModal();">
+          <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">Customer Name:</label>
+            <input type="text" id="whatsapp-cust-name-input" class="form-control" placeholder="e.g. Ramesh" style="font-size: 1rem; padding: 12px 16px;">
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="closeWhatsAppNameModal(true)" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 10px;">Skip</button>
+            <button type="submit" class="btn btn-primary" style="flex: 2; justify-content: center; padding: 10px;">Continue ➔</button>
+          </div>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+  }
+
+  // Pre-fill existing saved name
+  const savedName = localStorage.getItem('sg_customer_name') || '';
+  const inputEl = document.getElementById('whatsapp-cust-name-input');
+  if (inputEl) inputEl.value = savedName;
+
+  window._pendingWhatsAppCallback = onComplete;
+  modalOverlay.classList.add('active');
+
+  setTimeout(() => {
+    if (inputEl) inputEl.focus();
+  }, 100);
+}
+
+function submitWhatsAppNameModal() {
+  const inputEl = document.getElementById('whatsapp-cust-name-input');
+  const name = inputEl ? inputEl.value.trim() : '';
+  if (name) {
+    localStorage.setItem('sg_customer_name', name);
+  }
+  closeWhatsAppNameModal(false, name);
+}
+
+function closeWhatsAppNameModal(skip = false, namePassed = '') {
+  const modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
+  if (modalOverlay) modalOverlay.classList.remove('active');
+
+  let name = namePassed;
+  if (!skip && !name) {
+    const inputEl = document.getElementById('whatsapp-cust-name-input');
+    name = inputEl ? inputEl.value.trim() : '';
+  }
+
+  if (typeof window._pendingWhatsAppCallback === 'function') {
+    const cb = window._pendingWhatsAppCallback;
+    window._pendingWhatsAppCallback = null;
+    cb(name);
+  }
+}
 
 function sendWhatsAppOrder() {
   if (cartItems.length === 0) {
@@ -7209,32 +7281,40 @@ function sendWhatsAppOrder() {
     return;
   }
 
-  lastWhatsAppOrderTime = now;
+  // Open Name Prompt Modal
+  promptWhatsAppCustomerName((customerName) => {
+    lastWhatsAppOrderTime = Date.now();
 
-  // Generate Unique Order Reference Code (#SG-XXXXXX)
-  const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
+    // Generate Unique Order Reference Code (#SG-XXXXXX)
+    const orderRef = 'SG-' + Math.floor(100000 + Math.random() * 900000);
+    const bakeryPhone = '917339073844';
 
-  const bakeryPhone = '917339073844';
-  let text = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n\nI would like to place an order for delivery in Tirunelveli:\n\n`;
+    let text = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n`;
+    if (customerName) {
+      text += `*Customer Name:* ${customerName}\n`;
+    }
+    text += `\nI would like to place an order for delivery in Tirunelveli:\n\n`;
 
-  let total = 0;
-  cartItems.forEach((item, idx) => {
-    const sub = item.price * item.quantity;
-    total += sub;
-    text += `${idx + 1}. *${item.title}* (${item.weight}) x ${item.quantity} = ₹${sub}\n`;
+    let total = 0;
+    cartItems.forEach((item, idx) => {
+      const sub = item.price * item.quantity;
+      total += sub;
+      text += `${idx + 1}. *${item.title}* (${item.weight}) x ${item.quantity} = ₹${sub}\n`;
+    });
+
+    text += `\n*Total Amount:* ₹${total}`;
+    text += `\n\nPlease confirm availability and delivery time. Thank you!`;
+
+    trackEvent('whatsapp_order', { 
+      order_ref: `#${orderRef}`, 
+      customer_name: customerName || 'Anonymous',
+      count: cartItems.length, 
+      items: cartItems.map(i => i.title).join(', '), 
+      title: cartItems.map(i => i.title).join(', '), 
+      total: total 
+    });
+
+    const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
+    window.open(encodedUrl, '_blank');
   });
-
-  text += `\n*Total Amount:* ₹${total}`;
-  text += `\n\nPlease confirm availability and delivery time. Thank you!`;
-
-  trackEvent('whatsapp_order', { 
-    order_ref: `#${orderRef}`, 
-    count: cartItems.length, 
-    items: cartItems.map(i => i.title).join(', '), 
-    title: cartItems.map(i => i.title).join(', '), 
-    total: total 
-  });
-
-  const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
-  window.open(encodedUrl, '_blank');
 }
