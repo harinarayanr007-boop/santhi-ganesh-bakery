@@ -59,10 +59,39 @@
   background-image: url('./assets/bakery_pattern.jpg');
   background-repeat: repeat;
   background-size: 320px auto;
-  opacity: 0.04;
+  opacity: 0.09;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 1;
   mix-blend-mode: multiply;
+}
+
+/* Elevate all content cards above pattern overlay with clean solid backgrounds */
+.product-card,
+.heritage-card,
+.feature-col,
+.testimonial-container-card,
+.whatsapp-name-modal-card,
+.cart-drawer,
+.job-card,
+.contact-info-block,
+.map-container-box,
+.price-review-row,
+.accordion-item,
+.modal-card {
+  position: relative;
+  z-index: 2;
+}
+
+.product-card {
+  background-color: #FFFFFF !important;
+}
+
+.heritage-card {
+  background-color: #FFFFFF !important;
+}
+
+.feature-col {
+  background-color: #FFFFFF !important;
 }
 
 /* Base Normalization */
