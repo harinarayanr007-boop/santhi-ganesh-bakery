@@ -7380,19 +7380,3 @@ function sendWhatsAppOrder() {
     window.open(encodedUrl, '_blank');
   });
 }
-
-// AUTO-INJECT LOW OPACITY HAND-DRAWN BAKERY PATTERN OVERLAY
-(function initBakeryPatternOverlay() {
-  function injectOverlay() {
-    if (!document.querySelector('.site-pattern-overlay') && document.body) {
-      const overlay = document.createElement('div');
-      overlay.className = 'site-pattern-overlay';
-      document.body.appendChild(overlay);
-    }
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectOverlay);
-  } else {
-    injectOverlay();
-  }
-})();

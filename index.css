@@ -49,52 +49,6 @@
   --shadow-card: 0 4px 20px rgba(10, 4, 4, 0.06);
 }
 
-/* Subdued Bakery Hand-Drawn Pattern Background Overlay */
-.site-pattern-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('./assets/bakery_pattern.jpg');
-  background-repeat: repeat;
-  background-size: 320px auto;
-  opacity: 0.09;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Strictly isolate all content cards above pattern overlay with solid white backgrounds */
-.product-card,
-.heritage-card,
-.feature-col,
-.testimonial-container-card,
-.whatsapp-name-modal-card,
-.cart-drawer,
-.job-card,
-.contact-info-block,
-.map-container-box,
-.price-review-row,
-.accordion-item,
-.modal-card {
-  position: relative !important;
-  z-index: 10 !important;
-  isolation: isolate !important;
-  background-color: #FFFFFF !important;
-}
-
-.product-card {
-  background-color: #FFFFFF !important;
-}
-
-.heritage-card {
-  background-color: #FFFFFF !important;
-}
-
-.feature-col {
-  background-color: #FFFFFF !important;
-}
-
 /* Base Normalization */
 *, *::before, *::after {
   box-sizing: border-box;
