@@ -711,6 +711,60 @@ html[lang="ta"] .hero-title {
   }
 }
 
+/* Products Page Header */
+.products-header-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.search-box-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 48px 12px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-neutral-overlay-5);
+  border: 1px solid var(--color-neutral-overlay-15);
+  border-bottom: 4px solid rgba(10, 4, 4, 0.18);
+  color: var(--color-text-main);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--color-desert);
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(166, 96, 27, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-desert);
+}
+
+.products-page-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
 /* Products Grid */
 .products-grid {
   display: grid;
