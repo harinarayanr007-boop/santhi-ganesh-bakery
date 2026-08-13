@@ -7453,3 +7453,117 @@ function sendWhatsAppB2BInquiry(isSampleRequest = false) {
 function requestB2BSampleBox() {
   sendWhatsAppB2BInquiry(true);
 }
+
+// 9. FIGMA INTERACTIVE B2B PROTOTYPE STATE ENGINE
+const FIGMA_PROTO_SPECS = {
+  kirana: {
+    title: "🏪 Kirana & Local Grocery Shops",
+    subtitle: "High-Margin Daily Bread & Bun Distribution",
+    volume: "15 to 30 Bread Packets Daily",
+    products: ["Milk Bread (350g)", "Sandwich Bread (400g)", "Wheat Loaf", "Butter Rusks", "Tea Buns"],
+    dispatch: "5:30 AM Morning Dispatch (Doorstep before shop opens)",
+    margin: "High Profit Margin per Packet for Retailers",
+    cta: "Request Kirana Free Sample Box 📦"
+  },
+  supermarket: {
+    title: "🛒 Supermarkets & Retail Outlets",
+    subtitle: "Premium Barcoded Packaged Breads & Savories",
+    volume: "50+ Packets Daily (Multiple Varieties)",
+    products: ["Soft Sandwich Loaf", "Multigrain Wheat Bread", "Almond Cookies", "Packaged Savories"],
+    dispatch: "6:00 AM Direct Shelf Stocking",
+    margin: "Tiered Volume Discount Rates",
+    cta: "Request Supermarket Price List 📦"
+  },
+  university: {
+    title: "🏫 University & College Canteens",
+    subtitle: "Bulk Hot Snacks & Break-Time Tea Buns",
+    volume: "100+ Daily Puffs & Snacks",
+    products: ["Crispy Veg Puffs", "Egg Puffs", "Chicken Puffs", "Samosas & Cutlets", "Dry Cake Slices"],
+    dispatch: "Dual Dispatch: 7:30 AM & 1:00 PM Break Times",
+    margin: "Institutional Bulk Canteen Margins",
+    cta: "Request University Sample Box 📦"
+  },
+  hotel: {
+    title: "🏨 Hotels, Restaurants & Cafes",
+    subtitle: "Fresh Burger Buns, Pav & Gourmet Slices",
+    volume: "Daily Custom Order Batches",
+    products: ["Soft Burger Buns", "Hot Dog Rolls", "Pav Buns", "Red Velvet Slices", "Black Forest Slices"],
+    dispatch: "Daily 6:00 AM & 3:00 PM Kitchen Delivery",
+    margin: "Chef Custom Size & Bulk Rates",
+    cta: "Request Cafe Sample Box 📦"
+  },
+  caterer: {
+    title: "🍱 Event Caterers & Convention Halls",
+    subtitle: "Large Scale Event Snack Boxes & Desserts",
+    volume: "Bulk Event Orders (500+ Snack Boxes)",
+    products: ["Mini Puffs", "Cupcakes", "Savory Trays", "Individual Packed Snack Boxes"],
+    dispatch: "Timed Venue Site Delivery",
+    margin: "Special Event Volume Pricing",
+    cta: "Request Event Catering Quote 📦"
+  }
+};
+
+function switchProtoTab(key, btnElem) {
+  const container = document.getElementById('figma-proto-content');
+  if (!container) return;
+
+  const spec = FIGMA_PROTO_SPECS[key] || FIGMA_PROTO_SPECS.kirana;
+
+  // Update Active Tab Button State
+  if (btnElem) {
+    document.querySelectorAll('.figma-proto-tab').forEach(btn => btn.classList.remove('active'));
+    btnElem.classList.add('active');
+  }
+
+  container.style.opacity = '0.4';
+  container.style.transform = 'translateY(4px)';
+
+  setTimeout(() => {
+    container.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+        <div>
+          <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem; font-weight: 700; color: #000; margin: 0 0 4px 0;">${spec.title}</h3>
+          <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; color: #555; margin: 0;">${spec.subtitle}</p>
+        </div>
+        <span style="background: #E8F5E9; color: #2E7D32; border: 1px solid rgba(46,125,50,0.2); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+          ⚡ ${spec.volume}
+        </span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px;">
+        <div style="background: #F8F9FA; padding: 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);">
+          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">📦 Core Products Supplied:</strong>
+          <ul style="margin: 0; padding-left: 18px; font-size: 0.9rem; color: #000; line-height: 1.6;">
+            ${spec.products.map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div style="background: #F8F9FA; padding: 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);">
+          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">🚚 Dispatch & Delivery:</strong>
+          <p style="font-size: 0.9rem; color: #000; margin: 0; font-weight: 600; line-height: 1.5;">${spec.dispatch}</p>
+          <div style="margin-top: 12px; font-size: 0.85rem; color: var(--color-desert); font-weight: 600;">
+            💰 ${spec.margin}
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <a href="#b2b-form" onclick="requestB2BSampleBox()" class="figma-cta-btn" style="padding: 10px 24px; font-size: 0.95rem;">
+          ${spec.cta}
+        </a>
+      </div>
+    `;
+
+    container.style.opacity = '1';
+    container.style.transform = 'translateY(0)';
+  }, 120);
+}
+
+// Auto-initialize default prototype tab on load
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('figma-proto-content')) {
+      switchProtoTab('kirana', document.querySelector('.figma-proto-tab'));
+    }
+  });
+}

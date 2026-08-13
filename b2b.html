@@ -9,7 +9,7 @@
   <!-- Google Fonts: Aboreto & Lora -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   
   <!-- Website Favicon Icon -->
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
@@ -21,7 +21,202 @@
   <script src="./i18n.js"></script>
 
   <style>
-    /* B2B Page Custom Styling */
+    /* Figma BizScaler Design System & Prototype Styles */
+    .figma-avatar-stack {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .figma-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin-left: -12px;
+      border: 3px solid #FFF;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .figma-circle:first-child { margin-left: 0; }
+    .figma-circle-blue { background-color: #b8d9f3; }
+    .figma-circle-black { background-color: #000000; }
+
+    .figma-tools-pill {
+      display: inline-block;
+      border: 1px solid #a3a3a3;
+      padding: 5px 16px;
+      border-radius: 89px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #000;
+      background: #FFF;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .figma-hero-headline {
+      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -2.5px;
+      color: #000;
+      margin-bottom: 20px;
+    }
+
+    .figma-pink-pill {
+      background-color: #f3b8c0;
+      border-radius: 115px;
+      padding: 4px 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #000;
+      vertical-align: middle;
+      line-height: 1;
+    }
+
+    .figma-red-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #FF2D55;
+      display: inline-block;
+      box-shadow: 0 0 12px rgba(255, 45, 85, 0.6);
+      animation: figmaPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes figmaPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.18); opacity: 0.8; }
+    }
+
+    .figma-subtext {
+      font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+      font-size: 1.15rem;
+      color: #1e1e1e;
+      max-width: 720px;
+      margin: 0 auto 28px;
+      line-height: 1.5;
+    }
+
+    .figma-cta-btn {
+      background-color: #f5a623 !important;
+      color: #000 !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      padding: 14px 36px;
+      border-radius: 16px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .figma-cta-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(245, 166, 35, 0.45);
+    }
+
+    .figma-cta-subtext {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .figma-showcase-box {
+      background-color: #b8d9f3;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 960px;
+      margin: 36px auto 0;
+      box-shadow: 0 16px 40px rgba(184, 217, 243, 0.45);
+      position: relative;
+      text-align: left;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .figma-proto-tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .figma-proto-tab {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      color: #000;
+    }
+    .figma-proto-tab.active, .figma-proto-tab:hover {
+      background: #000;
+      color: #FFF;
+    }
+
+    .figma-ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      padding: 16px 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      margin-top: 48px;
+    }
+
+    .figma-ticker-move {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: figmaTicker 28s linear infinite;
+    }
+    .figma-ticker-move:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes figmaTicker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .figma-ticker-pill {
+      background-color: #b8d9f3;
+      color: #000;
+      border-radius: 45.5px;
+      padding: 7px 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .figma-ticker-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #007AFF;
+      display: inline-block;
+    }
+
+    /* Original B2B Page Styles */
     .b2b-hero-card {
       background-color: var(--color-bg-secondary);
       border-radius: var(--radius-lg);
@@ -86,6 +281,9 @@
       .b2b-trust-grid, .b2b-grid-5 {
         grid-template-columns: 1fr;
         gap: 16px;
+      }
+      .figma-showcase-box {
+        padding: 20px;
       }
     }
   </style>
@@ -163,70 +361,104 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. B2B HERO SECTION -->
-    <section class="section-padding" style="padding-top: 36px; padding-bottom: 24px;">
-      <div class="container">
+    <!-- 2. FIGMA BIZSCALER DESIGN HERO & INTERACTIVE PROTOTYPE SECTION -->
+    <section class="section-padding" style="padding-top: 36px; padding-bottom: 0;">
+      <div class="container" style="text-align: center;">
         
-        <div class="b2b-hero-card">
-          <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p class="text-tagline" style="margin-bottom: 12px;" data-i18n="b2b_tagline">Commercial & Wholesale Bakery Supply</p>
-            <h1 class="text-h1" style="font-size: clamp(2rem, 5vw, 3rem); line-height: 1.25; margin-bottom: 16px;" data-i18n="b2b_title">
-              Tirunelveli's Trusted Wholesale Bakery Partner
-            </h1>
-            <p class="text-regular" style="color: var(--color-text-muted); max-width: 680px; margin: 0 auto 24px;" data-i18n="b2b_sub">
-              Daily fresh bread packets, buns, puffs & snacks delivered before 6 AM to 100+ Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
-            </p>
+        <!-- Figma Top Avatar Circles Stack -->
+        <div class="figma-avatar-stack">
+          <div class="figma-circle figma-circle-blue"></div>
+          <div class="figma-circle figma-circle-black"></div>
+          <div class="figma-circle figma-circle-blue"></div>
+          <div class="figma-circle figma-circle-black"></div>
+          <div class="figma-circle figma-circle-blue"></div>
+        </div>
+        
+        <div>
+          <span class="figma-tools-pill">15+ Commercial Products Supply</span>
+        </div>
 
-            <!-- 3 Trust Highlights -->
-            <div class="b2b-trust-grid">
-              <div class="b2b-trust-item">
-                <i class="ph ph-storefront"></i>
-                <div style="text-align: left;">
-                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_partners">100+ Partner Shops</strong>
-                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Supplied Daily</span>
-                </div>
-              </div>
+        <!-- Figma High-Impact Headline with Pink Pill & Red Dot -->
+        <h1 class="figma-hero-headline">
+          <span data-i18n="b2b_title">Wholesale Bakery partner for</span> 
+          <span class="figma-pink-pill">
+            <span class="figma-red-dot"></span>
+            <span data-i18n="figma_pill_your">Your</span>
+          </span> 
+          <span data-i18n="figma_word_biz">Business</span>
+        </h1>
 
-              <div class="b2b-trust-item">
-                <i class="ph ph-truck"></i>
-                <div style="text-align: left;">
-                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_delivery">5:30 AM Daily Dispatch</strong>
-                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Doorstep Morning Delivery</span>
-                </div>
-              </div>
+        <!-- Subheadline -->
+        <p class="figma-subtext" data-i18n="b2b_sub">
+          Grow your business with daily morning delivery, bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
+        </p>
 
-              <div class="b2b-trust-item">
-                <i class="ph ph-gift"></i>
-                <div style="text-align: left;">
-                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_samples">Free Sample Box Available</strong>
-                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Try Before Bulk Order</span>
-                </div>
-              </div>
-            </div>
+        <!-- Figma Saffron Orange CTA Button -->
+        <div>
+          <a href="#b2b-form" class="figma-cta-btn" data-i18n="b2b_btn_quote">
+            <i class="ph ph-lightning" style="font-size: 1.3rem;"></i> Start Wholesale Partnership
+          </a>
+          <span class="figma-cta-subtext">Join 100+ daily business partners across Tirunelveli</span>
+        </div>
 
-            <!-- CTAs -->
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-              <a href="#b2b-form" class="btn btn-primary" data-i18n="b2b_btn_quote">Get Wholesale Quote</a>
-              <a href="#b2b-form" onclick="requestB2BSampleBox()" class="btn btn-secondary" data-i18n="b2b_btn_sample">Request Free Sample Kit 🎁</a>
-            </div>
+        <!-- Interactive Figma Prototype Showcase Card (#b8d9f3) -->
+        <div class="figma-showcase-box">
+          
+          <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #000;">
+              ✨ Interactive Business Prototype — Click Tabs to Switch Specs:
+            </span>
+            <span style="background: rgba(0,0,0,0.1); padding: 4px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; color: #000;">
+              Live Figma Prototype
+            </span>
           </div>
+
+          <!-- Prototype Switcher Pills -->
+          <div class="figma-proto-tabs">
+            <button class="figma-proto-tab active" onclick="switchProtoTab('kirana', this)">🏪 Kirana & Grocery Shops</button>
+            <button class="figma-proto-tab" onclick="switchProtoTab('supermarket', this)">🛒 Supermarkets & Retail</button>
+            <button class="figma-proto-tab" onclick="switchProtoTab('university', this)">🏫 University & Canteens</button>
+            <button class="figma-proto-tab" onclick="switchProtoTab('hotel', this)">🏨 Hotels & Restaurants</button>
+            <button class="figma-proto-tab" onclick="switchProtoTab('caterer', this)">🍱 Event Caterers</button>
+          </div>
+
+          <!-- Dynamic Interactive Content Screen -->
+          <div id="figma-proto-content" style="background: #FFFFFF; border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: all 0.3s ease;">
+            <!-- Rendered dynamically by JS on page load -->
+          </div>
+
         </div>
 
       </div>
-    </section>
 
-    <!-- 3. SOCIAL PROOF LOGO BAR -->
-    <section class="logo-proof-section">
-      <div class="container">
-        <p class="logo-proof-title" data-i18n="b2b_proof_title">
-          Daily Bakery Partner to 100+ Businesses Across Tirunelveli
-        </p>
-        <div class="logo-proof-grid">
-          <div class="logo-proof-item">🏪 Kirana & Grocery Shops</div>
-          <div class="logo-proof-item">🛒 Supermarkets & Retail</div>
-          <div class="logo-proof-item">🏫 Universities & Colleges</div>
-          <div class="logo-proof-item">🏨 Hotels & Restaurants</div>
-          <div class="logo-proof-item">🍱 Caterers & Canteens</div>
+      <!-- Figma Continuous Infinite Ticker Bar (Bottom of Hero) -->
+      <div class="figma-ticker-wrap">
+        <div class="figma-ticker-move">
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Palayamkottai</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Vannarpettai</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tirunelveli Town</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Junction</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Perumalpuram</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> High Ground</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Maharajanagar</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> University Hubs</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Supermarkets</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tea Shops</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Caterers</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Hotels</span>
+          <!-- Duplicate for continuous infinite scroll -->
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Palayamkottai</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Vannarpettai</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tirunelveli Town</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Junction</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Perumalpuram</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> High Ground</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Maharajanagar</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> University Hubs</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Supermarkets</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tea Shops</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Caterers</span>
+          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Hotels</span>
         </div>
       </div>
     </section>

@@ -133,8 +133,10 @@ const TRANSLATIONS = {
 
     // B2B Wholesale Page
     b2b_tagline: "Commercial & Wholesale Bakery Supply",
-    b2b_title: "Tirunelveli's Trusted Wholesale Bakery Partner",
-    b2b_sub: "Daily fresh bread packets, buns, puffs & snacks delivered before 6 AM to 100+ Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.",
+    b2b_title: "Wholesale Bakery partner for",
+    figma_pill_your: "Your",
+    figma_word_biz: "Business",
+    b2b_sub: "Grow your business with daily morning delivery, bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.",
     b2b_badge_partners: "100+ Partner Shops",
     b2b_badge_delivery: "5:30 AM Daily Dispatch",
     b2b_badge_samples: "Free Sample Box Available",
@@ -317,8 +319,10 @@ const TRANSLATIONS = {
 
     // B2B Wholesale Page
     b2b_tagline: "வியாபார மொத்த பேக்கரி விநியோகம்",
-    b2b_title: "திருநெல்வேலியின் நம்பகமான மொத்த பேக்கரி விநியோகஸ்தர்",
-    b2b_sub: "100+ மளிகை கடைகள், சூப்பர் மார்க்கெட்கள், பல்கலைக்கழகங்கள், ஹோட்டல்கள் மற்றும் கேன்டீன்களுக்கு தினமும் காலை 6 மணிக்கு முன் புதிய ரொட்டி, பன்கள் மற்றும் பஃப்கள் விநியோகம்.",
+    b2b_title: "மொத்த பேக்கரி பார்ட்னர்",
+    figma_pill_your: "உங்கள்",
+    figma_word_biz: "வியாபாரத்திற்கு",
+    b2b_sub: "திருநெல்வேலி முழுவதும் 100+ மளிகை கடைகள், சூப்பர் மார்க்கெட்கள், பல்கலைக்கழகங்கள், ஹோட்டல்கள் மற்றும் கேன்டீன்களுக்கு தினமும் காலை 6 மணிக்கு முன் புதிய ரொட்டி விநியோகம்.",
     b2b_badge_partners: "100+ நிறுவன வாடிக்கையாளர்கள்",
     b2b_badge_delivery: "காலை 5:30 மணி டெலிவரி",
     b2b_badge_samples: "இலவச மாதிரி பாக்ஸ் உண்டு",
