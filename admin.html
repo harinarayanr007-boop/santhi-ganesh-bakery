@@ -266,6 +266,7 @@
       <div class="admin-tabs">
         <button class="admin-tab-btn active" onclick="switchTab('cakes', this)"><i class="ph ph-cake"></i> Cakes & Pricing</button>
         <button class="admin-tab-btn" onclick="switchTab('jobs', this)"><i class="ph ph-briefcase"></i> Job Openings</button>
+        <button class="admin-tab-btn" onclick="switchTab('b2b', this)"><i class="ph ph-buildings"></i> B2B Wholesale Leads</button>
         <button class="admin-tab-btn" onclick="switchTab('backup', this)"><i class="ph ph-gear"></i> Settings & Backup</button>
         <button class="admin-tab-btn" onclick="switchTab('tracking', this)"><i class="ph ph-chart-line-up"></i> Tracking & Analytics</button>
       </div>
@@ -435,6 +436,48 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- TAB 3: B2B WHOLESALE LEADS MANAGER -->
+      <div id="tab-b2b" class="tab-content" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+          <div>
+            <h2>🏢 B2B Wholesale Leads & Sample Requests</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-top: 4px;">
+              Manage wholesale supply inquiries from Kirana stores, supermarkets, universities, hotels & canteens.
+            </p>
+          </div>
+          <button onclick="loadTrackingAnalytics()" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">
+            <i class="ph ph-arrows-clockwise"></i> Refresh Leads
+          </button>
+        </div>
+
+        <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); margin-bottom: 24px;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 8px;">📦 Active Wholesale Coverage in Tirunelveli</h3>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted); margin: 0; line-height: 1.5;">
+            Supplying daily fresh bread, tea buns, puffs & snacks to over <strong>100+ partner shops and canteens</strong> across Palayamkottai, Vannarpettai, Town, and University hubs.
+          </p>
+        </div>
+
+        <!-- B2B Leads Table -->
+        <div style="background-color: #FFF; border-radius: 12px; border: 1px solid rgba(10,4,4,0.1); padding: 20px; overflow-x: auto;">
+          <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: rgba(10,4,4,0.04); text-align: left;">
+                <th style="padding: 12px;">Ref Code</th>
+                <th style="padding: 12px;">Business Name</th>
+                <th style="padding: 12px;">Category</th>
+                <th style="padding: 12px;">Contact Phone</th>
+                <th style="padding: 12px;">Daily Requirement</th>
+                <th style="padding: 12px;">Inquiry Type</th>
+                <th style="padding: 12px;">Date/Time</th>
+              </tr>
+            </thead>
+            <tbody id="b2b-leads-tbody">
+              <!-- Dynamically populated from Supabase analytics -->
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -789,7 +832,7 @@
       const targetTab = document.getElementById(`tab-${tabName}`);
       if (targetTab) targetTab.style.display = 'block';
 
-      if (tabName === 'tracking' && typeof loadTrackingAnalytics === 'function') {
+      if ((tabName === 'tracking' || tabName === 'b2b') && typeof loadTrackingAnalytics === 'function') {
         loadTrackingAnalytics();
       }
     }
@@ -1001,8 +1044,35 @@
               🔍 ${word} <small style="color: #888;">(${count})</small>
             </span>
           `).join('');
+      // Render B2B Wholesale Leads Table
+      const b2bEvents = events.filter(e => e.event_type === 'b2b_inquiry');
+      const b2bTbody = document.getElementById('b2b-leads-tbody');
+      if (b2bTbody) {
+        if (b2bEvents.length > 0) {
+          b2bTbody.innerHTML = b2bEvents.map(item => {
+            const data = item.event_data || {};
+            const dt = item.created_at ? new Date(item.created_at).toLocaleString() : 'N/A';
+            const isSample = data.is_sample;
+            return `
+              <tr style="border-bottom: 1px solid rgba(10,4,4,0.06);">
+                <td style="padding: 12px; font-weight: 700; color: var(--color-desert);">${data.ref_id || '#B2B-LEAD'}</td>
+                <td style="padding: 12px; font-weight: 600;">${data.biz_name || 'Business Partner'}</td>
+                <td style="padding: 12px;"><span style="background: rgba(166,96,27,0.1); padding: 3px 8px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;">${data.biz_type || 'Retail'}</span></td>
+                <td style="padding: 12px;"><a href="tel:${data.phone}" style="color: #1B5E20; font-weight: 700;">📞 ${data.phone || 'N/A'}</a></td>
+                <td style="padding: 12px; font-size: 0.85rem;">${data.requirement || 'General Quote'}</td>
+                <td style="padding: 12px;">${isSample ? '<span style="background: #E8F5E9; color: #2E7D32; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">📦 Sample Box</span>' : '<span style="background: #FFF3E0; color: #E65100; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">💼 Quote Req</span>'}</td>
+                <td style="padding: 12px; font-size: 0.8rem; color: #666;">${dt}</td>
+              </tr>
+            `;
+          }).join('');
         } else {
-          keywordsContainer.innerHTML = '<p style="color: #666; font-size: 0.9rem;">No search queries recorded yet. Search bar inputs will appear here!</p>';
+          b2bTbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="padding: 24px; text-align: center; color: #666; font-size: 0.9rem;">
+                No B2B wholesale inquiries recorded yet. When local Kirana shops, supermarkets, or canteens submit B2B quotes, they will appear here live!
+              </td>
+            </tr>
+          `;
         }
       }
 

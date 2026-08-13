@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Wholesale & Commercial Bakery Supply | Santhi Ganesh Bakery Tirunelveli</title>
+  <meta name="description" content="Wholesale fresh bread packets, buns, puffs, and pastries for 100+ Kirana stores, supermarkets, universities, hotels, and canteens across Tirunelveli. Doorstep morning delivery.">
+  
+  <!-- Google Fonts: Aboreto & Lora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <!-- Website Favicon Icon -->
+  <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
+  <link rel="apple-touch-icon" href="./sg-bakery-logo.png">
+  
+  <!-- Master Stylesheet & Phosphor Icons -->
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="./i18n.js"></script>
+
+  <style>
+    /* B2B Page Custom Styling */
+    .b2b-hero-card {
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-card);
+      margin-bottom: 40px;
+    }
+
+    .b2b-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+      margin-bottom: 32px;
+    }
+
+    .b2b-trust-item {
+      background: rgba(166, 96, 27, 0.05);
+      border: 1px solid rgba(166, 96, 27, 0.15);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .b2b-trust-item i {
+      font-size: 1.8rem;
+      color: var(--color-desert);
+      flex-shrink: 0;
+    }
+
+    .b2b-form-card {
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      z-index: 2;
+    }
+
+    .b2b-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .b2b-faq-item {
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px solid var(--color-border-subtle);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 992px) {
+      .b2b-hero-card, .b2b-form-card {
+        padding: 28px 20px;
+      }
+      .b2b-trust-grid, .b2b-grid-5 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. STICKY NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <!-- Brand Logo -->
+      <a href="./index.html" class="brand-logo" aria-label="Santhi Ganesh Bakery Home">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - The Best Bakery Tirunelveli" class="brand-logo-img">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="./index.html" class="nav-link" data-i18n="nav_home">Home</a>
+        <a href="./index.html#about" class="nav-link" data-i18n="nav_about">About Us</a>
+        <a href="./products.html" class="nav-link" data-i18n="nav_cakes">Cakes & Bakes</a>
+        <a href="./b2b.html" class="nav-link active" data-i18n="nav_b2b">B2B Wholesale</a>
+        <a href="./careers.html" class="nav-link" data-i18n="nav_careers">Careers</a>
+        <a href="./contact.html" class="nav-link" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <!-- Action Items & Controls -->
+      <div class="nav-actions">
+        <!-- Tamil / English Language Switcher -->
+        <button id="lang-switch-btn" class="lang-pill" aria-label="Switch Language to Tamil or English">
+          <span class="lang-indicator">EN</span>
+          <span class="lang-divider">|</span>
+          <span class="lang-target">தமிழ்</span>
+        </button>
+
+        <a href="#b2b-form" class="btn btn-primary">
+          <i class="ph ph-handshake" style="font-size: 1.2rem;"></i> Wholesale Quote
+        </a>
+
+        <!-- Cart Button -->
+        <button id="cart-btn" class="btn-icon-pill" title="View Cart">
+          <i class="ph ph-shopping-bag" style="font-size: 1.4rem;"></i>
+          <span id="cart-badge-count" class="cart-badge">0</span>
+        </button>
+
+        <!-- Mobile Drawer Toggle -->
+        <button id="mobile-menu-toggle" class="btn-icon-pill mobile-only" aria-label="Toggle Mobile Menu">
+          <i class="ph ph-list" style="font-size: 1.5rem;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE SIDEBAR MENU -->
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 48px;">
+      <button id="mobile-drawer-close" class="btn-icon-pill" aria-label="Close Mobile Menu">
+        <i class="ph ph-x" style="font-size: 1.5rem;"></i>
+      </button>
+    </div>
+
+    <nav class="mobile-nav-links">
+      <a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a>
+      <a href="./index.html#about" class="mobile-nav-link" data-i18n="nav_about">About Us</a>
+      <a href="./products.html" class="mobile-nav-link" data-i18n="nav_cakes">Cakes & Bakes</a>
+      <a href="./b2b.html" class="mobile-nav-link active" data-i18n="nav_b2b">B2B Wholesale</a>
+      <a href="./careers.html" class="mobile-nav-link" data-i18n="nav_careers">Careers</a>
+      <a href="./contact.html" class="mobile-nav-link" data-i18n="nav_contact">Contact</a>
+    </nav>
+
+    <div style="margin-top: auto; padding-top: 24px;">
+      <a href="./products.html" class="btn btn-primary" style="width: 100%;" data-i18n="nav_explore">Explore Cakes</a>
+    </div>
+  </aside>
+
+  <!-- MAIN B2B CONTENT -->
+  <main>
+    
+    <!-- 2. B2B HERO SECTION -->
+    <section class="section-padding" style="padding-top: 36px; padding-bottom: 24px;">
+      <div class="container">
+        
+        <div class="b2b-hero-card">
+          <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p class="text-tagline" style="margin-bottom: 12px;" data-i18n="b2b_tagline">Commercial & Wholesale Bakery Supply</p>
+            <h1 class="text-h1" style="font-size: clamp(2rem, 5vw, 3rem); line-height: 1.25; margin-bottom: 16px;" data-i18n="b2b_title">
+              Tirunelveli's Trusted Wholesale Bakery Partner
+            </h1>
+            <p class="text-regular" style="color: var(--color-text-muted); max-width: 680px; margin: 0 auto 24px;" data-i18n="b2b_sub">
+              Daily fresh bread packets, buns, puffs & snacks delivered before 6 AM to 100+ Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
+            </p>
+
+            <!-- 3 Trust Highlights -->
+            <div class="b2b-trust-grid">
+              <div class="b2b-trust-item">
+                <i class="ph ph-storefront"></i>
+                <div style="text-align: left;">
+                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_partners">100+ Partner Shops</strong>
+                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Supplied Daily</span>
+                </div>
+              </div>
+
+              <div class="b2b-trust-item">
+                <i class="ph ph-truck"></i>
+                <div style="text-align: left;">
+                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_delivery">5:30 AM Daily Dispatch</strong>
+                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Doorstep Morning Delivery</span>
+                </div>
+              </div>
+
+              <div class="b2b-trust-item">
+                <i class="ph ph-gift"></i>
+                <div style="text-align: left;">
+                  <strong style="display: block; font-size: 0.95rem;" data-i18n="b2b_badge_samples">Free Sample Box Available</strong>
+                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Try Before Bulk Order</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+              <a href="#b2b-form" class="btn btn-primary" data-i18n="b2b_btn_quote">Get Wholesale Quote</a>
+              <a href="#b2b-form" onclick="requestB2BSampleBox()" class="btn btn-secondary" data-i18n="b2b_btn_sample">Request Free Sample Kit 🎁</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. SOCIAL PROOF LOGO BAR -->
+    <section class="logo-proof-section">
+      <div class="container">
+        <p class="logo-proof-title" data-i18n="b2b_proof_title">
+          Daily Bakery Partner to 100+ Businesses Across Tirunelveli
+        </p>
+        <div class="logo-proof-grid">
+          <div class="logo-proof-item">🏪 Kirana & Grocery Shops</div>
+          <div class="logo-proof-item">🛒 Supermarkets & Retail</div>
+          <div class="logo-proof-item">🏫 Universities & Colleges</div>
+          <div class="logo-proof-item">🏨 Hotels & Restaurants</div>
+          <div class="logo-proof-item">🍱 Caterers & Canteens</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. WHOLESALE PRODUCT RANGE -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="catalog-header" style="margin-bottom: 48px; text-align: center;">
+          <p class="text-tagline" style="margin-bottom: 8px;">Commercial Catalog</p>
+          <h2 class="text-h2">What We Supply To Businesses</h2>
+        </div>
+
+        <div class="b2b-grid-5">
+          <!-- Card 1: Breads & Buns -->
+          <div class="heritage-card" style="text-align: left; padding: 28px;">
+            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
+              <i class="ph ph-bread" style="font-size: 1.8rem;"></i>
+            </div>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_breads_title">Commercial Breads & Buns</h3>
+            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_breads_desc">
+              Sandwich bread, milk bread, wheat loaves, burger buns, hot dog buns & pav.
+            </p>
+          </div>
+
+          <!-- Card 2: Tea-Time Puffs -->
+          <div class="heritage-card" style="text-align: left; padding: 28px;">
+            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
+              <i class="ph ph-cookie" style="font-size: 1.8rem;"></i>
+            </div>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_puffs_title">Tea-Time Puffs & Snacks</h3>
+            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_puffs_desc">
+              Crispy veg puffs, egg puffs, chicken puffs, samosas & rolls for cafes & tea shops.
+            </p>
+          </div>
+
+          <!-- Card 3: Cafe & Dessert -->
+          <div class="heritage-card" style="text-align: left; padding: 28px;">
+            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
+              <i class="ph ph-cake" style="font-size: 1.8rem;"></i>
+            </div>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dessert_title">Cafe & Dessert Supply</h3>
+            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_dessert_desc">
+              Black forest slices, red velvet, brownies & cupcakes baked for restaurants & cafes.
+            </p>
+          </div>
+
+          <!-- Card 4: Dry Bakes -->
+          <div class="heritage-card" style="text-align: left; padding: 28px;">
+            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
+              <i class="ph ph-package" style="font-size: 1.8rem;"></i>
+            </div>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dry_title">Dry Bakes & Savories</h3>
+            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_dry_desc">
+              Crispy tea rusks, butter biscuits, cookies & packaged savories for retail shelves.
+            </p>
+          </div>
+
+          <!-- Card 5: University & Canteen -->
+          <div class="heritage-card" style="text-align: left; padding: 28px;">
+            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
+              <i class="ph ph-buildings" style="font-size: 1.8rem;"></i>
+            </div>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_custom_title">Institutional & Canteen Supply</h3>
+            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_custom_desc">
+              Custom sizing & bulk snack boxes tailored for University & School canteens.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 4 B2B PILLARS -->
+    <section class="heritage-section section-padding">
+      <div class="container">
+        <div class="catalog-header" style="margin-bottom: 48px; text-align: center;">
+          <p class="text-tagline" style="margin-bottom: 8px;">Why Choose Us</p>
+          <h2 class="text-h2">Built For Commercial Convenience</h2>
+        </div>
+
+        <div class="heritage-grid">
+          <div class="heritage-card">
+            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
+              <i class="ph ph-clock" style="font-size: 2rem;"></i>
+            </div>
+            <h3 class="heritage-title" data-i18n="b2b_pillar1_title">On-Time 5:30 AM Doorstep Dispatch</h3>
+            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar1_desc">
+              Baked overnight and delivered to your shop or canteen before morning trade starts.
+            </p>
+          </div>
+
+          <div class="heritage-card">
+            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
+              <i class="ph ph-trend-up" style="font-size: 2rem;"></i>
+            </div>
+            <h3 class="heritage-title" data-i18n="b2b_pillar2_title">Competitive Wholesale Margins</h3>
+            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar2_desc">
+              Tiered pricing designed to maximize profit margins for local retailers & hotels.
+            </p>
+          </div>
+
+          <div class="heritage-card">
+            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
+              <i class="ph ph-shield-check" style="font-size: 2rem;"></i>
+            </div>
+            <h3 class="heritage-title" data-i18n="b2b_pillar3_title">100% FSSAI Certified Quality</h3>
+            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar3_desc">
+              Hygienic automated baking using pure butter and fresh ingredients with zero harmful preservatives.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. INTERACTIVE B2B INQUIRY & SAMPLE REQUEST FORM -->
+    <section id="b2b-form" class="section-padding">
+      <div class="container" style="max-width: 800px;">
+        
+        <div class="b2b-form-card">
+          <div style="text-align: center; margin-bottom: 32px;">
+            <div style="width: 60px; height: 60px; background: rgba(166, 96, 27, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--color-desert); margin-bottom: 16px;">
+              <i class="ph ph-clipboard-text" style="font-size: 2rem;"></i>
+            </div>
+            <h2 class="text-h2" style="font-size: 1.6rem;" data-i18n="b2b_form_title">Request Wholesale Pricing or Free Sample Box</h2>
+            <p class="text-regular" style="color: var(--color-text-muted); margin-top: 8px;" data-i18n="b2b_form_sub">
+              Fill out your business details below to get instant wholesale rates and a free sample box delivered to your store.
+            </p>
+          </div>
+
+          <form id="b2b-inquiry-form" onsubmit="event.preventDefault(); sendWhatsAppB2BInquiry();">
+            <!-- Invisible Honeypot Trap Field (Catches automated spam bots) -->
+            <input type="text" id="b2b-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_name">Business / Shop Name:</label>
+                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket / City Cafe" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_contact_person">Contact Person Name:</label>
+                <input type="text" id="b2b-contact-person" required placeholder="e.g. Ramesh Kumar" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number:</label>
+                <input type="tel" id="b2b-phone" required placeholder="e.g. 9876543210" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_type">Business Category:</label>
+                <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
+                  <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
+                  <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
+                  <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
+                  <option value="Hotel / Restaurant / Cafe" data-i18n="b2b_opt_hotel">Hotel / Restaurant / Cafe</option>
+                  <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
+                  <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+              <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement:</label>
+              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
+            </div>
+
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center; padding: 12px;" data-i18n="b2b_btn_submit_quote">
+                Send WhatsApp B2B Inquiry ➔
+              </button>
+              <button type="button" onclick="requestB2BSampleBox()" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 12px;" data-i18n="b2b_btn_submit_sample">
+                Request Free Sample Box 📦
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. B2B FAQS -->
+    <section class="section-padding" style="padding-top: 0;">
+      <div class="container" style="max-width: 800px;">
+        <div class="catalog-header" style="margin-bottom: 32px; text-align: center;">
+          <p class="text-tagline" style="margin-bottom: 8px;">Frequently Asked Questions</p>
+          <h2 class="text-h2">Wholesale Supply Information</h2>
+        </div>
+
+        <div class="b2b-faq-item">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
+          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
+            We offer low MOQs for local Kirana shops and cafes (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, volume discounts apply based on daily quantity.
+          </p>
+        </div>
+
+        <div class="b2b-faq-item">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: How do I get a Free Sample Box for my shop or canteen?</h4>
+          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
+            Simply fill out the form above or tap "Request Free Sample Box 📦". Our team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.
+          </p>
+        </div>
+
+        <div class="b2b-faq-item">
+          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What areas across Tirunelveli do you deliver to?</h4>
+          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
+            Our morning dispatch vehicles cover Palayamkottai, Vannarpettai, Town, Junction, Perumalpuram, High Ground, Maharajanagar, and surrounding college/university hubs daily before 6 AM.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. FOOTER SECTION -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div>
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px; margin-bottom: 16px;">
+        <p class="text-small" style="color: rgba(255,255,255,0.7); max-width: 320px; line-height: 1.6;">
+          Handcrafted cakes, fresh daily bakes, and wholesale bakery supply across Tirunelveli since day one.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_explore">Explore</h4>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="./index.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_home">Home</a>
+          <a href="./products.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_cakes">Cakes & Bakes</a>
+          <a href="./b2b.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_b2b">B2B Wholesale</a>
+          <a href="./careers.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_careers">Careers</a>
+          <a href="./contact.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_contact">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_contact">Contact Us</h4>
+        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
+          📍 92, Cheranmahadevi Rd, Thirunagar, Nellai Nagaram, Tirunelveli
+        </p>
+        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
+          📞 +91 733 907 3844
+        </p>
+        <p class="text-small" style="color: rgba(255,255,255,0.8);">
+          ✉️ Orders@santhiganesh.com
+        </p>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 48px; text-align: center;">
+      <p class="text-small" style="color: rgba(255,255,255,0.5);">
+        © 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.
+      </p>
+    </div>
+  </footer>
+
+  <!-- SLIDE-OVER CART DRAWER -->
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0;">Your Order Cart</h3>
+      <button id="cart-drawer-close" class="btn-icon-pill">
+        <i class="ph ph-x" style="font-size: 1.3rem;"></i>
+      </button>
+    </div>
+
+    <div id="cart-items-container" class="cart-body">
+      <!-- Dynamic Cart Items rendered by app.js -->
+    </div>
+
+    <div class="cart-footer">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-weight: 600; color: var(--color-text-muted);">Total Amount</span>
+        <span id="cart-total-price" style="font-size: 1.4rem; font-weight: 700; color: var(--color-desert);">₹0</span>
+      </div>
+      <button id="cart-checkout-btn" onclick="sendWhatsAppOrder()" class="btn btn-primary" style="width: 100%; justify-content: center;">
+        Order via WhatsApp ➔
+      </button>
+    </div>
+  </aside>
+
+  <script src="./app.js"></script>
+</body>
+</html>

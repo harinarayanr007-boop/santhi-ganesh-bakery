@@ -7380,3 +7380,76 @@ function sendWhatsAppOrder() {
     window.open(encodedUrl, '_blank');
   });
 }
+
+// 8. B2B WHOLESALE & FREE SAMPLE REQUEST HANDLER
+let lastB2BInquiryTime = 0;
+
+function sendWhatsAppB2BInquiry(isSampleRequest = false) {
+  // Honeypot Bot Check
+  const honeypot = document.getElementById('b2b-honeypot-trap');
+  if (honeypot && honeypot.value.trim() !== '') {
+    console.warn('⚠️ Spam bot submission detected via B2B Honeypot trap. Dropping request.');
+    return;
+  }
+
+  // Rate Limiting Cooldown (15 seconds)
+  const now = Date.now();
+  const cooldownMs = 15000;
+  if (now - lastB2BInquiryTime < cooldownMs) {
+    const remainingSecs = Math.ceil((cooldownMs - (now - lastB2BInquiryTime)) / 1000);
+    alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another B2B inquiry!`);
+    return;
+  }
+
+  const bizName = (document.getElementById('b2b-biz-name')?.value || '').trim();
+  const contactPerson = (document.getElementById('b2b-contact-person')?.value || '').trim();
+  const phone = (document.getElementById('b2b-phone')?.value || '').trim();
+  const bizType = (document.getElementById('b2b-biz-type')?.value || 'Grocery / Kirana Store');
+  const requirement = (document.getElementById('b2b-requirement')?.value || '').trim();
+
+  if (!bizName || !phone) {
+    alert('Please enter your Business / Shop Name and Contact Phone Number to proceed!');
+    return;
+  }
+
+  lastB2BInquiryTime = Date.now();
+  const refId = 'B2B-' + Math.floor(100000 + Math.random() * 900000);
+  const bakeryPhone = '917339073844';
+
+  let text = `Hello Santhi Ganesh Bakery Wholesale Team! 🏢\n`;
+  text += `*B2B Ref:* #${refId}\n`;
+  if (isSampleRequest) {
+    text += `*Type:* 📦 FREE B2B SAMPLE BOX REQUEST\n\n`;
+  } else {
+    text += `*Type:* 💼 WHOLESALE BAKERY INQUIRY\n\n`;
+  }
+
+  text += `*Business Name:* ${bizName}\n`;
+  if (contactPerson) text += `*Contact Person:* ${contactPerson}\n`;
+  text += `*Phone:* ${phone}\n`;
+  text += `*Category:* ${bizType}\n`;
+  if (requirement) text += `*Daily Requirement:* ${requirement}\n`;
+
+  if (isSampleRequest) {
+    text += `\nPlease send a free sample box to our business address for testing. Thank you!`;
+  } else {
+    text += `\nPlease provide wholesale price catalog and daily morning delivery details. Thank you!`;
+  }
+
+  trackEvent('b2b_inquiry', {
+    ref_id: `#${refId}`,
+    biz_name: bizName,
+    contact_person: contactPerson || 'N/A',
+    phone: phone,
+    biz_type: bizType,
+    is_sample: isSampleRequest,
+    requirement: requirement || 'General Inquiry'
+  });
+
+  const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
+  window.open(encodedUrl, '_blank');
+}
+
+function requestB2BSampleBox() {
+  sendWhatsAppB2BInquiry(true);
+}
