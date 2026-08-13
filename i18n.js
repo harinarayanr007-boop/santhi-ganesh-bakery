@@ -5,7 +5,7 @@ const TRANSLATIONS = {
     // Navigation
     nav_home: "Home",
     nav_about: "About Us",
-    nav_cakes: "Cakes & Bakes",
+    nav_cakes: "Celebration Cakes",
     nav_b2b: "B2B Wholesale",
     nav_careers: "Careers",
     nav_contact: "Contact",
@@ -22,7 +22,7 @@ const TRANSLATIONS = {
     featured_tagline: "Fresh Baked Daily",
     featured_title: "Signature Bakery Collection",
     featured_sub: "Browse our most loved bakes made fresh every morning in Tirunelveli.",
-    view_full_catalog: "View All Cakes & Bakes →",
+    view_full_catalog: "View All Celebration Cakes →",
     why_tagline: "Why Santhi Ganesh Bakery",
     why_title: "Baked with Passion in Tirunelveli",
     why_card1_title: "Pure & Fresh Ingredients",
@@ -186,7 +186,7 @@ const TRANSLATIONS = {
     // Navigation
     nav_home: "முகப்பு",
     nav_about: "எங்களைப் பற்றி",
-    nav_cakes: "கேக்குகள்",
+    nav_cakes: "கொண்டாட்ட கேக்குகள்",
     nav_b2b: "மொத்த விற்பனை B2B",
     nav_careers: "வேலைவாய்ப்புகள்",
     nav_contact: "தொடர்புகொள்ள",
