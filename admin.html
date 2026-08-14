@@ -743,7 +743,7 @@
       return cachedAdminPin || localStorage.getItem('sg_admin_pin') || null;
     }
 
-    async function checkAdminAuth() {
+    function checkAdminAuth() {
       const inputPinInput = document.getElementById('admin-pin-input');
       let inputPin = inputPinInput ? inputPinInput.value.trim() : '';
       
@@ -760,6 +760,7 @@
       }
 
       if (validPins.includes(inputPin)) {
+        sessionStorage.setItem('sg_admin_authed', 'true');
         const authScreen = document.getElementById('auth-screen');
         const adminDash = document.getElementById('admin-dashboard');
         if (authScreen) authScreen.style.display = 'none';
@@ -770,7 +771,7 @@
       }
     }
 
-    async function resetAdminPinToDefault() {
+    function resetAdminPinToDefault() {
       localStorage.removeItem('sg_admin_pin');
       cachedAdminPin = '2026';
       const inputPinInput = document.getElementById('admin-pin-input');
@@ -779,8 +780,7 @@
       checkAdminAuth();
     }
 
-    // Auto-check URL parameter ?pin=2026 or ?auth=2026 on load
-    window.addEventListener('DOMContentLoaded', () => {
+    function initAdminAuth() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const pinParam = urlParams.get('pin') || urlParams.get('auth');
@@ -788,11 +788,28 @@
           const inputPinInput = document.getElementById('admin-pin-input');
           if (inputPinInput) inputPinInput.value = pinParam;
           checkAdminAuth();
+          return;
+        }
+
+        // Auto-resume active session
+        if (sessionStorage.getItem('sg_admin_authed') === 'true') {
+          const authScreen = document.getElementById('auth-screen');
+          const adminDash = document.getElementById('admin-dashboard');
+          if (authScreen) authScreen.style.display = 'none';
+          if (adminDash) adminDash.style.display = 'block';
+          loadAdminData();
         }
       } catch(err) {
-        console.warn('URL auto-login parameter check deferred:', err);
+        console.warn('Admin init deferred:', err);
       }
-    });
+    }
+
+    // Execute init immediately if DOM ready, otherwise on load
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      initAdminAuth();
+    } else {
+      window.addEventListener('DOMContentLoaded', initAdminAuth);
+    }
 
     async function updateAdminPin(e) {
       e.preventDefault();
@@ -849,8 +866,11 @@
     }
 
     function logoutAdmin() {
-      document.getElementById('admin-dashboard').style.display = 'none';
-      document.getElementById('auth-screen').style.display = 'block';
+      sessionStorage.removeItem('sg_admin_authed');
+      const authScreen = document.getElementById('auth-screen');
+      const adminDash = document.getElementById('admin-dashboard');
+      if (adminDash) adminDash.style.display = 'none';
+      if (authScreen) authScreen.style.display = 'block';
     }
 
     function switchTab(tabName, btnElement) {
