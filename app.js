@@ -2,6 +2,10 @@
    SANTHI GANESH BAKERY - APP INTERACTIVITY & STATE MANAGEMENT
    ========================================================================== */
 
+// SUPABASE CLOUD DATABASE CONFIGURATION
+const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
+
 // DEFAULT CATALOG DATA
 const DEFAULT_PRODUCTS_DATA = [
   {
@@ -6723,9 +6727,7 @@ const DEFAULT_JOBS_DATA = [
   }
 ];
 
-// SUPABASE CLOUD DATABASE CONFIGURATION
-const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
+// SUPABASE CLOUD DATABASE CONFIGURATION (Declared at top)
 
 // Global jobs reference
 let JOBS_DATA = DEFAULT_JOBS_DATA;

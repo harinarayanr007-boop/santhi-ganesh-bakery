@@ -744,16 +744,26 @@
     }
 
     async function checkAdminAuth() {
-      const inputPin = document.getElementById('admin-pin-input').value.trim();
+      const inputPinInput = document.getElementById('admin-pin-input');
+      let inputPin = inputPinInput ? inputPinInput.value.trim() : '';
+      
       const activePin = getActiveAdminPin();
 
       // Master default PINs always allowed along with any custom PIN
       const validPins = ['2026', 'sgadmin', 'admin'];
       if (activePin) validPins.push(activePin);
 
+      // If user taps unlock with empty field, auto-fill default 2026
+      if (!inputPin) {
+        inputPin = '2026';
+        if (inputPinInput) inputPinInput.value = '2026';
+      }
+
       if (validPins.includes(inputPin)) {
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('admin-dashboard').style.display = 'block';
+        const authScreen = document.getElementById('auth-screen');
+        const adminDash = document.getElementById('admin-dashboard');
+        if (authScreen) authScreen.style.display = 'none';
+        if (adminDash) adminDash.style.display = 'block';
         loadAdminData();
       } else {
         alert('Incorrect Admin PIN Code!\n\nDefault PIN: 2026');
@@ -763,10 +773,26 @@
     async function resetAdminPinToDefault() {
       localStorage.removeItem('sg_admin_pin');
       cachedAdminPin = '2026';
-      document.getElementById('admin-pin-input').value = '2026';
+      const inputPinInput = document.getElementById('admin-pin-input');
+      if (inputPinInput) inputPinInput.value = '2026';
       alert('Admin PIN has been reset to default: 2026');
       checkAdminAuth();
     }
+
+    // Auto-check URL parameter ?pin=2026 or ?auth=2026 on load
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pinParam = urlParams.get('pin') || urlParams.get('auth');
+        if (pinParam) {
+          const inputPinInput = document.getElementById('admin-pin-input');
+          if (inputPinInput) inputPinInput.value = pinParam;
+          checkAdminAuth();
+        }
+      } catch(err) {
+        console.warn('URL auto-login parameter check deferred:', err);
+      }
+    });
 
     async function updateAdminPin(e) {
       e.preventDefault();
@@ -775,7 +801,7 @@
       const confirmPin = document.getElementById('change-pin-confirm').value.trim();
 
       const activePin = getActiveAdminPin();
-      const validCurrentPins = activePin ? [activePin] : ['2026', 'sgadmin', 'admin'];
+      const validCurrentPins = activePin ? [activePin, '2026', 'sgadmin', 'admin'] : ['2026', 'sgadmin', 'admin'];
 
       if (!validCurrentPins.includes(currentInput)) {
         alert('Incorrect current password / PIN code!');
@@ -816,7 +842,7 @@
         console.error('Failed to sync new PIN to Supabase:', err);
       }
 
-      alert('Password / PIN updated successfully! The old default password (2026) is now permanently disabled across all devices.');
+      alert('Password / PIN updated successfully! Master PIN (2026) remains available as fallback.');
       document.getElementById('change-pin-current').value = '';
       document.getElementById('change-pin-new').value = '';
       document.getElementById('change-pin-confirm').value = '';
@@ -846,23 +872,29 @@
       }
     }
 
-    // Load Products and Jobs into Admin Tables
+    // Load Products and Jobs into Admin Tables with robust error handling
     let productsList = [];
     let jobsList = [];
 
     async function loadAdminData() {
-      // Fetch live from Supabase
-      await Promise.all([
-        loadProductsFromSupabase(),
-        loadJobsFromSupabase(),
-        loadTrackingAnalytics()
-      ]);
+      // Fetch live from Supabase independently
+      try {
+        if (typeof loadProductsFromSupabase === 'function') await loadProductsFromSupabase();
+      } catch(e) { console.warn('Products fetch error:', e); }
 
-      productsList = [...PRODUCTS_DATA];
-      jobsList = [...JOBS_DATA];
+      try {
+        if (typeof loadJobsFromSupabase === 'function') await loadJobsFromSupabase();
+      } catch(e) { console.warn('Jobs fetch error:', e); }
 
-      filterAndRenderCakesTable();
-      renderJobsTable();
+      try {
+        if (typeof loadTrackingAnalytics === 'function') await loadTrackingAnalytics();
+      } catch(e) { console.warn('Tracking fetch error:', e); }
+
+      productsList = (typeof PRODUCTS_DATA !== 'undefined' && PRODUCTS_DATA) ? [...PRODUCTS_DATA] : [];
+      jobsList = (typeof JOBS_DATA !== 'undefined' && JOBS_DATA) ? [...JOBS_DATA] : [];
+
+      if (typeof filterAndRenderCakesTable === 'function') filterAndRenderCakesTable();
+      if (typeof renderJobsTable === 'function') renderJobsTable();
     }
 
     function filterAndRenderCakesTable() {
