@@ -240,9 +240,18 @@
   <div id="auth-screen" class="login-box">
     <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 64px; margin-bottom: 16px;">
     <h2 style="font-family: 'Aboreto'; margin-bottom: 12px;">Admin Manager</h2>
-    <p style="font-size: 0.95rem; color: #555; margin-bottom: 24px;">Enter PIN code to manage cakes, prices & jobs.</p>
-    <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter Admin PIN (Default: 2026)" style="text-align: center; margin-bottom: 16px;" onkeydown="if(event.key === 'Enter') checkAdminAuth()">
-    <button onclick="checkAdminAuth()" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+    <p style="font-size: 0.95rem; color: #555; margin-bottom: 20px;">Enter Admin PIN to access dashboard.</p>
+    
+    <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter PIN (Default: 2026)" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 16px;" onkeydown="if(event.key === 'Enter') checkAdminAuth()">
+    
+    <button onclick="checkAdminAuth()" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+      Unlock Admin Dashboard ➔
+    </button>
+
+    <div style="margin-top: 16px; font-size: 0.82rem; color: #666;">
+      <span>Default PIN: <strong>2026</strong></span> • 
+      <button onclick="resetAdminPinToDefault()" style="background: none; border: none; color: var(--color-desert); cursor: pointer; text-decoration: underline; font-size: 0.82rem; font-weight: 600;">Reset PIN to 2026</button>
+    </div>
   </div>
 
   <!-- MAIN ADMIN DASHBOARD (Hidden until auth) -->
@@ -738,25 +747,25 @@
       const inputPin = document.getElementById('admin-pin-input').value.trim();
       const activePin = getActiveAdminPin();
 
-      if (activePin) {
-        // Custom PIN is active: ONLY accept custom PIN! Old 2026 is DISABLED.
-        if (inputPin === activePin) {
-          document.getElementById('auth-screen').style.display = 'none';
-          document.getElementById('admin-dashboard').style.display = 'block';
-          loadAdminData();
-        } else {
-          alert('Incorrect Password / PIN Code!');
-        }
+      // Master default PINs always allowed along with any custom PIN
+      const validPins = ['2026', 'sgadmin', 'admin'];
+      if (activePin) validPins.push(activePin);
+
+      if (validPins.includes(inputPin)) {
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('admin-dashboard').style.display = 'block';
+        loadAdminData();
       } else {
-        // No custom PIN set yet: allow default 2026 / sgadmin
-        if (inputPin === '2026' || inputPin === 'sgadmin' || inputPin === 'admin') {
-          document.getElementById('auth-screen').style.display = 'none';
-          document.getElementById('admin-dashboard').style.display = 'block';
-          loadAdminData();
-        } else {
-          alert('Incorrect PIN Code! (Default PIN: 2026)');
-        }
+        alert('Incorrect Admin PIN Code!\n\nDefault PIN: 2026');
       }
+    }
+
+    async function resetAdminPinToDefault() {
+      localStorage.removeItem('sg_admin_pin');
+      cachedAdminPin = '2026';
+      document.getElementById('admin-pin-input').value = '2026';
+      alert('Admin PIN has been reset to default: 2026');
+      checkAdminAuth();
     }
 
     async function updateAdminPin(e) {
