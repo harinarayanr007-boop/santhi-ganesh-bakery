@@ -274,6 +274,7 @@
       
       <div class="admin-tabs">
         <button class="admin-tab-btn active" onclick="switchTab('cakes', this)"><i class="ph ph-cake"></i> Cakes & Pricing</button>
+        <button class="admin-tab-btn" onclick="switchTab('cafe', this)"><i class="ph ph-fork-knife"></i> In-Store Cafe Menu</button>
         <button class="admin-tab-btn" onclick="switchTab('jobs', this)"><i class="ph ph-briefcase"></i> Job Openings</button>
         <button class="admin-tab-btn" onclick="switchTab('b2b', this)"><i class="ph ph-buildings"></i> B2B Wholesale Leads</button>
         <button class="admin-tab-btn" onclick="switchTab('backup', this)"><i class="ph ph-gear"></i> Settings & Backup</button>
@@ -574,8 +575,195 @@
 
       </div>
 
+      <!-- TAB 2: IN-STORE CAFE MENU MANAGER -->
+      <div id="tab-cafe" class="tab-content" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2>Manage In-Store Cafe Menu</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 2px;">
+              Live digital menu items across 14 categories. Changes instantly sync to the in-store digital menu (<a href="./menu.html" target="_blank" style="color: var(--color-desert); font-weight: 700;">menu.html ↗</a>).
+            </p>
+          </div>
+          <button onclick="openCafeDishModal()" class="btn btn-primary"><i class="ph ph-plus"></i> Add New Cafe Dish</button>
+        </div>
+
+        <!-- KPI SUMMARY BAR -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px;">
+          <div style="background-color: #EDDFD1; padding: 14px; border-radius: 8px; border: 1px solid rgba(10,4,4,0.12); text-align: center;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase;">Total Cafe Items</div>
+            <div id="cafe-kpi-total" style="font-size: 1.8rem; font-weight: 800; color: var(--color-desert);">0</div>
+          </div>
+          <div style="background-color: #EDDFD1; padding: 14px; border-radius: 8px; border: 1px solid rgba(10,4,4,0.12); text-align: center;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase;">Pure Veg Dishes</div>
+            <div id="cafe-kpi-veg" style="font-size: 1.8rem; font-weight: 800; color: #2e7d32;">0</div>
+          </div>
+          <div style="background-color: #EDDFD1; padding: 14px; border-radius: 8px; border: 1px solid rgba(10,4,4,0.12); text-align: center;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase;">Non-Veg Specials</div>
+            <div id="cafe-kpi-nonveg" style="font-size: 1.8rem; font-weight: 800; color: #d32f2f;">0</div>
+          </div>
+          <div style="background-color: #EDDFD1; padding: 14px; border-radius: 8px; border: 1px solid rgba(10,4,4,0.12); text-align: center;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #555; text-transform: uppercase;">Available in Store</div>
+            <div id="cafe-kpi-available" style="font-size: 1.8rem; font-weight: 800; color: #1565c0;">0</div>
+          </div>
+        </div>
+
+        <!-- FILTER & SEARCH BAR -->
+        <div style="background-color: #EDDFD1; padding: 16px; border-radius: 8px; margin-bottom: 20px; border: 1px solid rgba(10, 4, 4, 0.12); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <!-- Category Filter -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Category:</label>
+              <select id="admin-cafe-category-filter" onchange="filterAndRenderCafeTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 170px;">
+                <option value="all">All Categories (14)</option>
+                <option value="juices">🧃 Fresh Juice</option>
+                <option value="shakes">🥤 Milk Shakes</option>
+                <option value="falooda">🍨 Falooda & Desserts</option>
+                <option value="mojito">🍹 Mojitos</option>
+                <option value="brownie">🍫 Brownies & Pastries</option>
+                <option value="icecream">🍦 Scoop Ice Cream</option>
+                <option value="hotdrinks">☕ Hot Drinks & Tea</option>
+                <option value="chat">🫓 Chat & Snacks</option>
+                <option value="pavbhaji">🍲 Pav Bhaji</option>
+                <option value="toast">🍞 Toasts</option>
+                <option value="burger">🍔 Burgers</option>
+                <option value="pizza">🍕 Pizzas</option>
+                <option value="sandwich">🥪 Sandwiches</option>
+                <option value="momos">🥟 Momos & Crispy</option>
+              </select>
+            </div>
+
+            <!-- Diet Filter -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Type:</label>
+              <select id="admin-cafe-diet-filter" onchange="filterAndRenderCafeTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 140px;">
+                <option value="all">All Types</option>
+                <option value="veg">🟢 Pure Veg</option>
+                <option value="nonveg">🔴 Non-Veg</option>
+              </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Status:</label>
+              <select id="admin-cafe-status-filter" onchange="filterAndRenderCafeTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 150px;">
+                <option value="all">All Status</option>
+                <option value="available">🟢 Available (In Stock)</option>
+                <option value="soldout">🔴 Sold Out</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Search Filter -->
+          <div style="flex: 1; min-width: 220px; max-width: 320px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Search Dish Name:</label>
+            <input type="text" id="admin-cafe-search" oninput="filterAndRenderCafeTable()" class="form-control" placeholder="Search by name..." style="padding: 6px 12px; font-size: 0.9rem;">
+          </div>
+        </div>
+
+        <!-- DISHES TABLE -->
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">Icon</th>
+                <th>Dish Name & Description</th>
+                <th>Category</th>
+                <th style="width: 90px;">Price</th>
+                <th style="width: 80px;">Type</th>
+                <th>Badge</th>
+                <th style="width: 130px; text-align: center;">In-Stock Status</th>
+                <th style="width: 130px; text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cafe-menu-table-body">
+              <tr><td colspan="8" style="text-align: center; color: #666; padding: 24px;">Loading cafe menu items from Supabase...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </main>
 
+  </div>
+
+  <!-- CAFE DISH ADD / EDIT MODAL -->
+  <div id="cafe-dish-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 520px;">
+      <h3 id="cafe-dish-modal-title" style="font-family: 'Aboreto'; margin-bottom: 20px;">Edit Cafe Dish</h3>
+      
+      <input type="hidden" id="modal-cafe-id">
+      
+      <div class="form-group">
+        <label>Dish Name *</label>
+        <input type="text" id="modal-cafe-name" class="form-control" placeholder="e.g. Royal Falooda">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="modal-cafe-category" class="form-control">
+            <option value="juices|Fresh Juices">🧃 Fresh Juices</option>
+            <option value="shakes|Milk Shakes">🥤 Milk Shakes</option>
+            <option value="falooda|Falooda & Desserts">🍨 Falooda & Desserts</option>
+            <option value="mojito|Mojitos">🍹 Mojitos</option>
+            <option value="brownie|Brownies & Pastries">🍫 Brownies & Pastries</option>
+            <option value="icecream|Scoop Ice Cream">🍦 Scoop Ice Cream</option>
+            <option value="hotdrinks|Hot Drinks & Tea">☕ Hot Drinks & Tea</option>
+            <option value="chat|Chat & Snacks">🫓 Chat & Snacks</option>
+            <option value="pavbhaji|Pav Bhaji">🍲 Pav Bhaji</option>
+            <option value="toast|Toasts">🍞 Toasts</option>
+            <option value="burger|Burgers">🍔 Burgers</option>
+            <option value="pizza|Pizzas">🍕 Pizzas</option>
+            <option value="sandwich|Sandwiches">🥪 Sandwiches</option>
+            <option value="momos|Momos & Crispy">🥟 Momos & Crispy</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Price (₹) *</label>
+          <input type="number" id="modal-cafe-price" class="form-control" placeholder="e.g. 140" min="0">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="form-group">
+          <label>Emoji / Icon</label>
+          <input type="text" id="modal-cafe-icon" class="form-control" placeholder="e.g. 🍨 or 🍔">
+        </div>
+
+        <div class="form-group">
+          <label>Special Badge (Optional)</label>
+          <input type="text" id="modal-cafe-badge" class="form-control" placeholder="e.g. Chef Special ⭐ or Bestseller 🔥">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="modal-cafe-desc" class="form-control" rows="2" placeholder="e.g. Rich layered falooda with fresh dry fruits and ice cream scoop"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Price Display / Subtitle (Optional)</label>
+        <input type="text" id="modal-cafe-price-display" class="form-control" placeholder="e.g. Single ₹35 / Double ₹60">
+      </div>
+
+      <div style="display: flex; gap: 20px; margin-bottom: 20px; align-items: center;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.95rem;">
+          <input type="checkbox" id="modal-cafe-veg" style="width: 18px; height: 18px;" checked>
+          <span>🟢 100% Pure Veg Dish</span>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.95rem;">
+          <input type="checkbox" id="modal-cafe-available" style="width: 18px; height: 18px;" checked>
+          <span>🟢 Available In Stock</span>
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <button type="button" onclick="closeCafeDishModal()" class="btn btn-secondary">Cancel</button>
+        <button type="button" onclick="saveCafeDish()" class="btn btn-primary" id="btn-save-cafe-dish">Save Cafe Dish</button>
+      </div>
+    </div>
   </div>
 
   <!-- CAKE EDIT / ADD MODAL -->
@@ -887,6 +1075,10 @@
       const targetTab = document.getElementById(`tab-${tabName}`);
       if (targetTab) targetTab.style.display = 'block';
 
+      if (tabName === 'cafe' && typeof loadCafeMenuItems === 'function') {
+        loadCafeMenuItems();
+      }
+
       if ((tabName === 'tracking' || tabName === 'b2b') && typeof loadTrackingAnalytics === 'function') {
         loadTrackingAnalytics();
       }
@@ -905,6 +1097,10 @@
       try {
         if (typeof loadJobsFromSupabase === 'function') await loadJobsFromSupabase();
       } catch(e) { console.warn('Jobs fetch error:', e); }
+
+      try {
+        if (typeof loadCafeMenuItems === 'function') await loadCafeMenuItems();
+      } catch(e) { console.warn('Cafe fetch error:', e); }
 
       try {
         if (typeof loadTrackingAnalytics === 'function') await loadTrackingAnalytics();
@@ -1412,11 +1608,304 @@
       alert('Job opening saved & synced to Supabase successfully!');
     }
 
+    // ==========================================
+    // IN-STORE CAFE MENU SUPABASE INTEGRATION & CRUD
+    // ==========================================
+    let cafeMenuItems = [];
+
+    async function loadCafeMenuItems() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?select=*&order=display_order.asc,created_at.asc`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        if (res.ok) {
+          cafeMenuItems = await res.json();
+          updateCafeKpis();
+          filterAndRenderCafeTable();
+        }
+      } catch (err) {
+        console.error('Failed to load cafe menu items from Supabase:', err);
+      }
+    }
+
+    function updateCafeKpis() {
+      const totalEl = document.getElementById('cafe-kpi-total');
+      const vegEl = document.getElementById('cafe-kpi-veg');
+      const nonvegEl = document.getElementById('cafe-kpi-nonveg');
+      const availEl = document.getElementById('cafe-kpi-available');
+
+      if (totalEl) totalEl.textContent = cafeMenuItems.length;
+      if (vegEl) vegEl.textContent = cafeMenuItems.filter(i => i.is_veg === true).length;
+      if (nonvegEl) nonvegEl.textContent = cafeMenuItems.filter(i => i.is_veg === false).length;
+      if (availEl) availEl.textContent = cafeMenuItems.filter(i => i.is_available !== false).length;
+    }
+
+    function filterAndRenderCafeTable() {
+      const tbody = document.getElementById('cafe-menu-table-body');
+      if (!tbody) return;
+
+      const catFilter = document.getElementById('admin-cafe-category-filter')?.value || 'all';
+      const dietFilter = document.getElementById('admin-cafe-diet-filter')?.value || 'all';
+      const statusFilter = document.getElementById('admin-cafe-status-filter')?.value || 'all';
+      const search = (document.getElementById('admin-cafe-search')?.value || '').toLowerCase().trim();
+
+      let filtered = [...cafeMenuItems];
+
+      if (catFilter !== 'all') {
+        filtered = filtered.filter(i => i.category === catFilter);
+      }
+      if (dietFilter === 'veg') {
+        filtered = filtered.filter(i => i.is_veg === true);
+      } else if (dietFilter === 'nonveg') {
+        filtered = filtered.filter(i => i.is_veg === false);
+      }
+      if (statusFilter === 'available') {
+        filtered = filtered.filter(i => i.is_available !== false);
+      } else if (statusFilter === 'soldout') {
+        filtered = filtered.filter(i => i.is_available === false);
+      }
+      if (search) {
+        filtered = filtered.filter(i => 
+          (i.name && i.name.toLowerCase().includes(search)) || 
+          (i.description && i.description.toLowerCase().includes(search)) ||
+          (i.category_name && i.category_name.toLowerCase().includes(search))
+        );
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #888; padding: 24px;">No cafe dishes match the selected filters.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(dish => `
+        <tr>
+          <td style="font-size: 1.4rem; text-align: center;">${dish.icon || '🍽️'}</td>
+          <td>
+            <div style="font-weight: 700; color: var(--color-text-main); font-size: 0.95rem;">${dish.name}</div>
+            ${dish.description ? `<div style="font-size: 0.8rem; color: #666; margin-top: 2px;">${dish.description}</div>` : ''}
+          </td>
+          <td>
+            <span style="background: rgba(166,96,27,0.1); color: var(--color-desert); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">
+              ${dish.category_name || dish.category}
+            </span>
+          </td>
+          <td style="font-weight: 800; color: var(--color-desert); font-size: 1rem;">
+            ₹${dish.price}
+            ${dish.price_display ? `<div style="font-size: 0.72rem; color: #888; font-weight: 500;">${dish.price_display}</div>` : ''}
+          </td>
+          <td>
+            ${dish.is_veg !== false ? 
+              '<span style="color: #2e7d32; font-weight: 700; font-size: 0.8rem;">🟢 Veg</span>' : 
+              '<span style="color: #d32f2f; font-weight: 700; font-size: 0.8rem;">🔴 Non-Veg</span>'
+            }
+          </td>
+          <td>
+            ${dish.badge ? `<span style="background: #FFF3E0; color: #E65100; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px;">${dish.badge}</span>` : '<span style="color: #bbb;">—</span>'}
+          </td>
+          <td style="text-align: center;">
+            <button onclick="toggleCafeDishAvailability('${dish.id}', ${dish.is_available !== false})" style="border: none; border-radius: 20px; padding: 4px 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; ${dish.is_available !== false ? 'background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;' : 'background: #ffebee; color: #c62828; border: 1px solid #ef9a9a;'}">
+              ${dish.is_available !== false ? '🟢 Available' : '🔴 Sold Out'}
+            </button>
+          </td>
+          <td style="text-align: right;">
+            <div style="display: inline-flex; gap: 6px;">
+              <button onclick="editCafeDish('${dish.id}')" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.82rem;" title="Edit Dish">
+                <i class="ph ph-pencil"></i> Edit
+              </button>
+              <button onclick="deleteCafeDish('${dish.id}', '${dish.name.replace(/'/g, "\\'")}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 0.82rem; background: #ffebee; color: #c62828; border: 1px solid #ffcdd2;" title="Delete Dish">
+                <i class="ph ph-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openCafeDishModal(dish) {
+      const modal = document.getElementById('cafe-dish-modal');
+      const title = document.getElementById('cafe-dish-modal-title');
+      if (!modal) return;
+
+      if (dish) {
+        title.textContent = 'Edit Cafe Dish';
+        document.getElementById('modal-cafe-id').value = dish.id;
+        document.getElementById('modal-cafe-name').value = dish.name || '';
+        
+        const catSelect = document.getElementById('modal-cafe-category');
+        if (catSelect) {
+          for (let opt of catSelect.options) {
+            if (opt.value.startsWith(dish.category + '|')) {
+              catSelect.value = opt.value;
+              break;
+            }
+          }
+        }
+        
+        document.getElementById('modal-cafe-price').value = dish.price || 0;
+        document.getElementById('modal-cafe-icon').value = dish.icon || '🍽️';
+        document.getElementById('modal-cafe-badge').value = dish.badge || '';
+        document.getElementById('modal-cafe-desc').value = dish.description || '';
+        document.getElementById('modal-cafe-price-display').value = dish.price_display || '';
+        document.getElementById('modal-cafe-veg').checked = dish.is_veg !== false;
+        document.getElementById('modal-cafe-available').checked = dish.is_available !== false;
+      } else {
+        title.textContent = 'Add New Cafe Dish';
+        document.getElementById('modal-cafe-id').value = `dish-${Date.now()}`;
+        document.getElementById('modal-cafe-name').value = '';
+        document.getElementById('modal-cafe-category').value = 'juices|Fresh Juices';
+        document.getElementById('modal-cafe-price').value = '';
+        document.getElementById('modal-cafe-icon').value = '🍽️';
+        document.getElementById('modal-cafe-badge').value = '';
+        document.getElementById('modal-cafe-desc').value = '';
+        document.getElementById('modal-cafe-price-display').value = '';
+        document.getElementById('modal-cafe-veg').checked = true;
+        document.getElementById('modal-cafe-available').checked = true;
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeCafeDishModal() {
+      const modal = document.getElementById('cafe-dish-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function editCafeDish(dishId) {
+      const dish = cafeMenuItems.find(d => d.id === dishId);
+      if (dish) openCafeDishModal(dish);
+    }
+
+    async function saveCafeDish() {
+      const id = document.getElementById('modal-cafe-id').value.trim() || `dish-${Date.now()}`;
+      const name = document.getElementById('modal-cafe-name').value.trim();
+      const catVal = document.getElementById('modal-cafe-category').value;
+      const [category, category_name] = catVal.split('|');
+      const price = Number(document.getElementById('modal-cafe-price').value) || 0;
+      const icon = document.getElementById('modal-cafe-icon').value.trim() || '🍽️';
+      const badge = document.getElementById('modal-cafe-badge').value.trim();
+      const description = document.getElementById('modal-cafe-desc').value.trim();
+      const price_display = document.getElementById('modal-cafe-price-display').value.trim();
+      const is_veg = document.getElementById('modal-cafe-veg').checked;
+      const is_available = document.getElementById('modal-cafe-available').checked;
+
+      if (!name) {
+        alert('Please enter a valid dish name!');
+        return;
+      }
+
+      const dishObj = {
+        id,
+        name,
+        category,
+        category_name: category_name || category,
+        price,
+        icon,
+        badge,
+        description,
+        price_display,
+        is_veg,
+        is_available,
+        updated_at: new Date().toISOString()
+      };
+
+      const btn = document.getElementById('btn-save-cafe-dish');
+      if (btn) { btn.disabled = true; btn.textContent = 'Saving to Supabase...'; }
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify(dishObj)
+        });
+
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(err);
+        }
+
+        const existingIdx = cafeMenuItems.findIndex(d => d.id === id);
+        if (existingIdx >= 0) {
+          cafeMenuItems[existingIdx] = dishObj;
+        } else {
+          cafeMenuItems.push(dishObj);
+        }
+
+        updateCafeKpis();
+        filterAndRenderCafeTable();
+        closeCafeDishModal();
+        alert('🎉 Cafe dish saved & synced to Supabase database successfully!');
+      } catch (err) {
+        alert('Failed to save dish: ' + err.message);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Save Cafe Dish'; }
+      }
+    }
+
+    async function toggleCafeDishAvailability(dishId, currentStatus) {
+      const newStatus = !currentStatus;
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?id=eq.${dishId}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ is_available: newStatus, updated_at: new Date().toISOString() })
+        });
+
+        if (res.ok) {
+          const dish = cafeMenuItems.find(d => d.id === dishId);
+          if (dish) dish.is_available = newStatus;
+          updateCafeKpis();
+          filterAndRenderCafeTable();
+        } else {
+          alert('Failed to update availability on Supabase.');
+        }
+      } catch (err) {
+        console.error('Error toggling availability:', err);
+      }
+    }
+
+    async function deleteCafeDish(dishId, dishName) {
+      if (!confirm(`Are you sure you want to delete "${dishName}" from the cafe menu?`)) return;
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?id=eq.${dishId}`, {
+          method: 'DELETE',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+
+        if (res.ok) {
+          cafeMenuItems = cafeMenuItems.filter(d => d.id !== dishId);
+          updateCafeKpis();
+          filterAndRenderCafeTable();
+          alert(`Dish "${dishName}" has been deleted from Supabase!`);
+        } else {
+          alert('Failed to delete dish from Supabase.');
+        }
+      } catch (err) {
+        alert('Delete error: ' + err.message);
+      }
+    }
+
     // BACKUP JSON EXPORT & IMPORT
     function exportBackupJSON() {
       const data = {
         products: getStoredProducts(),
-        jobs: getStoredJobs()
+        jobs: getStoredJobs(),
+        cafe_menu: cafeMenuItems
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');

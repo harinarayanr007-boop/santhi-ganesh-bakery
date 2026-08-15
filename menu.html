@@ -53,14 +53,15 @@
       font-family: var(--font-main);
       background-color: var(--color-bg);
       color: var(--color-text-main);
-      line-height: 1.5;
-      padding-bottom: 90px;
+      line-height: 1.35;
+      padding-bottom: 75px;
       overflow-x: hidden;
+      font-size: 13px;
     }
 
-    /* Outer Wrapper for App Feeling */
+    /* Outer Wrapper for Native App Feeling */
     .app-viewport {
-      max-width: 680px;
+      max-width: 580px;
       margin: 0 auto;
       background-color: var(--color-bg);
       min-height: 100vh;
@@ -72,45 +73,46 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(244, 239, 234, 0.95);
+      background: rgba(244, 239, 234, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
-      padding: 10px 16px;
+      padding: 6px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 44px;
     }
 
     .top-nav-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .back-home-btn {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       color: var(--color-primary-dark);
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.74rem;
       background: rgba(166, 96, 27, 0.1);
-      padding: 6px 12px;
-      border-radius: 20px;
+      padding: 4px 8px;
+      border-radius: 14px;
       transition: all 0.2s ease;
     }
 
     .top-nav-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .nav-icon-btn {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: 1px solid var(--color-border);
       background: var(--color-surface);
@@ -118,7 +120,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 0.95rem;
       cursor: pointer;
       box-shadow: var(--shadow-sm);
       transition: all 0.2s ease;
@@ -128,91 +130,77 @@
       transform: scale(0.92);
     }
 
-    /* Hero Banner */
+    /* Compact Ambiance Hero */
     .menu-hero {
-      padding: 16px;
+      padding: 8px 12px 6px;
     }
 
     .hero-banner-card {
-      background: linear-gradient(135deg, #2A1A0E 0%, #4A2E19 100%);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
+      background: linear-gradient(135deg, #24140B 0%, #3D2211 100%);
+      border-radius: 12px;
       color: #FFFFFF;
-      box-shadow: var(--shadow-md);
-      position: relative;
-    }
-
-    .hero-banner-img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      display: block;
-      opacity: 0.85;
-    }
-
-    .hero-banner-content {
-      padding: 16px 20px 20px;
-      position: relative;
+      box-shadow: var(--shadow-sm);
+      padding: 10px 12px;
     }
 
     .hero-badge-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 4px;
       flex-wrap: wrap;
     }
 
     .hero-pill {
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: 1.6rem;
+      font-size: 1.15rem;
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 4px;
+      margin-bottom: 1px;
       color: #F8F3ED;
     }
 
     .hero-sub {
-      font-size: 0.85rem;
-      color: rgba(248, 243, 237, 0.8);
+      font-size: 0.72rem;
+      color: rgba(248, 243, 237, 0.82);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     /* Live Search & Filter Bar */
     .search-filter-wrapper {
-      padding: 0 16px 12px;
+      padding: 0 12px 6px;
     }
 
     .search-box {
       display: flex;
       align-items: center;
       background: var(--color-surface);
-      border-radius: 24px;
-      padding: 8px 16px;
+      border-radius: 20px;
+      padding: 4px 12px;
       border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      height: 34px;
     }
 
     .search-box i {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: var(--color-text-muted);
-      margin-right: 10px;
+      margin-right: 8px;
     }
 
     .search-input {
@@ -220,7 +208,7 @@
       background: transparent;
       outline: none;
       font-family: var(--font-main);
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       width: 100%;
       color: var(--color-text-main);
     }
@@ -230,17 +218,17 @@
       border: none;
       color: var(--color-text-muted);
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.9rem;
       display: none;
     }
 
-    /* Filter Pills (Veg / Non-Veg / All) */
+    /* Filter Pills */
     .diet-filter-row {
       display: flex;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 6px;
+      margin-top: 6px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
       scrollbar-width: none;
     }
 
@@ -251,14 +239,14 @@
     .diet-chip {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-size: 0.7rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       white-space: nowrap;
       transition: all 0.2s ease;
       color: var(--color-text-muted);
@@ -268,7 +256,6 @@
       background: var(--color-primary-dark);
       color: #FFFFFF;
       border-color: var(--color-primary-dark);
-      box-shadow: var(--shadow-sm);
     }
 
     .diet-chip.active.veg {
@@ -281,18 +268,18 @@
       border-color: var(--color-nonveg);
     }
 
-    /* Sticky Horizontal Category Tabs (Yumm Style) */
+    /* Sticky Horizontal Category Tabs */
     .category-nav-bar {
       position: sticky;
-      top: 57px;
+      top: 44px;
       z-index: 90;
-      background: rgba(244, 239, 234, 0.95);
+      background: rgba(244, 239, 234, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
-      padding: 8px 16px;
+      padding: 5px 12px;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -303,93 +290,92 @@
     }
 
     .cat-tab-btn {
-      background: transparent;
-      border: none;
-      padding: 8px 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 4px 10px;
       font-family: var(--font-main);
-      font-size: 0.9rem;
+      font-size: 0.74rem;
       font-weight: 600;
       color: var(--color-text-muted);
       cursor: pointer;
       white-space: nowrap;
-      border-radius: 20px;
-      transition: all 0.2s ease;
+      border-radius: 14px;
+      transition: all 0.15s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .cat-tab-btn.active {
       background: var(--color-terracotta);
       color: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(217, 83, 56, 0.25);
+      border-color: var(--color-terracotta);
+      box-shadow: 0 2px 8px rgba(217, 83, 56, 0.25);
     }
 
     /* Main Menu Content Section */
     .menu-container {
-      padding: 16px;
+      padding: 8px 12px 70px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 12px;
     }
 
-    /* Category Section Banner (Yumm Style) */
+    /* Category Section */
     .category-section {
-      scroll-margin-top: 110px;
+      animation: fadeIn 0.18s ease-out;
     }
 
-    .category-hero-card {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .category-header-strip {
       background: var(--color-surface);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 12px;
+      border-radius: 8px;
+      padding: 6px 10px;
       border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
-      text-align: center;
-    }
-
-    .category-hero-img {
-      width: 100%;
-      height: 110px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .category-hero-text {
-      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
     }
 
     .category-title {
       font-family: var(--font-serif);
-      font-size: 1.35rem;
+      font-size: 0.95rem;
       font-style: italic;
       font-weight: 700;
-      color: var(--color-text-main);
-      margin-bottom: 2px;
+      color: var(--color-primary-dark);
     }
 
-    .category-subtext {
-      font-size: 0.8rem;
+    .category-badge-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: var(--color-surface-soft);
       color: var(--color-text-muted);
+      padding: 2px 8px;
+      border-radius: 8px;
     }
 
-    /* Item Card List (Yumm Style) */
+    /* Item Card List */
     .items-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
     }
 
     .item-card {
       background: var(--color-surface);
-      border-radius: var(--radius-md);
-      padding: 14px;
+      border-radius: 8px;
+      padding: 8px 10px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: transform 0.15s ease;
       position: relative;
     }
 
@@ -399,27 +385,20 @@
 
     /* Dish Thumbnail */
     .item-thumb-box {
-      width: 68px;
-      height: 68px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       overflow: hidden;
       flex-shrink: 0;
       background: var(--color-surface-soft);
-      border: 2px solid rgba(166, 96, 27, 0.15);
+      border: 1px solid rgba(166, 96, 27, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-    }
-
-    .item-thumb-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     .item-thumb-icon {
-      font-size: 1.8rem;
+      font-size: 1.25rem;
     }
 
     /* Item Details */
@@ -431,18 +410,18 @@
     .item-header-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 2px;
+      gap: 5px;
+      margin-bottom: 1px;
     }
 
     .diet-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 14px;
-      height: 14px;
-      border: 1.5px solid;
-      border-radius: 3px;
+      width: 12px;
+      height: 12px;
+      border: 1.2px solid;
+      border-radius: 2px;
       padding: 1px;
       flex-shrink: 0;
     }
@@ -453,8 +432,8 @@
 
     .diet-icon.veg::after {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       background-color: var(--color-veg);
       border-radius: 50%;
     }
@@ -465,15 +444,15 @@
 
     .diet-icon.nonveg::after {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       background-color: var(--color-nonveg);
       border-radius: 50%;
     }
 
     .item-name {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: var(--color-text-main);
       white-space: nowrap;
       overflow: hidden;
@@ -481,10 +460,10 @@
     }
 
     .item-desc {
-      font-size: 0.78rem;
+      font-size: 0.71rem;
       color: var(--color-text-muted);
-      line-height: 1.35;
-      margin-bottom: 4px;
+      line-height: 1.25;
+      margin-bottom: 2px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -495,11 +474,11 @@
       display: inline-block;
       background: #FFF3E0;
       color: #E65100;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       font-weight: 700;
-      padding: 2px 6px;
+      padding: 1px 5px;
       border-radius: 4px;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     /* Right Action Area */
@@ -507,19 +486,19 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 6px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
     .item-price {
-      font-weight: 700;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 0.88rem;
       color: var(--color-terracotta);
       font-family: var(--font-main);
     }
 
     .item-price-sub {
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       color: var(--color-text-muted);
       font-weight: 500;
     }
@@ -531,14 +510,17 @@
       color: var(--color-primary-dark);
       font-family: var(--font-main);
       font-weight: 700;
-      font-size: 0.8rem;
-      padding: 6px 14px;
-      border-radius: 20px;
+      font-size: 0.74rem;
+      padding: 3px 10px;
+      border-radius: 14px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
+      gap: 3px;
+      transition: all 0.15s ease;
+      min-width: 52px;
+      height: 25px;
+      justify-content: center;
     }
 
     .btn-add-tray:active {
@@ -547,27 +529,49 @@
       color: #FFF;
     }
 
-    /* Quantity Stepper (Active Item in Tray) */
+    .btn-sold-out {
+      background: #E0E0E0;
+      border: 1px solid #CCC;
+      color: #777;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      cursor: not-allowed;
+    }
+
+    /* Quantity Stepper */
     .qty-stepper {
       display: inline-flex;
       align-items: center;
       background: var(--color-primary-dark);
       color: #FFFFFF;
-      border-radius: 20px;
-      padding: 3px 6px;
-      gap: 8px;
-      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
+      padding: 2px 4px;
+      gap: 4px;
+      height: 25px;
     }
 
     .qty-btn {
       background: none;
       border: none;
       color: #FFFFFF;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .qty-val {
+      font-size: 0.76rem;
+      font-weight: 700;
+      min-width: 14px;
+      text-align: center;
+    }
       font-size: 0.9rem;
       font-weight: 800;
       cursor: pointer;
@@ -913,19 +917,16 @@
       </div>
     </header>
 
-    <!-- IN-STORE HERO BANNER -->
+    <!-- COMPACT IN-STORE HERO -->
     <section class="menu-hero">
       <div class="hero-banner-card">
-        <img src="./assets/banner1.jpg" alt="Santhi Ganesh Bakery Cafe" class="hero-banner-img" onerror="this.src='./assets/about_fresh.jpg'">
-        <div class="hero-banner-content">
-          <div class="hero-badge-row">
-            <span class="hero-pill"><i class="ph ph-map-pin"></i> Palayamkottai, Tirunelveli</span>
-            <span class="hero-pill"><i class="ph ph-clock"></i> 7:00 AM – 10:30 PM</span>
-            <span class="hero-pill" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Takeaway</span>
-          </div>
-          <h1 class="hero-title">Santhi Ganesh Cafe Menu</h1>
-          <p class="hero-sub">Fresh Juices • Milkshakes • Chat • Hot Drinks • Fast Food</p>
+        <div class="hero-badge-row">
+          <span class="hero-pill"><i class="ph ph-map-pin"></i> Palayamkottai</span>
+          <span class="hero-pill"><i class="ph ph-clock"></i> 7am–10:30pm</span>
+          <span class="hero-pill" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Parcel</span>
         </div>
+        <h1 class="hero-title">Santhi Ganesh Cafe Menu</h1>
+        <p class="hero-sub">Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas</p>
       </div>
     </section>
 
@@ -2571,6 +2572,7 @@
     let searchQuery = '';
     let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
     let diningType = 'Dine-In';
+    let liveMenuItems = [...IN_STORE_MENU];
 
     // Categories definition
     const CATEGORIES = [
@@ -2590,15 +2592,31 @@
       { id: 'momos', name: 'Momos & Crispy', icon: '🥟', desc: 'Steamed or fried dumplings served with fiery red chutney', hero: './assets/banner2.jpg' }
     ];
 
+    // Render Category Pill Tabs Dynamically with Live Counts
+    function renderCategoryTabs() {
+      const nav = document.getElementById('category-nav-bar');
+      if (!nav) return;
+
+      nav.innerHTML = CATEGORIES.map(cat => {
+        const count = liveMenuItems.filter(i => i.category === cat.id && i.is_available !== false).length;
+        const isActive = cat.id === activeCategory ? 'active' : '';
+        return `
+          <button class="cat-tab-btn ${isActive}" data-cat="${cat.id}" onclick="selectCategory('${cat.id}', this)">
+            ${cat.icon} ${cat.name} (${count})
+          </button>
+        `;
+      }).join('');
+    }
+
     // ==========================================
-    // 3. RENDER MENU ITEMS (Yumm UI Style)
+    // 3. RENDER MENU ITEMS (Compact Native App Style)
     // ==========================================
     function renderMenu() {
       const container = document.getElementById('menu-sections-container');
       if (!container) return;
 
       // Filter items by diet and search
-      let filteredItems = IN_STORE_MENU;
+      let filteredItems = liveMenuItems;
 
       if (currentDietFilter === 'veg') {
         filteredItems = filteredItems.filter(item => item.is_veg === true);
@@ -2612,18 +2630,18 @@
         const q = searchQuery.toLowerCase();
         filteredItems = filteredItems.filter(item => 
           item.name.toLowerCase().includes(q) || 
-          item.desc.toLowerCase().includes(q) ||
-          item.category_name.toLowerCase().includes(q)
+          (item.desc && item.desc.toLowerCase().includes(q)) ||
+          (item.category_name && item.category_name.toLowerCase().includes(q))
         );
       }
 
       if (filteredItems.length === 0) {
         container.innerHTML = `
-          <div style="text-align: center; padding: 48px 20px; background: #FFF; border-radius: 16px;">
-            <p style="font-size: 3rem; margin-bottom: 8px;">🔍</p>
-            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">No items found</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.9rem;">Try clearing your search or switching filters.</p>
-            <button onclick="clearMenuSearch()" style="margin-top: 14px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer;">Clear Filter</button>
+          <div style="text-align: center; padding: 36px 16px; background: #FFF; border-radius: 12px; border: 1px solid var(--color-border);">
+            <p style="font-size: 2.2rem; margin-bottom: 6px;">🔍</p>
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 2px;">No items found</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.8rem;">Try clearing your search or switching filters.</p>
+            <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">Clear Filter</button>
           </div>
         `;
         return;
@@ -2648,14 +2666,14 @@
         let navButtonsHTML = '';
         if (!searchQuery.trim() && (prevCat || nextCat)) {
           navButtonsHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--color-border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
               ${prevCat ? `
-                <button class="btn-cat-nav" onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 10px 14px; border-radius: 12px; font-weight: 700; font-size: 0.82rem; color: var(--color-text-main); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);">
+                <button class="btn-cat-nav" onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; color: var(--color-text-main); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: var(--shadow-sm);">
                   ← ${prevCat.icon} ${prevCat.name}
                 </button>
               ` : `<div></div>`}
               ${nextCat ? `
-                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-terracotta); color: #FFF; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(217, 83, 56, 0.25); margin-left: auto;">
+                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-terracotta); color: #FFF; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(217, 83, 56, 0.25); margin-left: auto;">
                   ${nextCat.icon} ${nextCat.name} →
                 </button>
               ` : `<div></div>`}
@@ -2666,16 +2684,10 @@
         html += `
           <section class="category-section" id="cat-sec-${cat.id}">
             
-            <!-- Category Hero Card (Yumm style) -->
-            <div class="category-hero-card">
-              <img src="${cat.hero}" alt="${cat.name}" class="category-hero-img" loading="lazy" onerror="this.src='./assets/about_fresh.jpg'">
-              <div class="category-hero-text">
-                <div style="display: inline-block; background: var(--color-surface-soft); color: var(--color-primary-dark); font-size: 0.72rem; font-weight: 800; padding: 2px 10px; border-radius: 10px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-                  ${catItems.length} Dishes in ${cat.name}
-                </div>
-                <h2 class="category-title">❧ ${cat.name} ❧</h2>
-                <p class="category-subtext">${cat.desc}</p>
-              </div>
+            <!-- Compact Category Header Strip -->
+            <div class="category-header-strip">
+              <span class="category-title">❧ ${cat.name} ❧</span>
+              <span class="category-badge-tag">${catItems.length} Dishes</span>
             </div>
 
             <!-- Item List -->
@@ -2701,20 +2713,27 @@
       const badgeHTML = item.badge ? `<span class="item-badge">${item.badge}</span>` : '';
       const priceSubHTML = item.price_display ? `<span class="item-price-sub">${item.price_display}</span>` : '';
 
-      const actionHTML = qty > 0 ? `
-        <div class="qty-stepper">
-          <button class="qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
-          <span class="qty-val">${qty}</span>
-          <button class="qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
-        </div>
-      ` : `
-        <button class="btn-add-tray" onclick="updateItemQty('${item.id}', 1)">
-          + Add
-        </button>
-      `;
+      let actionHTML = '';
+      if (item.is_available === false) {
+        actionHTML = `<button class="btn-sold-out" disabled>Sold Out</button>`;
+      } else if (qty > 0) {
+        actionHTML = `
+          <div class="qty-stepper">
+            <button class="qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
+            <span class="qty-val">${qty}</span>
+            <button class="qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
+          </div>
+        `;
+      } else {
+        actionHTML = `
+          <button class="btn-add-tray" onclick="updateItemQty('${item.id}', 1)">
+            + Add
+          </button>
+        `;
+      }
 
       return `
-        <article class="item-card">
+        <article class="item-card" style="${item.is_available === false ? 'opacity: 0.65;' : ''}">
           <div class="item-thumb-box">
             <span class="item-thumb-icon">${item.icon || '🍽️'}</span>
           </div>
@@ -2725,7 +2744,7 @@
               <h3 class="item-name">${item.name}</h3>
             </div>
             ${badgeHTML}
-            <p class="item-desc">${item.desc}</p>
+            ${item.desc ? `<p class="item-desc">${item.desc}</p>` : ''}
           </div>
 
           <div class="item-action-area">
@@ -2811,7 +2830,7 @@
     // 5. TRAY & CART MANAGEMENT
     // ==========================================
     function updateItemQty(itemId, change) {
-      const item = IN_STORE_MENU.find(i => i.id === itemId);
+      const item = liveMenuItems.find(i => i.id === itemId);
       if (!item) return;
 
       const existingIndex = inStoreTray.findIndex(t => t.id === itemId);
@@ -2849,7 +2868,7 @@
 
       if (totalItems > 0) {
         floatingBar.classList.add('visible');
-        barCount.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'} Selected`;
+        barCount.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'}`;
         barTotal.textContent = `₹${totalPrice}`;
       } else {
         floatingBar.classList.remove('visible');
@@ -2887,8 +2906,8 @@
         container.innerHTML = `
           <div class="empty-tray-state">
             <div class="empty-tray-icon">🛒</div>
-            <h3 style="font-size: 1.1rem; font-weight: 700;">Your tray is empty</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.85rem; margin-top: 4px;">Tap "+ Add" on any dish to begin your order.</p>
+            <h3 style="font-size: 1rem; font-weight: 700;">Your tray is empty</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 4px;">Tap "+ Add" on any dish to begin your order.</p>
           </div>
         `;
         subtotalEl.textContent = '₹0';
@@ -2980,9 +2999,48 @@
       }, 500);
     }
 
+    // ==========================================
+    // 7. SUPABASE LIVE CLOUD DATA INTEGRATION
+    // ==========================================
+    async function loadCafeMenuFromSupabase() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?select=*&order=display_order.asc,created_at.asc`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            liveMenuItems = data.map(it => ({
+              id: it.id,
+              category: it.category,
+              category_name: it.category_name,
+              name: it.name,
+              desc: it.description || '',
+              price: Number(it.price) || 0,
+              price_display: it.price_display || '',
+              is_veg: it.is_veg !== false,
+              badge: it.badge || '',
+              icon: it.icon || '🍽️',
+              image: it.image || '',
+              is_available: it.is_available !== false
+            }));
+            renderCategoryTabs();
+            renderMenu();
+          }
+        }
+      } catch (err) {
+        console.warn("Using offline menu fallback:", err);
+      }
+    }
+
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryTabs();
       renderMenu();
+      loadCafeMenuFromSupabase();
     });
   </script>
 </body>
