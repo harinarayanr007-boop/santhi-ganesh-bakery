@@ -1105,6 +1105,11 @@
               🔍 ${word} <small style="color: #888;">(${count})</small>
             </span>
           `).join('');
+        } else {
+          keywordsContainer.innerHTML = '<p style="color: #666; font-size: 0.9rem;">No search queries recorded yet.</p>';
+        }
+      }
+
       // Render B2B Wholesale Leads Table
       const b2bEvents = events.filter(e => e.event_type === 'b2b_inquiry');
       const b2bTbody = document.getElementById('b2b-leads-tbody');
