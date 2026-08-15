@@ -2,560 +2,2956 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>In-Store Digital Menu | Santhi Ganesh Bakery Tirunelveli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>In-Store Digital Menu | Santhi Ganesh Bakery & Cafe</title>
+  <meta name="description" content="Explore Santhi Ganesh Bakery & Cafe in-store digital menu. Fresh Juices, Milkshakes, Chat, Burgers, Pizzas, Sandwiches, Brownies, and Hot Drinks.">
 
-  <!-- Google Fonts & Phosphor Icons -->
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- Website Favicon Icon -->
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
   <link rel="apple-touch-icon" href="./sg-bakery-logo.png">
 
-  <!-- StPageFlip 3D Book Library CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-
-  <link rel="stylesheet" href="./index.css">
   <style>
-    body {
-      background-color: #2A211B;
-      color: #EDDFD1;
-      font-family: var(--font-body);
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
+    :root {
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --color-primary: #A6601B;
+      --color-primary-dark: #7D450F;
+      --color-terracotta: #D95338;
+      --color-bg: #F4EFEA;
+      --color-surface: #FFFFFF;
+      --color-surface-soft: #F9F6F0;
+      --color-text-main: #1A120B;
+      --color-text-muted: #6B5E55;
+      --color-border: rgba(26, 18, 11, 0.08);
+      --color-veg: #2E7D32;
+      --color-nonveg: #C62828;
+      --shadow-sm: 0 2px 8px rgba(26, 18, 11, 0.04);
+      --shadow-md: 0 8px 24px rgba(26, 18, 11, 0.08);
+      --shadow-lg: 0 16px 40px rgba(26, 18, 11, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
     }
 
-    /* Top Bar Header */
-    .menu-header {
-      background-color: #1F1712;
-      padding: 14px 20px;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      line-height: 1.5;
+      padding-bottom: 90px;
+      overflow-x: hidden;
+    }
+
+    /* Outer Wrapper for App Feeling */
+    .app-viewport {
+      max-width: 680px;
+      margin: 0 auto;
+      background-color: var(--color-bg);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(244, 239, 234, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(237, 223, 209, 0.15);
-      position: relative;
-      z-index: 100;
     }
 
-    .brand-title {
+    .top-nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .brand-title h1 {
-      font-family: var(--font-heading);
-      font-size: 1.1rem;
-      margin: 0;
-      color: #F4E8DC;
-      letter-spacing: 1px;
-    }
-
-    .header-badge {
-      background-color: var(--color-desert);
-      color: #FFF;
-      font-size: 0.72rem;
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--color-primary-dark);
+      text-decoration: none;
       font-weight: 700;
-      padding: 3px 8px;
+      font-size: 0.85rem;
+      background: rgba(166, 96, 27, 0.1);
+      padding: 6px 12px;
       border-radius: 20px;
-      text-transform: uppercase;
-    }
-
-    /* Flipbook Container */
-    .flipbook-viewport {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 10px;
-      position: relative;
-    }
-
-    .flipbook-container {
-      width: 100%;
-      max-width: 900px;
-      height: 600px;
-      margin: 0 auto;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-      border-radius: 8px;
-    }
-
-    /* Page Styling */
-    .page {
-      background-color: #F8F3ED;
-      color: #332419;
-      padding: 28px 24px;
-      box-sizing: border-box;
-      border: 1px solid #E6D9CC;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Cover Page */
-    .page-cover {
-      background: linear-gradient(135deg, #3D2B20 0%, #1F140E 100%);
-      color: #F4E8DC;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 6px solid #C49A6C;
-      position: relative;
-    }
-
-    .cover-border {
-      border: 2px solid rgba(196, 154, 108, 0.4);
-      padding: 40px 24px;
-      border-radius: 8px;
-      width: 80%;
-    }
-
-    .cover-logo {
-      height: 80px;
-      margin-bottom: 20px;
-      filter: brightness(0) invert(1);
-    }
-
-    .cover-title {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      margin: 12px 0 8px;
-      color: #E8BF96;
-      letter-spacing: 2px;
-    }
-
-    .cover-subtitle {
-      font-size: 0.9rem;
-      color: #C4B5A5;
-      margin-bottom: 24px;
-    }
-
-    .cover-badge {
-      display: inline-block;
-      border: 1px solid #C49A6C;
-      color: #E8BF96;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* Inner Page Headers */
-    .page-header {
-      border-bottom: 2px solid #D9C5B2;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .page-header h2 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      color: #613C20;
-      margin: 0;
-    }
-
-    .page-category-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--color-desert);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Item Grid in Page */
-    .menu-item-card {
-      display: flex;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px dashed #E2D3C4;
-      align-items: center;
-    }
-
-    .menu-item-card:last-child {
-      border-bottom: none;
-    }
-
-    .menu-item-img {
-      width: 64px;
-      height: 64px;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 1px solid #D9C5B2;
-      flex-shrink: 0;
-    }
-
-    .menu-item-info {
-      flex: 1;
-    }
-
-    .menu-item-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #2C1B10;
-      margin: 0 0 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .menu-item-price {
-      color: var(--color-desert);
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .menu-item-desc {
-      font-size: 0.8rem;
-      color: #6E5A4B;
-      margin: 0;
-      line-height: 1.3;
-    }
-
-    .item-tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      background-color: #E8F5E9;
-      color: #2E7D32;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-top: 4px;
-    }
-
-    .item-tag.hot {
-      background-color: #FFEBEE;
-      color: #C62828;
-    }
-
-    .item-tag.bestseller {
-      background-color: #FFF8E1;
-      color: #F57F17;
-    }
-
-    /* Navigation Controls Bar */
-    .menu-controls {
-      background-color: #1F1712;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(237, 223, 209, 0.15);
-    }
-
-    .nav-btn {
-      background-color: #3D2B20;
-      color: #F4E8DC;
-      border: 1px solid #5A4333;
-      padding: 10px 18px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.88rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       transition: all 0.2s ease;
     }
 
-    .nav-btn:hover {
-      background-color: var(--color-desert);
-      border-color: var(--color-desert);
+    .top-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .page-indicator {
-      font-size: 0.88rem;
-      color: #C4B5A5;
+    .nav-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-main);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .nav-icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Hero Banner */
+    .menu-hero {
+      padding: 16px;
+    }
+
+    .hero-banner-card {
+      background: linear-gradient(135deg, #2A1A0E 0%, #4A2E19 100%);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .hero-banner-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    .hero-banner-content {
+      padding: 16px 20px 20px;
+      position: relative;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+      color: #F8F3ED;
+    }
+
+    .hero-sub {
+      font-size: 0.85rem;
+      color: rgba(248, 243, 237, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Live Search & Filter Bar */
+    .search-filter-wrapper {
+      padding: 0 16px 12px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--color-surface);
+      border-radius: 24px;
+      padding: 8px 16px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box i {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      margin-right: 10px;
+    }
+
+    .search-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      width: 100%;
+      color: var(--color-text-main);
+    }
+
+    .search-clear-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      display: none;
+    }
+
+    /* Filter Pills (Veg / Non-Veg / All) */
+    .diet-filter-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .diet-filter-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .diet-chip {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      color: var(--color-text-muted);
     }
 
-    /* Responsiveness for Mobile */
-    @media (max-width: 768px) {
-      .flipbook-container {
-        height: 520px;
+    .diet-chip.active {
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
+      border-color: var(--color-primary-dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .diet-chip.active.veg {
+      background: var(--color-veg);
+      border-color: var(--color-veg);
+    }
+
+    .diet-chip.active.nonveg {
+      background: var(--color-nonveg);
+      border-color: var(--color-nonveg);
+    }
+
+    /* Sticky Horizontal Category Tabs (Yumm Style) */
+    .category-nav-bar {
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+      background: rgba(244, 239, 234, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 8px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-nav-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-tab-btn.active {
+      background: var(--color-terracotta);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(217, 83, 56, 0.25);
+    }
+
+    /* Main Menu Content Section */
+    .menu-container {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Category Section Banner (Yumm Style) */
+    .category-section {
+      scroll-margin-top: 110px;
+    }
+
+    .category-hero-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .category-hero-img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .category-hero-text {
+      padding: 12px 16px;
+    }
+
+    .category-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 2px;
+    }
+
+    .category-subtext {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Item Card List (Yumm Style) */
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+    }
+
+    .item-card:active {
+      transform: scale(0.99);
+    }
+
+    /* Dish Thumbnail */
+    .item-thumb-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--color-surface-soft);
+      border: 2px solid rgba(166, 96, 27, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .item-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-thumb-icon {
+      font-size: 1.8rem;
+    }
+
+    /* Item Details */
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-header-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .diet-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid;
+      border-radius: 3px;
+      padding: 1px;
+      flex-shrink: 0;
+    }
+
+    .diet-icon.veg {
+      border-color: var(--color-veg);
+    }
+
+    .diet-icon.veg::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-veg);
+      border-radius: 50%;
+    }
+
+    .diet-icon.nonveg {
+      border-color: var(--color-nonveg);
+    }
+
+    .diet-icon.nonveg::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-nonveg);
+      border-radius: 50%;
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-desc {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      line-height: 1.35;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .item-badge {
+      display: inline-block;
+      background: #FFF3E0;
+      color: #E65100;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* Right Action Area */
+    .item-action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .item-price {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--color-terracotta);
+      font-family: var(--font-main);
+    }
+
+    .item-price-sub {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    /* Add to Tray Button */
+    .btn-add-tray {
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-dark);
+      font-family: var(--font-main);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add-tray:active {
+      transform: scale(0.92);
+      background: var(--color-primary);
+      color: #FFF;
+    }
+
+    /* Quantity Stepper (Active Item in Tray) */
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 3px 6px;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .qty-val {
+      font-weight: 700;
+      font-size: 0.85rem;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    /* Floating Bottom Order Bar (Tray summary) */
+    .floating-tray-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      max-width: 648px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #1A120B 0%, #3D2314 100%);
+      color: #FFFFFF;
+      border-radius: 24px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      transform: translateY(120%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-tray-bar.visible {
+      transform: translateY(0);
+    }
+
+    .tray-summary {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tray-count-text {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .tray-total-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #FFB300;
+    }
+
+    .btn-view-tray {
+      background: #F5A623;
+      color: #0A0404;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-family: var(--font-main);
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-tray:active {
+      transform: scale(0.95);
+    }
+
+    /* Modal / Bottom Drawer for In-Store Order Tray */
+    .tray-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 4, 4, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 300;
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .tray-modal-overlay.active {
+      display: flex;
+    }
+
+    .tray-modal-sheet {
+      background: var(--color-surface);
+      width: 100%;
+      max-width: 680px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .tray-modal-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tray-modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .tray-modal-close {
+      background: var(--color-surface-soft);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .tray-modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .tray-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .tray-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tray-item-left {
+      flex: 1;
+    }
+
+    .tray-item-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .tray-item-unit-price {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .tray-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tray-item-total {
+      font-weight: 700;
+      color: var(--color-terracotta);
+      font-size: 0.95rem;
+      min-width: 50px;
+      text-align: right;
+    }
+
+    /* Dining Options in Tray */
+    .dining-toggle-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .dining-toggle-btn {
+      padding: 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-surface-soft);
+      font-family: var(--font-main);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+    }
+
+    .dining-toggle-btn.active {
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
+      border-color: var(--color-primary-dark);
+    }
+
+    .form-group-tray {
+      margin-bottom: 16px;
+    }
+
+    .form-group-tray label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .input-tray {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-soft);
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .input-tray:focus {
+      border-color: var(--color-primary);
+      background: #FFFFFF;
+    }
+
+    .tray-bill-breakdown {
+      background: var(--color-surface-soft);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--color-text-muted);
+    }
+
+    .bill-row.total {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      border-top: 1px dashed var(--color-border);
+      padding-top: 8px;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .btn-send-whatsapp-order {
+      width: 100%;
+      background: #25D366;
+      color: #FFFFFF;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-family: var(--font-main);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-send-whatsapp-order:active {
+      transform: scale(0.98);
+    }
+
+    /* Empty state */
+    .empty-tray-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-tray-icon {
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 681px) {
+      body {
+        background-color: #E8DFD5;
       }
-      .page {
-        padding: 20px 16px;
-      }
-      .cover-title {
-        font-size: 1.4rem;
-      }
-      .menu-item-img {
-        width: 52px;
-        height: 52px;
+      .app-viewport {
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP HEADER -->
-  <header class="menu-header">
-    <div class="brand-title">
-      <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 36px;">
-      <h1>SANTHI GANESH BAKERY</h1>
+  <div class="app-viewport">
+    
+    <!-- TOP NAVIGATION -->
+    <header class="top-nav">
+      <div class="top-nav-left">
+        <a href="./index.html" class="back-home-btn">
+          <i class="ph ph-arrow-left"></i> Home
+        </a>
+      </div>
+      <div style="text-align: center;">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 32px; display: block; margin: 0 auto;">
+      </div>
+      <div class="top-nav-actions">
+        <a href="tel:+917339073844" class="nav-icon-btn" title="Call Store">
+          <i class="ph ph-phone"></i>
+        </a>
+        <button onclick="toggleSearch()" class="nav-icon-btn" title="Search Menu">
+          <i class="ph ph-magnifying-glass"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- IN-STORE HERO BANNER -->
+    <section class="menu-hero">
+      <div class="hero-banner-card">
+        <img src="./assets/banner1.jpg" alt="Santhi Ganesh Bakery Cafe" class="hero-banner-img" onerror="this.src='./assets/about_fresh.jpg'">
+        <div class="hero-banner-content">
+          <div class="hero-badge-row">
+            <span class="hero-pill"><i class="ph ph-map-pin"></i> Palayamkottai, Tirunelveli</span>
+            <span class="hero-pill"><i class="ph ph-clock"></i> 7:00 AM – 10:30 PM</span>
+            <span class="hero-pill" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Takeaway</span>
+          </div>
+          <h1 class="hero-title">Santhi Ganesh Cafe Menu</h1>
+          <p class="hero-sub">Fresh Juices • Milkshakes • Chat • Hot Drinks • Fast Food</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE SEARCH & DIET FILTER BAR -->
+    <section class="search-filter-wrapper">
+      <div class="search-box" id="menu-search-box">
+        <i class="ph ph-magnifying-glass"></i>
+        <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
+        <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
+      </div>
+
+      <div class="diet-filter-row">
+        <button class="diet-chip active" onclick="setDietFilter('all', this)">🍽️ All Items (100+)</button>
+        <button class="diet-chip veg" onclick="setDietFilter('veg', this)">🟢 100% Pure Veg</button>
+        <button class="diet-chip nonveg" onclick="setDietFilter('nonveg', this)">🔴 Non-Veg Specials</button>
+        <button class="diet-chip" onclick="setDietFilter('bestseller', this)">🔥 Bestsellers</button>
+      </div>
+    </section>
+
+    <!-- STICKY HORIZONTAL CATEGORY NAVIGATION BAR (Yumm style) -->
+    <nav class="category-nav-bar" id="category-nav-bar">
+      <button class="cat-tab-btn active" onclick="scrollToCategory('juices', this)">🧃 Fresh Juice</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('shakes', this)">🥤 Milk Shakes</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('falooda', this)">🍨 Falooda & Desserts</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('mojito', this)">🍹 Mojitos</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('brownie', this)">🍫 Brownies & Cakes</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('icecream', this)">🍦 Scoop Ice Cream</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('hotdrinks', this)">☕ Hot Drinks & Tea</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('chat', this)">🫓 Chat & Snacks</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('pavbhaji', this)">🍲 Pav Bhaji</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('toast', this)">🍞 Toasts</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('burger', this)">🍔 Burgers</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('pizza', this)">🍕 Pizzas</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('sandwich', this)">🥪 Sandwiches</button>
+      <button class="cat-tab-btn" onclick="scrollToCategory('momos', this)">🥟 Momos & Crispy</button>
+    </nav>
+
+    <!-- DYNAMIC MENU CONTAINER (Rendered from data) -->
+    <main class="menu-container" id="menu-sections-container">
+      <!-- Injected by JavaScript -->
+    </main>
+
+    <!-- FLOATING BOTTOM ORDER BAR (Visible when items in tray) -->
+    <div class="floating-tray-bar" id="floating-tray-bar">
+      <div class="tray-summary">
+        <span class="tray-count-text" id="tray-bar-count">0 Items Selected</span>
+        <span class="tray-total-price" id="tray-bar-total">₹0</span>
+      </div>
+      <button class="btn-view-tray" onclick="openTrayModal()">
+        View Order Tray <i class="ph ph-arrow-right"></i>
+      </button>
     </div>
-    <span class="header-badge">📱 In-Store Menu</span>
-  </header>
 
-  <!-- 3D FLIPBOOK VIEWPORT -->
-  <main class="flipbook-viewport">
-    <div id="flipbook" class="flipbook-container">
-      
-      <!-- PAGE 1: COVER -->
-      <div class="page page-cover">
-        <div class="cover-border">
-          <img src="./sg-bakery-logo.png" alt="Logo" class="cover-logo">
-          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #C49A6C; margin: 0;">Tirunelveli Store</p>
-          <h1 class="cover-title">DAILY FRESH MENU</h1>
-          <p class="cover-subtitle">Handcrafted Pastries, Hot Savories & Custom Celebration Cakes</p>
-          <div class="cover-badge">
-            <i class="ph ph-hand-swipe-left"></i> Flip Pages to Browse
+    <!-- IN-STORE ORDER TRAY MODAL -->
+    <div class="tray-modal-overlay" id="tray-modal" onclick="if(event.target === this) closeTrayModal()">
+      <div class="tray-modal-sheet">
+        <div class="tray-modal-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="ph ph-shopping-bag" style="font-size: 1.4rem; color: var(--color-primary);"></i>
+            <h2 class="tray-modal-title">Your Order Tray</h2>
           </div>
+          <button class="tray-modal-close" onclick="closeTrayModal()"><i class="ph ph-x"></i></button>
         </div>
-      </div>
 
-      <!-- PAGE 2: HOT SAVORIES & PUFFS -->
-      <div class="page">
-        <div>
-          <div class="page-header">
-            <h2>🥐 Hot Savories & Puffs</h2>
-            <span class="page-category-tag">Fresh Oven</span>
+        <div class="tray-modal-body">
+          
+          <!-- Dining Option Toggle -->
+          <div class="dining-toggle-group">
+            <button class="dining-toggle-btn active" id="btn-dinein" onclick="setDiningType('Dine-In')">
+              🍽️ Dine-In (At Table)
+            </button>
+            <button class="dining-toggle-btn" id="btn-takeaway" onclick="setDiningType('Takeaway / Parcel')">
+              🛍️ Takeaway Parcel
+            </button>
           </div>
 
-          <div class="menu-item-card">
-            <img src="./sg-bakery-logo.png" alt="Veg Puff" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Crispy Veg Puff</span>
-                <span class="menu-item-price">₹25</span>
-              </div>
-              <p class="menu-item-desc">Flaky 100-layer golden puff stuffed with spiced potato & vegetable masala.</p>
-              <span class="item-tag hot">🔥 Fresh & Hot</span>
+          <!-- Table Number (if Dine-In) -->
+          <div class="form-group-tray" id="table-number-group">
+            <label>Table Number / Counter #</label>
+            <input type="text" id="tray-table-number" class="input-tray" placeholder="e.g. Table 4 or AC Hall 2">
+          </div>
+
+          <!-- Tray Items List -->
+          <div class="tray-items-list" id="tray-items-list">
+            <!-- Dynamic Items -->
+          </div>
+
+          <!-- Special Note -->
+          <div class="form-group-tray">
+            <label>Special Instructions (Optional)</label>
+            <input type="text" id="tray-note" class="input-tray" placeholder="e.g. Less spicy, Extra ice, No sugar in juice">
+          </div>
+
+          <!-- Bill Summary -->
+          <div class="tray-bill-breakdown">
+            <div class="bill-row">
+              <span>Item Total</span>
+              <span id="bill-subtotal">₹0</span>
+            </div>
+            <div class="bill-row">
+              <span>GST & Taxes</span>
+              <span>Included</span>
+            </div>
+            <div class="bill-row total">
+              <span>Grand Total</span>
+              <span id="bill-grand-total">₹0</span>
             </div>
           </div>
 
-          <div class="menu-item-card">
-            <img src="./sg-bakery-logo.png" alt="Egg Puff" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Classic Egg Puff</span>
-                <span class="menu-item-price">₹30</span>
-              </div>
-              <p class="menu-item-desc">Whole boiled egg wrapped in buttery flaky pastry dough with onion masala.</p>
-              <span class="item-tag bestseller">🌟 Store Bestseller</span>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./sg-bakery-logo.png" alt="Paneer Roll" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Spiced Paneer Roll</span>
-                <span class="menu-item-price">₹45</span>
-              </div>
-              <p class="menu-item-desc">Tandoori cottage cheese cubes sautéed with herbs wrapped in soft bake.</p>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./sg-bakery-logo.png" alt="Chicken Puff" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Special Chicken Puff</span>
-                <span class="menu-item-price">₹45</span>
-              </div>
-              <p class="menu-item-desc">Shredded chicken cooked in Nellai pepper masala inside flaky puff.</p>
-              <span class="item-tag hot">🔥 Hot & Fresh</span>
-            </div>
-          </div>
-        </div>
-        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 2</p>
-      </div>
-
-      <!-- PAGE 3: SIGNATURE PASTRIES -->
-      <div class="page">
-        <div>
-          <div class="page-header">
-            <h2>🍰 Signature Pastries</h2>
-            <span class="page-category-tag">Sweet Slices</span>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./Cakes for her/0002s_0021_Barbie-Pink-Cake_360x 2.png" alt="Black Forest" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Black Forest Slice</span>
-                <span class="menu-item-price">₹65</span>
-              </div>
-              <p class="menu-item-desc">Layers of chocolate sponge, fresh whipped cream, and red dark cherries.</p>
-              <span class="item-tag bestseller">🌟 Tirunelveli Favorite</span>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./Cakes for her/0000_cake_0014_TheCrownCake_360x 2.png" alt="Red Velvet" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Red Velvet Cream Slice</span>
-                <span class="menu-item-price">₹85</span>
-              </div>
-              <p class="menu-item-desc">Rich red velvet cocoa sponge frosted with signature cheese cream.</p>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./for him/0001s_0010_GamersX-BoxCake_360x 2.png" alt="Butterscotch" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Crunchy Butterscotch</span>
-                <span class="menu-item-price">₹60</span>
-              </div>
-              <p class="menu-item-desc">Vanilla sponge layered with caramel cream & caramelized praline nuts.</p>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./Baby shower/0001_BabyStrollerCake_360x 2.png" alt="Choco Lava" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Warm Choco Lava Cup</span>
-                <span class="menu-item-price">₹70</span>
-              </div>
-              <p class="menu-item-desc">Warm chocolate molten cake oozing with hot couverture chocolate ganache.</p>
-              <span class="item-tag hot">🔥 Served Warm</span>
-            </div>
-          </div>
-        </div>
-        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 3</p>
-      </div>
-
-      <!-- PAGE 4: CELEBRATION CAKES -->
-      <div class="page">
-        <div>
-          <div class="page-header">
-            <h2>🎂 Celebration Cakes</h2>
-            <span class="page-category-tag">Custom Themes</span>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./Cakes for her/0000_cake_0014_TheCrownCake_360x 2.png" alt="Crown Cake" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>The Crown Cake</span>
-                <span class="menu-item-price">₹650 / kg</span>
-              </div>
-              <p class="menu-item-desc">Royal gold tiara crowned celebration cake with cream frosting.</p>
-              <span class="item-tag bestseller">🌟 Popular for Her</span>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./for him/0001s_0010_GamersX-BoxCake_360x 2.png" alt="Fitness Freak Cake" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Fitness Freak Gym Cake</span>
-                <span class="menu-item-price">₹650 / kg</span>
-              </div>
-              <p class="menu-item-desc">Handcrafted dumbbell & weights theme cake for fitness enthusiasts.</p>
-            </div>
-          </div>
-
-          <div class="menu-item-card">
-            <img src="./engagement and wedding cakes/0000_WeddingFlowerCake_360x 2.png" alt="Wedding Cake" class="menu-item-img">
-            <div class="menu-item-info">
-              <div class="menu-item-name">
-                <span>Grand Wedding Tier Cake</span>
-                <span class="menu-item-price">₹850 / kg</span>
-              </div>
-              <p class="menu-item-desc">Elegant 3-tier floral centerpiece cake custom baked for wedding receptions.</p>
-            </div>
-          </div>
-        </div>
-        <p style="text-align: center; font-size: 0.75rem; color: #A08C7D; margin: 0;">Page 4</p>
-      </div>
-
-      <!-- PAGE 5: BACK COVER / STORE CONTACT -->
-      <div class="page page-cover" style="border-color: #8C6D4F;">
-        <div class="cover-border" style="width: 85%; padding: 30px 20px;">
-          <h2 style="font-family: var(--font-heading); font-size: 1.4rem; color: #E8BF96; margin-bottom: 12px;">THANK YOU FOR VISITING!</h2>
-          <p style="font-size: 0.85rem; color: #C4B5A5; line-height: 1.5; margin-bottom: 24px;">
-            Santhi Ganesh Bakery, Tirunelveli.<br>
-            Fresh baked every morning with pure butter & love.
+          <!-- WhatsApp Order Button -->
+          <button class="btn-send-whatsapp-order" onclick="sendInStoreOrderWhatsApp()">
+            <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i> Send Order to Counter WhatsApp
+          </button>
+          <p style="text-align: center; font-size: 0.75rem; color: var(--color-text-muted); margin-top: 8px;">
+            ⚡ Instant direct order notification sent to our kitchen counter
           </p>
-          <a href="./index.html" class="btn btn-primary" style="background-color: var(--color-desert); color: #FFF; text-decoration: none; display: inline-block; padding: 10px 20px; border-radius: 20px; font-weight: 600;">
-            🌐 Visit Website
-          </a>
+
         </div>
       </div>
-
-    </div>
-  </main>
-
-  <!-- BOTTOM NAVIGATION CONTROLS -->
-  <footer class="menu-controls">
-    <button id="prev-page-btn" class="nav-btn">
-      <i class="ph ph-caret-left"></i> Prev
-    </button>
-
-    <div class="page-indicator">
-      <span id="current-page-num">1</span> / <span id="total-pages-num">5</span>
     </div>
 
-    <button id="next-page-btn" class="nav-btn">
-      Next <i class="ph ph-caret-right"></i>
-    </button>
-  </footer>
+  </div>
+
+  <!-- Interactivity Script -->
+  <script src="./app.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const pageFlip = new St.PageFlip(
-        document.getElementById('flipbook'),
-        {
-          width: 440,
-          height: 600,
-          size: 'stretch',
-          minWidth: 320,
-          maxWidth: 900,
-          minHeight: 480,
-          maxHeight: 700,
-          maxShadowOpacity: 0.5,
-          showCover: true,
-          mobileScrollSupport: false
+    // ==========================================
+    // 1. IN-STORE MENU DATASET (Complete 100+ items)
+    // ==========================================
+    const IN_STORE_MENU = [
+      // 1. FRESH JUICE
+      {
+        id: "fj-1",
+        category: "juices",
+        category_name: "Fresh Juices",
+        category_hero: "./assets/banner1.jpg",
+        category_desc: "100% natural, freshly squeezed juices made to order",
+        name: "Elaneer Payasam",
+        desc: "Refreshing tender coconut blended with rich creamy milk & cardamom",
+        price: 80,
+        is_veg: true,
+        badge: "Chef Special ⭐",
+        icon: "🥥"
+      },
+      {
+        id: "fj-2",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Sathukudi (Sweet Lime)",
+        desc: "Pure freshly pressed sweet lime juice with a hint of salt & sugar",
+        price: 80,
+        is_veg: true,
+        icon: "🍊"
+      },
+      {
+        id: "fj-3",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Fresh Orange Juice",
+        desc: "Pure sunshine in a glass with rich Vitamin C",
+        price: 80,
+        is_veg: true,
+        icon: "🍊"
+      },
+      {
+        id: "fj-4",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Pomegranate Juice",
+        desc: "Fresh ruby red pomegranate seeds pressed to perfection",
+        price: 80,
+        is_veg: true,
+        icon: "🍷"
+      },
+      {
+        id: "fj-5",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Pomegranate Pure (No Water)",
+        desc: "100% undiluted pure fresh pomegranate extraction",
+        price: 120,
+        is_veg: true,
+        badge: "Pure Extract 👑",
+        icon: "🍷"
+      },
+      {
+        id: "fj-6",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Pineapple Juice",
+        desc: "Sweet and tangy golden ripe pineapple juice",
+        price: 60,
+        is_veg: true,
+        icon: "🍍"
+      },
+      {
+        id: "fj-7",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Fresh Apple Juice",
+        desc: "Crisp red apples blended with light honey touch",
+        price: 80,
+        is_veg: true,
+        icon: "🍎"
+      },
+      {
+        id: "fj-8",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Watermelon Juice",
+        desc: "Ultra hydrating cold pressed fresh watermelon",
+        price: 50,
+        is_veg: true,
+        badge: "Summer Favorite ☀️",
+        icon: "🍉"
+      },
+      {
+        id: "fj-9",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Muskmelon Juice (Kirni)",
+        desc: "Creamy aromatic fresh muskmelon drink",
+        price: 60,
+        is_veg: true,
+        icon: "🍈"
+      },
+      {
+        id: "fj-10",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Creamy Lassi (Sweet / Salt)",
+        desc: "Thick beaten curd lassi served chilled",
+        price: 50,
+        is_veg: true,
+        icon: "🥛"
+      },
+      {
+        id: "fj-11",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Rose Milk",
+        desc: "Classic South Indian fragrant chilled rose milk",
+        price: 40,
+        is_veg: true,
+        badge: "Bestseller 🔥",
+        icon: "🌹"
+      },
+      {
+        id: "fj-12",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Badam Kheer",
+        desc: "Rich almond milk with saffron, pista and cardamom notes",
+        price: 50,
+        is_veg: true,
+        icon: "🌰"
+      },
+      {
+        id: "fj-13",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Grape Juice",
+        desc: "Fresh black grape juice served ice cold",
+        price: 60,
+        is_veg: true,
+        icon: "🍇"
+      },
+      {
+        id: "fj-14",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Fresh Lime Juice",
+        desc: "Classic zesty fresh lemon juice with mint",
+        price: 30,
+        is_veg: true,
+        icon: "🍋"
+      },
+      {
+        id: "fj-15",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Mint Lemon Juice",
+        desc: "Garden fresh mint muddled with fresh lemon",
+        price: 40,
+        is_veg: true,
+        icon: "🌿"
+      },
+      {
+        id: "fj-16",
+        category: "juices",
+        category_name: "Fresh Juices",
+        name: "Fresh Lemon Soda",
+        desc: "Fizzy sparkling lemon soda (Sweet / Salt)",
+        price: 40,
+        is_veg: true,
+        icon: "🥤"
+      },
+
+      // 2. MILK SHAKE
+      {
+        id: "ms-1",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        category_hero: "./assets/banner2.jpg",
+        category_desc: "Thick & creamy shakes blended with rich dairy ice cream",
+        name: "Cold Coffee Shake",
+        desc: "Rich espresso decoction blended with creamy milk and chocolate drizzle",
+        price: 90,
+        is_veg: true,
+        badge: "Bestseller 🔥",
+        icon: "☕"
+      },
+      {
+        id: "ms-2",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Oreo Shake",
+        desc: "Crunchy Oreo cookies blended into thick chocolate cream",
+        price: 90,
+        is_veg: true,
+        badge: "Kids Favorite 🍪",
+        icon: "🍪"
+      },
+      {
+        id: "ms-3",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Kitkat Shake",
+        desc: "Crispy Kitkat wafer fingers blended with rich chocolate milk",
+        price: 90,
+        is_veg: true,
+        icon: "🍫"
+      },
+      {
+        id: "ms-4",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Vanilla Milkshake",
+        desc: "Classic Madagascar vanilla ice cream shake",
+        price: 70,
+        is_veg: true,
+        icon: "🍦"
+      },
+      {
+        id: "ms-5",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Chocolate Milkshake",
+        desc: "Rich couverture cocoa blended with chilled whole milk",
+        price: 80,
+        is_veg: true,
+        icon: "🍫"
+      },
+      {
+        id: "ms-6",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Butterscotch Milkshake",
+        desc: "Crunchy praline cashew butterscotch shake",
+        price: 80,
+        is_veg: true,
+        icon: "🍯"
+      },
+      {
+        id: "ms-7",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Strawberry Milkshake",
+        desc: "Sweet strawberry berry crush blended with ice cream",
+        price: 80,
+        is_veg: true,
+        icon: "🍓"
+      },
+      {
+        id: "ms-8",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Red Banana Milkshake",
+        desc: "Authentic local Tirunelveli red banana nutrition power shake",
+        price: 80,
+        is_veg: true,
+        badge: "Local Special 🍌",
+        icon: "🍌"
+      },
+      {
+        id: "ms-9",
+        category: "shakes",
+        category_name: "Milk Shakes",
+        name: "Dry Fruits Milkshake",
+        desc: "Loaded with premium almonds, cashews, pista, dates and figs",
+        price: 160,
+        is_veg: true,
+        badge: "Royal Special 👑",
+        icon: "🥜"
+      },
+
+      // 3. FALOODA & DESSERTS
+      {
+        id: "fl-1",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        category_hero: "./assets/banner3.jpg",
+        category_desc: "Layered royal sundaes, cut fruits and traditional sweets",
+        name: "Royal Falooda",
+        desc: "Layers of rose syrup, sabja seeds, vermicelli, mixed dry fruits, jelly & double ice cream",
+        price: 140,
+        is_veg: true,
+        badge: "Must Try 👑",
+        icon: "🍨"
+      },
+      {
+        id: "fl-2",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        name: "Classic Falooda",
+        desc: "Traditional rose falooda with basil seeds, vermicelli and vanilla ice cream scoop",
+        price: 100,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "fl-3",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        name: "Fresh Fruit Salad",
+        desc: "Bowl of freshly diced seasonal fruits with honey dressing",
+        price: 60,
+        is_veg: true,
+        icon: "🥗"
+      },
+      {
+        id: "fl-4",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        name: "Fruit Salad with Ice Cream",
+        desc: "Fresh cut fruit bowl topped with large gourmet ice cream scoop",
+        price: 90,
+        is_veg: true,
+        badge: "Bestseller 🔥",
+        icon: "🍨"
+      },
+      {
+        id: "fl-5",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        name: "Hot Gulab Jamun with Ice Cream",
+        desc: "Warm ghee-fried gulab jamuns served with cold vanilla ice cream",
+        price: 60,
+        is_veg: true,
+        icon: "🍯"
+      },
+      {
+        id: "fl-6",
+        category: "falooda",
+        category_name: "Falooda & Desserts",
+        name: "Royal Rasamalai",
+        desc: "Soft cottage cheese dumplings soaked in saffron cardamom clotted milk",
+        price: 40,
+        is_veg: true,
+        icon: "🍮"
+      },
+
+      // 4. MOJITO
+      {
+        id: "mj-1",
+        category: "mojito",
+        category_name: "Mojitos",
+        category_hero: "./assets/banner1.jpg",
+        category_desc: "Crisp sparkling mocktails with crushed mint and citrus",
+        name: "Lime Mint Mojito",
+        desc: "Classic crushed garden mint, fresh lime wedges and sparkling soda",
+        price: 70,
+        is_veg: true,
+        icon: "🍸"
+      },
+      {
+        id: "mj-2",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Green Mint Mojito",
+        desc: "Double green mint essence with zesty lemon splash",
+        price: 70,
+        is_veg: true,
+        icon: "🍹"
+      },
+      {
+        id: "mj-3",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Blue Curacao Mojito",
+        desc: "Vibrant tropical blue citrus cooler with sparkling soda",
+        price: 70,
+        is_veg: true,
+        badge: "Signature 💙",
+        icon: "🌊"
+      },
+      {
+        id: "mj-4",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Strawberry Mojito",
+        desc: "Muddled strawberry fruit syrup with mint and sparkling soda",
+        price: 70,
+        is_veg: true,
+        icon: "🍓"
+      },
+      {
+        id: "mj-5",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Black Currant Mojito",
+        desc: "Tangy rich black currant berry cooler",
+        price: 70,
+        is_veg: true,
+        icon: "🍇"
+      },
+      {
+        id: "mj-6",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Kiwi Fruit Mojito",
+        desc: "Exotic kiwi fruit crush with mint and crushed ice",
+        price: 70,
+        is_veg: true,
+        icon: "🥝"
+      },
+      {
+        id: "mj-7",
+        category: "mojito",
+        category_name: "Mojitos",
+        name: "Mango Sunshine Mojito",
+        desc: "Alphonso mango nectar with fizzy mint cooler",
+        price: 70,
+        is_veg: true,
+        icon: "🥭"
+      },
+
+      // 5. BROWNIES & CAKE VARIETIES
+      {
+        id: "br-1",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        category_hero: "./assets/banner2.jpg",
+        category_desc: "Fresh baked daily pastry slices and warm dessert sizzlers",
+        name: "Sizzling Chocolate Brownie",
+        desc: "Warm fudge brownie on hot cast iron sizzler plate topped with vanilla ice cream and molten chocolate fudge",
+        price: 140,
+        is_veg: true,
+        badge: "Chef Special 🔥",
+        icon: "🍫"
+      },
+      {
+        id: "br-2",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Brownie with Ice Cream",
+        desc: "Warm dark chocolate walnut brownie with vanilla scoop",
+        price: 100,
+        is_veg: true,
+        badge: "Bestseller ⭐",
+        icon: "🍨"
+      },
+      {
+        id: "br-3",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Black Forest Pastry Slice",
+        desc: "Classic cocoa sponge layered with whipped cream and cherries",
+        price: 55,
+        is_veg: true,
+        icon: "🍰"
+      },
+      {
+        id: "br-4",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "White Forest Pastry Slice",
+        desc: "White chocolate curls over vanilla cream and cherry compote",
+        price: 55,
+        is_veg: true,
+        icon: "🍰"
+      },
+      {
+        id: "br-5",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Red Velvet Cake Slice",
+        desc: "Velvety crimson sponge with cream cheese frosting",
+        price: 80,
+        is_veg: true,
+        icon: "🍰"
+      },
+      {
+        id: "br-6",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Choco Lava Cake",
+        desc: "Warm chocolate cake with molten flowing chocolate center",
+        price: 50,
+        is_veg: true,
+        icon: "🧁"
+      },
+      {
+        id: "br-7",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Chocolate Mousse Cake",
+        desc: "Silky airy dark chocolate mousse over sponge base",
+        price: 65,
+        is_veg: true,
+        icon: "🍰"
+      },
+      {
+        id: "br-8",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Gourmet Jar Cake",
+        desc: "Layered dessert jar with cream, brownie and chocolate ganache",
+        price: 65,
+        is_veg: true,
+        icon: "🫙"
+      },
+      {
+        id: "br-9",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Italian Panna Cotta",
+        desc: "Silky sweet cream pudding topped with fruit coulis",
+        price: 55,
+        is_veg: true,
+        icon: "🍮"
+      },
+      {
+        id: "br-10",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Choco Mud Pie",
+        desc: "Decadent deep fudge mud pie with cookie crust",
+        price: 90,
+        is_veg: true,
+        icon: "🥧"
+      },
+      {
+        id: "br-11",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Chocolate Glazed Donut",
+        desc: "Soft fried dough ring coated with rich chocolate glaze",
+        price: 50,
+        is_veg: true,
+        icon: "🍩"
+      },
+      {
+        id: "br-12",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Tirunelveli Honey Cake",
+        desc: "Traditional honey-soaked sponge with strawberry jam & desiccated coconut",
+        price: 22,
+        is_veg: true,
+        badge: "Tradition 🍯",
+        icon: "🍰"
+      },
+      {
+        id: "br-13",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Classic Chocolate Brownie",
+        desc: "Rich fudgy dark chocolate cake slice",
+        price: 50,
+        is_veg: true,
+        icon: "🍫"
+      },
+      {
+        id: "br-14",
+        category: "brownie",
+        category_name: "Brownies & Pastries",
+        name: "Texas Brownie",
+        desc: "Extra dense chocolate fudge square with roasted nuts",
+        price: 60,
+        is_veg: true,
+        icon: "🍫"
+      },
+
+      // 6. SCOOP ICE CREAM
+      {
+        id: "ic-1",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        category_hero: "./assets/banner3.jpg",
+        category_desc: "Premium dairy scoops served in bowls or waffle cones",
+        name: "Vanilla Scoop",
+        desc: "Classic creamy Madagascar vanilla scoop",
+        price: 40,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "ic-2",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        name: "Chocolate Scoop",
+        desc: "Rich Belgian chocolate scoop",
+        price: 50,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "ic-3",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        name: "Strawberry Scoop",
+        desc: "Fresh berry swirl ice cream scoop",
+        price: 40,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "ic-4",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        name: "Butterscotch Scoop",
+        desc: "Caramel ice cream with crunchy cashew bits",
+        price: 50,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "ic-5",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        name: "Pista Scoop",
+        desc: "Royal pistachio flavored dairy scoop",
+        price: 50,
+        is_veg: true,
+        icon: "🍨"
+      },
+      {
+        id: "ic-6",
+        category: "icecream",
+        category_name: "Scoop Ice Cream",
+        name: "Mango Scoop",
+        desc: "Alphonso mango fruit scoop",
+        price: 50,
+        is_veg: true,
+        icon: "🍨"
+      },
+
+      // 7. HOT DRINKS
+      {
+        id: "hd-1",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        category_hero: "./assets/banner1.jpg",
+        category_desc: "Traditional South Indian tea, filter coffee and healthy heritage brews",
+        name: "Ginger Tea (Inji Tea)",
+        desc: "Fresh crushed ginger brewed with Assam tea and milk",
+        price: 20,
+        is_veg: true,
+        badge: "Morning Favorite ☕",
+        icon: "☕"
+      },
+      {
+        id: "hd-2",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Filter Coffee",
+        desc: "Authentic strong South Indian chicory filter coffee with froth",
+        price: 25,
+        is_veg: true,
+        badge: "Signature ☕",
+        icon: "☕"
+      },
+      {
+        id: "hd-3",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Fresh Hot Milk",
+        desc: "Boiled whole cow milk with a touch of sugar",
+        price: 25,
+        is_veg: true,
+        icon: "🥛"
+      },
+      {
+        id: "hd-4",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Hot Boost",
+        desc: "Chocolate malt health drink served steaming hot",
+        price: 30,
+        is_veg: true,
+        icon: "☕"
+      },
+      {
+        id: "hd-5",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Hot Horlicks",
+        desc: "Malted barley wheat drink with hot milk",
+        price: 30,
+        is_veg: true,
+        icon: "☕"
+      },
+      {
+        id: "hd-6",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Naatu Sarkarai Tea",
+        desc: "Healthy organic country sugar (Naatu Sarkarai) brewed tea",
+        price: 30,
+        is_veg: true,
+        badge: "Healthy Choice 🌿",
+        icon: "☕"
+      },
+      {
+        id: "hd-7",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Naatu Sarkarai Coffee",
+        desc: "Filter coffee sweetened with unrefined brown country sugar",
+        price: 30,
+        is_veg: true,
+        icon: "☕"
+      },
+      {
+        id: "hd-8",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Karupatti Coffee",
+        desc: "Traditional palm jaggery (Karupatti) coffee with dry ginger and pepper",
+        price: 35,
+        is_veg: true,
+        badge: "Tirunelveli Heritage 👑",
+        icon: "☕"
+      },
+      {
+        id: "hd-9",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Honey Lemon Tea",
+        desc: "Warm black tea with pure honey and fresh lemon squeeze",
+        price: 20,
+        is_veg: true,
+        icon: "🫖"
+      },
+      {
+        id: "hd-10",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Panarkandu Milk (with Pepper)",
+        desc: "Palm sugar candy milk infused with black pepper and turmeric",
+        price: 35,
+        is_veg: true,
+        badge: "Immunity Booster 🌿",
+        icon: "🥛"
+      },
+      {
+        id: "hd-11",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Black Tea",
+        desc: "Strong brisk black tea without milk",
+        price: 15,
+        is_veg: true,
+        icon: "🫖"
+      },
+      {
+        id: "hd-12",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Black Coffee",
+        desc: "Pure black filter decoction",
+        price: 15,
+        is_veg: true,
+        icon: "☕"
+      },
+      {
+        id: "hd-13",
+        category: "hotdrinks",
+        category_name: "Hot Drinks & Tea",
+        name: "Hot Badam Milk",
+        desc: "Warm saffron almond milk with crunchy nut slivers",
+        price: 30,
+        is_veg: true,
+        icon: "🥛"
+      },
+
+      // 8. CHAT & QUICK BITES
+      {
+        id: "ch-1",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        category_hero: "./assets/banner2.jpg",
+        category_desc: "Crispy street chaat, samosas, fries and savory quick bites",
+        name: "Pani Puri (6 pcs)",
+        desc: "Crispy hollow puris filled with spiced potato and tangy mint water",
+        price: 40,
+        is_veg: true,
+        badge: "All-Time Favorite 🔥",
+        icon: "🥙"
+      },
+      {
+        id: "ch-2",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Bhel Puri",
+        desc: "Puffed rice tossed with onions, tomatoes, chutneys and sev",
+        price: 50,
+        is_veg: true,
+        icon: "🥗"
+      },
+      {
+        id: "ch-3",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Dahi Puri",
+        desc: "Crispy puris filled with spiced potatoes, sweet yogurt and sev",
+        price: 60,
+        is_veg: true,
+        badge: "Bestseller ⭐",
+        icon: "🥙"
+      },
+      {
+        id: "ch-4",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Aloo Puri",
+        desc: "Crispy puris layered with spiced potatoes, onions and chutneys",
+        price: 55,
+        is_veg: true,
+        icon: "🥔"
+      },
+      {
+        id: "ch-5",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Sev Puri",
+        desc: "Flat papdis topped with spiced potatoes, sweet tamarind and mountain of crisp sev",
+        price: 50,
+        is_veg: true,
+        icon: "🥙"
+      },
+      {
+        id: "ch-6",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Masala Puri",
+        desc: "Crushed puris topped with hot spicy peas gravy, onions and coriander",
+        price: 60,
+        is_veg: true,
+        icon: "🍲"
+      },
+      {
+        id: "ch-7",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Cheese Pani Puri",
+        desc: "Pani puris loaded with grated cheddar cheese and potato masala",
+        price: 70,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "ch-8",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Fruits Bhel Puri",
+        desc: "Puffed rice and sev tossed with fresh fruits and tangy chutneys",
+        price: 70,
+        is_veg: true,
+        icon: "🥗"
+      },
+      {
+        id: "ch-9",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Papdi Salad",
+        desc: "Crispy papdi tossed with fresh cucumber, tomato, onion and lemon chat",
+        price: 60,
+        is_veg: true,
+        icon: "🥗"
+      },
+      {
+        id: "ch-10",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Dahi Samosa",
+        desc: "Crushed hot samosa drenched in chilled sweet curd, chutneys and sev",
+        price: 60,
+        is_veg: true,
+        icon: "🥟"
+      },
+      {
+        id: "ch-11",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Samosa Channa",
+        desc: "Hot samosas served with rich spicy chickpea channa masala",
+        price: 70,
+        is_veg: true,
+        badge: "Hearty Snack 🔥",
+        icon: "🥟"
+      },
+      {
+        id: "ch-12",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Cutlet Channa",
+        desc: "Crispy vegetable cutlets served with hot channa gravy",
+        price: 70,
+        is_veg: true,
+        icon: "🧆"
+      },
+      {
+        id: "ch-13",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Channa Masala (Bowl)",
+        desc: "Spicy North-Indian style chickpea curry with chopped onions and lemon",
+        price: 60,
+        is_veg: true,
+        icon: "🍲"
+      },
+      {
+        id: "ch-14",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Bread Channa",
+        desc: "Toasted bread cubes tossed in flavorful channa masala gravy",
+        price: 70,
+        is_veg: true,
+        icon: "🍞"
+      },
+      {
+        id: "ch-15",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Vada Pav",
+        desc: "Mumbai style spiced potato batata vada in pav bun with garlic chutney",
+        price: 35,
+        price_display: "Single ₹35 / Double ₹60",
+        is_veg: true,
+        badge: "Street Special 🍔",
+        icon: "🍔"
+      },
+      {
+        id: "ch-16",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Mayonnaise Bread Omelette",
+        desc: "Fluffy 2-egg spiced omelette wrapped around toasted bread with creamy mayonnaise",
+        price: 60,
+        is_veg: false,
+        icon: "🍳"
+      },
+      {
+        id: "ch-17",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Chicken Bread Omelette",
+        desc: "Bread omelette loaded with shredded spicy chicken bits",
+        price: 100,
+        is_veg: false,
+        icon: "🍗"
+      },
+      {
+        id: "ch-18",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Chicken Cheese Bread Omelette",
+        desc: "Double egg bread omelette stuffed with shredded chicken and melted cheese",
+        price: 120,
+        is_veg: false,
+        badge: "Heavy Bite 🧀",
+        icon: "🍗"
+      },
+      {
+        id: "ch-19",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Crispy Veg Pops",
+        desc: "Bite sized crispy seasoned vegetable nuggets",
+        price: 50,
+        is_veg: true,
+        icon: "🍿"
+      },
+      {
+        id: "ch-20",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Crispy Chicken Pops",
+        desc: "Crunchy golden fried popcorn chicken bites",
+        price: 70,
+        is_veg: false,
+        icon: "🍗"
+      },
+      {
+        id: "ch-21",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Potato Cheese Balls",
+        desc: "Crispy potato croquettes stuffed with molten cheese core",
+        price: 100,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "ch-22",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Golden Fish Fingers (6 pcs)",
+        desc: "Crumb-coated succulent fish fillet fingers with tartar sauce",
+        price: 140,
+        is_veg: false,
+        badge: "Seafood Special 🐟",
+        icon: "🐟"
+      },
+      {
+        id: "ch-23",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Chicken Nuggets (6 pcs)",
+        desc: "Crispy golden fried chicken nuggets with dip",
+        price: 100,
+        is_veg: false,
+        icon: "🍗"
+      },
+      {
+        id: "ch-24",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Classic French Fries",
+        desc: "Crispy salted golden potato fries with ketchup",
+        price: 60,
+        is_veg: true,
+        icon: "🍟"
+      },
+      {
+        id: "ch-25",
+        category: "chat",
+        category_name: "Chat & Snacks",
+        name: "Potato Smileys",
+        desc: "Fun crispy potato smiley faces kids love",
+        price: 60,
+        is_veg: true,
+        icon: "😊"
+      },
+
+      // 9. PAV BHAJI
+      {
+        id: "pb-1",
+        category: "pavbhaji",
+        category_name: "Pav Bhaji",
+        category_hero: "./assets/banner3.jpg",
+        category_desc: "Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)",
+        name: "Classic Butter Pav Bhaji",
+        desc: "2 butter toasted pavs served with thick spiced potato tomato bhaji and chopped onions",
+        price: 60,
+        is_veg: true,
+        badge: "Bestseller 🔥",
+        icon: "🍲"
+      },
+      {
+        id: "pb-2",
+        category: "pavbhaji",
+        category_name: "Pav Bhaji",
+        name: "Paneer Pav Bhaji",
+        desc: "Bhaji loaded with soft diced cottage cheese cubes",
+        price: 90,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "pb-3",
+        category: "pavbhaji",
+        category_name: "Pav Bhaji",
+        name: "Cheese Pav Bhaji",
+        desc: "Pav bhaji blanketed with a generous layer of melted grated cheese",
+        price: 90,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "pb-4",
+        category: "pavbhaji",
+        category_name: "Pav Bhaji",
+        name: "Mushroom Pav Bhaji",
+        desc: "Flavorful sautéed button mushrooms tossed into rich bhaji",
+        price: 90,
+        is_veg: true,
+        icon: "🍄"
+      },
+      {
+        id: "pb-5",
+        category: "pavbhaji",
+        category_name: "Pav Bhaji",
+        name: "Paneer Cheese Pav Bhaji",
+        desc: "The ultimate indulgence with both paneer cubes and melted cheese",
+        price: 120,
+        is_veg: true,
+        badge: "Royal Special 👑",
+        icon: "🧀"
+      },
+
+      // 10. TOAST
+      {
+        id: "ts-1",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        category_hero: "./assets/banner1.jpg",
+        category_desc: "Bakery fresh bread slices crisped on butter griddle",
+        name: "Butter Bread Toast",
+        desc: "Golden griddled bakery bread with rich butter",
+        price: 30,
+        is_veg: true,
+        icon: "🍞"
+      },
+      {
+        id: "ts-2",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        name: "Chilli Toast",
+        desc: "Crispy toast with green chillies, onions and spices",
+        price: 40,
+        is_veg: true,
+        icon: "🌶️"
+      },
+      {
+        id: "ts-3",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        name: "Garlic Butter Toast",
+        desc: "Aromatic roasted garlic butter brushed over crispy toast",
+        price: 40,
+        is_veg: true,
+        icon: "🧄"
+      },
+      {
+        id: "ts-4",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        name: "Tomato Toast",
+        desc: "Juicy seasoned tomato slices toasted with herbs",
+        price: 40,
+        is_veg: true,
+        icon: "🍅"
+      },
+      {
+        id: "ts-5",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        name: "Grilled Jam Toast",
+        desc: "Sweet fruit jam spread between butter-grilled bread",
+        price: 40,
+        is_veg: true,
+        icon: "🍓"
+      },
+      {
+        id: "ts-6",
+        category: "toast",
+        category_name: "Toasts & Quick Breads",
+        name: "Classic Bun Butter Jam",
+        desc: "Soft bakery bun sliced and stuffed with creamy butter and sweet mixed fruit jam",
+        price: 35,
+        is_veg: true,
+        badge: "Bakery Classic 👑",
+        icon: "🥯"
+      },
+
+      // 11. BURGERS
+      {
+        id: "bg-1",
+        category: "burger",
+        category_name: "Burgers",
+        category_hero: "./assets/banner2.jpg",
+        category_desc: "Fresh baked sesame buns with juicy patties and crispy vegetables",
+        name: "Crispy Veg Burger",
+        desc: "Crispy spiced vegetable patty with lettuce, tomatoes, onions and house mayo",
+        price: 80,
+        is_veg: true,
+        icon: "🍔"
+      },
+      {
+        id: "bg-2",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Crispy Chicken Burger",
+        desc: "Seasoned chicken patty with crunchy lettuce, onions and creamy mayo",
+        price: 120,
+        is_veg: false,
+        badge: "Bestseller 🔥",
+        icon: "🍔"
+      },
+      {
+        id: "bg-3",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Grilled Paneer Burger",
+        desc: "Marinated cottage cheese patty with mint mayo and crisp greens",
+        price: 110,
+        is_veg: true,
+        icon: "🍔"
+      },
+      {
+        id: "bg-4",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Mushroom Patty Burger",
+        desc: "Herbed mushroom patty with caramelized onions and sauce",
+        price: 110,
+        is_veg: true,
+        icon: "🍔"
+      },
+      {
+        id: "bg-5",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Double Chicken Burger",
+        desc: "Double chicken patties with double sauce and layers of cheese",
+        price: 160,
+        is_veg: false,
+        badge: "Giant Feast 🍗",
+        icon: "🍔"
+      },
+      {
+        id: "bg-6",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Double Veg Burger",
+        desc: "Two crispy vegetable patties with double veggies and cream sauce",
+        price: 120,
+        is_veg: true,
+        icon: "🍔"
+      },
+      {
+        id: "bg-7",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Sweet Corn Burger",
+        desc: "Sweet corn and potato patty with crunchy cabbage slaw",
+        price: 110,
+        is_veg: true,
+        icon: "🍔"
+      },
+      {
+        id: "bg-8",
+        category: "burger",
+        category_name: "Burgers",
+        name: "Cheese Lover Burger",
+        desc: "Loaded with melted cheddar cheese slice and cheese sauce",
+        price: 110,
+        is_veg: true,
+        icon: "🧀"
+      },
+
+      // 12. PIZZAS
+      {
+        id: "pz-1",
+        category: "pizza",
+        category_name: "Pizzas",
+        category_hero: "./assets/banner3.jpg",
+        category_desc: "Fresh dough baked with Italian herb sauce and 100% mozzarella",
+        name: "Classic Veg Pizza",
+        desc: "Mozzarella cheese, capsicum, onions and diced tomatoes on herb crust",
+        price: 110,
+        is_veg: true,
+        icon: "🍕"
+      },
+      {
+        id: "pz-2",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Chicken Delight Pizza",
+        desc: "Tender seasoned chicken chunks with capsicum and mozzarella",
+        price: 140,
+        is_veg: false,
+        badge: "Bestseller 🔥",
+        icon: "🍕"
+      },
+      {
+        id: "pz-3",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Smoky BBQ Chicken Pizza",
+        desc: "Barbecue glazed chicken with caramelized onions and stretchy cheese",
+        price: 150,
+        is_veg: false,
+        badge: "Chef Special ⭐",
+        icon: "🍕"
+      },
+      {
+        id: "pz-4",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Double Cheese Margherita Pizza",
+        desc: "Loaded with double layer of golden melted mozzarella cheese",
+        price: 140,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "pz-5",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Paneer Tikka Pizza",
+        desc: "Spiced paneer cubes with onions, green peppers and oregano",
+        price: 140,
+        is_veg: true,
+        icon: "🍕"
+      },
+      {
+        id: "pz-6",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Mushroom Feast Pizza",
+        desc: "Herbed button mushrooms with garlic notes and mozzarella",
+        price: 140,
+        is_veg: true,
+        icon: "🍄"
+      },
+      {
+        id: "pz-7",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Sweet Corn & Cheese Pizza",
+        desc: "Golden sweet corn kernels with creamy mozzarella cheese",
+        price: 140,
+        is_veg: true,
+        icon: "🌽"
+      },
+      {
+        id: "pz-8",
+        category: "pizza",
+        category_name: "Pizzas",
+        name: "Capsicum & Onion Pizza",
+        desc: "Crunchy green capsicum and onions on spiced marinara base",
+        price: 120,
+        is_veg: true,
+        icon: "🍕"
+      },
+
+      // 13. SANDWICHES
+      {
+        id: "sw-1",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        category_hero: "./assets/banner1.jpg",
+        category_desc: "Freshly sliced bakery bread grilled with mouthwatering fillings",
+        name: "Classic Veg Sandwich",
+        desc: "Cucumber, tomato, onions and green mint chutney grilled to golden crisp",
+        price: 80,
+        is_veg: true,
+        icon: "🥪"
+      },
+      {
+        id: "sw-2",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Chocolate Dessert Sandwich",
+        desc: "Melted chocolate spread with chocolate chips inside grilled bread",
+        price: 80,
+        is_veg: true,
+        badge: "Dessert Special 🍫",
+        icon: "🍫"
+      },
+      {
+        id: "sw-3",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Bombay Masala Sandwich",
+        desc: "Spiced potato masala with capsicum, onions and chat masala",
+        price: 80,
+        is_veg: true,
+        icon: "🥪"
+      },
+      {
+        id: "sw-4",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Egg Mayo Sandwich",
+        desc: "Boiled egg slices with seasoned mayonnaise and black pepper",
+        price: 80,
+        is_veg: false,
+        icon: "🍳"
+      },
+      {
+        id: "sw-5",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Grilled Paneer Sandwich",
+        desc: "Spiced cottage cheese filling with mint chutney and butter",
+        price: 100,
+        is_veg: true,
+        icon: "🥪"
+      },
+      {
+        id: "sw-6",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Mushroom Grill Sandwich",
+        desc: "Sautéed button mushrooms with herbs and black pepper",
+        price: 100,
+        is_veg: true,
+        icon: "🍄"
+      },
+      {
+        id: "sw-7",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Sweet Corn Sandwich",
+        desc: "Juicy sweet corn with spiced cheese dressing",
+        price: 100,
+        is_veg: true,
+        icon: "🌽"
+      },
+      {
+        id: "sw-8",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Grilled Cheese Sandwich",
+        desc: "Gooey melted cheddar and mozzarella between crisp golden bread",
+        price: 100,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "sw-9",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Grill Chicken Sandwich",
+        desc: "Succulent shredded chicken with pepper mayo and greens",
+        price: 120,
+        is_veg: false,
+        badge: "Bestseller 🔥",
+        icon: "🍗"
+      },
+      {
+        id: "sw-10",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "BBQ Chicken Sandwich",
+        desc: "Tender chicken tossed in smoky barbecue sauce and grilled",
+        price: 130,
+        is_veg: false,
+        icon: "🍗"
+      },
+      {
+        id: "sw-11",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Chicken Cheese Sandwich",
+        desc: "Loaded with spiced chicken and melted cheese slice",
+        price: 140,
+        is_veg: false,
+        badge: "Heavy Bite ⭐",
+        icon: "🍗"
+      },
+      {
+        id: "sw-12",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Mushroom Cheese Sandwich",
+        desc: "Sautéed mushrooms and melted cheese blend",
+        price: 120,
+        is_veg: true,
+        icon: "🧀"
+      },
+      {
+        id: "sw-13",
+        category: "sandwich",
+        category_name: "Sandwiches",
+        name: "Cheese Corn Sandwich",
+        desc: "Sweet corn kernels coated in molten cheese and oregano",
+        price: 120,
+        is_veg: true,
+        icon: "🧀"
+      },
+
+      // 14. MOMOS & CRUNCHY SPECIALS
+      {
+        id: "mm-1",
+        category: "momos",
+        category_name: "Momos & Crispy",
+        category_hero: "./assets/banner2.jpg",
+        category_desc: "Steamed or fried Tibetan dumplings served with fiery red chutney",
+        name: "Steamed Veg Momos (5 pcs)",
+        desc: "Thin wrapper stuffed with finely minced vegetables and ginger garlic",
+        price: 80,
+        is_veg: true,
+        icon: "🥟"
+      },
+      {
+        id: "mm-2",
+        category: "momos",
+        category_name: "Momos & Crispy",
+        name: "Steamed Chicken Momos (5 pcs)",
+        desc: "Juicy minced chicken dumplings with spicy red chilli sauce",
+        price: 100,
+        is_veg: false,
+        badge: "Bestseller 🔥",
+        icon: "🥟"
+      },
+      {
+        id: "mm-3",
+        category: "momos",
+        category_name: "Momos & Crispy",
+        name: "Paneer Momos (5 pcs)",
+        desc: "Dumplings stuffed with spiced cottage cheese and herbs",
+        price: 100,
+        is_veg: true,
+        icon: "🥟"
+      },
+      {
+        id: "mm-4",
+        category: "momos",
+        category_name: "Momos & Crispy",
+        name: "Peri-Peri Chicken Momos (5 pcs)",
+        desc: "Crispy fried chicken momos tossed in spicy fiery peri-peri powder",
+        price: 120,
+        is_veg: false,
+        badge: "Extra Spicy 🌶️",
+        icon: "🥟"
+      },
+      {
+        id: "mm-5",
+        category: "momos",
+        category_name: "Momos & Crispy",
+        name: "Crunchy Fried Chicken",
+        desc: "Crispy golden crumb-fried chicken fillets with garlic mayonnaise",
+        price: 110,
+        is_veg: false,
+        badge: "Chef Special ⭐",
+        icon: "🍗"
+      }
+    ];
+
+    // ==========================================
+    // 2. STATE MANAGEMENT
+    // ==========================================
+    let currentDietFilter = 'all';
+    let searchQuery = '';
+    let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
+    let diningType = 'Dine-In';
+
+    // Categories definition
+    const CATEGORIES = [
+      { id: 'juices', name: 'Fresh Juice', icon: '🧃', desc: '100% natural, freshly squeezed juices made to order', hero: './assets/banner1.jpg' },
+      { id: 'shakes', name: 'Milk Shakes', icon: '🥤', desc: 'Thick & creamy shakes blended with rich dairy ice cream', hero: './assets/banner2.jpg' },
+      { id: 'falooda', name: 'Falooda & Desserts', icon: '🍨', desc: 'Layered royal sundaes, cut fruits and traditional sweets', hero: './assets/banner3.jpg' },
+      { id: 'mojito', name: 'Mojitos', icon: '🍹', desc: 'Crisp sparkling mocktails with crushed mint and citrus', hero: './assets/banner1.jpg' },
+      { id: 'brownie', name: 'Brownies & Pastries', icon: '🍫', desc: 'Fresh baked daily pastry slices and warm dessert sizzlers', hero: './assets/banner2.jpg' },
+      { id: 'icecream', name: 'Scoop Ice Cream', icon: '🍦', desc: 'Premium dairy scoops served in bowls or waffle cones', hero: './assets/banner3.jpg' },
+      { id: 'hotdrinks', name: 'Hot Drinks & Tea', icon: '☕', desc: 'Traditional South Indian tea, filter coffee and healthy heritage brews', hero: './assets/banner1.jpg' },
+      { id: 'chat', name: 'Chat & Snacks', icon: '🫓', desc: 'Crispy street chaat, samosas, fries and savory quick bites', hero: './assets/banner2.jpg' },
+      { id: 'pavbhaji', name: 'Pav Bhaji', icon: '🍲', desc: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', hero: './assets/banner3.jpg' },
+      { id: 'toast', name: 'Toasts', icon: '🍞', desc: 'Bakery fresh bread slices crisped on butter griddle', hero: './assets/banner1.jpg' },
+      { id: 'burger', name: 'Burgers', icon: '🍔', desc: 'Fresh baked sesame buns with juicy patties and crispy vegetables', hero: './assets/banner2.jpg' },
+      { id: 'pizza', name: 'Pizzas', icon: '🍕', desc: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', hero: './assets/banner3.jpg' },
+      { id: 'sandwich', name: 'Sandwiches', icon: '🥪', desc: 'Freshly sliced bakery bread grilled with mouthwatering fillings', hero: './assets/banner1.jpg' },
+      { id: 'momos', name: 'Momos & Crispy', icon: '🥟', desc: 'Steamed or fried dumplings served with fiery red chutney', hero: './assets/banner2.jpg' }
+    ];
+
+    // ==========================================
+    // 3. RENDER MENU ITEMS (Yumm UI Style)
+    // ==========================================
+    function renderMenu() {
+      const container = document.getElementById('menu-sections-container');
+      if (!container) return;
+
+      // Filter items by diet and search
+      let filteredItems = IN_STORE_MENU;
+
+      if (currentDietFilter === 'veg') {
+        filteredItems = filteredItems.filter(item => item.is_veg === true);
+      } else if (currentDietFilter === 'nonveg') {
+        filteredItems = filteredItems.filter(item => item.is_veg === false);
+      } else if (currentDietFilter === 'bestseller') {
+        filteredItems = filteredItems.filter(item => item.badge && item.badge.length > 0);
+      }
+
+      if (searchQuery.trim() !== '') {
+        const q = searchQuery.toLowerCase();
+        filteredItems = filteredItems.filter(item => 
+          item.name.toLowerCase().includes(q) || 
+          item.desc.toLowerCase().includes(q) ||
+          item.category_name.toLowerCase().includes(q)
+        );
+      }
+
+      if (filteredItems.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 48px 20px; background: #FFF; border-radius: 16px;">
+            <p style="font-size: 3rem; margin-bottom: 8px;">🔍</p>
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">No items found</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem;">Try clearing your search or switching filters.</p>
+            <button onclick="clearMenuSearch()" style="margin-top: 14px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer;">Clear Filter</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Group filtered items by category
+      let html = '';
+
+      CATEGORIES.forEach(cat => {
+        const catItems = filteredItems.filter(item => item.category === cat.id);
+        if (catItems.length === 0) return;
+
+        html += `
+          <section class="category-section" id="cat-sec-${cat.id}">
+            
+            <!-- Category Hero Card (Yumm style) -->
+            <div class="category-hero-card">
+              <img src="${cat.hero}" alt="${cat.name}" class="category-hero-img" loading="lazy" onerror="this.src='./assets/about_fresh.jpg'">
+              <div class="category-hero-text">
+                <h2 class="category-title">❧ ${cat.name} ❧</h2>
+                <p class="category-subtext">${cat.desc}</p>
+              </div>
+            </div>
+
+            <!-- Item List -->
+            <div class="items-list">
+              ${catItems.map(item => createItemCardHTML(item)).join('')}
+            </div>
+
+          </section>
+        `;
+      });
+
+      container.innerHTML = html;
+      updateTrayUI();
+    }
+
+    function createItemCardHTML(item) {
+      const inTrayItem = inStoreTray.find(t => t.id === item.id);
+      const qty = inTrayItem ? inTrayItem.qty : 0;
+
+      const dietClass = item.is_veg ? 'veg' : 'nonveg';
+      const badgeHTML = item.badge ? `<span class="item-badge">${item.badge}</span>` : '';
+      const priceSubHTML = item.price_display ? `<span class="item-price-sub">${item.price_display}</span>` : '';
+
+      const actionHTML = qty > 0 ? `
+        <div class="qty-stepper">
+          <button class="qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
+          <span class="qty-val">${qty}</span>
+          <button class="qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
+        </div>
+      ` : `
+        <button class="btn-add-tray" onclick="updateItemQty('${item.id}', 1)">
+          + Add
+        </button>
+      `;
+
+      return `
+        <article class="item-card">
+          <div class="item-thumb-box">
+            <span class="item-thumb-icon">${item.icon || '🍽️'}</span>
+          </div>
+
+          <div class="item-info">
+            <div class="item-header-row">
+              <span class="diet-icon ${dietClass}"></span>
+              <h3 class="item-name">${item.name}</h3>
+            </div>
+            ${badgeHTML}
+            <p class="item-desc">${item.desc}</p>
+          </div>
+
+          <div class="item-action-area">
+            <span class="item-price">₹${item.price}</span>
+            ${priceSubHTML}
+            ${actionHTML}
+          </div>
+        </article>
+      `;
+    }
+
+    // ==========================================
+    // 4. INTERACTIVITY & FILTERS
+    // ==========================================
+    function scrollToCategory(catId, btnElem) {
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElem) btnElem.classList.add('active');
+
+      const targetSec = document.getElementById(`cat-sec-${catId}`);
+      if (targetSec) {
+        targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function setDietFilter(filterType, chipElem) {
+      currentDietFilter = filterType;
+      document.querySelectorAll('.diet-chip').forEach(c => c.classList.remove('active'));
+      if (chipElem) chipElem.classList.add('active');
+      renderMenu();
+    }
+
+    function handleMenuSearch(val) {
+      searchQuery = val;
+      const clearBtn = document.getElementById('search-clear-btn');
+      if (clearBtn) {
+        clearBtn.style.display = val.trim() ? 'block' : 'none';
+      }
+      renderMenu();
+    }
+
+    function clearMenuSearch() {
+      searchQuery = '';
+      const input = document.getElementById('menu-search-input');
+      if (input) input.value = '';
+      const clearBtn = document.getElementById('search-clear-btn');
+      if (clearBtn) clearBtn.style.display = 'none';
+      currentDietFilter = 'all';
+      document.querySelectorAll('.diet-chip').forEach((c, idx) => {
+        if (idx === 0) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+      renderMenu();
+    }
+
+    function toggleSearch() {
+      const input = document.getElementById('menu-search-input');
+      if (input) {
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // ==========================================
+    // 5. TRAY & CART MANAGEMENT
+    // ==========================================
+    function updateItemQty(itemId, change) {
+      const item = IN_STORE_MENU.find(i => i.id === itemId);
+      if (!item) return;
+
+      const existingIndex = inStoreTray.findIndex(t => t.id === itemId);
+
+      if (existingIndex > -1) {
+        inStoreTray[existingIndex].qty += change;
+        if (inStoreTray[existingIndex].qty <= 0) {
+          inStoreTray.splice(existingIndex, 1);
         }
-      );
+      } else if (change > 0) {
+        inStoreTray.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          is_veg: item.is_veg,
+          qty: 1
+        });
+      }
 
-      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+      localStorage.setItem('sg_instore_tray', JSON.stringify(inStoreTray));
+      renderMenu();
+      updateTrayUI();
+      if (document.getElementById('tray-modal').classList.contains('active')) {
+        renderTrayModalContent();
+      }
+    }
 
-      // Update Page Numbers
-      pageFlip.on('flip', (e) => {
-        document.getElementById('current-page-num').textContent = e.data + 1;
+    function updateTrayUI() {
+      const floatingBar = document.getElementById('floating-tray-bar');
+      const barCount = document.getElementById('tray-bar-count');
+      const barTotal = document.getElementById('tray-bar-total');
+
+      const totalItems = inStoreTray.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+      if (totalItems > 0) {
+        floatingBar.classList.add('visible');
+        barCount.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'} Selected`;
+        barTotal.textContent = `₹${totalPrice}`;
+      } else {
+        floatingBar.classList.remove('visible');
+      }
+    }
+
+    function openTrayModal() {
+      renderTrayModalContent();
+      document.getElementById('tray-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrayModal() {
+      document.getElementById('tray-modal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function setDiningType(type) {
+      diningType = type;
+      document.getElementById('btn-dinein').classList.toggle('active', type === 'Dine-In');
+      document.getElementById('btn-takeaway').classList.toggle('active', type !== 'Dine-In');
+      
+      const tableGroup = document.getElementById('table-number-group');
+      if (tableGroup) {
+        tableGroup.style.display = (type === 'Dine-In') ? 'block' : 'none';
+      }
+    }
+
+    function renderTrayModalContent() {
+      const container = document.getElementById('tray-items-list');
+      const subtotalEl = document.getElementById('bill-subtotal');
+      const grandTotalEl = document.getElementById('bill-grand-total');
+
+      if (inStoreTray.length === 0) {
+        container.innerHTML = `
+          <div class="empty-tray-state">
+            <div class="empty-tray-icon">🛒</div>
+            <h3 style="font-size: 1.1rem; font-weight: 700;">Your tray is empty</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.85rem; margin-top: 4px;">Tap "+ Add" on any dish to begin your order.</p>
+          </div>
+        `;
+        subtotalEl.textContent = '₹0';
+        grandTotalEl.textContent = '₹0';
+        return;
+      }
+
+      const total = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+      container.innerHTML = inStoreTray.map(item => `
+        <div class="tray-item-row">
+          <div class="tray-item-left">
+            <div class="tray-item-name">${item.name}</div>
+            <div class="tray-item-unit-price">₹${item.price} each</div>
+          </div>
+          <div class="tray-item-actions">
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
+            </div>
+            <span class="tray-item-total">₹${item.price * item.qty}</span>
+          </div>
+        </div>
+      `).join('');
+
+      subtotalEl.textContent = `₹${total}`;
+      grandTotalEl.textContent = `₹${total}`;
+    }
+
+    // ==========================================
+    // 6. WHATSAPP IN-STORE ORDER DISPATCH
+    // ==========================================
+    function sendInStoreOrderWhatsApp() {
+      if (inStoreTray.length === 0) {
+        alert('Please add items to your tray first!');
+        return;
+      }
+
+      const tableNumber = document.getElementById('tray-table-number')?.value.trim() || 'Counter / Self';
+      const note = document.getElementById('tray-note')?.value.trim();
+      const grandTotal = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const refId = Math.floor(100000 + Math.random() * 900000);
+
+      let text = `🛎️ *IN-STORE ORDER (#SG-TRAY-${refId})*\n`;
+      text += `*Santhi Ganesh Bakery & Cafe*\n`;
+      text += `------------------------------------\n`;
+      text += `📍 *Order Type:* ${diningType}\n`;
+      if (diningType === 'Dine-In') {
+        text += `🪑 *Table Number:* ${tableNumber}\n`;
+      }
+      text += `📅 *Time:* ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}\n`;
+      text += `------------------------------------\n`;
+      text += `*ITEMS ORDERED:*\n`;
+
+      inStoreTray.forEach((item, index) => {
+        text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
       });
 
-      document.getElementById('total-pages-num').textContent = pageFlip.getPageCount();
+      text += `------------------------------------\n`;
+      text += `💰 *TOTAL AMOUNT:* ₹${grandTotal}\n`;
+      if (note) text += `📝 *Special Note:* ${note}\n`;
+      text += `------------------------------------\n`;
+      text += `Please prepare our order. Thank you!`;
 
-      // Button Controls
-      document.getElementById('prev-page-btn').addEventListener('click', () => {
-        pageFlip.flipPrev();
-      });
+      // Track event
+      if (typeof trackEvent === 'function') {
+        trackEvent('instore_menu_order', {
+          ref_id: `#SG-TRAY-${refId}`,
+          dining_type: diningType,
+          table: tableNumber,
+          items_count: inStoreTray.length,
+          total: grandTotal
+        });
+      }
 
-      document.getElementById('next-page-btn').addEventListener('click', () => {
-        pageFlip.flipNext();
-      });
+      // Open WhatsApp
+      const bakeryPhone = "917339073844";
+      const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
+      window.open(encodedUrl, '_blank');
+
+      // Clear tray after dispatch
+      setTimeout(() => {
+        inStoreTray = [];
+        localStorage.removeItem('sg_instore_tray');
+        updateTrayUI();
+        closeTrayModal();
+        alert(`🎉 Order #SG-TRAY-${refId} Sent to Counter!\nOur team will prepare your order right away.`);
+      }, 500);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenu();
+
+      // IntersectionObserver for category scroll-spy
+      const observerOptions = {
+        root: null,
+        rootMargin: '-120px 0px -70% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const catId = entry.target.id.replace('cat-sec-', '');
+            document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+              const isActive = btn.getAttribute('onclick').includes(`'${catId}'`);
+              btn.classList.toggle('active', isActive);
+              if (isActive) {
+                btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.category-section').forEach(sec => observer.observe(sec));
     });
   </script>
 </body>
