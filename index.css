@@ -356,7 +356,32 @@ h3, .text-h3 {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+.nav-actions .btn,
+.nav-actions .nav-cta-btn,
+.nav-actions a.btn {
+  font-size: 0.85rem;
+  padding: 7px 15px;
+  border-bottom: 2px solid var(--color-desert-dark);
+  border-radius: var(--radius-sm);
+  line-height: 1.2;
+  white-space: nowrap;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(166, 96, 27, 0.2);
+}
+
+.nav-actions .btn:hover,
+.nav-actions .nav-cta-btn:hover,
+.nav-actions a.btn:hover {
+  transform: translateY(-1px);
+}
+
+.nav-actions .btn:active,
+.nav-actions .nav-cta-btn:active,
+.nav-actions a.btn:active {
+  transform: translateY(1px);
 }
 
 .mobile-menu-toggle {
