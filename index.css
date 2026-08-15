@@ -639,28 +639,14 @@ h3, .text-h3 {
 }
 
 /* ==========================================================================
-   CATEGORY SHOWCASE CARDS (Sticky Glass Container & Artisanal Style)
+   CATEGORY SHOWCASE CARDS (Artisanal Light Style)
    ========================================================================== */
-.sticky-categories-bar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 88px;
-  z-index: 90;
-  background: rgba(253, 249, 243, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 14px 0 16px 0;
-  margin-bottom: 36px;
-  border-bottom: 1px solid rgba(166, 96, 27, 0.08);
-  box-shadow: 0 4px 16px rgba(10, 4, 4, 0.03);
-}
-
 .category-tabs,
 .products-page-tabs {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 16px;
-  margin-bottom: 0;
+  margin-bottom: 48px;
   width: 100%;
 }
 
@@ -1033,12 +1019,6 @@ html[lang="ta"] .hero-title {
   .product-price {
     font-size: 0.85rem !important;
     font-weight: 700 !important;
-  }
-
-  .sticky-categories-bar {
-    top: 64px !important;
-    padding: 8px 0 10px 0 !important;
-    margin-bottom: 20px !important;
   }
 
   .category-tabs,
