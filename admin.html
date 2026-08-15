@@ -574,12 +574,168 @@
     }
 
     /* ====================================================
+       🧾 THERMAL POS RECEIPT ROLL STYLES (80mm & 58mm)
+       ==================================================== */
+    .print-thermal-roll {
+      width: 80mm;
+      min-height: auto;
+      background: #FFFFFF;
+      box-sizing: border-box;
+      padding: 4mm 2.5mm;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-radius: 2px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5mm;
+    }
+
+    .print-thermal-roll-58 {
+      width: 58mm;
+      padding: 3mm 1.5mm;
+    }
+
+    .thermal-tag-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace, sans-serif;
+      padding: 3mm 2mm 3.5mm;
+      border: 2px solid #000000;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      page-break-after: always !important;
+      break-after: page !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .thermal-header-brand {
+      font-family: 'Aboreto', 'Lora', serif;
+      font-size: 8pt;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1mm;
+      color: #000000;
+    }
+
+    .thermal-sub {
+      font-size: 6pt;
+      font-weight: 700;
+      color: #333333;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .thermal-divider {
+      border-top: 1px dashed #000000;
+      margin: 2mm 0;
+      width: 100%;
+    }
+
+    .thermal-double-divider {
+      border-top: 2px solid #000000;
+      margin: 2mm 0;
+      width: 100%;
+    }
+
+    .thermal-title-en {
+      font-size: 13pt;
+      font-weight: 900;
+      line-height: 1.15;
+      margin: 1.5mm 0 1mm;
+      color: #000000;
+      text-transform: capitalize;
+    }
+
+    .thermal-title-ta {
+      font-family: 'Mukta Malar', 'Noto Sans Tamil', sans-serif;
+      font-size: 10pt;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 1.5mm;
+    }
+
+    .thermal-category-pill {
+      display: inline-block;
+      font-size: 6.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 1px solid #000000;
+      padding: 0.5mm 3mm;
+      border-radius: 3px;
+      margin: 1mm 0 2mm;
+      align-self: center;
+    }
+
+    .thermal-price-box {
+      border: 2px solid #000000;
+      background: #000000;
+      color: #FFFFFF;
+      border-radius: 4px;
+      padding: 2mm 4mm;
+      margin: 2mm 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 3px;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .thermal-price-symbol {
+      font-size: 12pt;
+      font-weight: 900;
+      color: #FFFFFF;
+    }
+
+    .thermal-price-val {
+      font-size: 19pt;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+    }
+
+    .thermal-price-unit {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #FFFFFF;
+      opacity: 0.95;
+    }
+
+    .thermal-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5mm;
+      font-size: 6.5pt;
+      font-weight: 700;
+    }
+
+    .thermal-cut-guide {
+      margin-top: 2.5mm;
+      border-top: 1px dashed #666666;
+      padding-top: 1mm;
+      font-size: 5.5pt;
+      color: #555555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ====================================================
        PRINT MEDIA QUERY (NATIVE HIGH RESOLUTION PRINTING)
        ==================================================== */
     @media print {
       @page {
-        size: A4 portrait;
-        margin: 6mm 4mm;
+        size: auto;
+        margin: 0;
       }
       
       html, body {
@@ -634,9 +790,21 @@
         break-after: page !important;
       }
 
-      .print-tag-card {
+      .print-thermal-roll {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        gap: 0 !important;
+      }
+
+      .print-tag-card,
+      .thermal-tag-card {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
+        page-break-after: always !important;
+        break-after: page !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -1131,18 +1299,24 @@
           <!-- Row 1: Size & Layout Presets -->
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.5px;">Tag Size Preset:</span>
-              <button class="preset-pill-btn active" id="btn-preset-shelf12" onclick="setPrintPreset('shelf12')">
-                <i class="ph ph-grid-four"></i> Shelf / Showcase (12/sheet • ~68×65mm)
+              <span style="font-size: 0.82rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.5px;">Print Format:</span>
+              <button class="preset-pill-btn active" id="btn-preset-thermal80" onclick="setPrintPreset('thermal80')">
+                <i class="ph ph-receipt"></i> 🧾 80mm Thermal Bill Roll (Main)
+              </button>
+              <button class="preset-pill-btn" id="btn-preset-thermal58" onclick="setPrintPreset('thermal58')">
+                <i class="ph ph-receipt"></i> 🧾 58mm Mini Roll
+              </button>
+              <button class="preset-pill-btn" id="btn-preset-shelf12" onclick="setPrintPreset('shelf12')">
+                <i class="ph ph-grid-four"></i> A4 Showcase Tags (12/sheet)
               </button>
               <button class="preset-pill-btn" id="btn-preset-medium8" onclick="setPrintPreset('medium8')">
-                <i class="ph ph-squares-four"></i> Medium Showcase (8/sheet • ~95×65mm)
+                <i class="ph ph-squares-four"></i> A4 Medium Cards (8/sheet)
               </button>
               <button class="preset-pill-btn" id="btn-preset-tent4" onclick="setPrintPreset('tent4')">
-                <i class="ph ph-tent"></i> Foldable Tent Cards (4/sheet)
+                <i class="ph ph-tent"></i> A4 Tent Cards (4/sheet)
               </button>
               <button class="preset-pill-btn" id="btn-preset-menu1" onclick="setPrintPreset('menu1')">
-                <i class="ph ph-file-text"></i> Full Menu Sheet (1/sheet)
+                <i class="ph ph-file-text"></i> A4 Menu Sheet (1/sheet)
               </button>
             </div>
             
@@ -1169,19 +1343,23 @@
               <span>Bakery Branding Header</span>
             </label>
             <label style="display: flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; cursor: pointer;">
+              <input type="checkbox" id="chk-print-date" onchange="updatePrintOption('showDate', this.checked)" checked>
+              <span>Packed Date & Time</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; cursor: pointer;">
               <input type="checkbox" id="chk-print-qr" onchange="updatePrintOption('showQR', this.checked)" checked>
               <span>QR Code (Scan for Menu)</span>
             </label>
             <label style="display: flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; cursor: pointer;">
               <input type="checkbox" id="chk-print-cutlines" onchange="updatePrintOption('showCutLines', this.checked)" checked>
-              <span>Cut Lines (For Trimming)</span>
+              <span>Cut Lines</span>
             </label>
 
             <!-- Border Style -->
             <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;">
               <span style="font-size: 0.82rem; font-weight: 700; color: #444;">Frame Style:</span>
               <select id="select-print-frame" onchange="updatePrintOption('borderStyle', this.value)" class="form-control" style="padding: 4px 10px; font-size: 0.82rem; width: auto;">
-                <option value="gold">⚜️ Royal Gold Frame</option>
+                <option value="gold">⚜️ Royal Gold / Thermal Box</option>
                 <option value="dashed">✂️ Dashed Cutout Line</option>
                 <option value="modern">◼️ Modern Dark Border</option>
                 <option value="minimal">▫️ Minimal Thin Line</option>
@@ -2554,13 +2732,14 @@
     let selectedPrintItemIds = new Set();
     let customPriceOverrides = {};
     let customPrintTags = [];
-    let printPreset = 'shelf12'; // 'shelf12' | 'medium8' | 'tent4' | 'menu1'
+    let printPreset = 'thermal80'; // Default is 80mm Thermal Bill Roll (Main)
     let printZoom = 1;
 
     let printOptions = {
       showTamil: true,
       showDietBadge: true,
       showBranding: true,
+      showDate: true,
       showQR: true,
       showCutLines: true,
       borderStyle: 'gold'
@@ -2771,7 +2950,7 @@
 
     function setA4Zoom(scale) {
       printZoom = scale;
-      const pages = document.querySelectorAll('.print-a4-page');
+      const pages = document.querySelectorAll('.print-a4-page, .print-thermal-roll');
       pages.forEach(p => {
         p.style.transform = `scale(${scale})`;
         p.style.transformOrigin = 'top center';
@@ -2800,7 +2979,24 @@
         return;
       }
 
-      // Determine items per page based on preset
+      const isThermal = printPreset === 'thermal80' || printPreset === 'thermal58';
+      const pageText = document.getElementById('print-page-count-text');
+
+      // THERMAL RECEIPT ROLL RENDERING
+      if (isThermal) {
+        const rollClass = printPreset === 'thermal58' ? 'print-thermal-roll print-thermal-roll-58' : 'print-thermal-roll';
+        const rollLabel = printPreset === 'thermal58' ? '58mm Mini Roll' : '80mm Thermal Bill Roll';
+        if (pageText) pageText.textContent = `${rollLabel} (${selectedItems.length} tags queued)`;
+
+        pagesContainer.innerHTML = `
+          <div class="${rollClass}" style="transform: scale(${printZoom}); transform-origin: top center;">
+            ${selectedItems.map((item, idx) => generateThermalTagHTML(item, idx, selectedItems.length)).join('')}
+          </div>
+        `;
+        return;
+      }
+
+      // STANDARD A4 SHEET RENDERING
       let itemsPerPage = 12;
       let gridClass = 'grid-preset-shelf12';
 
@@ -2811,21 +3007,19 @@
         itemsPerPage = 4;
         gridClass = 'grid-preset-tent4';
       } else if (printPreset === 'menu1') {
-        itemsPerPage = 20; // Full menu sheet listing
+        itemsPerPage = 20;
         gridClass = 'grid-preset-menu1';
       }
 
-      // Chunk items into pages
       const pages = [];
       for (let i = 0; i < selectedItems.length; i += itemsPerPage) {
         pages.push(selectedItems.slice(i, i + itemsPerPage));
       }
 
-      const pageText = document.getElementById('print-page-count-text');
-      if (pageText) pageText.textContent = `Page 1 of ${pages.length} (${selectedItems.length} tags)`;
+      if (pageText) pageText.textContent = `A4 Page 1 of ${pages.length} (${selectedItems.length} tags)`;
 
       let pagesHTML = '';
-      pages.forEach((pageItems, pIndex) => {
+      pages.forEach((pageItems) => {
         pagesHTML += `
           <div class="print-a4-page" style="transform: scale(${printZoom}); transform-origin: top center;">
             <div class="print-tags-grid ${gridClass}">
@@ -2836,6 +3030,69 @@
       });
 
       pagesContainer.innerHTML = pagesHTML;
+    }
+
+    function generateThermalTagHTML(item, index, total) {
+      const unitText = item.unit ? `/${item.unit}` : '';
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fsanthi-ganesh-bakery.vercel.app';
+      const is58 = printPreset === 'thermal58';
+
+      return `
+        <div class="thermal-tag-card">
+          ${printOptions.showBranding ? `
+            <div class="thermal-header-brand" style="${is58 ? 'font-size: 7.5pt;' : ''}">
+              ★ SANTHI GANESH BAKERY ★
+            </div>
+            <div class="thermal-sub" style="${is58 ? 'font-size: 5.5pt;' : ''}">
+              Palayamkottai • Pure Veg Bakes & Sweets
+            </div>
+            <div class="thermal-double-divider"></div>
+          ` : ''}
+
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            ${printOptions.showDietBadge ? `
+              <div style="font-size: 7.5pt; font-weight: 800; margin-bottom: 1mm;">
+                ${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}
+              </div>
+            ` : ''}
+
+            <div class="thermal-title-en" style="${is58 ? 'font-size: 11pt;' : ''}">${item.name_en}</div>
+            ${(printOptions.showTamil && item.name_ta) ? `<div class="thermal-title-ta" style="${is58 ? 'font-size: 9pt;' : ''}">${item.name_ta}</div>` : ''}
+
+            <div class="thermal-category-pill">${item.category_label}</div>
+          </div>
+
+          <div class="thermal-price-box" style="${is58 ? 'padding: 1.5mm 2mm;' : ''}">
+            <span class="thermal-price-symbol" style="${is58 ? 'font-size: 10.5pt;' : ''}">₹</span>
+            <span class="thermal-price-val" style="${is58 ? 'font-size: 16pt;' : ''}">${item.price}</span>
+            <span class="thermal-price-unit" style="${is58 ? 'font-size: 7pt;' : ''}">${unitText}</span>
+          </div>
+
+          <div class="thermal-divider"></div>
+
+          <div class="thermal-footer-row" style="${is58 ? 'font-size: 5.5pt;' : ''}">
+            <div style="text-align: left; line-height: 1.25;">
+              ${printOptions.showDate ? `
+                <div><strong>PKD:</strong> ${dateStr} ${timeStr}</div>
+                <div><strong>FSSAI:</strong> 12421018000456</div>
+              ` : `
+                <div>Santhi Ganesh Bakery</div>
+                <div>Palayamkottai, Tirunelveli</div>
+              `}
+            </div>
+            ${printOptions.showQR ? `<img src="${qrUrl}" style="width: ${is58 ? '14mm' : '18mm'}; height: ${is58 ? '14mm' : '18mm'}; object-fit: contain;" alt="QR">` : ''}
+          </div>
+
+          ${printOptions.showCutLines ? `
+            <div class="thermal-cut-guide">
+              <span>✂ - - - - - - - - - - - - - - - - - - - - - ✂</span>
+            </div>
+          ` : ''}
+        </div>
+      `;
     }
 
     function generateTagCardHTML(item) {
