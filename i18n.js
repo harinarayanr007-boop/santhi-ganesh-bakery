@@ -66,6 +66,7 @@ const TRANSLATIONS = {
     catalog_title: "Cakes & Confectionery",
     catalog_sub: "Browse our most loved bakes made fresh every morning in Tirunelveli.",
     search_placeholder: "Search cakes...",
+    heading_cake_categories: "Cake Categories",
     
     // Categories
     cat_all: "All Bakes",
@@ -251,6 +252,7 @@ const TRANSLATIONS = {
     catalog_title: "கேக்குகள் & இனிப்புகள்",
     catalog_sub: "திருநெல்வேலியில் தினமும் காலை புதிதாக சுடப்படும் சுவையான கேக்குகளை பார்க்கவும்.",
     search_placeholder: "கேக்குகளை தேடுங்கள்...",
+    heading_cake_categories: "கேக் வகைகள்",
     
     // Categories
     cat_all: "அனைத்து வகை",
