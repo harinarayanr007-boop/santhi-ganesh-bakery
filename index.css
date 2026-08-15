@@ -938,15 +938,6 @@ html[lang="ta"] .hero-title {
   color: var(--color-desert);
 }
 
-.products-page-tabs {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 48px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
 /* Products Grid */
 .products-grid {
   display: grid;
