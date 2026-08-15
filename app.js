@@ -7067,6 +7067,19 @@ function setupEventListeners() {
       target.classList.add('active');
       activeCategoryFilter = target.getAttribute('data-category');
       renderFullProductsGrid();
+
+      // If user has already scrolled down, scroll smoothly back to the top of products grid
+      const gridContainer = document.getElementById('full-products-grid') || document.querySelector('.products-page-tabs');
+      if (gridContainer) {
+        const headerOffset = 100;
+        const targetScrollY = gridContainer.offsetTop - headerOffset;
+        if (window.scrollY > targetScrollY) {
+          window.scrollTo({
+            top: targetScrollY,
+            behavior: 'smooth'
+          });
+        }
+      }
     });
   });
 

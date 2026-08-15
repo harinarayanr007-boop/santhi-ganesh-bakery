@@ -2915,10 +2915,37 @@
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
 
+      const activeBtn = btnElem || document.querySelector(`.cat-tab-btn[data-cat="${catId}"]`);
+
       document.querySelectorAll('.cat-tab-btn').forEach(btn => {
-        const isMatch = btn.getAttribute('data-cat') === catId || (btnElem && btn === btnElem);
+        const isMatch = btn.getAttribute('data-cat') === catId || (activeBtn && btn === activeBtn);
         btn.classList.toggle('active', isMatch);
       });
+
+      // 1. Horizontal Scroll: Center active category card in the tab strip
+      const navBar = document.getElementById('category-nav-bar');
+      if (activeBtn && navBar) {
+        const btnLeft = activeBtn.offsetLeft;
+        const btnWidth = activeBtn.offsetWidth;
+        const navWidth = navBar.offsetWidth;
+        const scrollTarget = btnLeft - (navWidth / 2) + (btnWidth / 2);
+        navBar.scrollTo({
+          left: scrollTarget,
+          behavior: 'smooth'
+        });
+      }
+
+      // 2. Vertical Scroll: If user has already scrolled down, bring viewport back to top of menu
+      if (navBar) {
+        const headerOffset = 44; // sticky top-nav header height
+        const targetScrollY = navBar.offsetTop - headerOffset;
+        if (window.scrollY > targetScrollY) {
+          window.scrollTo({
+            top: targetScrollY,
+            behavior: 'smooth'
+          });
+        }
+      }
 
       if (searchQuery) {
         searchQuery = '';
