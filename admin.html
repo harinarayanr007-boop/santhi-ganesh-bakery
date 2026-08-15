@@ -601,7 +601,7 @@
       background: #FFFFFF;
       color: #000000;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace, sans-serif;
-      padding: 3mm 2mm 3.5mm;
+      padding: 3.5mm 2.5mm 4mm;
       border: 2px solid #000000;
       border-radius: 4px;
       display: flex;
@@ -613,6 +613,27 @@
       break-after: page !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
+    }
+
+    .thermal-tag-card.thermal-frame-gold {
+      border: 2px solid #000000;
+      box-shadow: inset 0 0 0 1px #000000;
+      border-radius: 4px;
+    }
+
+    .thermal-tag-card.thermal-frame-modern {
+      border: 2.5px solid #000000;
+      border-radius: 6px;
+    }
+
+    .thermal-tag-card.thermal-frame-dashed {
+      border: 1.5px dashed #000000;
+      border-radius: 4px;
+    }
+
+    .thermal-tag-card.thermal-frame-minimal {
+      border: 1px solid #000000;
+      border-radius: 2px;
     }
 
     .thermal-header-brand {
@@ -1395,9 +1416,20 @@
             </div>
 
             <!-- Bulk Select Actions -->
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
               <button onclick="selectAllPrintItems(true)" class="btn btn-secondary" style="font-size: 0.76rem; padding: 4px 8px;">Select All Filtered</button>
               <button onclick="selectAllPrintItems(false)" class="btn btn-secondary" style="font-size: 0.76rem; padding: 4px 8px;">Deselect All</button>
+            </div>
+
+            <!-- Bulk Quantity Quick Set -->
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; font-size: 0.76rem; font-weight: 700; color: #555; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
+              <span>Set Qty of Checked:</span>
+              <div style="display: flex; gap: 4px;">
+                <button type="button" onclick="setBulkQty(1)" class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.72rem;">1x</button>
+                <button type="button" onclick="setBulkQty(2)" class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.72rem;">2x</button>
+                <button type="button" onclick="setBulkQty(3)" class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.72rem;">3x</button>
+                <button type="button" onclick="setBulkQty(5)" class="btn btn-secondary" style="padding: 2px 7px; font-size: 0.72rem;">5x</button>
+              </div>
             </div>
 
             <!-- Scrollable Items List -->
@@ -2730,6 +2762,7 @@
     let printCategoryFilter = 'all';
     let printSearchQuery = '';
     let selectedPrintItemIds = new Set();
+    let printQuantities = {}; // { [id]: number }
     let customPriceOverrides = {};
     let customPrintTags = [];
     let printPreset = 'thermal80'; // Default is 80mm Thermal Bill Roll (Main)
@@ -2739,8 +2772,8 @@
       showTamil: true,
       showDietBadge: true,
       showBranding: true,
-      showDate: true,
-      showQR: true,
+      showDate: false, // Default false for clean display tags
+      showQR: false,
       showCutLines: true,
       borderStyle: 'gold'
     };
@@ -2759,10 +2792,13 @@
       // Populate category dropdown
       populatePrintCategories();
 
-      // If nothing selected yet, pre-select first 12 items
+      // If nothing selected yet, pre-select first item
       if (selectedPrintItemIds.size === 0) {
         const allItems = getAllUnifiedPrintItems();
-        allItems.slice(0, 12).forEach(item => selectedPrintItemIds.add(item.id));
+        if (allItems.length > 0) {
+          selectedPrintItemIds.add(allItems[0].id);
+          printQuantities[allItems[0].id] = 1;
+        }
       }
 
       filterAndRenderPrintItemsList();
@@ -2865,9 +2901,15 @@
         items = items.filter(i => (i.name_en && i.name_en.toLowerCase().includes(search)) || (i.name_ta && i.name_ta.toLowerCase().includes(search)));
       }
 
+      // Calculate total tags queued across all selected items
+      let totalTagsQueued = 0;
+      selectedPrintItemIds.forEach(id => {
+        totalTagsQueued += (printQuantities[id] || 1);
+      });
+
       // Update badge
       const badge = document.getElementById('print-selected-count-badge');
-      if (badge) badge.textContent = `${selectedPrintItemIds.size} Selected`;
+      if (badge) badge.textContent = `${selectedPrintItemIds.size} Items (${totalTagsQueued} Tags)`;
 
       if (items.length === 0) {
         container.innerHTML = `<div style="text-align: center; color: #777; padding: 24px; font-size: 0.88rem;">No items match the filter.</div>`;
@@ -2877,6 +2919,7 @@
       container.innerHTML = items.map(item => {
         const isChecked = selectedPrintItemIds.has(item.id);
         const isCustom = item.id.startsWith('custom-');
+        const qty = printQuantities[item.id] || 1;
         return `
           <div class="print-item-row ${isChecked ? 'selected' : ''}" onclick="togglePrintItem('${item.id}', event)">
             <input type="checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); togglePrintItem('${item.id}', event)">
@@ -2889,11 +2932,21 @@
                 ${item.is_veg ? '<span style="color: #2e7d32; font-weight: 700;">🟢 Veg</span>' : '<span style="color: #c62828; font-weight: 700;">🔴 Non-Veg</span>'}
               </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation();">
-              <span style="font-size: 0.8rem; font-weight: 700; color: #A6601B;">₹</span>
-              <input type="number" value="${item.price}" onchange="overridePrintItemPrice('${item.id}', this.value)" style="width: 58px; padding: 3px 5px; font-size: 0.84rem; font-weight: 700; border: 1px solid #CCC; border-radius: 4px; text-align: right;" title="Click to override print price">
+            
+            <!-- Price Input -->
+            <div style="display: flex; align-items: center; gap: 2px;" onclick="event.stopPropagation();" title="Price (Click to edit)">
+              <span style="font-size: 0.78rem; font-weight: 700; color: #A6601B;">₹</span>
+              <input type="number" value="${item.price}" onchange="overridePrintItemPrice('${item.id}', this.value)" style="width: 48px; padding: 2px 4px; font-size: 0.82rem; font-weight: 700; border: 1px solid #CCC; border-radius: 4px; text-align: right;">
             </div>
-            ${isCustom ? `<button onclick="event.stopPropagation(); deleteCustomPrintTag('${item.id}')" style="background: none; border: none; color: #d32f2f; cursor: pointer;" title="Delete custom tag"><i class="ph ph-trash"></i></button>` : ''}
+
+            <!-- Quantity Stepper -->
+            <div style="display: flex; align-items: center; gap: 2px; background: #F2EBE3; border: 1px solid rgba(10,4,4,0.15); border-radius: 4px; padding: 1px;" onclick="event.stopPropagation();" title="Print Quantity">
+              <button type="button" onclick="adjustPrintItemQty('${item.id}', -1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">-</button>
+              <input type="number" min="1" max="99" value="${qty}" onchange="setPrintItemQty('${item.id}', this.value)" style="width: 24px; text-align: center; border: none; background: transparent; font-size: 0.8rem; font-weight: 800; color: #0A0404; padding: 0;">
+              <button type="button" onclick="adjustPrintItemQty('${item.id}', 1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">+</button>
+            </div>
+
+            ${isCustom ? `<button onclick="event.stopPropagation(); deleteCustomPrintTag('${item.id}')" style="background: none; border: none; color: #d32f2f; cursor: pointer; padding: 0 4px;" title="Delete custom tag"><i class="ph ph-trash"></i></button>` : ''}
           </div>
         `;
       }).join('');
@@ -2904,7 +2957,39 @@
         selectedPrintItemIds.delete(id);
       } else {
         selectedPrintItemIds.add(id);
+        if (!printQuantities[id]) printQuantities[id] = 1;
       }
+      filterAndRenderPrintItemsList();
+      renderPrintA4Sheet();
+    }
+
+    function setPrintItemQty(id, val) {
+      let qty = parseInt(val, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      printQuantities[id] = qty;
+      if (!selectedPrintItemIds.has(id)) {
+        selectedPrintItemIds.add(id);
+      }
+      filterAndRenderPrintItemsList();
+      renderPrintA4Sheet();
+    }
+
+    function adjustPrintItemQty(id, delta) {
+      let current = printQuantities[id] || 1;
+      let updated = Math.max(1, current + delta);
+      printQuantities[id] = updated;
+      if (!selectedPrintItemIds.has(id)) {
+        selectedPrintItemIds.add(id);
+      }
+      filterAndRenderPrintItemsList();
+      renderPrintA4Sheet();
+    }
+
+    function setBulkQty(qty) {
+      const q = Math.max(1, parseInt(qty, 10));
+      selectedPrintItemIds.forEach(id => {
+        printQuantities[id] = q;
+      });
       filterAndRenderPrintItemsList();
       renderPrintA4Sheet();
     }
@@ -2919,8 +3004,12 @@
       if (search) items = items.filter(i => (i.name_en && i.name_en.toLowerCase().includes(search)) || (i.name_ta && i.name_ta.toLowerCase().includes(search)));
 
       items.forEach(item => {
-        if (checked) selectedPrintItemIds.add(item.id);
-        else selectedPrintItemIds.delete(item.id);
+        if (checked) {
+          selectedPrintItemIds.add(item.id);
+          if (!printQuantities[item.id]) printQuantities[item.id] = 1;
+        } else {
+          selectedPrintItemIds.delete(item.id);
+        }
       });
 
       filterAndRenderPrintItemsList();
@@ -2979,6 +3068,15 @@
         return;
       }
 
+      // Expand items by quantity for multi-copy printing
+      const queuedItems = [];
+      selectedItems.forEach(item => {
+        const count = Math.max(1, parseInt(printQuantities[item.id] || 1, 10));
+        for (let k = 0; k < count; k++) {
+          queuedItems.push(item);
+        }
+      });
+
       const isThermal = printPreset === 'thermal80' || printPreset === 'thermal58';
       const pageText = document.getElementById('print-page-count-text');
 
@@ -2986,11 +3084,11 @@
       if (isThermal) {
         const rollClass = printPreset === 'thermal58' ? 'print-thermal-roll print-thermal-roll-58' : 'print-thermal-roll';
         const rollLabel = printPreset === 'thermal58' ? '58mm Mini Roll' : '80mm Thermal Bill Roll';
-        if (pageText) pageText.textContent = `${rollLabel} (${selectedItems.length} tags queued)`;
+        if (pageText) pageText.textContent = `${rollLabel} (${queuedItems.length} tags queued)`;
 
         pagesContainer.innerHTML = `
           <div class="${rollClass}" style="transform: scale(${printZoom}); transform-origin: top center;">
-            ${selectedItems.map((item, idx) => generateThermalTagHTML(item, idx, selectedItems.length)).join('')}
+            ${queuedItems.map((item, idx) => generateThermalTagHTML(item, idx, queuedItems.length)).join('')}
           </div>
         `;
         return;
@@ -3012,11 +3110,11 @@
       }
 
       const pages = [];
-      for (let i = 0; i < selectedItems.length; i += itemsPerPage) {
-        pages.push(selectedItems.slice(i, i + itemsPerPage));
+      for (let i = 0; i < queuedItems.length; i += itemsPerPage) {
+        pages.push(queuedItems.slice(i, i + itemsPerPage));
       }
 
-      if (pageText) pageText.textContent = `A4 Page 1 of ${pages.length} (${selectedItems.length} tags)`;
+      if (pageText) pageText.textContent = `A4 Page 1 of ${pages.length} (${queuedItems.length} tags queued)`;
 
       let pagesHTML = '';
       pages.forEach((pageItems) => {
@@ -3040,8 +3138,32 @@
       const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fsanthi-ganesh-bakery.vercel.app';
       const is58 = printPreset === 'thermal58';
 
+      // Frame Style
+      let frameClass = 'thermal-frame-gold';
+      if (printOptions.borderStyle === 'modern') frameClass = 'thermal-frame-modern';
+      else if (printOptions.borderStyle === 'dashed') frameClass = 'thermal-frame-dashed';
+      else if (printOptions.borderStyle === 'minimal') frameClass = 'thermal-frame-minimal';
+
+      // Clean footer: ONLY render if Date or QR is enabled. NO bottom address for counter display cards!
+      const hasFooter = printOptions.showDate || printOptions.showQR;
+      let footerHTML = '';
+      if (hasFooter) {
+        footerHTML = `
+          <div class="thermal-divider"></div>
+          <div class="thermal-footer-row" style="${is58 ? 'font-size: 5.5pt;' : ''}">
+            <div style="text-align: left; line-height: 1.25;">
+              ${printOptions.showDate ? `
+                <div><strong>PKD:</strong> ${dateStr} ${timeStr}</div>
+                <div><strong>FSSAI:</strong> 12421018000456</div>
+              ` : ''}
+            </div>
+            ${printOptions.showQR ? `<img src="${qrUrl}" style="width: ${is58 ? '14mm' : '18mm'}; height: ${is58 ? '14mm' : '18mm'}; object-fit: contain;" alt="QR">` : ''}
+          </div>
+        `;
+      }
+
       return `
-        <div class="thermal-tag-card">
+        <div class="thermal-tag-card ${frameClass}">
           ${printOptions.showBranding ? `
             <div class="thermal-header-brand" style="${is58 ? 'font-size: 7.5pt;' : ''}">
               ★ SANTHI GANESH BAKERY ★
@@ -3071,20 +3193,7 @@
             <span class="thermal-price-unit" style="${is58 ? 'font-size: 7pt;' : ''}">${unitText}</span>
           </div>
 
-          <div class="thermal-divider"></div>
-
-          <div class="thermal-footer-row" style="${is58 ? 'font-size: 5.5pt;' : ''}">
-            <div style="text-align: left; line-height: 1.25;">
-              ${printOptions.showDate ? `
-                <div><strong>PKD:</strong> ${dateStr} ${timeStr}</div>
-                <div><strong>FSSAI:</strong> 12421018000456</div>
-              ` : `
-                <div>Santhi Ganesh Bakery</div>
-                <div>Palayamkottai, Tirunelveli</div>
-              `}
-            </div>
-            ${printOptions.showQR ? `<img src="${qrUrl}" style="width: ${is58 ? '14mm' : '18mm'}; height: ${is58 ? '14mm' : '18mm'}; object-fit: contain;" alt="QR">` : ''}
-          </div>
+          ${footerHTML}
 
           ${printOptions.showCutLines ? `
             <div class="thermal-cut-guide">
@@ -3162,7 +3271,7 @@
                 <span class="tag-price-amount" style="font-size: 20pt;">${item.price}</span>
                 <span class="tag-price-unit" style="font-size: 8.5pt;">${unitText}</span>
               </div>
-              ${printOptions.showQR ? `<img src="${qrUrl}" class="tag-qr-code" style="width: 16mm; height: 16mm;" alt="QR">` : ''}
+              ${printOptions.showQR ? `<img src="${qrUrl}" style="width: 16mm; height: 16mm;" alt="QR">` : ''}
             </div>
           </div>
         `;
@@ -3238,6 +3347,7 @@
 
       customPrintTags.unshift(customTag);
       selectedPrintItemIds.add(customId);
+      printQuantities[customId] = 1;
       closeCustomTagModal();
 
       // Reset form
@@ -3254,6 +3364,7 @@
     function deleteCustomPrintTag(id) {
       customPrintTags = customPrintTags.filter(t => t.id !== id);
       selectedPrintItemIds.delete(id);
+      delete printQuantities[id];
       filterAndRenderPrintItemsList();
       renderPrintA4Sheet();
     }
