@@ -107,7 +107,30 @@
     .top-nav-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .lang-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary-dark);
+      font-family: var(--font-main);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .lang-toggle-pill:active {
+      transform: scale(0.94);
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
     }
 
     .nav-icon-btn {
@@ -261,10 +284,10 @@
     }
 
     .cat-tab-btn.active {
-      background: var(--color-terracotta);
+      background: var(--color-primary-dark);
       color: #FFFFFF;
-      border-color: var(--color-terracotta);
-      box-shadow: 0 2px 8px rgba(217, 83, 56, 0.25);
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 2px 8px rgba(36, 20, 11, 0.25);
     }
 
     /* Main Menu Content Section */
@@ -313,8 +336,8 @@
     .category-badge-tag {
       font-size: 0.72rem;
       font-weight: 700;
-      background: var(--color-surface-soft);
-      color: var(--color-terracotta);
+      background: rgba(166, 96, 27, 0.12);
+      color: var(--color-primary-dark);
       padding: 2px 10px;
       border-radius: 10px;
       text-align: center;
@@ -454,7 +477,7 @@
     .item-price {
       font-weight: 800;
       font-size: 0.88rem;
-      color: var(--color-terracotta);
+      color: var(--color-primary-dark);
       font-family: var(--font-main);
     }
 
@@ -486,7 +509,7 @@
 
     .btn-add-tray:active {
       transform: scale(0.92);
-      background: var(--color-primary);
+      background: var(--color-primary-dark);
       color: #FFF;
     }
 
@@ -861,20 +884,18 @@
     <!-- TOP NAVIGATION -->
     <header class="top-nav">
       <div class="top-nav-left">
-        <a href="./index.html" class="back-home-btn">
-          <i class="ph ph-arrow-left"></i> Home
+        <a href="./index.html" class="back-home-btn" id="menu-back-home-btn">
+          <i class="ph ph-arrow-left"></i> <span id="lbl-back-home">Home</span>
         </a>
       </div>
-      <div style="text-align: center;">
-        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 32px; display: block; margin: 0 auto;">
-      </div>
       <div class="top-nav-actions">
+        <!-- Tamil / English Language Switcher Button -->
+        <button id="menu-lang-toggle" class="lang-toggle-pill" onclick="toggleMenuLanguage()" title="Switch Language / மொழியை மாற்றவும்">
+          <i class="ph ph-translate"></i> <span id="menu-lang-label">தமிழ்</span>
+        </button>
         <a href="tel:+917339073844" class="nav-icon-btn" title="Call Store">
           <i class="ph ph-phone"></i>
         </a>
-        <button onclick="toggleSearch()" class="nav-icon-btn" title="Search Menu">
-          <i class="ph ph-magnifying-glass"></i>
-        </button>
       </div>
     </header>
 
@@ -882,12 +903,12 @@
     <section class="menu-hero">
       <div class="hero-banner-card">
         <div class="hero-badge-row">
-          <span class="hero-pill"><i class="ph ph-map-pin"></i> Palayamkottai</span>
-          <span class="hero-pill"><i class="ph ph-clock"></i> 7am–10:30pm</span>
-          <span class="hero-pill" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Parcel</span>
+          <span class="hero-pill" id="hero-badge-loc"><i class="ph ph-map-pin"></i> Palayamkottai</span>
+          <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 7am–10:30pm</span>
+          <span class="hero-pill" id="hero-badge-service" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Parcel</span>
         </div>
-        <h1 class="hero-title">Santhi Ganesh Cafe Menu</h1>
-        <p class="hero-sub">Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas</p>
+        <h1 class="hero-title" id="hero-main-title">Santhi Ganesh Cafe Menu</h1>
+        <p class="hero-sub" id="hero-main-sub">Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas</p>
       </div>
     </section>
 
@@ -2519,31 +2540,112 @@
     ];
 
     // ==========================================
-    // 2. STATE MANAGEMENT
+    // 2. STATE MANAGEMENT & BILINGUAL ENGINE
     // ==========================================
     let activeCategory = 'juices';
     let searchQuery = '';
     let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
     let diningType = 'Dine-In';
     let liveMenuItems = [...IN_STORE_MENU];
+    let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
-    // Categories definition
+    // Categories definition with English & Tamil
     const CATEGORIES = [
-      { id: 'juices', name: 'Fresh Juice', icon: '🧃', desc: '100% natural, freshly squeezed juices made to order', hero: './assets/banner1.jpg' },
-      { id: 'shakes', name: 'Milk Shakes', icon: '🥤', desc: 'Thick & creamy shakes blended with rich dairy ice cream', hero: './assets/banner2.jpg' },
-      { id: 'falooda', name: 'Falooda & Desserts', icon: '🍨', desc: 'Layered royal sundaes, cut fruits and traditional sweets', hero: './assets/banner3.jpg' },
-      { id: 'mojito', name: 'Mojitos', icon: '🍹', desc: 'Crisp sparkling mocktails with crushed mint and citrus', hero: './assets/banner1.jpg' },
-      { id: 'brownie', name: 'Brownies & Pastries', icon: '🍫', desc: 'Fresh baked daily pastry slices and warm dessert sizzlers', hero: './assets/banner2.jpg' },
-      { id: 'icecream', name: 'Scoop Ice Cream', icon: '🍦', desc: 'Premium dairy scoops served in bowls or waffle cones', hero: './assets/banner3.jpg' },
-      { id: 'hotdrinks', name: 'Hot Drinks & Tea', icon: '☕', desc: 'Traditional South Indian tea, filter coffee and healthy heritage brews', hero: './assets/banner1.jpg' },
-      { id: 'chat', name: 'Chat & Snacks', icon: '🫓', desc: 'Crispy street chaat, samosas, fries and savory quick bites', hero: './assets/banner2.jpg' },
-      { id: 'pavbhaji', name: 'Pav Bhaji', icon: '🍲', desc: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', hero: './assets/banner3.jpg' },
-      { id: 'toast', name: 'Toasts', icon: '🍞', desc: 'Bakery fresh bread slices crisped on butter griddle', hero: './assets/banner1.jpg' },
-      { id: 'burger', name: 'Burgers', icon: '🍔', desc: 'Fresh baked sesame buns with juicy patties and crispy vegetables', hero: './assets/banner2.jpg' },
-      { id: 'pizza', name: 'Pizzas', icon: '🍕', desc: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', hero: './assets/banner3.jpg' },
-      { id: 'sandwich', name: 'Sandwiches', icon: '🥪', desc: 'Freshly sliced bakery bread grilled with mouthwatering fillings', hero: './assets/banner1.jpg' },
-      { id: 'momos', name: 'Momos & Crispy', icon: '🥟', desc: 'Steamed or fried dumplings served with fiery red chutney', hero: './assets/banner2.jpg' }
+      { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', desc_en: '100% natural, freshly squeezed juices made to order', desc_ta: 'இயற்கையான புதிய பழச்சாறுகள்' },
+      { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', desc_en: 'Thick & creamy shakes blended with rich dairy ice cream', desc_ta: 'சுவையான ஐஸ்கிரீம் மில்க் ஷேக்ஸ்' },
+      { id: 'falooda', name_en: 'Falooda & Desserts', name_ta: 'பலுடா & இனிப்புகள்', icon: '🍨', desc_en: 'Layered royal sundaes, cut fruits and traditional sweets', desc_ta: 'ராயல் பலுடா மற்றும் பழங்கள்' },
+      { id: 'mojito', name_en: 'Mojitos', name_ta: 'மொஜிட்டோ குளிர்பானங்கள்', icon: '🍹', desc_en: 'Crisp sparkling mocktails with crushed mint and citrus', desc_ta: 'புதினா மற்றும் எலுமிச்சை குளிர்பானங்கள்' },
+      { id: 'brownie', name_en: 'Brownies & Pastries', name_ta: 'பிரவுனி & பேஸ்ட்ரிகள்', icon: '🍫', desc_en: 'Fresh baked daily pastry slices and warm dessert sizzlers', desc_ta: 'தினமும் சுடப்படும் பேஸ்ட்ரி துண்டுகள்' },
+      { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஸ்கூப் ஐஸ்கிரீம்', icon: '🍦', desc_en: 'Premium dairy scoops served in bowls or waffle cones', desc_ta: 'சுவையான பால் ஐஸ்கிரீம் ஸ்கூப்கள்' },
+      { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & சூடான பானங்கள்', icon: '☕', desc_en: 'Traditional South Indian tea, filter coffee and healthy heritage brews', desc_ta: 'பாரம்பரிய நெல்லை டீ & பில்டர் காபி' },
+      { id: 'chat', name_en: 'Chat & Snacks', name_ta: 'சாட் & ஸ்நாக்ஸ்', icon: '🫓', desc_en: 'Crispy street chaat, samosas, fries and savory quick bites', desc_ta: 'மொறுமொறுப்பான சாட் மற்றும் சமோசா' },
+      { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', desc: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', desc_ta: 'வெண்ணெய் பாவ் பன் & மசாலா பாஜி' },
+      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', desc: 'Bakery fresh bread slices crisped on butter griddle', desc_ta: 'பேக்கரி பிரெட் டோஸ்ட் வகைகள்' },
+      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', desc: 'Fresh baked sesame buns with juicy patties and crispy vegetables', desc_ta: 'புதிய பன் மற்றும் பர்கர் வகைகள்' },
+      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', desc: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', desc_ta: 'சீஸ் & மசாலா பீட்சா வகைகள்' },
+      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', desc: 'Freshly sliced bakery bread grilled with mouthwatering fillings', desc_ta: 'கிரில் செய்யப்பட்ட சாண்ட்விச்கள்' },
+      { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ் & கிரிஸ்பி', icon: '🥟', desc_en: 'Steamed or fried dumplings served with fiery red chutney', desc_ta: 'கார சட்னியுடன் கூடிய சுவையான மோமோஸ்' }
     ];
+
+    const MENU_I18N = {
+      en: {
+        back_home: "Home",
+        lang_label: "தமிழ்",
+        hero_loc: '<i class="ph ph-map-pin"></i> Palayamkottai',
+        hero_time: '<i class="ph ph-clock"></i> 7am–10:30pm',
+        hero_service: '<i class="ph ph-check-circle"></i> Dine-In & Parcel',
+        hero_title: "Santhi Ganesh Cafe Menu",
+        hero_sub: "Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas",
+        search_placeholder: "Search juices, burgers, chat, shakes, tea...",
+        dishes_suffix: "Dishes",
+        add_btn: "+ Add",
+        sold_out: "Sold Out",
+        tray_view: "View Order Tray",
+        items_suffix: "Items",
+        item_suffix: "Item",
+        empty_title: "No items found",
+        empty_sub: "Try clearing your search query.",
+        clear_btn: "Clear Search"
+      },
+      ta: {
+        back_home: "முகப்பு",
+        lang_label: "English",
+        hero_loc: '<i class="ph ph-map-pin"></i> பாளையங்கோட்டை',
+        hero_time: '<i class="ph ph-clock"></i> காலை 7 – இரவு 10:30',
+        hero_service: '<i class="ph ph-check-circle"></i> டைன்-இன் & பார்சல்',
+        hero_title: "சாந்தி கணேஷ் கஃபே மெனு",
+        hero_sub: "புதிய பழச்சாறுகள் • மில்க் ஷேக்ஸ் • சாட் • டீ/காபி • பர்கர் • பீட்சா",
+        search_placeholder: "ஜூஸ், பர்கர், சாட், ஷேக்ஸ், டீ தேடுங்கள்...",
+        dishes_suffix: "வகைகள்",
+        add_btn: "+ சேர்",
+        sold_out: "தீர்ந்துவிட்டது",
+        tray_view: "ஆர்டர் கூடையை பார்க்க",
+        items_suffix: "பொருட்கள்",
+        item_suffix: "பொருள்",
+        empty_title: "பொருட்கள் எதுவும் கிடைக்கவில்லை",
+        empty_sub: "வேறு பெயரை தேடி பார்க்கவும்.",
+        clear_btn: "தேடலை நீக்கு"
+      }
+    };
+
+    function applyMenuLanguage(lang) {
+      currentMenuLang = lang;
+      localStorage.setItem('sg_lang', lang);
+
+      const t = MENU_I18N[lang] || MENU_I18N.en;
+
+      const backHomeLbl = document.getElementById('lbl-back-home');
+      if (backHomeLbl) backHomeLbl.textContent = t.back_home;
+
+      const langLbl = document.getElementById('menu-lang-label');
+      if (langLbl) langLbl.textContent = t.lang_label;
+
+      const heroLoc = document.getElementById('hero-badge-loc');
+      if (heroLoc) heroLoc.innerHTML = t.hero_loc;
+
+      const heroTime = document.getElementById('hero-badge-time');
+      if (heroTime) heroTime.innerHTML = t.hero_time;
+
+      const heroService = document.getElementById('hero-badge-service');
+      if (heroService) heroService.innerHTML = t.hero_service;
+
+      const heroTitle = document.getElementById('hero-main-title');
+      if (heroTitle) heroTitle.textContent = t.hero_title;
+
+      const heroSub = document.getElementById('hero-main-sub');
+      if (heroSub) heroSub.textContent = t.hero_sub;
+
+      const searchInput = document.getElementById('menu-search-input');
+      if (searchInput) searchInput.placeholder = t.search_placeholder;
+
+      renderCategoryTabs();
+      renderMenu();
+    }
+
+    function toggleMenuLanguage() {
+      const nextLang = currentMenuLang === 'en' ? 'ta' : 'en';
+      applyMenuLanguage(nextLang);
+    }
 
     // Render Category Pill Tabs Dynamically with Live Counts
     function renderCategoryTabs() {
@@ -2553,9 +2655,10 @@
       nav.innerHTML = CATEGORIES.map(cat => {
         const count = liveMenuItems.filter(i => i.category === cat.id && i.is_available !== false).length;
         const isActive = cat.id === activeCategory ? 'active' : '';
+        const catName = (currentMenuLang === 'ta' && cat.name_ta) ? cat.name_ta : cat.name_en;
         return `
           <button class="cat-tab-btn ${isActive}" data-cat="${cat.id}" onclick="selectCategory('${cat.id}', this)">
-            ${cat.icon} ${cat.name} (${count})
+            ${cat.icon} ${catName} (${count})
           </button>
         `;
       }).join('');
@@ -2567,6 +2670,8 @@
     function renderMenu() {
       const container = document.getElementById('menu-sections-container');
       if (!container) return;
+
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       // Filter items by search
       let filteredItems = liveMenuItems;
@@ -2584,9 +2689,9 @@
         container.innerHTML = `
           <div style="text-align: center; padding: 36px 16px; background: #FFF; border-radius: 12px; border: 1px solid var(--color-border);">
             <p style="font-size: 2.2rem; margin-bottom: 6px;">🔍</p>
-            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 2px;">No items found</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.8rem;">Try clearing your search query.</p>
-            <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">Clear Search</button>
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 2px;">${t.empty_title}</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.8rem;">${t.empty_sub}</p>
+            <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">${t.clear_btn}</button>
           </div>
         `;
         return;
@@ -2608,18 +2713,23 @@
         const prevCat = currentCatIndex > 0 ? CATEGORIES[currentCatIndex - 1] : null;
         const nextCat = currentCatIndex < CATEGORIES.length - 1 ? CATEGORIES[currentCatIndex + 1] : null;
 
+        const catName = (currentMenuLang === 'ta' && cat.name_ta) ? cat.name_ta : cat.name_en;
+
         let navButtonsHTML = '';
         if (!searchQuery.trim() && (prevCat || nextCat)) {
+          const prevName = prevCat ? ((currentMenuLang === 'ta' && prevCat.name_ta) ? prevCat.name_ta : prevCat.name_en) : '';
+          const nextName = nextCat ? ((currentMenuLang === 'ta' && nextCat.name_ta) ? nextCat.name_ta : nextCat.name_en) : '';
+
           navButtonsHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
               ${prevCat ? `
                 <button class="btn-cat-nav" onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; color: var(--color-text-main); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: var(--shadow-sm);">
-                  ← ${prevCat.icon} ${prevCat.name}
+                  ← ${prevCat.icon} ${prevName}
                 </button>
               ` : `<div></div>`}
               ${nextCat ? `
-                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-terracotta); color: #FFF; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(217, 83, 56, 0.25); margin-left: auto;">
-                  ${nextCat.icon} ${nextCat.name} →
+                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(36, 20, 11, 0.25); margin-left: auto;">
+                  ${nextCat.icon} ${nextName} →
                 </button>
               ` : `<div></div>`}
             </div>
@@ -2631,8 +2741,8 @@
             
             <!-- Centered Prominent Category Header -->
             <div class="category-header-strip">
-              <h2 class="category-title">❧ ${cat.name} ❧</h2>
-              <span class="category-badge-tag">${catItems.length} Dishes</span>
+              <h2 class="category-title">❧ ${catName} ❧</h2>
+              <span class="category-badge-tag">${catItems.length} ${t.dishes_suffix}</span>
             </div>
 
             <!-- Item List -->
@@ -2653,6 +2763,7 @@
     function createItemCardHTML(item) {
       const inTrayItem = inStoreTray.find(t => t.id === item.id);
       const qty = inTrayItem ? inTrayItem.qty : 0;
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       const dietClass = item.is_veg ? 'veg' : 'nonveg';
       const badgeHTML = item.badge ? `<span class="item-badge">${item.badge}</span>` : '';
@@ -2660,7 +2771,7 @@
 
       let actionHTML = '';
       if (item.is_available === false) {
-        actionHTML = `<button class="btn-sold-out" disabled>Sold Out</button>`;
+        actionHTML = `<button class="btn-sold-out" disabled>${t.sold_out}</button>`;
       } else if (qty > 0) {
         actionHTML = `
           <div class="qty-stepper">
@@ -2672,7 +2783,7 @@
       } else {
         actionHTML = `
           <button class="btn-add-tray" onclick="updateItemQty('${item.id}', 1)">
-            + Add
+            ${t.add_btn}
           </button>
         `;
       }
@@ -2785,13 +2896,14 @@
       const floatingBar = document.getElementById('floating-tray-bar');
       const barCount = document.getElementById('tray-bar-count');
       const barTotal = document.getElementById('tray-bar-total');
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       const totalItems = inStoreTray.reduce((sum, item) => sum + item.qty, 0);
       const totalPrice = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
       if (totalItems > 0) {
         floatingBar.classList.add('visible');
-        barCount.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'}`;
+        barCount.textContent = `${totalItems} ${totalItems === 1 ? t.item_suffix : t.items_suffix}`;
         barTotal.textContent = `₹${totalPrice}`;
       } else {
         floatingBar.classList.remove('visible');
@@ -2961,8 +3073,7 @@
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
-      renderCategoryTabs();
-      renderMenu();
+      applyMenuLanguage(currentMenuLang);
       loadCafeMenuFromSupabase();
     });
   </script>
