@@ -204,6 +204,19 @@
       gap: 4px;
     }
 
+    /* Unified Sticky Header Controls: Search + Categories */
+    .sticky-menu-controls {
+      position: sticky;
+      top: 44px;
+      z-index: 95;
+      background: rgba(244, 239, 234, 0.98);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border);
+      padding-top: 6px;
+      box-shadow: 0 4px 16px rgba(10, 4, 4, 0.04);
+    }
+
     /* Live Search Bar */
     .search-filter-wrapper {
       padding: 0 12px 6px;
@@ -245,16 +258,9 @@
       display: none;
     }
 
-    /* Sticky Horizontal Visual Category Cards (App Style) */
+    /* Horizontal Visual Category Cards (Inside Sticky Wrapper) */
     .category-nav-bar {
-      position: sticky;
-      top: 44px;
-      z-index: 90;
-      background: rgba(244, 239, 234, 0.98);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--color-border);
-      padding: 8px 12px 10px;
+      padding: 2px 12px 10px;
       display: flex;
       gap: 10px;
       overflow-x: auto;
@@ -393,7 +399,7 @@
 
     /* Category Section */
     .category-section {
-      scroll-margin-top: 155px;
+      scroll-margin-top: 195px;
       animation: fadeIn 0.18s ease-out;
     }
 
@@ -403,7 +409,7 @@
     }
 
     .category-header-strip {
-      scroll-margin-top: 155px;
+      scroll-margin-top: 195px;
       background: var(--color-surface);
       border-radius: 10px;
       padding: 10px 14px;
@@ -1007,32 +1013,35 @@
       </div>
     </section>
 
-    <!-- LIVE SEARCH BAR -->
-    <section class="search-filter-wrapper">
-      <div class="search-box" id="menu-search-box">
-        <i class="ph ph-magnifying-glass"></i>
-        <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
-        <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
-      </div>
-    </section>
+    <!-- STICKY TOP CONTROLS: SEARCH + CATEGORIES -->
+    <div class="sticky-menu-controls" id="sticky-menu-controls">
+      <!-- LIVE SEARCH BAR -->
+      <section class="search-filter-wrapper">
+        <div class="search-box" id="menu-search-box">
+          <i class="ph ph-magnifying-glass"></i>
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
+          <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
+        </div>
+      </section>
 
-    <!-- STICKY HORIZONTAL CATEGORY NAVIGATION BAR (Yumm style) -->
-    <nav class="category-nav-bar" id="category-nav-bar">
-      <button class="cat-tab-btn active" data-cat="juices" onclick="selectCategory('juices', this)">🧃 Fresh Juice (16)</button>
-      <button class="cat-tab-btn" data-cat="shakes" onclick="selectCategory('shakes', this)">🥤 Milk Shakes (9)</button>
-      <button class="cat-tab-btn" data-cat="falooda" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts (6)</button>
-      <button class="cat-tab-btn" data-cat="mojito" onclick="selectCategory('mojito', this)">🍹 Mojitos (7)</button>
-      <button class="cat-tab-btn" data-cat="brownie" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes (14)</button>
-      <button class="cat-tab-btn" data-cat="icecream" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream (6)</button>
-      <button class="cat-tab-btn" data-cat="hotdrinks" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks (13)</button>
-      <button class="cat-tab-btn" data-cat="chat" onclick="selectCategory('chat', this)">🫓 Chat & Snacks (25)</button>
-      <button class="cat-tab-btn" data-cat="pavbhaji" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji (5)</button>
-      <button class="cat-tab-btn" data-cat="toast" onclick="selectCategory('toast', this)">🍞 Toasts (6)</button>
-      <button class="cat-tab-btn" data-cat="burger" onclick="selectCategory('burger', this)">🍔 Burgers (8)</button>
-      <button class="cat-tab-btn" data-cat="pizza" onclick="selectCategory('pizza', this)">🍕 Pizzas (8)</button>
-      <button class="cat-tab-btn" data-cat="sandwich" onclick="selectCategory('sandwich', this)">🥪 Sandwiches (13)</button>
-      <button class="cat-tab-btn" data-cat="momos" onclick="selectCategory('momos', this)">🥟 Momos & Crispy (5)</button>
-    </nav>
+      <!-- HORIZONTAL CATEGORY NAVIGATION BAR -->
+      <nav class="category-nav-bar" id="category-nav-bar">
+        <button class="cat-tab-btn active" data-cat="juices" onclick="selectCategory('juices', this)">🧃 Fresh Juice (16)</button>
+        <button class="cat-tab-btn" data-cat="shakes" onclick="selectCategory('shakes', this)">🥤 Milk Shakes (9)</button>
+        <button class="cat-tab-btn" data-cat="falooda" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts (6)</button>
+        <button class="cat-tab-btn" data-cat="mojito" onclick="selectCategory('mojito', this)">🍹 Mojitos (7)</button>
+        <button class="cat-tab-btn" data-cat="brownie" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes (14)</button>
+        <button class="cat-tab-btn" data-cat="icecream" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream (6)</button>
+        <button class="cat-tab-btn" data-cat="hotdrinks" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks (13)</button>
+        <button class="cat-tab-btn" data-cat="chat" onclick="selectCategory('chat', this)">🫓 Chat & Snacks (25)</button>
+        <button class="cat-tab-btn" data-cat="pavbhaji" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji (5)</button>
+        <button class="cat-tab-btn" data-cat="toast" onclick="selectCategory('toast', this)">🍞 Toasts (6)</button>
+        <button class="cat-tab-btn" data-cat="burger" onclick="selectCategory('burger', this)">🍔 Burgers (8)</button>
+        <button class="cat-tab-btn" data-cat="pizza" onclick="selectCategory('pizza', this)">🍕 Pizzas (8)</button>
+        <button class="cat-tab-btn" data-cat="sandwich" onclick="selectCategory('sandwich', this)">🥪 Sandwiches (13)</button>
+        <button class="cat-tab-btn" data-cat="momos" onclick="selectCategory('momos', this)">🥟 Momos & Crispy (5)</button>
+      </nav>
+    </div>
 
     <!-- DYNAMIC MENU CONTAINER (Rendered from data) -->
     <main class="menu-container" id="menu-sections-container">
@@ -2953,8 +2962,8 @@
         const targetSec = document.getElementById(`cat-sec-${catId}`) || document.querySelector('.category-header-strip') || document.getElementById('menu-sections-container');
         if (targetSec) {
           const topNavH = document.querySelector('.menu-top-nav')?.offsetHeight || 44;
-          const catNavH = document.getElementById('category-nav-bar')?.offsetHeight || 102;
-          const totalStickyOffset = topNavH + catNavH + 8;
+          const stickyControlsH = document.getElementById('sticky-menu-controls')?.offsetHeight || 140;
+          const totalStickyOffset = topNavH + stickyControlsH + 8;
 
           const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
           const secRect = targetSec.getBoundingClientRect();
