@@ -393,6 +393,7 @@
 
     /* Category Section */
     .category-section {
+      scroll-margin-top: 155px;
       animation: fadeIn 0.18s ease-out;
     }
 
@@ -402,6 +403,7 @@
     }
 
     .category-header-strip {
+      scroll-margin-top: 155px;
       background: var(--color-surface);
       border-radius: 10px;
       padding: 10px 14px;
@@ -2935,18 +2937,6 @@
         });
       }
 
-      // 2. Vertical Scroll: If user has already scrolled down, bring viewport back to top of menu
-      if (navBar) {
-        const headerOffset = 44; // sticky top-nav header height
-        const targetScrollY = navBar.offsetTop - headerOffset;
-        if (window.scrollY > targetScrollY) {
-          window.scrollTo({
-            top: targetScrollY,
-            behavior: 'smooth'
-          });
-        }
-      }
-
       if (searchQuery) {
         searchQuery = '';
         const input = document.getElementById('menu-search-input');
@@ -2955,7 +2945,29 @@
         if (clearBtn) clearBtn.style.display = 'none';
       }
 
+      // 2. Render new category DOM first so target category section and title exist
       renderMenu();
+
+      // 3. Vertical Scroll: If user has scrolled down, bring them right to the category header
+      requestAnimationFrame(() => {
+        const targetSec = document.getElementById(`cat-sec-${catId}`) || document.querySelector('.category-header-strip') || document.getElementById('menu-sections-container');
+        if (targetSec) {
+          const topNavH = document.querySelector('.menu-top-nav')?.offsetHeight || 44;
+          const catNavH = document.getElementById('category-nav-bar')?.offsetHeight || 102;
+          const totalStickyOffset = topNavH + catNavH + 8;
+
+          const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+          const secRect = targetSec.getBoundingClientRect();
+          const targetY = secRect.top + currentY - totalStickyOffset;
+
+          if (currentY > 100) {
+            window.scrollTo({
+              top: Math.max(0, targetY),
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
     }
 
     function handleMenuSearch(val) {
