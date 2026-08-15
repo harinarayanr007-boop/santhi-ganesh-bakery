@@ -7055,9 +7055,11 @@ function setupEventListeners() {
   const categoryTabs = document.querySelectorAll('.category-tab');
   categoryTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
+      const target = e.currentTarget || e.target.closest('.category-tab');
+      if (!target) return;
       categoryTabs.forEach(t => t.classList.remove('active'));
-      e.target.classList.add('active');
-      activeCategoryFilter = e.target.getAttribute('data-category');
+      target.classList.add('active');
+      activeCategoryFilter = target.getAttribute('data-category');
       renderFullProductsGrid();
     });
   });
