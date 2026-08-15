@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>In-Store Digital Menu | Santhi Ganesh Bakery & Cafe</title>
   <meta name="description" content="Explore Santhi Ganesh Bakery & Cafe in-store digital menu. Fresh Juices, Milkshakes, Chat, Burgers, Pizzas, Sandwiches, Brownies, and Hot Drinks.">
 
@@ -944,20 +947,20 @@
 
     <!-- STICKY HORIZONTAL CATEGORY NAVIGATION BAR (Yumm style) -->
     <nav class="category-nav-bar" id="category-nav-bar">
-      <button class="cat-tab-btn active" onclick="selectCategory('juices', this)">🧃 Fresh Juice</button>
-      <button class="cat-tab-btn" onclick="selectCategory('shakes', this)">🥤 Milk Shakes</button>
-      <button class="cat-tab-btn" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts</button>
-      <button class="cat-tab-btn" onclick="selectCategory('mojito', this)">🍹 Mojitos</button>
-      <button class="cat-tab-btn" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes</button>
-      <button class="cat-tab-btn" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream</button>
-      <button class="cat-tab-btn" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks & Tea</button>
-      <button class="cat-tab-btn" onclick="selectCategory('chat', this)">🫓 Chat & Snacks</button>
-      <button class="cat-tab-btn" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji</button>
-      <button class="cat-tab-btn" onclick="selectCategory('toast', this)">🍞 Toasts</button>
-      <button class="cat-tab-btn" onclick="selectCategory('burger', this)">🍔 Burgers</button>
-      <button class="cat-tab-btn" onclick="selectCategory('pizza', this)">🍕 Pizzas</button>
-      <button class="cat-tab-btn" onclick="selectCategory('sandwich', this)">🥪 Sandwiches</button>
-      <button class="cat-tab-btn" onclick="selectCategory('momos', this)">🥟 Momos & Crispy</button>
+      <button class="cat-tab-btn active" data-cat="juices" onclick="selectCategory('juices', this)">🧃 Fresh Juice (16)</button>
+      <button class="cat-tab-btn" data-cat="shakes" onclick="selectCategory('shakes', this)">🥤 Milk Shakes (9)</button>
+      <button class="cat-tab-btn" data-cat="falooda" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts (6)</button>
+      <button class="cat-tab-btn" data-cat="mojito" onclick="selectCategory('mojito', this)">🍹 Mojitos (7)</button>
+      <button class="cat-tab-btn" data-cat="brownie" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes (14)</button>
+      <button class="cat-tab-btn" data-cat="icecream" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream (6)</button>
+      <button class="cat-tab-btn" data-cat="hotdrinks" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks (13)</button>
+      <button class="cat-tab-btn" data-cat="chat" onclick="selectCategory('chat', this)">🫓 Chat & Snacks (25)</button>
+      <button class="cat-tab-btn" data-cat="pavbhaji" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji (5)</button>
+      <button class="cat-tab-btn" data-cat="toast" onclick="selectCategory('toast', this)">🍞 Toasts (6)</button>
+      <button class="cat-tab-btn" data-cat="burger" onclick="selectCategory('burger', this)">🍔 Burgers (8)</button>
+      <button class="cat-tab-btn" data-cat="pizza" onclick="selectCategory('pizza', this)">🍕 Pizzas (8)</button>
+      <button class="cat-tab-btn" data-cat="sandwich" onclick="selectCategory('sandwich', this)">🥪 Sandwiches (13)</button>
+      <button class="cat-tab-btn" data-cat="momos" onclick="selectCategory('momos', this)">🥟 Momos & Crispy (5)</button>
     </nav>
 
     <!-- DYNAMIC MENU CONTAINER (Rendered from data) -->
@@ -2638,6 +2641,28 @@
         const catItems = filteredItems.filter(item => item.category === cat.id);
         if (catItems.length === 0) return;
 
+        const currentCatIndex = CATEGORIES.findIndex(c => c.id === cat.id);
+        const prevCat = currentCatIndex > 0 ? CATEGORIES[currentCatIndex - 1] : null;
+        const nextCat = currentCatIndex < CATEGORIES.length - 1 ? CATEGORIES[currentCatIndex + 1] : null;
+
+        let navButtonsHTML = '';
+        if (!searchQuery.trim() && (prevCat || nextCat)) {
+          navButtonsHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--color-border);">
+              ${prevCat ? `
+                <button class="btn-cat-nav" onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 10px 14px; border-radius: 12px; font-weight: 700; font-size: 0.82rem; color: var(--color-text-main); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);">
+                  ← ${prevCat.icon} ${prevCat.name}
+                </button>
+              ` : `<div></div>`}
+              ${nextCat ? `
+                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-terracotta); color: #FFF; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(217, 83, 56, 0.25); margin-left: auto;">
+                  ${nextCat.icon} ${nextCat.name} →
+                </button>
+              ` : `<div></div>`}
+            </div>
+          `;
+        }
+
         html += `
           <section class="category-section" id="cat-sec-${cat.id}">
             
@@ -2645,6 +2670,9 @@
             <div class="category-hero-card">
               <img src="${cat.hero}" alt="${cat.name}" class="category-hero-img" loading="lazy" onerror="this.src='./assets/about_fresh.jpg'">
               <div class="category-hero-text">
+                <div style="display: inline-block; background: var(--color-surface-soft); color: var(--color-primary-dark); font-size: 0.72rem; font-weight: 800; padding: 2px 10px; border-radius: 10px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                  ${catItems.length} Dishes in ${cat.name}
+                </div>
                 <h2 class="category-title">❧ ${cat.name} ❧</h2>
                 <p class="category-subtext">${cat.desc}</p>
               </div>
@@ -2654,6 +2682,8 @@
             <div class="items-list">
               ${catItems.map(item => createItemCardHTML(item)).join('')}
             </div>
+
+            ${navButtonsHTML}
 
           </section>
         `;
@@ -2713,11 +2743,13 @@
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
 
-      document.querySelectorAll('.cat-tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElem) {
-        btnElem.classList.add('active');
-        btnElem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+        const isMatch = btn.getAttribute('data-cat') === catId || (btnElem && btn === btnElem);
+        btn.classList.toggle('active', isMatch);
+        if (isMatch) {
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
 
       if (searchQuery) {
         searchQuery = '';
