@@ -181,7 +181,7 @@
       gap: 4px;
     }
 
-    /* Live Search & Filter Bar */
+    /* Live Search Bar */
     .search-filter-wrapper {
       padding: 0 12px 6px;
     }
@@ -220,52 +220,6 @@
       cursor: pointer;
       font-size: 0.9rem;
       display: none;
-    }
-
-    /* Filter Pills */
-    .diet-filter-row {
-      display: flex;
-      gap: 6px;
-      margin-top: 6px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scrollbar-width: none;
-    }
-
-    .diet-filter-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .diet-chip {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      padding: 3px 9px;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-      color: var(--color-text-muted);
-    }
-
-    .diet-chip.active {
-      background: var(--color-primary-dark);
-      color: #FFFFFF;
-      border-color: var(--color-primary-dark);
-    }
-
-    .diet-chip.active.veg {
-      background: var(--color-veg);
-      border-color: var(--color-veg);
-    }
-
-    .diet-chip.active.nonveg {
-      background: var(--color-nonveg);
-      border-color: var(--color-nonveg);
     }
 
     /* Sticky Horizontal Category Tabs */
@@ -333,30 +287,37 @@
 
     .category-header-strip {
       background: var(--color-surface);
-      border-radius: 8px;
-      padding: 6px 10px;
+      border-radius: 10px;
+      padding: 10px 14px;
       border: 1px solid var(--color-border);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
 
     .category-title {
       font-family: var(--font-serif);
-      font-size: 0.95rem;
+      font-size: 1.35rem;
       font-style: italic;
       font-weight: 700;
       color: var(--color-primary-dark);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 3px;
     }
 
     .category-badge-tag {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
       background: var(--color-surface-soft);
-      color: var(--color-text-muted);
-      padding: 2px 8px;
-      border-radius: 8px;
+      color: var(--color-terracotta);
+      padding: 2px 10px;
+      border-radius: 10px;
+      text-align: center;
     }
 
     /* Item Card List */
@@ -930,19 +891,12 @@
       </div>
     </section>
 
-    <!-- LIVE SEARCH & DIET FILTER BAR -->
+    <!-- LIVE SEARCH BAR -->
     <section class="search-filter-wrapper">
       <div class="search-box" id="menu-search-box">
         <i class="ph ph-magnifying-glass"></i>
         <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
         <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
-      </div>
-
-      <div class="diet-filter-row">
-        <button class="diet-chip active" onclick="setDietFilter('all', this)">🍽️ All Items (100+)</button>
-        <button class="diet-chip veg" onclick="setDietFilter('veg', this)">🟢 100% Pure Veg</button>
-        <button class="diet-chip nonveg" onclick="setDietFilter('nonveg', this)">🔴 Non-Veg Specials</button>
-        <button class="diet-chip" onclick="setDietFilter('bestseller', this)">🔥 Bestsellers</button>
       </div>
     </section>
 
@@ -2568,7 +2522,6 @@
     // 2. STATE MANAGEMENT
     // ==========================================
     let activeCategory = 'juices';
-    let currentDietFilter = 'all';
     let searchQuery = '';
     let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
     let diningType = 'Dine-In';
@@ -2615,16 +2568,8 @@
       const container = document.getElementById('menu-sections-container');
       if (!container) return;
 
-      // Filter items by diet and search
+      // Filter items by search
       let filteredItems = liveMenuItems;
-
-      if (currentDietFilter === 'veg') {
-        filteredItems = filteredItems.filter(item => item.is_veg === true);
-      } else if (currentDietFilter === 'nonveg') {
-        filteredItems = filteredItems.filter(item => item.is_veg === false);
-      } else if (currentDietFilter === 'bestseller') {
-        filteredItems = filteredItems.filter(item => item.badge && item.badge.length > 0);
-      }
 
       if (searchQuery.trim() !== '') {
         const q = searchQuery.toLowerCase();
@@ -2640,8 +2585,8 @@
           <div style="text-align: center; padding: 36px 16px; background: #FFF; border-radius: 12px; border: 1px solid var(--color-border);">
             <p style="font-size: 2.2rem; margin-bottom: 6px;">🔍</p>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 2px;">No items found</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.8rem;">Try clearing your search or switching filters.</p>
-            <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">Clear Filter</button>
+            <p style="color: var(--color-text-muted); font-size: 0.8rem;">Try clearing your search query.</p>
+            <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">Clear Search</button>
           </div>
         `;
         return;
@@ -2684,9 +2629,9 @@
         html += `
           <section class="category-section" id="cat-sec-${cat.id}">
             
-            <!-- Compact Category Header Strip -->
+            <!-- Centered Prominent Category Header -->
             <div class="category-header-strip">
-              <span class="category-title">❧ ${cat.name} ❧</span>
+              <h2 class="category-title">❧ ${cat.name} ❧</h2>
               <span class="category-badge-tag">${catItems.length} Dishes</span>
             </div>
 
@@ -2757,7 +2702,7 @@
     }
 
     // ==========================================
-    // 4. INTERACTIVITY & FILTERS
+    // 4. INTERACTIVITY & NO AUTO-SCROLL SWITCH
     // ==========================================
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
@@ -2765,9 +2710,6 @@
       document.querySelectorAll('.cat-tab-btn').forEach(btn => {
         const isMatch = btn.getAttribute('data-cat') === catId || (btnElem && btn === btnElem);
         btn.classList.toggle('active', isMatch);
-        if (isMatch) {
-          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        }
       });
 
       if (searchQuery) {
@@ -2778,20 +2720,6 @@
         if (clearBtn) clearBtn.style.display = 'none';
       }
 
-      renderMenu();
-
-      // Smooth scroll to top of category section
-      const navBar = document.getElementById('category-nav-bar');
-      if (navBar) {
-        const topPos = navBar.getBoundingClientRect().top + window.pageYOffset - 10;
-        window.scrollTo({ top: topPos, behavior: 'smooth' });
-      }
-    }
-
-    function setDietFilter(filterType, chipElem) {
-      currentDietFilter = filterType;
-      document.querySelectorAll('.diet-chip').forEach(c => c.classList.remove('active'));
-      if (chipElem) chipElem.classList.add('active');
       renderMenu();
     }
 
@@ -2810,11 +2738,6 @@
       if (input) input.value = '';
       const clearBtn = document.getElementById('search-clear-btn');
       if (clearBtn) clearBtn.style.display = 'none';
-      currentDietFilter = 'all';
-      document.querySelectorAll('.diet-chip').forEach((c, idx) => {
-        if (idx === 0) c.classList.add('active');
-        else c.classList.remove('active');
-      });
       renderMenu();
     }
 
