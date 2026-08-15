@@ -356,32 +356,35 @@ h3, .text-h3 {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .nav-actions .btn,
 .nav-actions .nav-cta-btn,
 .nav-actions a.btn {
-  font-size: 0.85rem;
-  padding: 7px 15px;
-  border-bottom: 2px solid var(--color-desert-dark);
+  font-size: 0.95rem;
+  padding: 9px 20px;
+  height: 42px;
+  border-bottom: 3px solid var(--color-desert-dark);
   border-radius: var(--radius-sm);
-  line-height: 1.2;
+  line-height: 1;
   white-space: nowrap;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(166, 96, 27, 0.2);
+  box-shadow: 0 3px 10px rgba(166, 96, 27, 0.22);
 }
 
 .nav-actions .btn:hover,
 .nav-actions .nav-cta-btn:hover,
 .nav-actions a.btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(166, 96, 27, 0.32);
 }
 
 .nav-actions .btn:active,
 .nav-actions .nav-cta-btn:active,
 .nav-actions a.btn:active {
   transform: translateY(1px);
+  border-bottom-width: 2px;
 }
 
 .mobile-menu-toggle {
