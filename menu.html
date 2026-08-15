@@ -944,20 +944,20 @@
 
     <!-- STICKY HORIZONTAL CATEGORY NAVIGATION BAR (Yumm style) -->
     <nav class="category-nav-bar" id="category-nav-bar">
-      <button class="cat-tab-btn active" onclick="scrollToCategory('juices', this)">🧃 Fresh Juice</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('shakes', this)">🥤 Milk Shakes</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('falooda', this)">🍨 Falooda & Desserts</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('mojito', this)">🍹 Mojitos</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('brownie', this)">🍫 Brownies & Cakes</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('icecream', this)">🍦 Scoop Ice Cream</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('hotdrinks', this)">☕ Hot Drinks & Tea</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('chat', this)">🫓 Chat & Snacks</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('pavbhaji', this)">🍲 Pav Bhaji</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('toast', this)">🍞 Toasts</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('burger', this)">🍔 Burgers</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('pizza', this)">🍕 Pizzas</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('sandwich', this)">🥪 Sandwiches</button>
-      <button class="cat-tab-btn" onclick="scrollToCategory('momos', this)">🥟 Momos & Crispy</button>
+      <button class="cat-tab-btn active" onclick="selectCategory('juices', this)">🧃 Fresh Juice</button>
+      <button class="cat-tab-btn" onclick="selectCategory('shakes', this)">🥤 Milk Shakes</button>
+      <button class="cat-tab-btn" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts</button>
+      <button class="cat-tab-btn" onclick="selectCategory('mojito', this)">🍹 Mojitos</button>
+      <button class="cat-tab-btn" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes</button>
+      <button class="cat-tab-btn" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream</button>
+      <button class="cat-tab-btn" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks & Tea</button>
+      <button class="cat-tab-btn" onclick="selectCategory('chat', this)">🫓 Chat & Snacks</button>
+      <button class="cat-tab-btn" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji</button>
+      <button class="cat-tab-btn" onclick="selectCategory('toast', this)">🍞 Toasts</button>
+      <button class="cat-tab-btn" onclick="selectCategory('burger', this)">🍔 Burgers</button>
+      <button class="cat-tab-btn" onclick="selectCategory('pizza', this)">🍕 Pizzas</button>
+      <button class="cat-tab-btn" onclick="selectCategory('sandwich', this)">🥪 Sandwiches</button>
+      <button class="cat-tab-btn" onclick="selectCategory('momos', this)">🥟 Momos & Crispy</button>
     </nav>
 
     <!-- DYNAMIC MENU CONTAINER (Rendered from data) -->
@@ -2563,6 +2563,7 @@
     // ==========================================
     // 2. STATE MANAGEMENT
     // ==========================================
+    let activeCategory = 'juices';
     let currentDietFilter = 'all';
     let searchQuery = '';
     let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
@@ -2625,10 +2626,15 @@
         return;
       }
 
-      // Group filtered items by category
+      // Group filtered items by selected active category (or all if searching)
+      let targetCategories = CATEGORIES;
+      if (!searchQuery.trim() && activeCategory !== 'all') {
+        targetCategories = CATEGORIES.filter(cat => cat.id === activeCategory);
+      }
+
       let html = '';
 
-      CATEGORIES.forEach(cat => {
+      targetCategories.forEach(cat => {
         const catItems = filteredItems.filter(item => item.category === cat.id);
         if (catItems.length === 0) return;
 
@@ -2704,13 +2710,30 @@
     // ==========================================
     // 4. INTERACTIVITY & FILTERS
     // ==========================================
-    function scrollToCategory(catId, btnElem) {
-      document.querySelectorAll('.cat-tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElem) btnElem.classList.add('active');
+    function selectCategory(catId, btnElem) {
+      activeCategory = catId;
 
-      const targetSec = document.getElementById(`cat-sec-${catId}`);
-      if (targetSec) {
-        targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElem) {
+        btnElem.classList.add('active');
+        btnElem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+
+      if (searchQuery) {
+        searchQuery = '';
+        const input = document.getElementById('menu-search-input');
+        if (input) input.value = '';
+        const clearBtn = document.getElementById('search-clear-btn');
+        if (clearBtn) clearBtn.style.display = 'none';
+      }
+
+      renderMenu();
+
+      // Smooth scroll to top of category section
+      const navBar = document.getElementById('category-nav-bar');
+      if (navBar) {
+        const topPos = navBar.getBoundingClientRect().top + window.pageYOffset - 10;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
       }
     }
 
@@ -2928,30 +2951,6 @@
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
       renderMenu();
-
-      // IntersectionObserver for category scroll-spy
-      const observerOptions = {
-        root: null,
-        rootMargin: '-120px 0px -70% 0px',
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const catId = entry.target.id.replace('cat-sec-', '');
-            document.querySelectorAll('.cat-tab-btn').forEach(btn => {
-              const isActive = btn.getAttribute('onclick').includes(`'${catId}'`);
-              btn.classList.toggle('active', isActive);
-              if (isActive) {
-                btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-              }
-            });
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.category-section').forEach(sec => observer.observe(sec));
     });
   </script>
 </body>
