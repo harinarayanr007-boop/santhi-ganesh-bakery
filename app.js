@@ -7047,7 +7047,7 @@ function createProductCardHTML(product) {
       </div>
       <div class="product-footer">
         <span class="product-price">₹${product.price}</span>
-        <button class="btn-add-cart" onclick="addToCart('${product.id}')">
+        <button class="btn-add-cart" onclick="addToCart('${product.id}', null, null, this)" title="Add to order cart">
           + Add
         </button>
       </div>
@@ -7113,48 +7113,109 @@ function setupEventListeners() {
     overlay.addEventListener('click', closeMobileNav);
   }
 
-  // Cart Drawer Toggle
-  const cartBtn = document.getElementById('cart-btn');
-  const closeCartBtn = document.getElementById('close-cart-btn');
+  // Cart Drawer & Backdrop Overlay Toggle
+  const cartBtns = document.querySelectorAll('#cart-btn, .open-cart-btn');
+  const closeCartBtns = document.querySelectorAll('#close-cart-btn, .close-cart-btn');
   const cartDrawer = document.getElementById('cart-drawer');
+  let cartOverlay = document.getElementById('cart-drawer-overlay');
 
-  if (cartBtn && cartDrawer) {
-    cartBtn.addEventListener('click', () => cartDrawer.classList.add('open'));
-    if (closeCartBtn) closeCartBtn.addEventListener('click', () => cartDrawer.classList.remove('open'));
+  if (!cartOverlay && cartDrawer) {
+    cartOverlay = document.createElement('div');
+    cartOverlay.id = 'cart-drawer-overlay';
+    cartOverlay.className = 'cart-drawer-overlay';
+    document.body.appendChild(cartOverlay);
   }
+
+  const openCart = () => {
+    if (cartDrawer) cartDrawer.classList.add('open');
+    if (cartOverlay) cartOverlay.classList.add('open');
+  };
+
+  const closeCart = () => {
+    if (cartDrawer) cartDrawer.classList.remove('open');
+    if (cartOverlay) cartOverlay.classList.remove('open');
+  };
+
+  cartBtns.forEach(btn => btn.addEventListener('click', openCart));
+  closeCartBtns.forEach(btn => btn.addEventListener('click', closeCart));
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCart();
+  });
 }
 
 // 6. SHOPPING CART OPERATIONS
-function addToCart(productId) {
-  const product = PRODUCTS_DATA.find(p => p.id === productId);
+function addToCart(productId, customWeight = null, customPrice = null, btnElement = null) {
+  const product = PRODUCTS_DATA.find(p => p.id === productId || String(p.id) === String(productId));
   if (!product) return;
 
-  const existing = cartItems.find(item => item.id === productId);
+  const itemWeight = customWeight || product.weight || '1 kg';
+  const itemPrice = (customPrice !== null && !isNaN(customPrice) && Number(customPrice) > 0) ? Number(customPrice) : Number(product.price || 450);
+  
+  // Unique cart item key based on product ID and weight variant
+  const cartItemKey = `${product.id}_${itemWeight}`;
+
+  const existing = cartItems.find(item => item.cartKey === cartItemKey || (item.id === productId && (!item.weight || item.weight === itemWeight)));
   if (existing) {
     existing.quantity += 1;
+    if (customPrice && !isNaN(customPrice)) existing.price = itemPrice;
   } else {
-    cartItems.push({ ...product, quantity: 1 });
+    cartItems.push({
+      id: product.id,
+      cartKey: cartItemKey,
+      title: product.title || product.name || 'Celebration Cake',
+      weight: itemWeight,
+      price: itemPrice,
+      image: product.image || product.image_url || './sg-bakery-logo.png',
+      category: product.category,
+      quantity: 1
+    });
   }
 
   saveCart();
   updateCartUI();
 
-  trackEvent('add_to_cart', { product_id: productId, title: product.title, price: product.price });
+  // Button micro-interaction feedback
+  if (btnElement) {
+    const origHTML = btnElement.innerHTML;
+    btnElement.innerHTML = '✓ Added!';
+    btnElement.style.backgroundColor = '#2e7d32';
+    btnElement.style.borderColor = '#2e7d32';
+    btnElement.style.color = '#FFFFFF';
+    setTimeout(() => {
+      btnElement.innerHTML = origHTML;
+      btnElement.style.backgroundColor = '';
+      btnElement.style.borderColor = '';
+      btnElement.style.color = '';
+    }, 1200);
+  }
+
+  trackEvent('add_to_cart', { product_id: productId, title: product.title, price: itemPrice, weight: itemWeight });
 
   // Open cart slide drawer automatically
   const cartDrawer = document.getElementById('cart-drawer');
+  const cartOverlay = document.getElementById('cart-drawer-overlay');
   if (cartDrawer) cartDrawer.classList.add('open');
+  if (cartOverlay) cartOverlay.classList.add('open');
 }
 
-function updateQuantity(productId, delta) {
-  const item = cartItems.find(i => i.id === productId);
+function updateQuantity(itemKey, delta) {
+  const item = cartItems.find(i => (i.cartKey === itemKey || i.id === itemKey));
   if (!item) return;
 
   item.quantity += delta;
   if (item.quantity <= 0) {
-    cartItems = cartItems.filter(i => i.id !== productId);
+    cartItems = cartItems.filter(i => (i.cartKey !== itemKey && i.id !== itemKey));
   }
 
+  saveCart();
+  updateCartUI();
+}
+
+function removeCartItem(itemKey) {
+  cartItems = cartItems.filter(i => (i.cartKey !== itemKey && i.id !== itemKey));
   saveCart();
   updateCartUI();
 }
@@ -7166,10 +7227,20 @@ function saveCart() {
 }
 
 function updateCartUI() {
-  // Update Badges
-  const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const badges = document.querySelectorAll('.cart-badge-count');
-  badges.forEach(b => b.textContent = totalCount);
+  // Update Badges across all pages
+  const totalCount = cartItems.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
+  const badges = document.querySelectorAll('.cart-badge, .cart-badge-count, #cart-count-badge');
+  badges.forEach(b => {
+    b.textContent = totalCount;
+    if (totalCount > 0) {
+      b.style.display = 'flex';
+      b.classList.remove('badge-pop');
+      void b.offsetWidth;
+      b.classList.add('badge-pop');
+    } else {
+      b.style.display = 'none';
+    }
+  });
 
   // Update Cart Drawer Body
   const cartBody = document.getElementById('cart-items-container');
@@ -7181,8 +7252,8 @@ function updateCartUI() {
     cartBody.innerHTML = `
       <div class="cart-empty-state">
         <p style="margin-bottom: 12px;"><i class="ph ph-shopping-bag-open" style="font-size: 3rem; color: var(--color-desert);"></i></p>
-        <p class="text-regular">Your cart is empty.</p>
-        <p class="text-small" style="margin-top: 4px;">Add your favorite bakes to begin!</p>
+        <p class="text-regular" style="font-weight: 600;">Your cart is empty.</p>
+        <p class="text-small" style="margin-top: 4px; color: var(--color-text-muted);">Add your favorite celebration cakes to begin!</p>
       </div>
     `;
     if (cartTotalEl) cartTotalEl.textContent = '₹0';
@@ -7191,19 +7262,22 @@ function updateCartUI() {
 
   let totalAmount = 0;
   cartBody.innerHTML = cartItems.map(item => {
-    const itemTotal = item.price * item.quantity;
+    const itemTotal = Number(item.price) * Number(item.quantity);
     totalAmount += itemTotal;
+    const itemKey = item.cartKey || item.id;
 
     return `
       <div class="cart-item">
         <img class="cart-item-img" src="${item.image}" alt="${item.title}" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';">
         <div class="cart-item-details">
           <div class="cart-item-title">${item.title}</div>
-          <div class="cart-item-price">₹${item.price} x ${item.quantity} = ₹${itemTotal}</div>
+          <div style="font-size: 0.78rem; color: var(--color-desert); font-weight: 600; margin-bottom: 2px;">Weight: ${item.weight || '1 kg'}</div>
+          <div class="cart-item-price">₹${item.price} × ${item.quantity} = ₹${itemTotal}</div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
-            <span>${item.quantity}</span>
-            <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+            <button class="qty-btn" onclick="updateQuantity('${itemKey}', -1)" aria-label="Decrease quantity">-</button>
+            <span style="font-weight: 700; min-width: 20px; text-align: center;">${item.quantity}</span>
+            <button class="qty-btn" onclick="updateQuantity('${itemKey}', 1)" aria-label="Increase quantity">+</button>
+            <button onclick="removeCartItem('${itemKey}')" style="margin-left: auto; background: none; border: none; color: #d32f2f; cursor: pointer; font-size: 0.85rem; padding: 4px 6px;" title="Remove item"><i class="ph ph-trash"></i></button>
           </div>
         </div>
       </div>

@@ -518,9 +518,13 @@
             addToCartBtn.innerHTML = '🔴 Currently Out of Stock';
           }
         } else {
-          document.getElementById('add-to-cart-detail-btn').onclick = () => {
-            addToCart(currentProduct.id);
-          };
+          const detailCartBtn = document.getElementById('add-to-cart-detail-btn');
+          if (detailCartBtn) {
+            detailCartBtn.onclick = (e) => {
+              const priceToUse = selectedPrice || currentProduct.price;
+              addToCart(currentProduct.id, selectedWeight, priceToUse, e.currentTarget);
+            };
+          }
         }
       }
     });
