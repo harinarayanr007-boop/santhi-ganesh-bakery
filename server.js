@@ -2,82 +2,171 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
+const MAX_PAYLOAD_SIZE = 2 * 1024 * 1024; // 2MB max payload limit to prevent memory/disk exhaustion
 
 const MIME_TYPES = {
-  '.html': 'text/html',
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.json': 'application/json',
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf'
 };
 
+// Security headers applied to all responses
+function setSecurityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+}
+
 const server = http.createServer((req, res) => {
-  const urlPath = req.url.split('?')[0];
+  setSecurityHeaders(res);
 
-  // API Endpoint to save products JSON dynamically
-  if (req.method === 'POST' && urlPath === '/api/products') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
-      try {
-        fs.writeFileSync(path.join(__dirname, 'data', 'products.json'), body);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, message: 'Products updated successfully!' }));
-      } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: err.message }));
-      }
-    });
-    return;
+  // Normalize and parse URL
+  const rawUrl = req.url.split('?')[0];
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(rawUrl);
+  } catch (e) {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    return res.end('Bad Request');
   }
 
-  // API Endpoint to save jobs JSON dynamically
-  if (req.method === 'POST' && urlPath === '/api/jobs') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
-      try {
-        fs.writeFileSync(path.join(__dirname, 'data', 'jobs.json'), body);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, message: 'Jobs updated successfully!' }));
-      } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: err.message }));
-      }
+  // Handle CORS Preflight
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
     });
-    return;
+    return res.end();
   }
 
-  // Static File Serving
-  let filePath = path.join(__dirname, decodeURIComponent(urlPath === '/' ? 'index.html' : urlPath));
-  const extname = String(path.extname(filePath)).toLowerCase();
-  const contentType = MIME_TYPES[extname] || 'application/octet-stream';
+  // Helper for reading JSON POST body with size limits and validation
+  function handleJsonPost(targetFile, successMessage) {
+    let body = '';
+    let bodySize = 0;
 
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      if (error.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end('<h1>404 Not Found</h1>', 'utf-8');
-      } else {
-        res.writeHead(500);
-        res.end(`Server Error: ${error.code}`, 'utf-8');
+    req.on('data', chunk => {
+      bodySize += chunk.length;
+      if (bodySize > MAX_PAYLOAD_SIZE) {
+        res.writeHead(413, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Payload Too Large (max 2MB)' }));
+        req.destroy();
+        return;
       }
-    } else {
-      res.writeHead(200, { 
-        'Content-Type': contentType,
-        'Cache-Control': 'no-cache' 
-      });
-      res.end(content, 'utf-8');
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      if (bodySize > MAX_PAYLOAD_SIZE) return;
+
+      // Validate JSON structure before writing to disk
+      try {
+        const parsed = JSON.parse(body);
+        if (!Array.isArray(parsed) && typeof parsed !== 'object') {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'Invalid data format: Expected JSON array or object' }));
+        }
+
+        const targetPath = path.join(__dirname, 'data', targetFile);
+        // Ensure data directory exists
+        const dataDir = path.dirname(targetPath);
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true });
+        }
+
+        fs.writeFileSync(targetPath, JSON.stringify(parsed, null, 2), 'utf-8');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: successMessage }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Malformed JSON payload: ' + err.message }));
+      }
+    });
+  }
+
+  // API Endpoint to save products JSON safely
+  if (req.method === 'POST' && decodedPath === '/api/products') {
+    return handleJsonPost('products.json', 'Products updated successfully!');
+  }
+
+  // API Endpoint to save jobs JSON safely
+  if (req.method === 'POST' && decodedPath === '/api/jobs') {
+    return handleJsonPost('jobs.json', 'Jobs updated successfully!');
+  }
+
+  // Static File Serving with strict Path Traversal protection
+  if (req.method === 'GET' || req.method === 'HEAD') {
+    // Disallow null bytes
+    if (decodedPath.includes('\0')) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      return res.end('Bad Request');
     }
-  });
+
+    const relativePath = decodedPath === '/' ? 'index.html' : decodedPath.replace(/^\/+/, '');
+    const safePath = path.normalize(path.resolve(__dirname, relativePath));
+
+    // Security Check: Verify resolved path resides strictly inside root directory
+    if (!safePath.startsWith(path.resolve(__dirname))) {
+      res.writeHead(403, { 'Content-Type': 'text/html' });
+      return res.end('<h1>403 Forbidden: Access Denied</h1>');
+    }
+
+    // Support Clean URLs (e.g. /printing -> /printing.html)
+    let targetFilePath = safePath;
+    if (!fs.existsSync(targetFilePath) || !fs.statSync(targetFilePath).isFile()) {
+      if (fs.existsSync(safePath + '.html') && fs.statSync(safePath + '.html').isFile()) {
+        targetFilePath = safePath + '.html';
+      }
+    }
+
+    fs.stat(targetFilePath, (statErr, stats) => {
+      if (statErr || !stats.isFile()) {
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        return res.end('<h1>404 Not Found</h1>');
+      }
+
+      const extname = String(path.extname(targetFilePath)).toLowerCase();
+      const contentType = MIME_TYPES[extname] || 'application/octet-stream';
+
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': 'no-cache',
+        'Content-Length': stats.size
+      });
+
+      if (req.method === 'HEAD') {
+        return res.end();
+      }
+
+      const stream = fs.createReadStream(targetFilePath);
+      stream.on('error', () => {
+        if (!res.headersSent) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end('Internal Server Error');
+        }
+      });
+      stream.pipe(res);
+    });
+    return;
+  }
+
+  // Unsupported methods
+  res.writeHead(405, { 'Content-Type': 'text/plain' });
+  res.end('Method Not Allowed');
 });
 
 server.listen(PORT, () => {
-  console.log(`Santhi Ganesh Bakery server running at http://localhost:${PORT}`);
+  console.log(`✓ Santhi Ganesh Bakery secure server running at http://localhost:${PORT}`);
 });

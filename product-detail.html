@@ -478,7 +478,9 @@
     </div>
   </footer>
 
-  <!-- Interactivity Script -->
+  <!-- Utility, Data & Interactivity Scripts -->
+  <script src="./js/utils.js"></script>
+  <script src="./data/products-data.js"></script>
   <script src="./app.js"></script>
   
   <script>
@@ -547,11 +549,15 @@
       selectedPrice = variants[0].price;
       document.getElementById('detail-price').textContent = `₹${selectedPrice}`;
 
-      container.innerHTML = variants.map((v, index) => `
-        <button class="weight-btn ${index === 0 ? 'active' : ''}" onclick="selectWeightVariant(this, '${v.weight.replace(/'/g, "\\'")}', ${v.price})">
-          ${v.weight}
-        </button>
-      `).join('');
+      container.innerHTML = variants.map((v, index) => {
+        const safeWeight = typeof escapeHTML === 'function' ? escapeHTML(v.weight) : v.weight;
+        const safePrice = Number(v.price) || 0;
+        return `
+          <button class="weight-btn ${index === 0 ? 'active' : ''}" onclick="selectWeightVariant(this, '${safeWeight.replace(/'/g, "\\'")}', ${safePrice})">
+            ${safeWeight}
+          </button>
+        `;
+      }).join('');
     }
 
     function selectWeightVariant(btn, weight, price) {

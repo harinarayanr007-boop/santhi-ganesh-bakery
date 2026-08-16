@@ -751,12 +751,12 @@
     }
 
     /* ====================================================
-       PRINT MEDIA QUERY (NATIVE HIGH RESOLUTION PRINTING)
+       PRINT MEDIA QUERY (STRICT HIGH RESOLUTION ISOLATION)
        ==================================================== */
     @media print {
       @page {
         size: auto;
-        margin: 0;
+        margin: 0mm;
       }
       
       html, body {
@@ -764,49 +764,40 @@
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        font-family: sans-serif !important;
+        height: auto !important;
+        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
       }
 
-      /* Hide everything in admin UI */
-      .admin-header,
-      .admin-tabs,
-      .print-sidebar,
-      .print-toolbar,
-      .a4-preview-header,
-      .login-box,
-      #auth-screen,
-      .modal-overlay,
-      #tab-cakes,
-      #tab-cafe,
-      #tab-jobs,
-      #tab-b2b,
-      #tab-backup,
-      #tab-tracking {
-        display: none !important;
+      /* STRICTLY HIDE EVERYTHING ON PAGE */
+      body * {
+        visibility: hidden !important;
       }
 
-      #admin-dashboard,
-      .admin-container,
-      #tab-print,
-      .print-studio-layout,
-      .a4-preview-viewport {
+      /* ONLY SHOW ADMIN PRINT MOUNT */
+      #admin-print-mount,
+      #admin-print-mount * {
+        visibility: visible !important;
+      }
+
+      #admin-print-mount {
         display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        max-height: none !important;
-        overflow: visible !important;
+        background: #FFFFFF !important;
       }
 
       .print-a4-page {
         box-shadow: none !important;
         border: none !important;
         margin: 0 auto !important;
-        padding: 4mm !important;
-        width: 100% !important;
-        height: 100% !important;
+        padding: 6mm !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        transform: none !important;
         page-break-after: always !important;
         break-after: page !important;
       }
@@ -814,18 +805,15 @@
       .print-thermal-roll {
         box-shadow: none !important;
         border: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        gap: 0 !important;
+        margin: 0 auto !important;
+        padding: 2mm 0 !important;
+        transform: none !important;
       }
 
       .print-tag-card,
       .thermal-tag-card {
         break-inside: avoid !important;
         page-break-inside: avoid !important;
-        page-break-after: always !important;
-        break-after: page !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -880,6 +868,7 @@
           <span>Content Manager</span>
         </div>
         <div style="display: flex; gap: 12px;">
+          <a href="./printing.html" target="_blank" class="btn btn-secondary" style="color: #F5A623; border-color: #F5A623; padding: 6px 14px; font-size: 0.9rem;"><i class="ph ph-printer"></i> Open Print Studio ↗</a>
           <a href="./index.html" class="btn btn-secondary" style="color: #FFF; border-color: #FFF; padding: 6px 14px; font-size: 0.9rem;">View Website ↗</a>
           <button onclick="logoutAdmin()" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.9rem;">Logout</button>
         </div>
@@ -1714,7 +1703,10 @@
     </div>
   </div>
 
-  <!-- Interactivity Script -->
+  <!-- Utility, Data & Interactivity Scripts -->
+  <script src="./js/utils.js"></script>
+  <script src="./data/products-data.js"></script>
+  <script src="./data/cafe-menu-data.js"></script>
   <script src="./app.js"></script>
   
   <script>
@@ -1788,14 +1780,7 @@
 
     function initAdminAuth() {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const pinParam = urlParams.get('pin') || urlParams.get('auth');
-        if (pinParam) {
-          const inputPinInput = document.getElementById('admin-pin-input');
-          if (inputPinInput) inputPinInput.value = pinParam;
-          checkAdminAuth();
-          return;
-        }
+        // Auto-resume active session if already authenticated
 
         // Auto-resume active session
         if (sessionStorage.getItem('sg_admin_authed') === 'true') {
@@ -1988,25 +1973,30 @@
 
       tbody.innerHTML = list.map(p => {
         const variantSummary = (p.variants && p.variants.length > 0)
-          ? p.variants.map(v => `${v.weight}: ₹${v.price}`).join(' | ')
-          : `${p.weight}: ₹${p.price}`;
+          ? p.variants.map(v => `${typeof escapeHTML === 'function' ? escapeHTML(v.weight) : v.weight}: ₹${Number(v.price) || 0}`).join(' | ')
+          : `${typeof escapeHTML === 'function' ? escapeHTML(p.weight || '1 kg') : (p.weight || '1 kg')}: ₹${Number(p.price) || 0}`;
 
         const isAvailable = p.is_available !== false;
+        const safeTitle = typeof escapeHTML === 'function' ? escapeHTML(p.title) : p.title;
+        const safeCategory = typeof escapeHTML === 'function' ? escapeHTML(p.category) : p.category;
+        const safeId = typeof escapeHTML === 'function' ? escapeHTML(p.id) : p.id;
+        const safePrice = Number(p.price) || 0;
+
         const statusBadgeHTML = isAvailable
-          ? `<button onclick="quickToggleStatus('${p.id}')" style="background:#2e7d32; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🟢 ON (Available)</button>`
-          : `<button onclick="quickToggleStatus('${p.id}')" style="background:#c62828; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🔴 OFF (Disabled)</button>`;
+          ? `<button onclick="quickToggleStatus('${safeId}')" style="background:#2e7d32; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🟢 ON (Available)</button>`
+          : `<button onclick="quickToggleStatus('${safeId}')" style="background:#c62828; color:#fff; border:none; padding:6px 14px; border-radius:20px; font-weight:700; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.15); transition:all 0.2s ease;">🔴 OFF (Disabled)</button>`;
 
         return `
           <tr style="${!isAvailable ? 'opacity: 0.65; background-color: rgba(198,40,40,0.05);' : ''}">
-            <td><img src="${p.image}" class="item-img-thumb" alt="${p.title}" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';"></td>
-            <td><strong>${p.title}</strong></td>
-            <td>${p.category}</td>
+            <td><img src="${p.image}" class="item-img-thumb" alt="${safeTitle}" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';"></td>
+            <td><strong>${safeTitle}</strong></td>
+            <td>${safeCategory}</td>
             <td style="font-size: 0.9rem;">${variantSummary}</td>
-            <td><strong>From ₹${p.price}</strong></td>
+            <td><strong>From ₹${safePrice}</strong></td>
             <td>${statusBadgeHTML}</td>
             <td>
-              <button onclick="editCake('${p.id}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
-              <button onclick="deleteCake('${p.id}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
+              <button onclick="editCake('${safeId}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
+              <button onclick="deleteCake('${safeId}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
             </td>
           </tr>
         `;
@@ -2025,18 +2015,26 @@
       const tbody = document.getElementById('jobs-table-body');
       if (!tbody) return;
 
-      tbody.innerHTML = jobsList.map(j => `
-        <tr>
-          <td><strong>${j.title}</strong></td>
-          <td>${j.type}</td>
-          <td>${j.pay}</td>
-          <td>${j.location}</td>
-          <td>
-            <button onclick="editJob('${j.id}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
-            <button onclick="deleteJob('${j.id}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = jobsList.map(j => {
+        const safeTitle = typeof escapeHTML === 'function' ? escapeHTML(j.title) : j.title;
+        const safeType = typeof escapeHTML === 'function' ? escapeHTML(j.type) : j.type;
+        const safePay = typeof escapeHTML === 'function' ? escapeHTML(j.pay) : j.pay;
+        const safeLoc = typeof escapeHTML === 'function' ? escapeHTML(j.location) : j.location;
+        const safeId = typeof escapeHTML === 'function' ? escapeHTML(j.id) : j.id;
+
+        return `
+          <tr>
+            <td><strong>${safeTitle}</strong></td>
+            <td>${safeType}</td>
+            <td>${safePay}</td>
+            <td>${safeLoc}</td>
+            <td>
+              <button onclick="editJob('${safeId}')" class="btn-edit"><i class="ph ph-pencil-simple"></i> Edit</button>
+              <button onclick="deleteJob('${safeId}')" class="btn-delete"><i class="ph ph-trash"></i> Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
     async function loadTrackingAnalytics() {
@@ -2104,8 +2102,8 @@
         if (sortedCakes.length > 0) {
           topCakesContainer.innerHTML = sortedCakes.map(([title, count]) => `
             <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 6px;">
-              <span style="font-weight: 600;">🍰 ${title}</span>
-              <span style="background: var(--color-desert); color: #fff; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">${count} Actions</span>
+              <span style="font-weight: 600;">🍰 ${typeof escapeHTML === 'function' ? escapeHTML(title) : title}</span>
+              <span style="background: var(--color-desert); color: #fff; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">${Number(count) || 0} Actions</span>
             </div>
           `).join('');
         } else {
@@ -2120,7 +2118,7 @@
         if (sortedKeywords.length > 0) {
           keywordsContainer.innerHTML = sortedKeywords.map(([word, count]) => `
             <span style="background: #FFF; border: 1px solid rgba(10,4,4,0.15); padding: 4px 12px; border-radius: 16px; font-size: 0.85rem; font-weight: 600;">
-              🔍 ${word} <small style="color: #888;">(${count})</small>
+              🔍 ${typeof escapeHTML === 'function' ? escapeHTML(word) : word} <small style="color: #888;">(${Number(count) || 0})</small>
             </span>
           `).join('');
         } else {
@@ -2135,15 +2133,21 @@
         if (b2bEvents.length > 0) {
           b2bTbody.innerHTML = b2bEvents.map(item => {
             const data = item.event_data || {};
-            const dt = item.created_at ? new Date(item.created_at).toLocaleString() : 'N/A';
+            const dt = item.created_at ? typeof escapeHTML === 'function' ? escapeHTML(new Date(item.created_at).toLocaleString()) : new Date(item.created_at).toLocaleString() : 'N/A';
             const isSample = data.is_sample;
+            const safeRef = typeof escapeHTML === 'function' ? escapeHTML(data.ref_id || '#B2B-LEAD') : (data.ref_id || '#B2B-LEAD');
+            const safeBiz = typeof escapeHTML === 'function' ? escapeHTML(data.biz_name || 'Business Partner') : (data.biz_name || 'Business Partner');
+            const safeType = typeof escapeHTML === 'function' ? escapeHTML(data.biz_type || 'Retail') : (data.biz_type || 'Retail');
+            const safePhone = typeof escapeHTML === 'function' ? escapeHTML(data.phone || 'N/A') : (data.phone || 'N/A');
+            const safeReq = typeof escapeHTML === 'function' ? escapeHTML(data.requirement || 'General Quote') : (data.requirement || 'General Quote');
+
             return `
               <tr style="border-bottom: 1px solid rgba(10,4,4,0.06);">
-                <td style="padding: 12px; font-weight: 700; color: var(--color-desert);">${data.ref_id || '#B2B-LEAD'}</td>
-                <td style="padding: 12px; font-weight: 600;">${data.biz_name || 'Business Partner'}</td>
-                <td style="padding: 12px;"><span style="background: rgba(166,96,27,0.1); padding: 3px 8px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;">${data.biz_type || 'Retail'}</span></td>
-                <td style="padding: 12px;"><a href="tel:${data.phone}" style="color: #1B5E20; font-weight: 700;">📞 ${data.phone || 'N/A'}</a></td>
-                <td style="padding: 12px; font-size: 0.85rem;">${data.requirement || 'General Quote'}</td>
+                <td style="padding: 12px; font-weight: 700; color: var(--color-desert);">${safeRef}</td>
+                <td style="padding: 12px; font-weight: 600;">${safeBiz}</td>
+                <td style="padding: 12px;"><span style="background: rgba(166,96,27,0.1); padding: 3px 8px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;">${safeType}</span></td>
+                <td style="padding: 12px;"><a href="tel:${safePhone}" style="color: #1B5E20; font-weight: 700;">📞 ${safePhone}</a></td>
+                <td style="padding: 12px; font-size: 0.85rem;">${safeReq}</td>
                 <td style="padding: 12px;">${isSample ? '<span style="background: #E8F5E9; color: #2E7D32; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">📦 Sample Box</span>' : '<span style="background: #FFF3E0; color: #E65100; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">💼 Quote Req</span>'}</td>
                 <td style="padding: 12px; font-size: 0.8rem; color: #666;">${dt}</td>
               </tr>
@@ -2173,12 +2177,17 @@
             else if (item.event_type === 'product_search') detail = `🔍 Searched: "${data.query}"`;
             else if (item.event_type === 'page_view') detail = `👀 Page View: ${data.page || 'Home'}`;
 
+            const safeTime = typeof escapeHTML === 'function' ? escapeHTML(timeStr) : timeStr;
+            const safeType = typeof escapeHTML === 'function' ? escapeHTML(item.event_type.replace('_', ' ')) : item.event_type.replace('_', ' ');
+            const safeDetail = typeof escapeHTML === 'function' ? escapeHTML(detail) : detail;
+            const safePage = typeof escapeHTML === 'function' ? escapeHTML(data.page || '/') : (data.page || '/');
+
             return `
               <tr>
-                <td style="font-size: 0.85rem; color: #555;">${timeStr}</td>
-                <td><strong style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">${item.event_type.replace('_', ' ')}</strong></td>
-                <td style="font-size: 0.9rem;">${detail}</td>
-                <td style="font-size: 0.85rem; color: #666;">${data.page || '/'}</td>
+                <td style="font-size: 0.85rem; color: #555;">${safeTime}</td>
+                <td><strong style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;">${safeType}</strong></td>
+                <td style="font-size: 0.9rem;">${safeDetail}</td>
+                <td style="font-size: 0.85rem; color: #666;">${safePage}</td>
               </tr>
             `;
           }).join('');
@@ -2502,48 +2511,58 @@
         return;
       }
 
-      tbody.innerHTML = filtered.map(dish => `
-        <tr>
-          <td style="font-size: 1.4rem; text-align: center;">${dish.icon || '🍽️'}</td>
-          <td>
-            <div style="font-weight: 700; color: var(--color-text-main); font-size: 0.95rem;">${dish.name}</div>
-            ${dish.description ? `<div style="font-size: 0.8rem; color: #666; margin-top: 2px;">${dish.description}</div>` : ''}
-          </td>
-          <td>
-            <span style="background: rgba(166,96,27,0.1); color: var(--color-desert); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">
-              ${dish.category_name || dish.category}
-            </span>
-          </td>
-          <td style="font-weight: 800; color: var(--color-desert); font-size: 1rem;">
-            ₹${dish.price}
-            ${dish.price_display ? `<div style="font-size: 0.72rem; color: #888; font-weight: 500;">${dish.price_display}</div>` : ''}
-          </td>
-          <td>
-            ${dish.is_veg !== false ? 
-              '<span style="color: #2e7d32; font-weight: 700; font-size: 0.8rem;">🟢 Veg</span>' : 
-              '<span style="color: #d32f2f; font-weight: 700; font-size: 0.8rem;">🔴 Non-Veg</span>'
-            }
-          </td>
-          <td>
-            ${dish.badge ? `<span style="background: #FFF3E0; color: #E65100; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px;">${dish.badge}</span>` : '<span style="color: #bbb;">—</span>'}
-          </td>
-          <td style="text-align: center;">
-            <button onclick="toggleCafeDishAvailability('${dish.id}', ${dish.is_available !== false})" style="border: none; border-radius: 20px; padding: 4px 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; ${dish.is_available !== false ? 'background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;' : 'background: #ffebee; color: #c62828; border: 1px solid #ef9a9a;'}">
-              ${dish.is_available !== false ? '🟢 Available' : '🔴 Sold Out'}
-            </button>
-          </td>
-          <td style="text-align: right;">
-            <div style="display: inline-flex; gap: 6px;">
-              <button onclick="editCafeDish('${dish.id}')" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.82rem;" title="Edit Dish">
-                <i class="ph ph-pencil"></i> Edit
+      tbody.innerHTML = filtered.map(dish => {
+        const safeName = typeof escapeHTML === 'function' ? escapeHTML(dish.name) : dish.name;
+        const safeDesc = typeof escapeHTML === 'function' ? escapeHTML(dish.description || '') : (dish.description || '');
+        const safeCat = typeof escapeHTML === 'function' ? escapeHTML(dish.category_name || dish.category) : (dish.category_name || dish.category);
+        const safeBadge = typeof escapeHTML === 'function' ? escapeHTML(dish.badge || '') : (dish.badge || '');
+        const safeId = typeof escapeHTML === 'function' ? escapeHTML(dish.id) : dish.id;
+        const safePrice = Number(dish.price) || 0;
+        const safePriceDisplay = typeof escapeHTML === 'function' ? escapeHTML(dish.price_display || '') : (dish.price_display || '');
+
+        return `
+          <tr>
+            <td style="font-size: 1.4rem; text-align: center;">${dish.icon || '🍽️'}</td>
+            <td>
+              <div style="font-weight: 700; color: var(--color-text-main); font-size: 0.95rem;">${safeName}</div>
+              ${safeDesc ? `<div style="font-size: 0.8rem; color: #666; margin-top: 2px;">${safeDesc}</div>` : ''}
+            </td>
+            <td>
+              <span style="background: rgba(166,96,27,0.1); color: var(--color-desert); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">
+                ${safeCat}
+              </span>
+            </td>
+            <td style="font-weight: 800; color: var(--color-desert); font-size: 1rem;">
+              ₹${safePrice}
+              ${safePriceDisplay ? `<div style="font-size: 0.72rem; color: #888; font-weight: 500;">${safePriceDisplay}</div>` : ''}
+            </td>
+            <td>
+              ${dish.is_veg !== false ? 
+                '<span style="color: #2e7d32; font-weight: 700; font-size: 0.8rem;">🟢 Veg</span>' : 
+                '<span style="color: #d32f2f; font-weight: 700; font-size: 0.8rem;">🔴 Non-Veg</span>'
+              }
+            </td>
+            <td>
+              ${safeBadge ? `<span style="background: #FFF3E0; color: #E65100; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px;">${safeBadge}</span>` : '<span style="color: #bbb;">—</span>'}
+            </td>
+            <td style="text-align: center;">
+              <button onclick="toggleCafeDishAvailability('${safeId}', ${dish.is_available !== false})" style="border: none; border-radius: 20px; padding: 4px 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s; ${dish.is_available !== false ? 'background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;' : 'background: #ffebee; color: #c62828; border: 1px solid #ef9a9a;'}">
+                ${dish.is_available !== false ? '🟢 Available' : '🔴 Sold Out'}
               </button>
-              <button onclick="deleteCafeDish('${dish.id}', '${dish.name.replace(/'/g, "\\'")}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 0.82rem; background: #ffebee; color: #c62828; border: 1px solid #ffcdd2;" title="Delete Dish">
-                <i class="ph ph-trash"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
+            </td>
+            <td style="text-align: right;">
+              <div style="display: inline-flex; gap: 6px;">
+                <button onclick="editCafeDish('${safeId}')" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.82rem;" title="Edit Dish">
+                  <i class="ph ph-pencil"></i> Edit
+                </button>
+                <button onclick="deleteCafeDish('${safeId}', '${safeName.replace(/'/g, "\\'")}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 0.82rem; background: #ffebee; color: #c62828; border: 1px solid #ffcdd2;" title="Delete Dish">
+                  <i class="ph ph-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
     function openCafeDishModal(dish) {
@@ -2920,15 +2939,20 @@
         const isChecked = selectedPrintItemIds.has(item.id);
         const isCustom = item.id.startsWith('custom-');
         const qty = printQuantities[item.id] || 1;
+        const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name_en) : item.name_en;
+        const safeCat = typeof escapeHTML === 'function' ? escapeHTML(item.category_label) : item.category_label;
+        const safeId = typeof escapeHTML === 'function' ? escapeHTML(item.id) : item.id;
+        const safePrice = Number(item.price) || 0;
+
         return `
-          <div class="print-item-row ${isChecked ? 'selected' : ''}" onclick="togglePrintItem('${item.id}', event)">
-            <input type="checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); togglePrintItem('${item.id}', event)">
+          <div class="print-item-row ${isChecked ? 'selected' : ''}" onclick="togglePrintItem('${safeId}', event)">
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); togglePrintItem('${safeId}', event)">
             <div style="flex: 1; min-width: 0;">
               <div style="font-size: 0.86rem; font-weight: 700; color: #0A0404; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                ${item.name_en}
+                ${safeName}
               </div>
               <div style="font-size: 0.74rem; color: #666; display: flex; gap: 6px; align-items: center;">
-                <span style="background: rgba(166,96,27,0.1); color: #A6601B; padding: 1px 6px; border-radius: 3px; font-weight: 600;">${item.category_label}</span>
+                <span style="background: rgba(166,96,27,0.1); color: #A6601B; padding: 1px 6px; border-radius: 3px; font-weight: 600;">${safeCat}</span>
                 ${item.is_veg ? '<span style="color: #2e7d32; font-weight: 700;">🟢 Veg</span>' : '<span style="color: #c62828; font-weight: 700;">🔴 Non-Veg</span>'}
               </div>
             </div>
@@ -2936,17 +2960,17 @@
             <!-- Price Input -->
             <div style="display: flex; align-items: center; gap: 2px;" onclick="event.stopPropagation();" title="Price (Click to edit)">
               <span style="font-size: 0.78rem; font-weight: 700; color: #A6601B;">₹</span>
-              <input type="number" value="${item.price}" onchange="overridePrintItemPrice('${item.id}', this.value)" style="width: 48px; padding: 2px 4px; font-size: 0.82rem; font-weight: 700; border: 1px solid #CCC; border-radius: 4px; text-align: right;">
+              <input type="number" value="${safePrice}" onchange="overridePrintItemPrice('${safeId}', this.value)" style="width: 48px; padding: 2px 4px; font-size: 0.82rem; font-weight: 700; border: 1px solid #CCC; border-radius: 4px; text-align: right;">
             </div>
 
             <!-- Quantity Stepper -->
             <div style="display: flex; align-items: center; gap: 2px; background: #F2EBE3; border: 1px solid rgba(10,4,4,0.15); border-radius: 4px; padding: 1px;" onclick="event.stopPropagation();" title="Print Quantity">
-              <button type="button" onclick="adjustPrintItemQty('${item.id}', -1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">-</button>
-              <input type="number" min="1" max="99" value="${qty}" onchange="setPrintItemQty('${item.id}', this.value)" style="width: 24px; text-align: center; border: none; background: transparent; font-size: 0.8rem; font-weight: 800; color: #0A0404; padding: 0;">
-              <button type="button" onclick="adjustPrintItemQty('${item.id}', 1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">+</button>
+              <button type="button" onclick="adjustPrintItemQty('${safeId}', -1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">-</button>
+              <input type="number" min="1" max="99" value="${qty}" onchange="setPrintItemQty('${safeId}', this.value)" style="width: 24px; text-align: center; border: none; background: transparent; font-size: 0.8rem; font-weight: 800; color: #0A0404; padding: 0;">
+              <button type="button" onclick="adjustPrintItemQty('${safeId}', 1)" style="width: 18px; height: 20px; border: none; background: none; font-weight: 800; cursor: pointer; color: #444; font-size: 0.85rem; line-height: 1; padding: 0;">+</button>
             </div>
 
-            ${isCustom ? `<button onclick="event.stopPropagation(); deleteCustomPrintTag('${item.id}')" style="background: none; border: none; color: #d32f2f; cursor: pointer; padding: 0 4px;" title="Delete custom tag"><i class="ph ph-trash"></i></button>` : ''}
+            ${isCustom ? `<button onclick="event.stopPropagation(); deleteCustomPrintTag('${safeId}')" style="background: none; border: none; color: #d32f2f; cursor: pointer; padding: 0 4px;" title="Delete custom tag"><i class="ph ph-trash"></i></button>` : ''}
           </div>
         `;
       }).join('');
@@ -3086,11 +3110,14 @@
         const rollLabel = printPreset === 'thermal58' ? '58mm Mini Roll' : '80mm Thermal Bill Roll';
         if (pageText) pageText.textContent = `${rollLabel} (${queuedItems.length} tags queued)`;
 
-        pagesContainer.innerHTML = `
+        const thermalHTML = `
           <div class="${rollClass}" style="transform: scale(${printZoom}); transform-origin: top center;">
             ${queuedItems.map((item, idx) => generateThermalTagHTML(item, idx, queuedItems.length)).join('')}
           </div>
         `;
+        pagesContainer.innerHTML = thermalHTML;
+        const mount = document.getElementById('admin-print-mount');
+        if (mount) mount.innerHTML = thermalHTML.replace(/style="transform:[^"]*"/g, '');
         return;
       }
 
@@ -3128,6 +3155,8 @@
       });
 
       pagesContainer.innerHTML = pagesHTML;
+      const mount = document.getElementById('admin-print-mount');
+      if (mount) mount.innerHTML = pagesHTML.replace(/style="transform:[^"]*"/g, '');
     }
 
     function generateThermalTagHTML(item, index, total) {
@@ -3370,8 +3399,217 @@
     }
 
     function printA4Tags() {
-      window.print();
+      const container = document.getElementById('printable-a4-pages-container');
+      if (!container || !container.innerHTML.trim()) {
+        alert('Please select at least one item to print!');
+        return;
+      }
+
+      const isThermal = (printPreset === 'thermal80' || printPreset === 'thermal58');
+      const is58 = (printPreset === 'thermal58');
+
+      // Strip any screen preview zoom transforms for pristine output
+      const cleanHTML = container.innerHTML.replace(/style="transform:[^"]*"/g, '');
+
+      // Keep screen mount synchronized for native Ctrl+P prints
+      const mount = document.getElementById('admin-print-mount');
+      if (mount) {
+        mount.innerHTML = cleanHTML;
+      }
+
+      try {
+        const printWin = window.open('', '_blank', 'width=850,height=900');
+        if (printWin) {
+          printWin.document.open();
+          printWin.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>Santhi Ganesh Bakery - Price Tags</title>
+              <link rel="preconnect" href="https://fonts.googleapis.com">
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+              <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+              <style>
+                @page {
+                  size: ${isThermal ? 'auto' : 'A4 portrait'};
+                  margin: 0mm;
+                }
+                * { box-sizing: border-box; margin: 0; padding: 0; }
+                html, body {
+                  background: #FFFFFF !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  width: 100% !important;
+                  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+                }
+                .print-a4-page {
+                  width: 210mm;
+                  min-height: 297mm;
+                  padding: 6mm;
+                  background: #FFFFFF;
+                  box-sizing: border-box;
+                  page-break-after: always;
+                  break-after: page;
+                  display: flex;
+                  flex-direction: column;
+                }
+                .print-thermal-roll {
+                  width: ${is58 ? '58mm' : '80mm'};
+                  margin: 0 auto;
+                  padding: 2mm 0;
+                  background: #FFFFFF;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 3.5mm;
+                }
+                .grid-preset-shelf12 {
+                  display: grid;
+                  grid-template-columns: repeat(4, 1fr);
+                  grid-template-rows: repeat(3, 1fr);
+                  gap: 3.5mm;
+                  height: 100%;
+                }
+                .grid-preset-medium8 {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  grid-template-rows: repeat(4, 1fr);
+                  gap: 4mm;
+                  height: 100%;
+                }
+                .grid-preset-tent4 {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  grid-template-rows: repeat(2, 1fr);
+                  gap: 6mm;
+                  height: 100%;
+                }
+                .grid-preset-menu1 {
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                }
+                .print-tag-card, .thermal-tag-card {
+                  background: #FFFFFF;
+                  box-sizing: border-box;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  text-align: center;
+                  position: relative;
+                  page-break-inside: avoid;
+                  break-inside: avoid;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+                .tag-frame-gold, .thermal-frame-gold {
+                  border: 2px solid #A6601B;
+                  outline: 1px solid #7D450F;
+                  outline-offset: -3px;
+                  padding: 4mm 3mm;
+                }
+                .tag-frame-modern, .thermal-frame-modern {
+                  border: 1.5px solid #1A120B;
+                  border-radius: 4px;
+                  padding: 4mm 3mm;
+                }
+                .tag-frame-dashed, .thermal-frame-dashed {
+                  border: 1.5px dashed #777777;
+                  padding: 4mm 3mm;
+                }
+                .tag-frame-minimal, .thermal-frame-minimal {
+                  border: 1px solid #DDDDDD;
+                  padding: 4mm 3mm;
+                }
+                .tag-brand-header {
+                  font-size: 6.5pt;
+                  font-weight: 800;
+                  color: #A6601B;
+                  letter-spacing: 0.5px;
+                  text-transform: uppercase;
+                  margin-bottom: 1mm;
+                  border-bottom: 0.5px solid rgba(166, 96, 27, 0.4);
+                  padding-bottom: 0.8mm;
+                }
+                .tag-title-en, .thermal-title-en {
+                  font-family: 'Playfair Display', Georgia, serif;
+                  font-size: 12pt;
+                  font-weight: 800;
+                  color: #1A120B;
+                  line-height: 1.15;
+                  margin-bottom: 1mm;
+                }
+                .tag-title-ta, .thermal-title-ta {
+                  font-size: 8.5pt;
+                  font-weight: 700;
+                  color: #555555;
+                  margin-bottom: 1mm;
+                }
+                .tag-category-badge, .thermal-category-pill {
+                  font-size: 6.5pt;
+                  font-weight: 700;
+                  background: #F4EBE1;
+                  color: #7D450F;
+                  padding: 1px 5px;
+                  border-radius: 3px;
+                  display: inline-block;
+                  margin-bottom: 1.5mm;
+                }
+                .tag-price-badge, .thermal-price-box {
+                  background: #24140B;
+                  color: #FFFFFF;
+                  border-radius: 4px;
+                  padding: 2mm 3mm;
+                  display: flex;
+                  align-items: baseline;
+                  justify-content: center;
+                  gap: 2px;
+                  margin-top: auto;
+                }
+                .tag-price-currency, .thermal-price-symbol {
+                  font-size: 10pt;
+                  font-weight: 700;
+                  color: #E8C197;
+                }
+                .tag-price-amount, .thermal-price-val {
+                  font-size: 16pt;
+                  font-weight: 900;
+                  color: #FFFFFF;
+                }
+                .tag-price-unit, .thermal-price-unit {
+                  font-size: 7pt;
+                  color: #DDDDDD;
+                  margin-left: 2px;
+                }
+                .thermal-cut-guide {
+                  margin-top: 3mm;
+                  border-top: 1px dashed #777777;
+                  padding-top: 1mm;
+                  font-size: 6pt;
+                  color: #666666;
+                }
+              </style>
+            </head>
+            <body>
+              ${cleanHTML}
+            </body>
+            </html>
+          `);
+          printWin.document.close();
+          printWin.focus();
+          setTimeout(() => {
+            printWin.print();
+          }, 350);
+        } else {
+          window.print();
+        }
+      } catch (err) {
+        console.warn('Popup print failed, falling back to window.print():', err);
+        window.print();
+      }
     }
   </script>
+
+  <!-- ISOLATED NATIVE PRINT ROOT FOR ADMIN -->
+  <div id="admin-print-mount" style="display: none;"></div>
 </body>
 </html>

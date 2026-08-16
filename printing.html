@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Cafe Price Tag & Print Studio | Santhi Ganesh Bakery</title>
+
+  <!-- Google Fonts & Phosphor Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
+
+  <style>
+    :root {
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --color-primary: #A6601B;
+      --color-primary-dark: #7D450F;
+      --color-desert: #A6601B;
+      --color-bg: #F5EFEB;
+      --color-surface: #FFFFFF;
+      --color-surface-soft: #F9F6F0;
+      --color-text-main: #1A120B;
+      --color-text-muted: #6B5E55;
+      --color-border: rgba(26, 18, 11, 0.12);
+      --shadow-sm: 0 2px 8px rgba(26, 18, 11, 0.05);
+      --shadow-md: 0 8px 24px rgba(26, 18, 11, 0.08);
+      --shadow-lg: 0 16px 40px rgba(26, 18, 11, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Screen Wrapper */
+    #screen-ui-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* AUTH / PIN LOCK SCREEN */
+    .pin-auth-container {
+      max-width: 420px;
+      margin: 80px auto;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      text-align: center;
+      border: 2px solid var(--color-border);
+      border-radius: 10px;
+      margin: 20px 0 16px;
+      outline: none;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      transition: all 0.2s;
+    }
+
+    .pin-input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(166, 96, 27, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--color-text-main);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-surface-soft);
+    }
+
+    /* TOP NAVBAR */
+    .studio-header {
+      background: #24140B;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title img {
+      height: 38px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* STUDIO WORKSPACE LAYOUT */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+      padding: 20px;
+      flex: 1;
+      max-width: 1700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* LEFT SIDEBAR: CAFE ITEMS SELECTION */
+    .items-panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 100px);
+      position: sticky;
+      top: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .category-filter-select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      background: var(--color-surface-soft);
+      font-weight: 600;
+    }
+
+    .bulk-action-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .items-scroll-list {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-surface-soft);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item-row {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .item-row:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .item-row.selected {
+      background: #FFF8F0;
+      border-color: var(--color-primary);
+    }
+
+    .item-checkbox {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--color-primary);
+    }
+
+    .item-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name-en {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-meta {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .item-cat-pill {
+      background: rgba(166, 96, 27, 0.1);
+      color: var(--color-primary);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .price-override-input {
+      width: 52px;
+      padding: 3px 4px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      text-align: right;
+      color: var(--color-primary-dark);
+    }
+
+    .qty-stepper-box {
+      display: flex;
+      align-items: center;
+      background: #EFE8E0;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .qty-stepper-box button {
+      width: 20px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      font-weight: 800;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .qty-stepper-box input {
+      width: 26px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    /* RIGHT WORKSPACE: CONTROLS & PREVIEW */
+    .preview-workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* STUDIO TOOLBAR */
+    .studio-toolbar {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .preset-buttons-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .preset-pill {
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--color-text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .preset-pill:hover {
+      background: #EFE5DB;
+    }
+
+    .preset-pill.active {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 2px 8px rgba(166, 96, 27, 0.3);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      cursor: pointer;
+    }
+
+    .toggle-label input {
+      accent-color: var(--color-primary);
+      width: 15px;
+      height: 15px;
+    }
+
+    .preview-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+    }
+
+    /* PREVIEW CONTAINER */
+    .preview-canvas {
+      background: #D8D0C5;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.15);
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      overflow-x: auto;
+    }
+
+    /* ====================================================
+       A4 & THERMAL SHEET DIMENSIONS & LAYOUTS (SCREEN & PRINT)
+       ==================================================== */
+    .print-a4-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: #FFFFFF;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+      padding: 8mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .print-thermal-roll-container {
+      width: 80mm;
+      background: #FFFFFF;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+      padding: 4mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 4mm;
+    }
+
+    .print-thermal-roll-58 {
+      width: 58mm;
+    }
+
+    /* Grid Layouts for A4 Presets */
+    .grid-shelf12 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 3.5mm;
+      height: 100%;
+    }
+
+    .grid-medium8 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 4mm;
+      height: 100%;
+    }
+
+    .grid-tent4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 6mm;
+      height: 100%;
+    }
+
+    .grid-menu1 {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* TAG CARD STYLES */
+    .tag-card {
+      background: #FFFFFF;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Frame Styles */
+    .frame-gold {
+      border: 2px solid #A6601B;
+      outline: 1px solid #7D450F;
+      outline-offset: -3px;
+      padding: 4mm 3mm;
+    }
+
+    .frame-modern {
+      border: 1.5px solid #1A120B;
+      border-radius: 4px;
+      padding: 4mm 3mm;
+    }
+
+    .frame-dashed {
+      border: 1.5px dashed #777777;
+      padding: 4mm 3mm;
+    }
+
+    .frame-minimal {
+      border: 1px solid #DDDDDD;
+      padding: 4mm 3mm;
+    }
+
+    .tag-brand-title {
+      font-size: 6.5pt;
+      font-weight: 800;
+      color: #A6601B;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1mm;
+      border-bottom: 0.5px solid rgba(166, 96, 27, 0.4);
+      padding-bottom: 0.8mm;
+    }
+
+    .tag-dish-name {
+      font-family: var(--font-serif);
+      font-size: 12pt;
+      font-weight: 800;
+      color: #1A120B;
+      line-height: 1.15;
+      margin-bottom: 1mm;
+    }
+
+    .tag-dish-ta {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #555555;
+      margin-bottom: 1mm;
+    }
+
+    .tag-desc {
+      font-size: 6.5pt;
+      color: #666666;
+      line-height: 1.2;
+      margin-bottom: 1.5mm;
+    }
+
+    .tag-category-badge {
+      font-size: 6.5pt;
+      font-weight: 700;
+      background: #F4EBE1;
+      color: #7D450F;
+      padding: 1px 5px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 1.5mm;
+    }
+
+    .tag-price-container {
+      background: #24140B;
+      color: #FFFFFF;
+      border-radius: 4px;
+      padding: 2mm 3mm;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 2px;
+      margin-top: auto;
+    }
+
+    .tag-price-symbol {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #E8C197;
+    }
+
+    .tag-price-val {
+      font-size: 16pt;
+      font-weight: 900;
+      color: #FFFFFF;
+    }
+
+    .tag-price-unit {
+      font-size: 7pt;
+      color: #DDDDDD;
+      margin-left: 2px;
+    }
+
+    .tag-diet-indicator {
+      font-size: 7pt;
+      font-weight: 800;
+      margin-bottom: 1mm;
+    }
+
+    .diet-veg { color: #2E7D32; }
+    .diet-nonveg { color: #C62828; }
+
+    /* Thermal Tag Specifics */
+    .thermal-card {
+      border: 1.5px solid #000000;
+      padding: 4mm 3mm;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .cut-line {
+      margin-top: 3mm;
+      border-top: 1px dashed #777777;
+      padding-top: 1mm;
+      font-size: 6pt;
+      color: #666666;
+    }
+
+    /* MODAL STYLES */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 480px;
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--color-text-main);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    /* ====================================================
+       STRICT PRINT STYLES - ISOLATES THE STICKERS COMPLETELY
+       ==================================================== */
+    @media print {
+      @page {
+        size: auto;
+        margin: 0mm;
+      }
+
+      html, body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+      }
+
+      /* STRICTLY HIDE EVERYTHING ON PAGE */
+      body * {
+        visibility: hidden !important;
+      }
+
+      /* ONLY SHOW PRINT MOUNT */
+      #print-mount-root,
+      #print-mount-root * {
+        visibility: visible !important;
+      }
+
+      #print-mount-root {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #FFFFFF !important;
+      }
+
+      .print-a4-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 auto !important;
+        padding: 6mm !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        transform: none !important; /* CRITICAL: Remove zoom scaling */
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+
+      .print-thermal-roll-container {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 auto !important;
+        padding: 2mm 0 !important;
+        transform: none !important;
+      }
+
+      .tag-card,
+      .thermal-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .studio-layout {
+        grid-template-columns: 1fr;
+      }
+      .items-panel {
+        position: static;
+        height: auto;
+        max-height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- 1. SCREEN UI ROOT                          -->
+  <!-- ========================================== -->
+  <div id="screen-ui-wrapper">
+    
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-screen">
+      <div class="pin-auth-container">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 64px; margin-bottom: 12px;">
+        <h2 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-primary-dark); margin-bottom: 6px;">Cafe Print Studio</h2>
+        <p style="font-size: 0.85rem; color: var(--color-text-muted);">Enter Studio Access PIN to unlock tag printer.</p>
+        
+        <input type="password" id="studio-pin-input" class="pin-input" placeholder="•••" maxlength="8" onkeydown="if(event.key==='Enter') verifyStudioPIN()">
+        
+        <button onclick="verifyStudioPIN()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">
+          <i class="ph ph-lock-key-open"></i> Unlock Studio
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN STUDIO INTERFACE (Hidden until authenticated) -->
+    <div id="studio-main" style="display: none;">
+      
+      <!-- HEADER -->
+      <header class="studio-header">
+        <div class="brand-title">
+          <img src="./sg-bakery-logo.png" alt="Logo">
+          <span>🏷️ Cafe Price Tag & Sticker Studio</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button onclick="openCustomTagModal()" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 12px;">
+            <i class="ph ph-plus-circle"></i> + Add Custom Tag
+          </button>
+          <button onclick="triggerPrintNow()" class="btn btn-primary" style="font-size: 0.88rem; padding: 7px 16px; background: #2E7D32;">
+            <i class="ph ph-printer"></i> Print Tags / PDF (Ctrl+P)
+          </button>
+          <button onclick="logoutStudio()" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 12px; color: #FFF; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">
+            <i class="ph ph-sign-out"></i> Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- STUDIO WORKSPACE -->
+      <main class="studio-layout">
+        
+        <!-- LEFT: CAFE DATABASE ITEMS LIST -->
+        <aside class="items-panel">
+          <div class="panel-header">
+            <span class="panel-title"><i class="ph ph-fork-knife"></i> Cafe Database</span>
+            <span id="items-count-badge" style="font-size: 0.76rem; background: var(--color-primary); color: #FFF; padding: 2px 8px; border-radius: 12px; font-weight: 700;">0 Items</span>
+          </div>
+
+          <input type="text" id="cafe-search-input" class="search-input" placeholder="🔍 Search juices, burgers, shakes..." oninput="filterAndRenderCafeList()">
+
+          <select id="cafe-category-filter" class="category-filter-select" onchange="filterAndRenderCafeList()">
+            <option value="all">🍽️ All Cafe Categories</option>
+            <option value="juices">🧃 Fresh Juices</option>
+            <option value="shakes">🥤 Milk Shakes</option>
+            <option value="falooda">🍨 Falooda & Desserts</option>
+            <option value="mojito">🍹 Mojitos</option>
+            <option value="brownie">🍫 Brownies & Pastries</option>
+            <option value="icecream">🍦 Scoop Ice Cream</option>
+            <option value="hotdrinks">☕ Hot Drinks & Tea</option>
+            <option value="chat">🫓 Chat & Snacks</option>
+            <option value="pavbhaji">🍲 Pav Bhaji</option>
+            <option value="toast">🍞 Toasts</option>
+            <option value="burger">🍔 Burgers</option>
+            <option value="pizza">🍕 Pizzas</option>
+            <option value="custom">🏷️ Custom Added Tags</option>
+          </select>
+
+          <div class="bulk-action-bar">
+            <button onclick="selectAllItems(true)" class="btn btn-secondary" style="font-size: 0.74rem; padding: 4px 8px;">Select All Filtered</button>
+            <button onclick="selectAllItems(false)" class="btn btn-secondary" style="font-size: 0.74rem; padding: 4px 8px;">Deselect All</button>
+            <div style="margin-left: auto; display: flex; gap: 4px; align-items: center;">
+              <span style="font-size: 0.72rem; color: var(--color-text-muted); font-weight: 700;">Qty:</span>
+              <button onclick="setBulkQuantity(1)" class="btn btn-secondary" style="font-size: 0.72rem; padding: 2px 6px;">1x</button>
+              <button onclick="setBulkQuantity(2)" class="btn btn-secondary" style="font-size: 0.72rem; padding: 2px 6px;">2x</button>
+              <button onclick="setBulkQuantity(3)" class="btn btn-secondary" style="font-size: 0.72rem; padding: 2px 6px;">3x</button>
+              <button onclick="setBulkQuantity(5)" class="btn btn-secondary" style="font-size: 0.72rem; padding: 2px 6px;">5x</button>
+            </div>
+          </div>
+
+          <div id="cafe-items-list" class="items-scroll-list">
+            <!-- Populated dynamically with Cafe Items -->
+          </div>
+        </aside>
+
+        <!-- RIGHT: TOOLBAR & LIVE CANVAS PREVIEW -->
+        <section class="preview-workspace">
+          
+          <div class="studio-toolbar">
+            <div>
+              <label class="form-label" style="margin-bottom: 8px;">1. Select Print Size & Format Preset:</label>
+              <div class="preset-buttons-row">
+                <button class="preset-pill active" id="preset-thermal80" onclick="switchPreset('thermal80')">
+                  🧾 Thermal Roll 80mm (Bill / Sticker Roll)
+                </button>
+                <button class="preset-pill" id="preset-thermal58" onclick="switchPreset('thermal58')">
+                  🧾 Thermal Roll 58mm (Compact 2-inch)
+                </button>
+                <button class="preset-pill" id="preset-shelf12" onclick="switchPreset('shelf12')">
+                  🏷️ Shelf Tags (12 per A4 • 4×3)
+                </button>
+                <button class="preset-pill" id="preset-medium8" onclick="switchPreset('medium8')">
+                  🏷️ Medium Cards (8 per A4 • 2×4)
+                </button>
+                <button class="preset-pill" id="preset-tent4" onclick="switchPreset('tent4')">
+                  🎪 Table Tents (4 per A4 • 2×2)
+                </button>
+                <button class="preset-pill" id="preset-menu1" onclick="switchPreset('menu1')">
+                  📋 Full Menu Board (1 per A4)
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="margin-bottom: 6px;">2. Tag Details & Border Options:</label>
+              <div class="options-grid">
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-tamil" checked onchange="updateOption('showTamil', this.checked)">
+                  <span>Tamil Dish Name</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-diet" checked onchange="updateOption('showDietBadge', this.checked)">
+                  <span>Veg / Non-Veg Symbol</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-brand" checked onchange="updateOption('showBranding', this.checked)">
+                  <span>Bakery Branding Header</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-qr" checked onchange="updateOption('showQR', this.checked)">
+                  <span>Digital Menu QR Code</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-desc" checked onchange="updateOption('showDesc', this.checked)">
+                  <span>Short Flavor Description</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="opt-cutlines" checked onchange="updateOption('showCutLines', this.checked)">
+                  <span>Scissor Cut Guidelines</span>
+                </label>
+                <div>
+                  <select id="opt-border-style" class="form-control" style="padding: 4px 8px; font-size: 0.8rem;" onchange="updateOption('borderStyle', this.value)">
+                    <option value="gold">Gold Double Border</option>
+                    <option value="modern">Modern Clean Line</option>
+                    <option value="dashed">Dashed Outline</option>
+                    <option value="minimal">Minimal Border</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PREVIEW CANVAS CONTROLS -->
+          <div class="preview-header-bar">
+            <span id="preview-info-text" style="font-size: 0.85rem; font-weight: 700; color: var(--color-primary-dark);">
+              Previewing: 0 Tags Queued
+            </span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span style="font-size: 0.78rem; color: var(--color-text-muted);">Preview Scale:</span>
+              <button onclick="setPreviewZoom(1)" class="btn btn-secondary" style="padding: 3px 8px; font-size: 0.76rem;">100%</button>
+              <button onclick="setPreviewZoom(0.75)" class="btn btn-secondary" style="padding: 3px 8px; font-size: 0.76rem;">75%</button>
+              <button onclick="setPreviewZoom(0.55)" class="btn btn-secondary" style="padding: 3px 8px; font-size: 0.76rem;">55%</button>
+            </div>
+          </div>
+
+          <!-- LIVE CANVAS -->
+          <div class="preview-canvas" id="canvas-scroll-viewport">
+            <!-- Screen Render Target -->
+            <div id="screen-render-target"></div>
+          </div>
+
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. ISOLATED NATIVE PRINT MOUNT ROOT        -->
+  <!-- ONLY THIS CONTAINER PRINTS VIA CSS         -->
+  <!-- ========================================== -->
+  <div id="print-mount-root" style="display: none;"></div>
+
+  <!-- ========================================== -->
+  <!-- 3. ADD CUSTOM TAG MODAL                   -->
+  <!-- ========================================== -->
+  <div id="custom-tag-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; color: var(--color-primary-dark);">
+        + Add Custom Cafe Tag
+      </h3>
+      
+      <div class="form-group">
+        <label class="form-label">Dish / Item Name (English) *</label>
+        <input type="text" id="modal-cust-name-en" class="form-control" placeholder="e.g. Special Falooda Sizzler">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Dish Name (Tamil) (Optional)</label>
+        <input type="text" id="modal-cust-name-ta" class="form-control" placeholder="எ.கா. ஸ்பெஷல் பலுடா">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label class="form-label">Price (₹) *</label>
+          <input type="number" id="modal-cust-price" class="form-control" placeholder="120">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price Unit (Optional)</label>
+          <input type="text" id="modal-cust-unit" class="form-control" placeholder="glass, plate, pc">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label class="form-label">Diet Category</label>
+          <select id="modal-cust-diet" class="form-control">
+            <option value="veg">🟢 100% Pure Veg</option>
+            <option value="nonveg">🔴 Non-Veg</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Menu Category</label>
+          <select id="modal-cust-category" class="form-control">
+            <option value="Fresh Juices">Fresh Juices</option>
+            <option value="Milk Shakes">Milk Shakes</option>
+            <option value="Falooda & Desserts">Falooda & Desserts</option>
+            <option value="Mojitos">Mojitos</option>
+            <option value="Brownies & Pastries">Brownies & Pastries</option>
+            <option value="Hot Drinks & Tea">Hot Drinks & Tea</option>
+            <option value="Chat & Snacks">Chat & Snacks</option>
+            <option value="Burgers & Pizzas">Burgers & Pizzas</option>
+            <option value="Daily Specials">Daily Specials</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Flavor / Ingredient Note (Optional)</label>
+        <input type="text" id="modal-cust-desc" class="form-control" placeholder="e.g. Double scoop ice cream & nuts">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px;">
+        <button type="button" onclick="closeCustomTagModal()" class="btn btn-secondary">Cancel</button>
+        <button type="button" onclick="saveCustomTag()" class="btn btn-primary">Add Tag to Queue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Utilities & Cafe Data -->
+  <script src="./js/utils.js"></script>
+  <script src="./data/cafe-menu-data.js"></script>
+
+  <!-- Printing Engine JavaScript -->
+  <script>
+    'use strict';
+
+    // 1. STATE MANAGEMENT
+    const STUDIO_PIN = '123'; // Hardcoded PIN requested by user
+    let cafeItems = [];
+    let customTags = JSON.parse(localStorage.getItem('sg_custom_tags') || '[]');
+    let selectedItemIds = new Set();
+    let itemQuantities = {};
+    let priceOverrides = {};
+    
+    let activePreset = 'thermal80';
+    let previewZoom = 1;
+
+    let printOptions = {
+      showTamil: true,
+      showDietBadge: true,
+      showBranding: true,
+      showQR: true,
+      showDesc: true,
+      showCutLines: true,
+      borderStyle: 'gold'
+    };
+
+    // 2. AUTHENTICATION CONTROLLER
+    function initStudioAuth() {
+      if (sessionStorage.getItem('sg_printing_authed') === 'true') {
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('studio-main').style.display = 'block';
+        loadCafeDatabase();
+      } else {
+        document.getElementById('auth-screen').style.display = 'block';
+        document.getElementById('studio-main').style.display = 'none';
+      }
+    }
+
+    function verifyStudioPIN() {
+      const inputEl = document.getElementById('studio-pin-input');
+      const enteredPin = inputEl ? inputEl.value.trim() : '';
+
+      if (enteredPin === STUDIO_PIN) {
+        sessionStorage.setItem('sg_printing_authed', 'true');
+        document.getElementById('auth-screen').style.display = 'none';
+        document.getElementById('studio-main').style.display = 'block';
+        loadCafeDatabase();
+      } else {
+        alert('Incorrect Studio PIN Code!');
+        if (inputEl) {
+          inputEl.value = '';
+          inputEl.focus();
+        }
+      }
+    }
+
+    function logoutStudio() {
+      sessionStorage.removeItem('sg_printing_authed');
+      window.location.reload();
+    }
+
+    // 3. LOAD CAFE DATABASE (From cafe-menu-data.js & custom tags)
+    function loadCafeDatabase() {
+      let rawCafe = [];
+      if (typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) {
+        rawCafe = [...IN_STORE_MENU];
+      }
+
+      // Map to standard print item model
+      cafeItems = rawCafe.map(dish => ({
+        id: dish.id,
+        name_en: dish.name || 'Cafe Item',
+        name_ta: dish.name_ta || '',
+        category: dish.category || 'cafe',
+        category_label: dish.category_name || dish.category || 'Cafe',
+        price: Number(dish.price) || 0,
+        unit: dish.price_display || '',
+        is_veg: dish.is_veg !== false,
+        desc_en: dish.desc || '',
+        badge: dish.badge || '',
+        is_custom: false
+      }));
+
+      // Select first 8 items by default on initial launch
+      if (selectedItemIds.size === 0 && cafeItems.length > 0) {
+        cafeItems.slice(0, 8).forEach(item => {
+          selectedItemIds.add(item.id);
+          itemQuantities[item.id] = 1;
+        });
+      }
+
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    // 4. GET ALL COMBINED ITEMS (Cafe + Custom)
+    function getAllPrintableItems() {
+      return [...cafeItems, ...customTags];
+    }
+
+    // 5. RENDER LEFT CAFE ITEMS SELECTION LIST
+    function filterAndRenderCafeList() {
+      const container = document.getElementById('cafe-items-list');
+      const badge = document.getElementById('items-count-badge');
+      if (!container) return;
+
+      const catFilter = document.getElementById('cafe-category-filter')?.value || 'all';
+      const search = (document.getElementById('cafe-search-input')?.value || '').toLowerCase().trim();
+
+      let items = getAllPrintableItems();
+
+      if (catFilter === 'custom') {
+        items = items.filter(i => i.is_custom);
+      } else if (catFilter !== 'all') {
+        items = items.filter(i => i.category === catFilter);
+      }
+
+      if (search) {
+        items = items.filter(i => 
+          (i.name_en && i.name_en.toLowerCase().includes(search)) || 
+          (i.name_ta && i.name_ta.toLowerCase().includes(search)) ||
+          (i.category_label && i.category_label.toLowerCase().includes(search))
+        );
+      }
+
+      if (badge) badge.textContent = `${items.length} Items`;
+
+      if (items.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 24px; color: #777; font-size: 0.85rem;">No cafe items match your search.</div>`;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const isChecked = selectedItemIds.has(item.id);
+        const qty = itemQuantities[item.id] || 1;
+        const effectivePrice = (priceOverrides[item.id] !== undefined) ? priceOverrides[item.id] : item.price;
+        const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name_en) : item.name_en;
+        const safeCat = typeof escapeHTML === 'function' ? escapeHTML(item.category_label) : item.category_label;
+        const safeId = typeof escapeHTML === 'function' ? escapeHTML(item.id) : item.id;
+
+        return `
+          <div class="item-row ${isChecked ? 'selected' : ''}" onclick="toggleItemSelection('${safeId}', event)">
+            <input type="checkbox" class="item-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleItemSelection('${safeId}', event)">
+            
+            <div class="item-details">
+              <div class="item-name-en">${safeName}</div>
+              <div class="item-meta">
+                <span class="item-cat-pill">${safeCat}</span>
+                ${item.is_veg ? '<span class="diet-veg" style="font-weight: 700;">🟢 Veg</span>' : '<span class="diet-nonveg" style="font-weight: 700;">🔴 Non-Veg</span>'}
+              </div>
+            </div>
+
+            <!-- Price Override Input -->
+            <div style="display: flex; align-items: center; gap: 2px;" onclick="event.stopPropagation();" title="Click to override printed price">
+              <span style="font-size: 0.8rem; font-weight: 800; color: var(--color-primary);">₹</span>
+              <input type="number" class="price-override-input" value="${effectivePrice}" onchange="setPriceOverride('${safeId}', this.value)">
+            </div>
+
+            <!-- Quantity Stepper -->
+            <div class="qty-stepper-box" onclick="event.stopPropagation();" title="Number of tags to print">
+              <button type="button" onclick="adjustItemQuantity('${safeId}', -1)">-</button>
+              <input type="number" min="1" max="99" value="${qty}" onchange="setItemQuantity('${safeId}', this.value)">
+              <button type="button" onclick="adjustItemQuantity('${safeId}', 1)">+</button>
+            </div>
+
+            ${item.is_custom ? `
+              <button onclick="event.stopPropagation(); deleteCustomTag('${safeId}')" style="background:none; border:none; color:#c62828; cursor:pointer; padding:2px;" title="Delete custom tag">
+                <i class="ph ph-trash"></i>
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleItemSelection(id, event) {
+      if (selectedItemIds.has(id)) {
+        selectedItemIds.delete(id);
+      } else {
+        selectedItemIds.add(id);
+        if (!itemQuantities[id]) itemQuantities[id] = 1;
+      }
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    function adjustItemQuantity(id, delta) {
+      let current = itemQuantities[id] || 1;
+      let next = current + delta;
+      if (next < 1) next = 1;
+      itemQuantities[id] = next;
+      if (!selectedItemIds.has(id)) selectedItemIds.add(id);
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    function setItemQuantity(id, val) {
+      let qty = parseInt(val, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      itemQuantities[id] = qty;
+      if (!selectedItemIds.has(id)) selectedItemIds.add(id);
+      renderActivePrintLayout();
+    }
+
+    function setPriceOverride(id, val) {
+      let p = parseFloat(val);
+      if (!isNaN(p) && p >= 0) {
+        priceOverrides[id] = p;
+      } else {
+        delete priceOverrides[id];
+      }
+      renderActivePrintLayout();
+    }
+
+    function selectAllItems(select) {
+      const catFilter = document.getElementById('cafe-category-filter')?.value || 'all';
+      const search = (document.getElementById('cafe-search-input')?.value || '').toLowerCase().trim();
+
+      let items = getAllPrintableItems();
+      if (catFilter === 'custom') items = items.filter(i => i.is_custom);
+      else if (catFilter !== 'all') items = items.filter(i => i.category === catFilter);
+      if (search) {
+        items = items.filter(i => 
+          (i.name_en && i.name_en.toLowerCase().includes(search)) || 
+          (i.name_ta && i.name_ta.toLowerCase().includes(search))
+        );
+      }
+
+      items.forEach(i => {
+        if (select) {
+          selectedItemIds.add(i.id);
+          if (!itemQuantities[i.id]) itemQuantities[i.id] = 1;
+        } else {
+          selectedItemIds.delete(i.id);
+        }
+      });
+
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    function setBulkQuantity(val) {
+      selectedItemIds.forEach(id => {
+        itemQuantities[id] = val;
+      });
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    // 6. PRESET SWITCHING & OPTIONS
+    function switchPreset(presetKey) {
+      activePreset = presetKey;
+      document.querySelectorAll('.preset-pill').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`preset-${presetKey}`);
+      if (activeBtn) activeBtn.classList.add('active');
+      renderActivePrintLayout();
+    }
+
+    function updateOption(key, val) {
+      printOptions[key] = val;
+      renderActivePrintLayout();
+    }
+
+    function setPreviewZoom(scale) {
+      previewZoom = scale;
+      renderActivePrintLayout();
+    }
+
+    // 7. BUILD QUEUED TAGS LIST (Multi-Quantity Expanded)
+    function buildExpandedTagQueue() {
+      const allItems = getAllPrintableItems();
+      const queue = [];
+
+      allItems.forEach(item => {
+        if (selectedItemIds.has(item.id)) {
+          const qty = itemQuantities[item.id] || 1;
+          const effectivePrice = (priceOverrides[item.id] !== undefined) ? priceOverrides[item.id] : item.price;
+          const prepared = { ...item, price: effectivePrice };
+          for (let q = 0; q < qty; q++) {
+            queue.push(prepared);
+          }
+        }
+      });
+
+      return queue;
+    }
+
+    // 8. RENDER ACTIVE PRINT LAYOUT (Screen & Isolated Print Mount)
+    function renderActivePrintLayout() {
+      const screenTarget = document.getElementById('screen-render-target');
+      const printMount = document.getElementById('print-mount-root');
+      const infoText = document.getElementById('preview-info-text');
+      if (!screenTarget || !printMount) return;
+
+      const queue = buildExpandedTagQueue();
+      if (infoText) {
+        infoText.textContent = `Previewing: ${selectedItemIds.size} Unique Items • Total ${queue.length} Tags Queued`;
+      }
+
+      if (queue.length === 0) {
+        const emptyHTML = `
+          <div style="background:#FFF; padding:40px; border-radius:12px; text-align:center; box-shadow:var(--shadow-md);">
+            <i class="ph ph-tag" style="font-size:3rem; color:var(--color-primary);"></i>
+            <h3 style="font-size:1.1rem; font-weight:700; margin:8px 0 4px;">No Cafe Items Selected</h3>
+            <p style="font-size:0.85rem; color:#777;">Check boxes on the left to queue price tags for printing.</p>
+          </div>
+        `;
+        screenTarget.innerHTML = emptyHTML;
+        printMount.innerHTML = '';
+        return;
+      }
+
+      let generatedHTML = '';
+
+      if (activePreset === 'thermal80' || activePreset === 'thermal58') {
+        // THERMAL ROLL LAYOUT (Continuous POS Receipt / Sticker Format)
+        const is58 = activePreset === 'thermal58';
+        const rollClass = is58 ? 'print-thermal-roll-container print-thermal-roll-58' : 'print-thermal-roll-container';
+
+        generatedHTML = `
+          <div class="${rollClass}" style="transform: scale(${previewZoom}); transform-origin: top center;">
+            ${queue.map((item, idx) => generateThermalTagCardHTML(item, is58, idx, queue.length)).join('')}
+          </div>
+        `;
+      } else {
+        // A4 SHEET GRID LAYOUT
+        let itemsPerPage = 12;
+        let gridClass = 'grid-shelf12';
+
+        if (activePreset === 'medium8') {
+          itemsPerPage = 8;
+          gridClass = 'grid-medium8';
+        } else if (activePreset === 'tent4') {
+          itemsPerPage = 4;
+          gridClass = 'grid-tent4';
+        } else if (activePreset === 'menu1') {
+          itemsPerPage = 16;
+          gridClass = 'grid-menu1';
+        }
+
+        const pages = [];
+        for (let i = 0; i < queue.length; i += itemsPerPage) {
+          pages.push(queue.slice(i, i + itemsPerPage));
+        }
+
+        generatedHTML = pages.map((pageItems, pIdx) => `
+          <div class="print-a4-sheet" style="transform: scale(${previewZoom}); transform-origin: top center; margin-bottom: 20px;">
+            <div class="${gridClass}">
+              ${pageItems.map(item => generateA4TagCardHTML(item)).join('')}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render to screen view
+      screenTarget.innerHTML = generatedHTML;
+
+      // Render UN-SCALED pristine HTML into Isolated Print Mount Root
+      // (Guarantees zero browser scaling artifacts during physical print!)
+      printMount.innerHTML = generatedHTML.replace(/style="transform:[^"]*"/g, '');
+    }
+
+    // 9. THERMAL TAG CARD HTML
+    function generateThermalTagCardHTML(item, is58, index, total) {
+      const unitText = item.unit ? ` / ${typeof escapeHTML === 'function' ? escapeHTML(item.unit) : item.unit}` : '';
+      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fsanthi-ganesh-bakery.vercel.app%2Fmenu';
+      const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name_en) : item.name_en;
+      const safeTa = typeof escapeHTML === 'function' ? escapeHTML(item.name_ta || '') : (item.name_ta || '');
+      const safeCat = typeof escapeHTML === 'function' ? escapeHTML(item.category_label) : item.category_label;
+
+      return `
+        <div class="thermal-card" style="${is58 ? 'font-size: 8pt;' : ''}">
+          ${printOptions.showBranding ? `
+            <div style="font-size: ${is58 ? '6.5pt' : '7.5pt'}; font-weight: 800; color: #A6601B; letter-spacing: 0.5px; border-bottom: 1px dashed #333; padding-bottom: 1mm; margin-bottom: 1.5mm;">
+              ★ SANTHI GANESH CAFE ★
+            </div>
+          ` : ''}
+
+          <div>
+            ${printOptions.showDietBadge ? `
+              <div class="tag-diet-indicator ${item.is_veg ? 'diet-veg' : 'diet-nonveg'}" style="font-size: ${is58 ? '6.5pt' : '7.5pt'};">
+                ${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}
+              </div>
+            ` : ''}
+
+            <div class="tag-dish-name" style="font-size: ${is58 ? '10pt' : '12pt'};">${safeName}</div>
+            ${(printOptions.showTamil && safeTa) ? `<div class="tag-dish-ta" style="font-size: ${is58 ? '8pt' : '9pt'};">${safeTa}</div>` : ''}
+            <div class="tag-category-badge" style="font-size: ${is58 ? '6pt' : '7pt'};">${safeCat}</div>
+          </div>
+
+          <div class="tag-price-container" style="padding: ${is58 ? '1.5mm 2mm' : '2mm 3mm'};">
+            <span class="tag-price-symbol">₹</span>
+            <span class="tag-price-val" style="font-size: ${is58 ? '13pt' : '16pt'};">${item.price}</span>
+            <span class="tag-price-unit">${unitText}</span>
+          </div>
+
+          ${printOptions.showQR ? `
+            <div style="margin-top: 1.5mm; display: flex; justify-content: center;">
+              <img src="${qrUrl}" style="width: ${is58 ? '14mm' : '18mm'}; height: ${is58 ? '14mm' : '18mm'};" alt="QR">
+            </div>
+          ` : ''}
+
+          ${printOptions.showCutLines ? `
+            <div class="cut-line">
+              ✂ - - - - - - - - - - - - - - - - - - - ✂
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // 10. A4 TAG CARD HTML
+    function generateA4TagCardHTML(item) {
+      const frameClass = `frame-${printOptions.borderStyle || 'gold'}`;
+      const unitText = item.unit ? ` / ${typeof escapeHTML === 'function' ? escapeHTML(item.unit) : item.unit}` : '';
+      const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name_en) : item.name_en;
+      const safeTa = typeof escapeHTML === 'function' ? escapeHTML(item.name_ta || '') : (item.name_ta || '');
+      const safeDesc = typeof escapeHTML === 'function' ? escapeHTML(item.desc_en || '') : (item.desc_en || '');
+      const safeCat = typeof escapeHTML === 'function' ? escapeHTML(item.category_label) : item.category_label;
+
+      return `
+        <div class="tag-card ${frameClass}">
+          ${printOptions.showBranding ? `
+            <div class="tag-brand-title">SANTHI GANESH CAFE & BAKERY</div>
+          ` : ''}
+
+          <div>
+            ${printOptions.showDietBadge ? `
+              <div class="tag-diet-indicator ${item.is_veg ? 'diet-veg' : 'diet-nonveg'}">
+                ${item.is_veg ? '🟢 PURE VEG' : '🔴 NON-VEG'}
+              </div>
+            ` : ''}
+
+            <div class="tag-dish-name">${safeName}</div>
+            ${(printOptions.showTamil && safeTa) ? `<div class="tag-dish-ta">${safeTa}</div>` : ''}
+            <div class="tag-category-badge">${safeCat}</div>
+            ${(printOptions.showDesc && safeDesc) ? `<div class="tag-desc">${safeDesc}</div>` : ''}
+          </div>
+
+          <div class="tag-price-container">
+            <span class="tag-price-symbol">₹</span>
+            <span class="tag-price-val">${item.price}</span>
+            <span class="tag-price-unit">${unitText}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // 11. TRIGGER NATIVE BROWSER PRINT (ISOLATED IFRAME ENGINE)
+    function triggerPrintNow() {
+      const queue = buildExpandedTagQueue();
+      if (queue.length === 0) {
+        alert('Please select at least one cafe item to print!');
+        return;
+      }
+
+      // Ensure print mount root is synchronized with latest un-scaled HTML
+      renderActivePrintLayout();
+
+      const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58');
+      const is58 = (activePreset === 'thermal58');
+
+      let printBodyHTML = '';
+      if (isThermal) {
+        printBodyHTML = `
+          <div class="print-thermal-roll-container ${is58 ? 'print-thermal-roll-58' : ''}">
+            ${queue.map((item, idx) => generateThermalTagCardHTML(item, is58, idx, queue.length)).join('')}
+          </div>
+        `;
+      } else {
+        let itemsPerPage = 12;
+        let gridClass = 'grid-shelf12';
+        if (activePreset === 'medium8') { itemsPerPage = 8; gridClass = 'grid-medium8'; }
+        else if (activePreset === 'tent4') { itemsPerPage = 4; gridClass = 'grid-tent4'; }
+        else if (activePreset === 'menu1') { itemsPerPage = 16; gridClass = 'grid-menu1'; }
+
+        const pages = [];
+        for (let i = 0; i < queue.length; i += itemsPerPage) {
+          pages.push(queue.slice(i, i + itemsPerPage));
+        }
+
+        printBodyHTML = pages.map(pageItems => `
+          <div class="print-a4-sheet">
+            <div class="${gridClass}">
+              ${pageItems.map(item => generateA4TagCardHTML(item)).join('')}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      try {
+        const printWin = window.open('', '_blank', 'width=850,height=900');
+        if (printWin) {
+          printWin.document.open();
+          printWin.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>Santhi Ganesh Cafe - Price Tags</title>
+              <link rel="preconnect" href="https://fonts.googleapis.com">
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+              <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+              <style>
+                @page {
+                  size: ${isThermal ? 'auto' : 'A4 portrait'};
+                  margin: 0mm;
+                }
+                * { box-sizing: border-box; margin: 0; padding: 0; }
+                html, body {
+                  background: #FFFFFF !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  width: 100% !important;
+                  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+                }
+                .print-a4-sheet {
+                  width: 210mm;
+                  min-height: 297mm;
+                  padding: 6mm;
+                  background: #FFFFFF;
+                  box-sizing: border-box;
+                  page-break-after: always;
+                  break-after: page;
+                  display: flex;
+                  flex-direction: column;
+                }
+                .print-thermal-roll-container {
+                  width: ${is58 ? '58mm' : '80mm'};
+                  margin: 0 auto;
+                  padding: 2mm 0;
+                  background: #FFFFFF;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 3.5mm;
+                }
+                .grid-shelf12 {
+                  display: grid;
+                  grid-template-columns: repeat(4, 1fr);
+                  grid-template-rows: repeat(3, 1fr);
+                  gap: 3.5mm;
+                  height: 100%;
+                }
+                .grid-medium8 {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  grid-template-rows: repeat(4, 1fr);
+                  gap: 4mm;
+                  height: 100%;
+                }
+                .grid-tent4 {
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  grid-template-rows: repeat(2, 1fr);
+                  gap: 6mm;
+                  height: 100%;
+                }
+                .grid-menu1 {
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                }
+                .tag-card {
+                  background: #FFFFFF;
+                  box-sizing: border-box;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  text-align: center;
+                  position: relative;
+                  page-break-inside: avoid;
+                  break-inside: avoid;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+                .frame-gold {
+                  border: 2px solid #A6601B;
+                  outline: 1px solid #7D450F;
+                  outline-offset: -3px;
+                  padding: 4mm 3mm;
+                }
+                .frame-modern {
+                  border: 1.5px solid #1A120B;
+                  border-radius: 4px;
+                  padding: 4mm 3mm;
+                }
+                .frame-dashed {
+                  border: 1.5px dashed #777777;
+                  padding: 4mm 3mm;
+                }
+                .frame-minimal {
+                  border: 1px solid #DDDDDD;
+                  padding: 4mm 3mm;
+                }
+                .tag-brand-title {
+                  font-size: 6.5pt;
+                  font-weight: 800;
+                  color: #A6601B;
+                  letter-spacing: 0.5px;
+                  text-transform: uppercase;
+                  margin-bottom: 1mm;
+                  border-bottom: 0.5px solid rgba(166, 96, 27, 0.4);
+                  padding-bottom: 0.8mm;
+                }
+                .tag-dish-name {
+                  font-family: 'Playfair Display', Georgia, serif;
+                  font-size: 12pt;
+                  font-weight: 800;
+                  color: #1A120B;
+                  line-height: 1.15;
+                  margin-bottom: 1mm;
+                }
+                .tag-dish-ta {
+                  font-size: 8.5pt;
+                  font-weight: 700;
+                  color: #555555;
+                  margin-bottom: 1mm;
+                }
+                .tag-desc {
+                  font-size: 6.5pt;
+                  color: #666666;
+                  line-height: 1.2;
+                  margin-bottom: 1.5mm;
+                }
+                .tag-category-badge {
+                  font-size: 6.5pt;
+                  font-weight: 700;
+                  background: #F4EBE1;
+                  color: #7D450F;
+                  padding: 1px 5px;
+                  border-radius: 3px;
+                  display: inline-block;
+                  margin-bottom: 1.5mm;
+                }
+                .tag-price-container {
+                  background: #24140B;
+                  color: #FFFFFF;
+                  border-radius: 4px;
+                  padding: 2mm 3mm;
+                  display: flex;
+                  align-items: baseline;
+                  justify-content: center;
+                  gap: 2px;
+                  margin-top: auto;
+                }
+                .tag-price-symbol {
+                  font-size: 10pt;
+                  font-weight: 700;
+                  color: #E8C197;
+                }
+                .tag-price-val {
+                  font-size: 16pt;
+                  font-weight: 900;
+                  color: #FFFFFF;
+                }
+                .tag-price-unit {
+                  font-size: 7pt;
+                  color: #DDDDDD;
+                  margin-left: 2px;
+                }
+                .tag-diet-indicator {
+                  font-size: 7pt;
+                  font-weight: 800;
+                  margin-bottom: 1mm;
+                }
+                .diet-veg { color: #2E7D32; }
+                .diet-nonveg { color: #C62828; }
+                .thermal-card {
+                  border: 1.5px solid #000000;
+                  padding: 4mm 3mm;
+                  text-align: center;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  page-break-inside: avoid;
+                  break-inside: avoid;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+                .cut-line {
+                  margin-top: 3mm;
+                  border-top: 1px dashed #777777;
+                  padding-top: 1mm;
+                  font-size: 6pt;
+                  color: #666666;
+                }
+              </style>
+            </head>
+            <body>
+              ${printBodyHTML}
+            </body>
+            </html>
+          `);
+          printWin.document.close();
+          printWin.focus();
+          setTimeout(() => {
+            printWin.print();
+          }, 350);
+        } else {
+          window.print();
+        }
+      } catch (err) {
+        console.warn('Popup print failed, falling back to window.print():', err);
+        window.print();
+      }
+    }
+
+    // 12. CUSTOM TAG MODAL HANDLERS
+    function openCustomTagModal() {
+      document.getElementById('custom-tag-modal').classList.add('active');
+    }
+
+    function closeCustomTagModal() {
+      document.getElementById('custom-tag-modal').classList.remove('active');
+    }
+
+    function saveCustomTag() {
+      const nameEn = (document.getElementById('modal-cust-name-en')?.value || '').trim();
+      const nameTa = (document.getElementById('modal-cust-name-ta')?.value || '').trim();
+      const price = parseFloat(document.getElementById('modal-cust-price')?.value);
+      const unit = (document.getElementById('modal-cust-unit')?.value || '').trim();
+      const diet = document.getElementById('modal-cust-diet')?.value || 'veg';
+      const category = document.getElementById('modal-cust-category')?.value || 'Daily Specials';
+      const desc = (document.getElementById('modal-cust-desc')?.value || '').trim();
+
+      if (!nameEn || isNaN(price)) {
+        alert('Please enter both the Dish Name and Price!');
+        return;
+      }
+
+      const newId = 'custom-' + Date.now();
+      const newTag = {
+        id: newId,
+        name_en: nameEn,
+        name_ta: nameTa,
+        category: 'custom',
+        category_label: category,
+        price: price,
+        unit: unit,
+        is_veg: (diet === 'veg'),
+        desc_en: desc,
+        badge: 'Custom Tag ⭐',
+        is_custom: true
+      };
+
+      customTags.push(newTag);
+      localStorage.setItem('sg_custom_tags', JSON.stringify(customTags));
+
+      selectedItemIds.add(newId);
+      itemQuantities[newId] = 1;
+
+      closeCustomTagModal();
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    function deleteCustomTag(id) {
+      customTags = customTags.filter(t => t.id !== id);
+      localStorage.setItem('sg_custom_tags', JSON.stringify(customTags));
+      selectedItemIds.delete(id);
+      delete itemQuantities[id];
+      delete priceOverrides[id];
+      filterAndRenderCafeList();
+      renderActivePrintLayout();
+    }
+
+    // Keyboard Shortcut (Ctrl+P / Cmd+P)
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        triggerPrintNow();
+      }
+    });
+
+    // Initialize on Load
+    document.addEventListener('DOMContentLoaded', initStudioAuth);
+  </script>
+
+</body>
+</html>

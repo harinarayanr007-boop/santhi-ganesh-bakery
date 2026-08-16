@@ -281,7 +281,9 @@
     </div>
   </footer>
 
-  <!-- Interactivity Script -->
+  <!-- Utility, Data & Interactivity Scripts -->
+  <script src="./js/utils.js"></script>
+  <script src="./data/products-data.js"></script>
   <script src="./app.js"></script>
   
   <script>
@@ -300,26 +302,34 @@
         return;
       }
 
-      container.innerHTML = jobs.map(job => `
-        <article class="job-card">
-          <div class="job-header">
-            <h2 class="job-title">${job.title}</h2>
-            <span class="job-tag">${job.type}</span>
-          </div>
-          <p class="job-description">${job.description}</p>
-          <div class="job-meta-row">
-            <div class="job-meta-item">
-              <span><i class="ph ph-map-pin" style="color: var(--color-desert);"></i> ${job.location || 'Onsite'}</span>
+      container.innerHTML = jobs.map(job => {
+        const safeTitle = typeof escapeHTML === 'function' ? escapeHTML(job.title) : job.title;
+        const safeType = typeof escapeHTML === 'function' ? escapeHTML(job.type) : job.type;
+        const safeDesc = typeof escapeHTML === 'function' ? escapeHTML(job.description) : job.description;
+        const safeLoc = typeof escapeHTML === 'function' ? escapeHTML(job.location || 'Onsite') : (job.location || 'Onsite');
+        const safePay = typeof escapeHTML === 'function' ? escapeHTML(job.pay) : job.pay;
+
+        return `
+          <article class="job-card">
+            <div class="job-header">
+              <h2 class="job-title">${safeTitle}</h2>
+              <span class="job-tag">${safeType}</span>
             </div>
-            <span class="job-tag">${job.pay}</span>
-          </div>
-          <div class="job-action-row">
-            <button onclick="applyJobWhatsApp('${job.title.replace(/'/g, "\\'")}')" class="btn btn-primary">
-              <i class="ph ph-whatsapp-logo" style="font-size: 1.1rem;"></i> Apply Now
-            </button>
-          </div>
-        </article>
-      `).join('');
+            <p class="job-description">${safeDesc}</p>
+            <div class="job-meta-row">
+              <div class="job-meta-item">
+                <span><i class="ph ph-map-pin" style="color: var(--color-desert);"></i> ${safeLoc}</span>
+              </div>
+              <span class="job-tag">${safePay}</span>
+            </div>
+            <div class="job-action-row">
+              <button onclick="applyJobWhatsApp('${safeTitle.replace(/'/g, "\\'")}')" class="btn btn-primary">
+                <i class="ph ph-whatsapp-logo" style="font-size: 1.1rem;"></i> Apply Now
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
     let lastCareerWhatsAppTime = 0;
