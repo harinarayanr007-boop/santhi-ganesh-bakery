@@ -2164,50 +2164,79 @@
 
     function detectGPSLocation() {
       if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your device/browser.');
+        onGpsFailure({ code: 0, message: 'Geolocation unsupported' });
         return;
       }
 
-      const btn = document.getElementById('btn-detect-gps');
       const gpsBtnText = document.getElementById('lbl-btn-gps-text');
+      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       if (gpsBtnText) {
-        gpsBtnText.textContent = 'Detecting GPS...';
+        gpsBtnText.textContent = 'Locating GPS...';
+      }
+      if (zoneStatusEl) {
+        zoneStatusEl.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Detecting your live location...';
       }
 
+      // Tier 1: Fast High-Accuracy GPS (allowing up to 1-min cached position)
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-
-          userLocation = { lat, lng };
-
-          placeOrMoveUserMarker(lat, lng);
-
-          if (leafletMap) {
-            leafletMap.setView([lat, lng], 14);
-          }
-
-          handleLocationUpdate(lat, lng, true);
-
-          if (gpsBtnText) {
-            gpsBtnText.textContent = '📍 Re-Detect GPS';
-          }
+          onGpsSuccess(pos.coords.latitude, pos.coords.longitude);
         },
         (err) => {
-          console.warn('GPS detection error:', err);
-          let errMsg = 'Could not get GPS location. Please tap directly on the map to set your delivery point.';
-          if (err.code === 1) {
-            errMsg = '📍 Location permission was denied. Please allow location access or tap on the map to choose your address.';
-          } else if (err.code === 3) {
-            errMsg = '⏳ GPS request timed out. Please tap directly on the map to set your address.';
-          }
-          alert(errMsg);
-          if (gpsBtnText) {
-            gpsBtnText.textContent = 'Tap to Locate Me / Use GPS';
-          }
+          console.warn('High accuracy GPS slow/failed, falling back to cellular/WiFi network positioning...', err);
+          
+          // Tier 2: Instant Network Location (cellular / WiFi towers, 5-min cache)
+          navigator.geolocation.getCurrentPosition(
+            (pos2) => {
+              onGpsSuccess(pos2.coords.latitude, pos2.coords.longitude);
+            },
+            (err2) => {
+              console.warn('Network location also failed:', err2);
+              onGpsFailure(err2);
+            },
+            { enableHighAccuracy: false, timeout: 6000, maximumAge: 300000 }
+          );
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
       );
+    }
+
+    function onGpsSuccess(lat, lng) {
+      userLocation = { lat, lng };
+      placeOrMoveUserMarker(lat, lng);
+
+      if (leafletMap) {
+        leafletMap.setView([lat, lng], 15);
+      }
+
+      handleLocationUpdate(lat, lng, true);
+
+      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
+      if (gpsBtnText) {
+        gpsBtnText.textContent = '📍 Re-Detect GPS';
+      }
+    }
+
+    function onGpsFailure(err) {
+      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
+      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
+
+      if (gpsBtnText) {
+        gpsBtnText.textContent = '📍 Tap Map to Set Pin';
+      }
+
+      if (zoneStatusEl) {
+        if (err && err.code === 1) {
+          zoneStatusEl.innerHTML = '<i class="ph ph-hand-pointing"></i> <strong>Location access denied:</strong> Tap anywhere on map to set your address';
+        } else {
+          zoneStatusEl.innerHTML = '<i class="ph ph-hand-pointing"></i> <strong>GPS unavailable:</strong> Tap directly on the map to set your doorstep';
+        }
+      }
+
+      // Center map on bakery hub so user can easily tap nearby
+      if (!userLocation && leafletMap) {
+        leafletMap.setView([BAKERY_COORDS.lat, BAKERY_COORDS.lng], 14);
+      }
     }
 
     async function reverseGeocodeAddress(lat, lng) {
