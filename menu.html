@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Online Cafe & Food Delivery | Santhi Ganesh Bakery</title>
-  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe. Live delivery within 5 km radius in Palayamkottai & Tirunelveli with GPS tracking. FREE delivery above ₹300!">
+  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Live delivery within 5 km radius with GPS tracking. FREE delivery above ₹300!">
 
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -219,6 +219,15 @@
       align-items: center;
       gap: 4px;
       margin-bottom: 8px;
+    }
+
+    .hero-location-text {
+      font-size: 0.7rem;
+      color: #FFE082;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
     }
 
     /* Free Delivery Announcement Box inside Hero */
@@ -872,21 +881,21 @@
     }
 
     .map-header-title {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: var(--color-primary-dark);
       display: flex;
       align-items: center;
       gap: 5px;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
     }
 
     .btn-gps-detect {
       background: #2E7D32;
       color: #FFFFFF;
       border: none;
-      padding: 5px 12px;
+      padding: 6px 12px;
       border-radius: 12px;
       font-size: 0.74rem;
       font-weight: 800;
@@ -904,48 +913,71 @@
 
     #delivery-live-map {
       width: 100%;
-      height: 190px;
+      height: 195px;
       border-radius: 10px;
       border: 1px solid var(--color-border);
       margin-bottom: 8px;
       z-index: 10;
     }
 
+    /* Map Distance & Zone Status Bar */
     .map-status-info {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.76rem;
+      line-height: 1.35;
+      transition: all 0.2s ease;
       background: var(--color-surface-soft);
       border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.76rem;
-      line-height: 1.3;
     }
 
-    .map-status-badge-ok {
-      color: #2E7D32;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .map-status-info.status-initial {
+      background: #F4EFEA;
+      border-color: rgba(166, 96, 27, 0.2);
+      color: var(--color-text-muted);
     }
 
-    .map-status-badge-warn {
-      color: #C62828;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .map-status-info.status-success {
+      background: #E8F5E9;
+      border-color: #A5D6A7;
+      color: #1B5E20;
+    }
+
+    .map-status-info.status-error {
+      background: #FFEBEE;
+      border-color: #FFCDD2;
+      color: #B71C1C;
     }
 
     .map-instruction-hint {
-      font-size: 0.7rem;
+      font-size: 0.71rem;
       color: var(--color-text-muted);
-      margin-top: 4px;
+      margin-top: 5px;
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    /* Out of Range Notice Alert Card */
+    .out-of-range-alert {
+      display: none;
+      background: #FDEDEC;
+      border: 1.5px solid #E74C3C;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      color: #922B21;
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .out-of-range-alert.visible {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
     }
 
     /* Modal Items List */
@@ -1020,7 +1052,8 @@
     }
 
     .form-group-field {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      position: relative;
     }
 
     .form-group-field label {
@@ -1035,17 +1068,37 @@
       width: 100%;
       padding: 9px 12px;
       border-radius: 8px;
-      border: 1px solid var(--color-border);
+      border: 1.5px solid var(--color-border);
       background: #FFFFFF;
       font-family: var(--font-main);
       font-size: 0.88rem;
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: all 0.2s ease;
+      color: var(--color-text-main);
     }
 
     .form-input-field:focus {
       border-color: var(--color-primary);
       box-shadow: 0 0 0 2px rgba(166, 96, 27, 0.12);
+    }
+
+    /* Error Validation State */
+    .form-input-field.input-error {
+      border-color: #D32F2F !important;
+      background-color: #FFF9F9;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.15) !important;
+    }
+
+    .field-error-msg {
+      display: none;
+      color: #D32F2F;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .field-error-msg.visible {
+      display: block;
     }
 
     .radius-confirm-label {
@@ -1065,6 +1118,11 @@
       width: 16px;
       height: 16px;
       flex-shrink: 0;
+    }
+
+    .radius-confirm-label.error-text {
+      color: #D32F2F;
+      font-weight: 700;
     }
 
     /* Bill Breakdown */
@@ -1118,6 +1176,12 @@
       transform: scale(0.98);
     }
 
+    .btn-send-whatsapp-order.btn-disabled-range {
+      background: #C62828 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+
     /* Empty state */
     .empty-cart-state {
       text-align: center;
@@ -1167,12 +1231,16 @@
       <div class="hero-banner-card">
         <div class="hero-badge-row">
           <span class="hero-pill hero-pill-delivery" id="hero-badge-delivery"><i class="ph ph-moped"></i> Live Food Delivery</span>
-          <span class="hero-pill hero-pill-radius" id="hero-badge-radius"><i class="ph ph-map-pin"></i> 5 km Radius Only</span>
+          <span class="hero-pill hero-pill-radius" id="hero-badge-radius"><i class="ph ph-map-pin"></i> 5 km Radius</span>
           <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 30–45 Mins</span>
         </div>
         <h1 class="hero-title" id="hero-main-title">Santhi Ganesh Cafe Delivery</h1>
         <p class="hero-sub" id="hero-main-sub">Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas</p>
         
+        <div class="hero-location-text">
+          <i class="ph ph-storefront"></i> <span>Kitchen: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli</span>
+        </div>
+
         <!-- Free Delivery Offer Box -->
         <div class="delivery-rule-badge" id="hero-delivery-rule">
           <span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>
@@ -1238,9 +1306,9 @@
           <div class="map-picker-card">
             <div class="map-header-row">
               <span class="map-header-title">
-                <i class="ph ph-map-trifold"></i> Set Delivery Location (5 km)
+                <i class="ph ph-map-trifold"></i> Delivery Location (5 km Radius)
               </span>
-              <button type="button" class="btn-gps-detect" onclick="detectGPSLocation()">
+              <button type="button" class="btn-gps-detect" id="btn-detect-gps" onclick="detectGPSLocation()">
                 <i class="ph ph-crosshair"></i> Use My GPS Location
               </button>
             </div>
@@ -1248,15 +1316,24 @@
             <!-- Leaflet Map Container -->
             <div id="delivery-live-map"></div>
 
-            <div class="map-status-info" id="map-distance-status">
-              <span class="map-status-badge-ok" id="lbl-map-zone-status">
-                <i class="ph ph-check-circle"></i> Within 5 km Delivery Zone
+            <!-- Location & Range Status Bar -->
+            <div class="map-status-info status-initial" id="map-distance-status">
+              <span id="lbl-map-zone-status">
+                <i class="ph ph-hand-pointing"></i> Tap "Use My GPS Location" or tap the map to set your doorstep
               </span>
-              <span id="lbl-map-distance-text" style="font-weight: 700; color: var(--color-text-main);">~2.2 km from Bakery</span>
+              <span id="lbl-map-distance-text" style="font-weight: 700;"></span>
+            </div>
+
+            <!-- Out of 5km Range Warning Box -->
+            <div class="out-of-range-alert" id="out-of-range-box">
+              <i class="ph ph-warning-circle" style="font-size: 1.3rem; flex-shrink: 0;"></i>
+              <div>
+                <strong>Outside 5 km Delivery Zone:</strong> We deliver exclusively within a 5 km radius of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Please select a delivery point within the green circle.
+              </div>
             </div>
 
             <p class="map-instruction-hint">
-              <i class="ph ph-hand-pointing"></i> Drag the red pin or tap on map to choose your exact gate/door.
+              <i class="ph ph-info"></i> Green circle indicates our 5 km delivery coverage from Thirunagar store.
             </p>
           </div>
 
@@ -1273,22 +1350,25 @@
 
             <div class="form-group-field">
               <label>Your Full Name *</label>
-              <input type="text" id="cust-name" class="form-input-field" placeholder="e.g. Anand Kumar">
+              <input type="text" id="cust-name" class="form-input-field" placeholder="e.g. Anand Kumar" oninput="clearFieldError(this)">
+              <span class="field-error-msg" id="err-cust-name">Please enter your full name</span>
             </div>
 
             <div class="form-group-field">
               <label>Mobile / WhatsApp Number *</label>
-              <input type="tel" id="cust-phone" class="form-input-field" placeholder="e.g. 9876543210" maxlength="10">
+              <input type="tel" id="cust-phone" class="form-input-field" placeholder="e.g. 9876543210" maxlength="10" oninput="clearFieldError(this)">
+              <span class="field-error-msg" id="err-cust-phone">Please enter a valid 10-digit mobile number</span>
             </div>
 
             <div class="form-group-field">
               <label>Complete Delivery Address (Door No, Street, Area) *</label>
-              <input type="text" id="cust-address" class="form-input-field" placeholder="Select on map above to auto-fill or type address">
+              <input type="text" id="cust-address" class="form-input-field" placeholder="Select on map above or type your complete address" oninput="clearFieldError(this)">
+              <span class="field-error-msg" id="err-cust-address">Please enter your complete delivery address</span>
             </div>
 
             <div class="form-group-field">
               <label>Nearby Landmark (Optional)</label>
-              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near St. Xavier's College / VOC Ground">
+              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near Bus Stand / School / Water Tank">
             </div>
 
             <div class="form-group-field">
@@ -1296,9 +1376,9 @@
               <input type="text" id="cust-instructions" class="form-input-field" placeholder="e.g. Less spicy, Extra tissue, Don't ring bell">
             </div>
 
-            <label class="radius-confirm-label">
+            <label class="radius-confirm-label" id="lbl-radius-confirm">
               <input type="checkbox" id="chk-radius-confirm" checked>
-              <span>I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, Palayamkottai.</span>
+              <span>I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.</span>
             </label>
           </div>
 
@@ -1326,13 +1406,13 @@
           </div>
 
           <!-- WHATSAPP ORDER BUTTON -->
-          <button class="btn-send-whatsapp-order" onclick="sendDeliveryOrderWhatsApp()">
+          <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendDeliveryOrderWhatsApp()">
             <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i>
             <span id="lbl-btn-whatsapp">Place Order on WhatsApp</span>
           </button>
           
           <p style="text-align: center; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 8px;">
-            ⚡ Instant WhatsApp order with Live GPS location link sent directly to delivery kitchen
+            ⚡ Instant order confirmation directly with our Thirunagar bakery delivery kitchen
           </p>
 
         </div>
@@ -1362,16 +1442,20 @@
     let liveMenuItems = [...IN_STORE_MENU];
     let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
-    // Bakery Hub Coordinates: Palayamkottai / Tirunelveli
-    const BAKERY_COORDS = { lat: 8.7185, lng: 77.7340, name: "Santhi Ganesh Bakery, Palayamkottai" };
+    // EXACT Santhi Ganesh Bakery Location: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli
+    const BAKERY_COORDS = { 
+      lat: 8.7260996, 
+      lng: 77.6769062, 
+      name: "Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli" 
+    };
     const MAX_DELIVERY_KM = 5.0;
     const FREE_DELIVERY_THRESHOLD = 300;
     const STANDARD_DELIVERY_FEE = 30;
 
-    // User Location State
-    let userLocation = { lat: 8.7198, lng: 77.7360 };
-    let userDistanceKm = 0.8;
-    let isWithinZone = true;
+    // User Location State (Clean initial state, NO dummy info)
+    let userLocation = null;
+    let userDistanceKm = null;
+    let isWithinZone = null;
     let leafletMap = null;
     let userMarker = null;
     let radiusCircle = null;
@@ -1399,7 +1483,7 @@
         back_home: "Home",
         lang_label: "தமிழ்",
         hero_delivery: '<i class="ph ph-moped"></i> Live Food Delivery',
-        hero_radius: '<i class="ph ph-map-pin"></i> 5 km Radius Only',
+        hero_radius: '<i class="ph ph-map-pin"></i> 5 km Radius',
         hero_time: '<i class="ph ph-clock"></i> 30–45 Mins',
         hero_title: "Santhi Ganesh Cafe Delivery",
         hero_sub: "Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas",
@@ -1893,10 +1977,12 @@
       const mapContainer = document.getElementById('delivery-live-map');
       if (!mapContainer) return;
 
+      const initialCenter = userLocation ? [userLocation.lat, userLocation.lng] : [BAKERY_COORDS.lat, BAKERY_COORDS.lng];
+
       if (!leafletMap) {
         leafletMap = L.map('delivery-live-map', {
-          center: [userLocation.lat, userLocation.lng],
-          zoom: 14,
+          center: initialCenter,
+          zoom: 13,
           zoomControl: true,
           attributionControl: false
         });
@@ -1906,17 +1992,17 @@
           maxZoom: 19
         }).addTo(leafletMap);
 
-        // 1. Bakery Hub Marker
+        // 1. EXACT Bakery Hub Marker at 92 Cheranmahadevi Rd, Thirunagar
         const bakeryIcon = L.divIcon({
           className: 'custom-bakery-marker',
-          html: `<div style="background:#7D450F; color:#FFF; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.35); border:2.5px solid #FFF; font-size:15px;" title="Santhi Ganesh Bakery">🏢</div>`,
-          iconSize: [30, 30],
-          iconAnchor: [15, 15]
+          html: `<div style="background:#7D450F; color:#FFF; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.35); border:2.5px solid #FFF; font-size:15px;" title="Santhi Ganesh Bakery">🏢</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
         });
 
         L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon })
           .addTo(leafletMap)
-          .bindPopup('<b>Santhi Ganesh Bakery</b><br>Palayamkottai Store Hub')
+          .bindPopup('<b>Santhi Ganesh Bakery</b><br>92 Cheranmahadevi Rd, Thirunagar')
           .openPopup();
 
         // 2. Translucent 5 km Radius Boundary Circle
@@ -1929,36 +2015,46 @@
           dashArray: '5, 6'
         }).addTo(leafletMap);
 
-        // 3. Draggable Customer Pin
-        const userIcon = L.divIcon({
-          className: 'custom-user-marker',
-          html: `<div style="background:#D95338; color:#FFF; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(217,83,56,0.5); border:2.5px solid #FFF; font-size:18px;">🛵</div>`,
-          iconSize: [36, 36],
-          iconAnchor: [18, 36]
-        });
-
-        userMarker = L.marker([userLocation.lat, userLocation.lng], {
-          icon: userIcon,
-          draggable: true
-        }).addTo(leafletMap);
-
-        // Marker drag events
-        userMarker.on('dragend', (e) => {
-          const pos = e.target.getLatLng();
-          handleLocationUpdate(pos.lat, pos.lng);
-        });
-
-        // Tap on map to move pin
+        // 3. Tap on map to set or move pin
         leafletMap.on('click', (e) => {
           const lat = e.latlng.lat;
           const lng = e.latlng.lng;
-          userMarker.setLatLng([lat, lng]);
-          handleLocationUpdate(lat, lng);
+          placeOrMoveUserMarker(lat, lng);
+          handleLocationUpdate(lat, lng, true);
         });
       }
 
       leafletMap.invalidateSize();
-      handleLocationUpdate(userLocation.lat, userLocation.lng, false);
+
+      if (userLocation) {
+        placeOrMoveUserMarker(userLocation.lat, userLocation.lng);
+        handleLocationUpdate(userLocation.lat, userLocation.lng, false);
+      }
+    }
+
+    function placeOrMoveUserMarker(lat, lng) {
+      if (!leafletMap) return;
+
+      const userIcon = L.divIcon({
+        className: 'custom-user-marker',
+        html: `<div style="background:#D95338; color:#FFF; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(217,83,56,0.5); border:2.5px solid #FFF; font-size:18px;">🛵</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 36]
+      });
+
+      if (!userMarker) {
+        userMarker = L.marker([lat, lng], {
+          icon: userIcon,
+          draggable: true
+        }).addTo(leafletMap);
+
+        userMarker.on('dragend', (e) => {
+          const pos = e.target.getLatLng();
+          handleLocationUpdate(pos.lat, pos.lng, true);
+        });
+      } else {
+        userMarker.setLatLng([lat, lng]);
+      }
     }
 
     function handleLocationUpdate(lat, lng, doGeocode = true) {
@@ -1966,26 +2062,51 @@
       userDistanceKm = calculateHaversineDistanceKm(BAKERY_COORDS.lat, BAKERY_COORDS.lng, lat, lng);
       isWithinZone = (userDistanceKm <= MAX_DELIVERY_KM);
 
+      const statusBox = document.getElementById('map-distance-status');
       const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       const distTextEl = document.getElementById('lbl-map-distance-text');
+      const outOfRangeBox = document.getElementById('out-of-range-box');
       const chkRadius = document.getElementById('chk-radius-confirm');
+      const lblRadius = document.getElementById('lbl-radius-confirm');
+      const orderBtn = document.getElementById('btn-place-whatsapp-order');
+      const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
 
       if (distTextEl) {
-        distTextEl.textContent = `~${userDistanceKm.toFixed(1)} km from Bakery`;
+        distTextEl.textContent = `${userDistanceKm.toFixed(1)} km from Bakery`;
       }
 
       if (isWithinZone) {
-        if (zoneStatusEl) {
-          zoneStatusEl.className = 'map-status-badge-ok';
-          zoneStatusEl.innerHTML = '<i class="ph ph-check-circle"></i> Within 5 km Delivery Zone';
+        if (statusBox) {
+          statusBox.className = 'map-status-info status-success';
         }
+        if (zoneStatusEl) {
+          zoneStatusEl.innerHTML = '<i class="ph ph-check-circle" style="font-size: 1.1rem; color:#2E7D32;"></i> <strong>Within 5 km Delivery Zone</strong>';
+        }
+        if (outOfRangeBox) outOfRangeBox.classList.remove('visible');
         if (chkRadius) chkRadius.checked = true;
-      } else {
-        if (zoneStatusEl) {
-          zoneStatusEl.className = 'map-status-badge-warn';
-          zoneStatusEl.innerHTML = '<i class="ph ph-warning"></i> Beyond 5 km Delivery Radius';
+        if (lblRadius) lblRadius.classList.remove('error-text');
+        
+        if (orderBtn) {
+          orderBtn.classList.remove('btn-disabled-range');
+          orderBtn.disabled = false;
         }
+        if (orderBtnLbl) orderBtnLbl.textContent = 'Place Order on WhatsApp';
+      } else {
+        if (statusBox) {
+          statusBox.className = 'map-status-info status-error';
+        }
+        if (zoneStatusEl) {
+          zoneStatusEl.innerHTML = '<i class="ph ph-warning-octagon" style="font-size: 1.1rem; color:#C62828;"></i> <strong>Outside 5 km Delivery Radius</strong>';
+        }
+        if (outOfRangeBox) outOfRangeBox.classList.add('visible');
         if (chkRadius) chkRadius.checked = false;
+        if (lblRadius) lblRadius.classList.add('error-text');
+        
+        if (orderBtn) {
+          orderBtn.classList.add('btn-disabled-range');
+          orderBtn.disabled = true;
+        }
+        if (orderBtnLbl) orderBtnLbl.textContent = `🚫 Cannot Deliver (${userDistanceKm.toFixed(1)} km > 5 km)`;
       }
 
       if (doGeocode) {
@@ -1995,11 +2116,11 @@
 
     function detectGPSLocation() {
       if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser.');
+        alert('Geolocation is not supported by your device/browser.');
         return;
       }
 
-      const btn = document.querySelector('.btn-gps-detect');
+      const btn = document.getElementById('btn-detect-gps');
       if (btn) {
         btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Detecting GPS...';
       }
@@ -2011,9 +2132,8 @@
 
           userLocation = { lat, lng };
 
-          if (userMarker) {
-            userMarker.setLatLng([lat, lng]);
-          }
+          placeOrMoveUserMarker(lat, lng);
+
           if (leafletMap) {
             leafletMap.setView([lat, lng], 15);
           }
@@ -2029,7 +2149,13 @@
         },
         (err) => {
           console.warn('GPS detection error:', err);
-          alert('Could not access GPS location. Please ensure location permissions are allowed, or tap on the map to set your address.');
+          let errMsg = 'Could not get GPS location. Please tap directly on the map to set your delivery point.';
+          if (err.code === 1) {
+            errMsg = '📍 Location permission was denied. Please allow location access or tap on the map to choose your address.';
+          } else if (err.code === 3) {
+            errMsg = '⏳ GPS request timed out. Please tap directly on the map to set your address.';
+          }
+          alert(errMsg);
           if (btn) {
             btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My GPS Location';
           }
@@ -2046,13 +2172,14 @@
           if (data && data.address) {
             const a = data.address;
             const road = a.road || a.pedestrian || a.suburb || a.neighbourhood || '';
-            const area = a.suburb || a.residential || a.city_district || 'Palayamkottai';
+            const area = a.suburb || a.residential || a.city_district || 'Thirunagar';
             const city = a.city || a.town || a.county || 'Tirunelveli';
             const cleanText = [road, area, city].filter(Boolean).join(', ');
             
             const addrInput = document.getElementById('cust-address');
             if (addrInput && cleanText) {
               addrInput.value = cleanText;
+              clearFieldError(addrInput);
             }
           }
         }
@@ -2061,12 +2188,32 @@
       }
     }
 
+    function clearFieldError(input) {
+      if (!input) return;
+      input.classList.remove('input-error');
+      const errEl = document.getElementById(`err-${input.id}`);
+      if (errEl) errEl.classList.remove('visible');
+    }
+
+    function showFieldError(inputId, message) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.classList.add('input-error');
+        input.focus();
+      }
+      const errEl = document.getElementById(`err-${inputId}`);
+      if (errEl) {
+        if (message) errEl.textContent = message;
+        errEl.classList.add('visible');
+      }
+    }
+
     // ==========================================
     // 6. WHATSAPP LIVE DELIVERY ORDER DISPATCH
     // ==========================================
     function sendDeliveryOrderWhatsApp() {
       if (deliveryCart.length === 0) {
-        alert('Please add items to your cart first!');
+        alert('Please add dishes or items to your cart first!');
         return;
       }
 
@@ -2077,26 +2224,33 @@
       const instructions = (document.getElementById('cust-instructions')?.value || '').trim();
       const radiusConfirmed = document.getElementById('chk-radius-confirm')?.checked;
 
+      // 1. Full Name Validation
       if (!name) {
-        alert('Please enter your Full Name!');
-        document.getElementById('cust-name')?.focus();
+        showFieldError('cust-name', 'Please enter your full name');
         return;
       }
 
-      if (!phone || phone.length < 10) {
-        alert('Please enter a valid 10-digit Mobile / WhatsApp Number!');
-        document.getElementById('cust-phone')?.focus();
+      // 2. Mobile Number Validation
+      const phoneClean = phone.replace(/[^0-9]/g, '');
+      if (!phoneClean || phoneClean.length < 10) {
+        showFieldError('cust-phone', 'Please enter a valid 10-digit mobile number');
         return;
       }
 
+      // 3. Address Validation
       if (!address) {
-        alert('Please enter your Complete Delivery Address or select on the map!');
-        document.getElementById('cust-address')?.focus();
+        showFieldError('cust-address', 'Please select your delivery address on the map or type it');
+        return;
+      }
+
+      // 4. Distance / Radius Restriction Validation
+      if (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM) {
+        alert(`🚫 Delivery Unavailable: Your selected location is ${userDistanceKm.toFixed(1)} km from our kitchen, which exceeds our 5 km delivery radius from 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.`);
         return;
       }
 
       if (!radiusConfirmed) {
-        alert('Please confirm that your delivery location is within 5 km radius of Santhi Ganesh Bakery!');
+        alert('Please confirm that your delivery address is within the 5 km radius of Santhi Ganesh Bakery, Thirunagar.');
         return;
       }
 
@@ -2105,17 +2259,24 @@
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
       // Google Maps Location Link for rider turn-by-turn navigation
-      const mapsLink = `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}`;
+      const mapsLink = userLocation 
+        ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
+        : `https://www.google.com/maps?q=${encodeURIComponent(address + ', Tirunelveli')}`;
+
+      const distanceNote = userDistanceKm !== null 
+        ? `${userDistanceKm.toFixed(1)} km from Bakery (Within 5 km Zone ✅)` 
+        : `Within 5 km Radius ✅`;
 
       let text = `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
       text += `*Santhi Ganesh Bakery & Cafe (Delivery)*\n`;
+      text += `*Kitchen: 92 Cheranmahadevi Rd, Thirunagar*\n`;
       text += `------------------------------------\n`;
       text += `👤 *Customer:* ${name}\n`;
-      text += `📱 *Phone:* ${phone}\n`;
+      text += `📱 *Phone:* ${phoneClean}\n`;
       text += `🏠 *Delivery Address:* ${address}\n`;
       if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
-      text += `🗺️ *Live GPS Location Pin:* ${mapsLink}\n`;
-      text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery (${isWithinZone ? 'Within 5 km Zone ✅' : 'Warning: > 5 km ⚠️'})\n`;
+      text += `🗺️ *Live GPS Map Pin:* ${mapsLink}\n`;
+      text += `🛵 *Distance:* ${distanceNote}\n`;
       text += `📅 *Order Time:* ${currentTime} (Est: 30–45 mins)\n`;
       text += `------------------------------------\n`;
       text += `*ITEMS ORDERED:*\n`;
@@ -2130,16 +2291,16 @@
       text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
       if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
       text += `------------------------------------\n`;
-      text += `Please confirm our delivery order and send payment / dispatch status. Thank you!`;
+      text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
 
       // Event Tracking
       if (typeof trackEvent === 'function') {
         trackEvent('cafe_delivery_order', {
           ref_id: `#SG-CAFE-${refId}`,
           customer_name: name,
-          phone: phone,
-          lat: userLocation.lat,
-          lng: userLocation.lng,
+          phone: phoneClean,
+          lat: userLocation ? userLocation.lat : null,
+          lng: userLocation ? userLocation.lng : null,
           distance_km: userDistanceKm,
           items_count: deliveryCart.length,
           subtotal: subtotal,
