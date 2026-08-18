@@ -921,7 +921,7 @@
     .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 155px;
+      height: 160px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--color-border);
@@ -930,6 +930,31 @@
     #delivery-live-map {
       width: 100%;
       height: 100%;
+    }
+
+    .btn-map-recenter {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      z-index: 450;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(166, 96, 27, 0.25);
+      color: #8B4513;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: all 0.15s ease;
+    }
+
+    .btn-map-recenter:active {
+      transform: scale(0.92);
+      background: #F6EFE8;
     }
 
     /* Sleek Map Center Target Pin */
@@ -1250,6 +1275,9 @@
                 <div class="pin-head">🛵</div>
                 <div class="pin-shadow"></div>
               </div>
+              <button type="button" class="btn-map-recenter" id="btn-map-recenter" onclick="detectGPSLocation(event)" title="Center on my location">
+                <i class="ph ph-crosshair-simple"></i>
+              </button>
             </div>
 
             <!-- 1-Tap Quick Area Pills -->
@@ -1257,7 +1285,9 @@
               <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7261, 77.6769, 'Thirunagar')">📍 Thirunagar</button>
               <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7290, 77.6840, 'Pettai')">📍 Pettai</button>
               <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7225, 77.6690, 'Kallur')">📍 Kallur</button>
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7210, 77.6860, 'Kurichi')">📍 Kurichi</button>
               <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7300, 77.7010, 'Town')">📍 Town</button>
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7280, 77.7120, 'Vannarpettai')">📍 Vannarpettai</button>
             </div>
 
             <!-- Zone Status -->
@@ -1838,7 +1868,7 @@
     }
 
     // ==========================================
-    // BULLETPROOF LIVE MAP & LOCATION ENGINE (2 KM)
+    // PINPOINT ACCURATE LIVE MAP & LOCATION ENGINE (2 KM)
     // ==========================================
     function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
       const R = 6371;
@@ -1850,6 +1880,8 @@
       return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
 
+    let userAccuracyCircle = null;
+
     function initOrUpdateDeliveryMap() {
       const mapContainer = document.getElementById('delivery-live-map');
       if (!mapContainer) return;
@@ -1859,19 +1891,22 @@
       if (!leafletMap) {
         leafletMap = L.map('delivery-live-map', {
           center: centerCoord,
-          zoom: 15,
+          zoom: 16,
           zoomControl: false,
           attributionControl: false
         });
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMap);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+          maxZoom: 19,
+          subdomains: ['a', 'b', 'c']
+        }).addTo(leafletMap);
 
         // Bakery Hub Marker
         const bakeryIcon = L.divIcon({
           className: 'custom-bakery-marker',
-          html: `<div style="background:#7D450F; color:#FFF; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFF; font-size:12px;" title="Bakery Hub">🏢</div>`,
-          iconSize: [26, 26],
-          iconAnchor: [13, 13]
+          html: `<div style="background:#8B4513; color:#FFF; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFF; font-size:13px; box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Santhi Ganesh Bakery Hub">🏢</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
         });
         L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon }).addTo(leafletMap);
 
@@ -1879,13 +1914,13 @@
         radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
           color: '#2E7D32',
           fillColor: '#4CAF50',
-          fillOpacity: 0.22,
+          fillOpacity: 0.2,
           radius: 2000,
           weight: 2,
           dashArray: '5, 5'
         }).addTo(leafletMap);
 
-        // Swiggy Drag Pin Behavior
+        // Precision Drag-to-Pin Behavior
         const pinEl = document.getElementById('center-target-pin');
         leafletMap.on('movestart', () => { if (pinEl) pinEl.classList.add('lifting'); });
         leafletMap.on('moveend', () => {
@@ -1907,26 +1942,65 @@
     }
 
     function setQuickArea(lat, lng, label) {
-      if (leafletMap) leafletMap.setView([lat, lng], 15, { animate: true });
+      if (leafletMap) leafletMap.setView([lat, lng], 17, { animate: true });
       updateLocationCoords(lat, lng, false);
       const addrInput = document.getElementById('cust-address');
       if (addrInput) addrInput.value = `${label}, Tirunelveli`;
     }
 
+    let searchStreetTimer = null;
     function onAddressInput(val) {
-      const lower = val.toLowerCase();
+      const lower = val.toLowerCase().trim();
+      if (!lower) return;
+
+      // 1. Instant match for known Tirunelveli hubs
       if (lower.includes('thirunagar') || lower.includes('cheranmahadevi')) {
         setQuickArea(8.7261, 77.6769, val);
+        return;
       } else if (lower.includes('pettai')) {
         setQuickArea(8.7290, 77.6840, val);
+        return;
       } else if (lower.includes('kallur')) {
         setQuickArea(8.7225, 77.6690, val);
+        return;
+      } else if (lower.includes('kurichi')) {
+        setQuickArea(8.7210, 77.6860, val);
+        return;
       } else if (lower.includes('town')) {
         setQuickArea(8.7300, 77.7010, val);
+        return;
+      } else if (lower.includes('vannarpettai')) {
+        setQuickArea(8.7280, 77.7120, val);
+        return;
+      } else if (lower.includes('palayamkottai')) {
+        setQuickArea(8.7180, 77.7300, val);
+        return;
       }
+
+      // 2. Real-time Bounded Tirunelveli Street Search via Nominatim
+      clearTimeout(searchStreetTimer);
+      searchStreetTimer = setTimeout(async () => {
+        if (val.length < 3) return;
+        try {
+          const q = encodeURIComponent(`${val}, Tirunelveli, Tamil Nadu`);
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${q}&viewbox=77.60,8.65,77.80,8.78&bounded=1&limit=1`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.length > 0) {
+              const item = data[0];
+              const lat = parseFloat(item.lat);
+              const lng = parseFloat(item.lon);
+              if (leafletMap) leafletMap.setView([lat, lng], 17, { animate: true });
+              updateLocationCoords(lat, lng, false);
+            }
+          }
+        } catch (e) {
+          console.warn("Street search error:", e);
+        }
+      }, 500);
     }
 
-    function updateLocationCoords(lat, lng, doGeocode = true) {
+    function updateLocationCoords(lat, lng, doGeocode = true, customStatus = '') {
       userLocation = { lat, lng };
       userDistanceKm = calculateHaversineDistanceKm(BAKERY_COORDS.lat, BAKERY_COORDS.lng, lat, lng);
       isWithinZone = (userDistanceKm <= MAX_DELIVERY_KM);
@@ -1936,72 +2010,100 @@
       const distTextEl = document.getElementById('lbl-map-distance-text');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
 
-      if (distTextEl) distTextEl.textContent = `${userDistanceKm.toFixed(1)} km`;
+      if (distTextEl) distTextEl.textContent = `${userDistanceKm.toFixed(2)} km`;
 
       if (isWithinZone) {
         if (statusBox) statusBox.className = 'location-status-badge status-in';
-        if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-check-circle"></i> Within 2 km Delivery Zone';
+        if (zoneStatusEl) {
+          zoneStatusEl.innerHTML = customStatus 
+            ? `<i class="ph ph-check-circle"></i> Within 2 km Zone • <small>${customStatus}</small>`
+            : `<i class="ph ph-check-circle"></i> Within 2 km Delivery Zone`;
+        }
         if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = 'Place Order on WhatsApp';
       } else {
         if (statusBox) statusBox.className = 'location-status-badge status-out';
-        if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-warning-circle"></i> Outside 2 km Radius';
+        if (zoneStatusEl) {
+          zoneStatusEl.innerHTML = `<i class="ph ph-warning-circle"></i> Outside 2 km Radius • Request Order Anyway`;
+        }
         if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`;
       }
 
       if (doGeocode) reverseGeocode(lat, lng);
     }
 
-    // 100% Fail-safe Multi-Tier Location Detection
-    async function detectGPSLocation(event) {
+    // High Precision Hardware GPS Location
+    function detectGPSLocation(event) {
       if (event && event.preventDefault) event.preventDefault();
       
       const btn = document.getElementById('btn-detect-gps');
+      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
+
       if (btn) btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Locating...';
+      if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Acquiring high-precision GPS...';
 
-      // 1. Try Browser Geolocation
-      if (navigator.geolocation) {
-        const geoPromise = new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, {
-            enableHighAccuracy: true,
-            timeout: 4000,
-            maximumAge: 60000
-          });
-        });
-
-        try {
-          const pos = await geoPromise;
-          if (pos && pos.coords) {
-            finishLocate(pos.coords.latitude, pos.coords.longitude);
-            return;
-          }
-        } catch (err) {
-          console.warn("GPS failed, attempting IP Network location...", err);
-        }
+      if (!navigator.geolocation) {
+        alert("GPS Geolocation is not supported by your browser. Please drag the map pin to your location.");
+        resetLocateBtn();
+        return;
       }
 
-      // 2. IP Geolocation Backup (Always works without mobile permissions)
-      try {
-        const ipRes = await fetch('https://ipapi.co/json/');
-        if (ipRes.ok) {
-          const ipData = await ipRes.json();
-          if (ipData && ipData.latitude && ipData.longitude) {
-            finishLocate(ipData.latitude, ipData.longitude);
-            return;
-          }
-        }
-      } catch (err) {
-        console.warn("IP location backup failed:", err);
-      }
+      const geoOptions = {
+        enableHighAccuracy: true, // Forces phone GPS antenna
+        timeout: 10000,           // 10s gives mobile hardware full satellite lock time
+        maximumAge: 0             // Strictly FRESH real-time coordinates, no cache
+      };
 
-      // 3. Fallback: Center on bakery hub
-      finishLocate(BAKERY_COORDS.lat, BAKERY_COORDS.lng);
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const accuracyMeters = Math.round(pos.coords.accuracy || 8);
+
+          // Draw precision blue accuracy circle
+          if (leafletMap) {
+            if (userAccuracyCircle) {
+              leafletMap.removeLayer(userAccuracyCircle);
+            }
+            userAccuracyCircle = L.circle([lat, lng], {
+              radius: Math.max(accuracyMeters, 15),
+              color: '#1E88E5',
+              fillColor: '#64B5F6',
+              fillOpacity: 0.2,
+              weight: 1.5
+            }).addTo(leafletMap);
+
+            leafletMap.setView([lat, lng], 17.5, { animate: true });
+          }
+
+          resetLocateBtn();
+          updateLocationCoords(lat, lng, true, `GPS Accuracy: ±${accuracyMeters}m`);
+        },
+        (err) => {
+          console.warn("GPS acquisition failed:", err);
+          resetLocateBtn();
+          
+          let alertMsg = "GPS location timed out. Please drag the pin on the map directly to your doorstep!";
+          if (err.code === 1) {
+            alertMsg = "GPS location permission was denied. Please drag the map pin to place it on your doorstep.";
+          }
+          
+          if (zoneStatusEl) {
+            zoneStatusEl.innerHTML = `<i class="ph ph-hand-pointing"></i> Drag map pin to set exact doorstep`;
+          }
+          
+          // Keep on bakery hub so user is right in Tirunelveli to drag
+          if (leafletMap && !userLocation) {
+            leafletMap.setView([BAKERY_COORDS.lat, BAKERY_COORDS.lng], 16, { animate: true });
+          }
+          alert(alertMsg);
+        },
+        geoOptions
+      );
     }
 
-    function finishLocate(lat, lng) {
+    function resetLocateBtn() {
       const btn = document.getElementById('btn-detect-gps');
       if (btn) btn.innerHTML = '<i class="ph ph-crosshair"></i> <span>Locate</span>';
-      if (leafletMap) leafletMap.setView([lat, lng], 16, { animate: true });
-      updateLocationCoords(lat, lng, true);
     }
 
     let geocodeTimer = null;
@@ -2014,13 +2116,19 @@
             const data = await res.json();
             if (data && data.address) {
               const a = data.address;
-              const cleanText = [a.road || a.suburb || a.neighbourhood, a.suburb || a.city_district || 'Thirunagar', a.city || 'Tirunelveli'].filter(Boolean).join(', ');
+              const street = a.road || a.pedestrian || a.suburb || a.neighbourhood || '';
+              const area = a.suburb || a.city_district || a.village || 'Thirunagar';
+              const city = a.city || a.town || 'Tirunelveli';
+              const cleanText = [street, area, city].filter(Boolean).filter((v, i, arr) => arr.indexOf(v) === i).join(', ');
+              
               const input = document.getElementById('cust-address');
-              if (input && cleanText) input.value = cleanText;
+              if (input && cleanText) {
+                input.value = cleanText;
+              }
             }
           }
-        } catch (e) { console.warn("Geocode error", e); }
-      }, 300);
+        } catch (e) { console.warn("Geocode error:", e); }
+      }, 400);
     }
 
     // ==========================================
