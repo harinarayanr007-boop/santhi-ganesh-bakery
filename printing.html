@@ -239,36 +239,54 @@
       overflow: hidden;
     }
 
-    /* Category Filter Tabs */
-    .category-tabs-scroll {
-      padding: 10px 14px 6px;
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
+    /* Category Filter Section (Dropdown & Quick Tags) */
+    .category-filter-box {
+      padding: 10px 14px;
       border-bottom: 1px solid var(--color-border);
       background: var(--color-surface-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       flex-shrink: 0;
     }
 
-    .category-tabs-scroll::-webkit-scrollbar {
-      display: none;
+    .category-dropdown {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .category-dropdown:focus {
+      border-color: var(--color-primary);
+    }
+
+    .category-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
     .cat-chip-btn {
-      padding: 5px 12px;
-      border-radius: 16px;
+      padding: 3px 9px;
+      border-radius: 12px;
       border: 1px solid var(--color-border);
       background: #FFFFFF;
       color: var(--color-text-main);
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      white-space: nowrap;
       cursor: pointer;
       transition: all 0.15s ease;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 3px;
     }
 
     .cat-chip-btn:hover {
@@ -279,7 +297,6 @@
       background: var(--color-primary-dark);
       color: #FFFFFF;
       border-color: var(--color-primary-dark);
-      box-shadow: 0 2px 6px rgba(125, 69, 15, 0.25);
     }
 
     /* Search & Quick Action Toolbar */
@@ -973,9 +990,32 @@
         <!-- LEFT PANEL: ITEM SELECTOR -->
         <aside class="left-panel">
           
-          <!-- Category Chips -->
-          <div class="category-tabs-scroll" id="category-chips-bar">
-            <!-- Injected by JS -->
+          <!-- Category Filter Section (Dropdown & Quick Tags) -->
+          <div class="category-filter-box">
+            <select class="category-dropdown" id="category-select-dropdown" onchange="selectCategoryFilter(this.value)">
+              <option value="all">✨ All Items (Full Catalog)</option>
+              <option value="cakes">🎂 Cakes & Bakery Special</option>
+              <option value="sweets">🍬 Sweets, Halwa & Savouries</option>
+              <option value="juices">🧃 Fresh Juices</option>
+              <option value="shakes">🥤 Milkshakes</option>
+              <option value="falooda">🍨 Falooda & Desserts</option>
+              <option value="mojito">🍹 Mojitos</option>
+              <option value="brownie">🍫 Brownies & Pastries</option>
+              <option value="icecream">🍦 Scoop Ice Cream</option>
+              <option value="hotdrinks">☕ Tea & Hot Drinks</option>
+              <option value="chat">🫓 Chaat & Snacks</option>
+              <option value="pavbhaji">🍲 Pav Bhaji</option>
+              <option value="toast">🍞 Toasts</option>
+              <option value="burger">🍔 Burgers</option>
+              <option value="pizza">🍕 Pizzas</option>
+              <option value="sandwich">🥪 Sandwiches</option>
+              <option value="momos">🥟 Momos & Crispy</option>
+              <option value="custom">⭐ Custom Created Tags</option>
+            </select>
+
+            <div class="category-chips-wrap" id="category-chips-bar">
+              <!-- Injected by JS -->
+            </div>
           </div>
 
           <!-- Controls & Search -->
@@ -1042,6 +1082,10 @@
 
             <!-- Options Toggles -->
             <div class="options-toggles-row">
+              <label class="opt-label">
+                <input type="checkbox" id="opt-category" checked onchange="updateOption('showCategory', this.checked)">
+                <span>Category Tag</span>
+              </label>
               <label class="opt-label">
                 <input type="checkbox" id="opt-tamil" checked onchange="updateOption('showTamil', this.checked)">
                 <span>Tamil Name</span>
@@ -1161,6 +1205,7 @@
     let currentZoom = 1;
 
     let options = {
+      showCategory: true,
       showTamil: true,
       showDiet: true,
       showBrand: true,
@@ -1206,43 +1251,57 @@
     function loadMasterDatabase() {
       const list = [];
 
-      // 1. Load Cafe Items
-      if (typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) {
-        IN_STORE_MENU.forEach(item => {
-          list.push({
-            id: 'cafe-' + item.id,
-            raw_id: item.id,
-            name_en: item.name || '',
-            name_ta: item.name_ta || '',
-            category: item.category || 'cafe',
-            category_label: item.category_name || item.category || 'Cafe',
-            price: Number(item.price) || 0,
-            unit: item.price_display || '',
-            is_veg: item.is_veg !== false,
-            icon: item.icon || '🍽️',
-            is_custom: false
-          });
-        });
-      }
+      // 1. Load Cafe Items (IN_STORE_MENU)
+      const cafeList = (typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) 
+        ? IN_STORE_MENU 
+        : ((typeof window !== 'undefined' && window.IN_STORE_MENU) || []);
 
-      // 2. Load Bakery Cakes & Sweets
-      if (typeof DEFAULT_PRODUCTS_DATA !== 'undefined' && Array.isArray(DEFAULT_PRODUCTS_DATA)) {
-        DEFAULT_PRODUCTS_DATA.forEach(p => {
-          list.push({
-            id: 'bakery-' + p.id,
-            raw_id: p.id,
-            name_en: p.title || p.name || '',
-            name_ta: p.title_ta || '',
-            category: p.category || 'bakery',
-            category_label: p.category ? p.category.toUpperCase().replace('-', ' ') : 'Bakery Cakes',
-            price: Number(p.price) || 0,
-            unit: p.weight || '1 Kg',
-            is_veg: p.is_veg !== false,
-            icon: '🎂',
-            is_custom: false
-          });
+      cafeList.forEach(item => {
+        list.push({
+          id: 'cafe-' + item.id,
+          raw_id: item.id,
+          name_en: item.name || '',
+          name_ta: item.name_ta || '',
+          category: item.category || 'cafe',
+          category_label: item.category_name || item.category || 'Cafe',
+          price: Number(item.price) || 0,
+          unit: item.price_display || '',
+          is_veg: item.is_veg !== false,
+          icon: item.icon || '🍽️',
+          is_custom: false
         });
-      }
+      });
+
+      // 2. Load Bakery Cakes & Sweets (DEFAULT_PRODUCTS_DATA)
+      const productsList = (typeof DEFAULT_PRODUCTS_DATA !== 'undefined' && Array.isArray(DEFAULT_PRODUCTS_DATA)) 
+        ? DEFAULT_PRODUCTS_DATA 
+        : ((typeof window !== 'undefined' && window.DEFAULT_PRODUCTS_DATA) || []);
+
+      productsList.forEach(p => {
+        let catLabel = 'Bakery Cakes';
+        if (p.category) {
+          if (p.category.includes('birthday')) catLabel = 'Birthday Cake';
+          else if (p.category.includes('wedding')) catLabel = 'Wedding Cake';
+          else if (p.category.includes('kids')) catLabel = 'Kids Cake';
+          else if (p.category.includes('photo')) catLabel = 'Photo Cake';
+          else if (p.category.includes('sweet') || p.category.includes('halwa')) catLabel = 'Traditional Sweets';
+          else catLabel = p.category.toUpperCase().replace('-', ' ');
+        }
+
+        list.push({
+          id: 'bakery-' + p.id,
+          raw_id: p.id,
+          name_en: p.title || p.name || '',
+          name_ta: p.title_ta || '',
+          category: p.category || 'bakery',
+          category_label: catLabel,
+          price: Number(p.price) || 0,
+          unit: p.weight || '1 Kg',
+          is_veg: p.is_veg !== false,
+          icon: '🎂',
+          is_custom: false
+        });
+      });
 
       // 3. Load Custom Tags
       customTags.forEach(c => {
@@ -1264,33 +1323,35 @@
       renderActiveLayoutPreview();
     }
 
-    // 3. RENDER CATEGORY CHIPS
+    // 3. RENDER CATEGORY CHIPS & DROPDOWN SYNC
     function renderCategoryChips() {
       const bar = document.getElementById('category-chips-bar');
+      const dropdown = document.getElementById('category-select-dropdown');
       if (!bar) return;
 
-      const categories = [
-        { id: 'all', label: 'All Items', icon: '✨' },
-        { id: 'cakes', label: 'Cakes & Bakery', icon: '🎂' },
-        { id: 'juices', label: 'Fresh Juices', icon: '🧃' },
-        { id: 'shakes', label: 'Milkshakes', icon: '🥤' },
+      const popularCategories = [
+        { id: 'all', label: 'All', icon: '✨' },
+        { id: 'cakes', label: 'Cakes', icon: '🎂' },
+        { id: 'sweets', label: 'Sweets', icon: '🍬' },
+        { id: 'juices', label: 'Juices', icon: '🧃' },
+        { id: 'shakes', label: 'Shakes', icon: '🥤' },
         { id: 'falooda', label: 'Falooda', icon: '🍨' },
-        { id: 'mojito', label: 'Mojitos', icon: '🍹' },
         { id: 'brownie', label: 'Brownies', icon: '🍫' },
-        { id: 'hotdrinks', label: 'Tea & Coffee', icon: '☕' },
-        { id: 'chat', label: 'Chaat & Snacks', icon: '🫓' },
+        { id: 'chat', label: 'Chaat', icon: '🫓' },
         { id: 'pavbhaji', label: 'Pav Bhaji', icon: '🍲' },
         { id: 'burger', label: 'Burgers', icon: '🍔' },
         { id: 'pizza', label: 'Pizzas', icon: '🍕' },
         { id: 'sandwich', label: 'Sandwiches', icon: '🥪' },
-        { id: 'custom', label: 'Custom Tags', icon: '⭐' }
+        { id: 'custom', label: 'Custom', icon: '⭐' }
       ];
 
-      bar.innerHTML = categories.map(cat => `
+      bar.innerHTML = popularCategories.map(cat => `
         <button class="cat-chip-btn ${cat.id === activeCategory ? 'active' : ''}" onclick="selectCategoryFilter('${cat.id}')">
           ${cat.icon} ${cat.label}
         </button>
       `).join('');
+
+      if (dropdown) dropdown.value = activeCategory;
     }
 
     function selectCategoryFilter(catId) {
@@ -1310,7 +1371,9 @@
       if (activeCategory === 'custom') {
         filtered = filtered.filter(i => i.is_custom);
       } else if (activeCategory === 'cakes') {
-        filtered = filtered.filter(i => i.category.includes('birthday') || i.category.includes('wedding') || i.category.includes('kids') || i.category.includes('photo') || i.category === 'bakery');
+        filtered = filtered.filter(i => i.category.includes('birthday') || i.category.includes('wedding') || i.category.includes('kids') || i.category.includes('photo') || i.category === 'bakery' || i.category === 'pastries');
+      } else if (activeCategory === 'sweets') {
+        filtered = filtered.filter(i => i.category.includes('sweet') || i.category.includes('halwa') || i.category.includes('savouries') || i.category.includes('traditional'));
       } else if (activeCategory !== 'all') {
         filtered = filtered.filter(i => i.category === activeCategory);
       }
@@ -1329,7 +1392,7 @@
       }
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align: center; padding: 30px; color: #888; font-size: 0.82rem;">No items found.</div>`;
+        container.innerHTML = `<div style="text-align: center; padding: 30px; color: #888; font-size: 0.82rem;">No items found in this category.</div>`;
         return;
       }
 
@@ -1523,7 +1586,6 @@
     function createA4CardHTML(item) {
       const frameClass = `frame-${options.frameStyle || 'gold'}`;
       const unitText = item.unit ? `/${item.unit}` : '';
-      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https%3A%2F%2Fsanthi-ganesh-bakery.vercel.app';
 
       return `
         <div class="tag-card ${frameClass}">
@@ -1532,7 +1594,7 @@
             ${options.showDiet ? `<div style="font-size: 7pt; font-weight: 800; color: ${item.is_veg ? '#2E7D32' : '#C62828'}; margin-bottom: 1mm;">${item.is_veg ? '🟢 PURE VEG' : '🔴 NON-VEG'}</div>` : ''}
             <div class="tag-dish-name">${item.name_en}</div>
             ${(options.showTamil && item.name_ta) ? `<div class="tag-dish-ta">${item.name_ta}</div>` : ''}
-            <span class="tag-category-badge">${item.category_label}</span>
+            ${options.showCategory ? `<span class="tag-category-badge">${item.category_label}</span>` : ''}
           </div>
           <div class="tag-price-container">
             <span class="tag-price-symbol">₹</span>
@@ -1551,7 +1613,7 @@
           ${options.showDiet ? `<div style="font-size: 6.5pt; font-weight: 800; margin-bottom: 1mm;">${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}</div>` : ''}
           <div style="font-size: 12pt; font-weight: 900; line-height: 1.15; margin-bottom: 1mm;">${item.name_en}</div>
           ${(options.showTamil && item.name_ta) ? `<div style="font-size: 9pt; font-weight: 700; color: #333; margin-bottom: 1mm;">${item.name_ta}</div>` : ''}
-          <div style="display: inline-block; font-size: 6.5pt; font-weight: 800; border: 1px solid #000; padding: 1px 4px; border-radius: 2px; margin: 1mm auto;">${item.category_label}</div>
+          ${options.showCategory ? `<div style="display: inline-block; font-size: 6.5pt; font-weight: 800; border: 1px solid #000; padding: 1px 4px; border-radius: 2px; margin: 1mm auto;">${item.category_label}</div>` : ''}
           
           <div style="background: #000; color: #FFF; padding: 2mm; border-radius: 4px; display: flex; align-items: baseline; justify-content: center; gap: 2px; margin: 2mm 0;">
             <span style="font-size: 11pt; font-weight: 800; color: #FFF;">₹</span>
