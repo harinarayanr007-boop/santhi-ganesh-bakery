@@ -1501,7 +1501,7 @@
             </div>
 
             <p class="map-instruction-hint">
-              <i class="ph ph-info"></i> Delivery is strictly within 2 km of 92 Cheranmahadevi Rd, Thirunagar. Drag map to adjust pin.
+              <i class="ph ph-info"></i> Green shaded circle denotes our 2 km delivery coverage from Thirunagar store. Drag map to adjust pin.
             </p>
           </div>
 
@@ -2300,14 +2300,14 @@
           .bindPopup('<b>Santhi Ganesh Bakery</b><br>92 Cheranmahadevi Rd, Thirunagar')
           .openPopup();
 
-        // 2. Translucent 2 km Radius Boundary Circle (Strict 2 km Zone)
+        // 2. Translucent Green 2 km Radius Delivery Area Boundary
         radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
-          color: '#A6601B',
-          fillColor: '#D95338',
-          fillOpacity: 0.14,
+          color: '#2E7D32',
+          fillColor: '#4CAF50',
+          fillOpacity: 0.22,
           radius: 2000, // strictly 2 km (2000m)
-          weight: 2,
-          dashArray: '5, 6'
+          weight: 2.5,
+          dashArray: '6, 6'
         }).addTo(leafletMap);
 
         // 3. Swiggy/Zomato Drag-to-Pin Center Interaction
