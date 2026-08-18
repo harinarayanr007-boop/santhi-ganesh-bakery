@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <!-- Leaflet Map CSS & JS (Lightweight) -->
+  <!-- Leaflet Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -694,14 +694,14 @@
     }
 
     /* ====================================================
-       CLEAN, MODERN & MINIMALIST CHECKOUT DRAWER (ZERO CLUTTER)
+       LUXURY DIFFERENTIATED CHECKOUT MODAL DRAWER
        ==================================================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 10, 8, 0.6);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      background: rgba(15, 10, 8, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 300;
       display: none;
       justify-content: center;
@@ -713,11 +713,11 @@
     }
 
     .modal-sheet {
-      background: #FFFFFF;
+      background: #F8F5F0; /* Soft warm luxury pastry background */
       width: 100%;
-      max-width: 540px;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      max-width: 550px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
       max-height: 88vh;
       display: flex;
       flex-direction: column;
@@ -732,7 +732,10 @@
 
     .modal-header-clean {
       padding: 14px 18px;
+      background: #FFFFFF;
       border-bottom: 1px solid var(--color-border);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -740,7 +743,7 @@
 
     .modal-title-clean {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: var(--color-text-main);
     }
@@ -748,29 +751,29 @@
     .modal-close-icon {
       background: var(--color-surface-soft);
       border: none;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--color-text-main);
     }
 
     .modal-body-clean {
-      padding: 14px 16px 20px;
+      padding: 14px 16px 22px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     /* Minimal Segmented Switch */
     .order-segmented-control {
       display: flex;
-      background: #EFEBE6;
+      background: #EAE4DC;
       border-radius: 12px;
       padding: 3px;
       gap: 3px;
@@ -780,10 +783,10 @@
       flex: 1;
       border: none;
       background: transparent;
-      padding: 8px 10px;
-      border-radius: 9px;
+      padding: 9px 10px;
+      border-radius: 10px;
       font-family: var(--font-main);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--color-text-muted);
       cursor: pointer;
@@ -797,26 +800,70 @@
     .order-seg-btn.active {
       background: #FFFFFF;
       color: var(--color-text-main);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
-    /* Clean Section Block */
-    .clean-section-block {
+    /* ====================================================
+       ELEVATED DIFFERENTIATED SECTION CARDS
+       ==================================================== */
+    .checkout-card-box {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 13px 14px;
+      border: 1px solid rgba(26, 18, 11, 0.07);
+      box-shadow: 0 2px 8px rgba(26, 18, 11, 0.03);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .clean-section-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      color: var(--color-text-muted);
+    /* Section Card Header */
+    .card-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 1px solid rgba(26, 18, 11, 0.05);
+      padding-bottom: 8px;
     }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .icon-location { background: #FFF3E0; color: #D84315; }
+    .icon-contact { background: #EFEBE9; color: #4E342E; }
+    .icon-order { background: #FFF8E1; color: #B78103; }
+    .icon-store { background: #E8F5E9; color: #1B5E20; }
+
+    .card-header-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      letter-spacing: -0.1px;
+    }
+
+    .card-header-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .badge-green { background: #E8F5E9; color: #1B5E20; }
+    .badge-amber { background: #FFF3E0; color: #E65100; }
+    .badge-gray { background: #F5F5F5; color: #616161; }
 
     /* Address Input with Embedded Live Locate Action */
     .address-input-wrapper {
@@ -827,28 +874,30 @@
 
     .clean-input-box {
       width: 100%;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 10px;
       border: 1.5px solid var(--color-border);
-      background: #FFFFFF;
+      background: #FAFAFA;
       font-family: var(--font-main);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       outline: none;
       color: var(--color-text-main);
-      transition: border-color 0.15s ease;
+      transition: all 0.15s ease;
     }
 
     .clean-input-box:focus {
       border-color: var(--color-primary);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 2px rgba(166, 96, 27, 0.1);
     }
 
     .btn-locate-inside-input {
       position: absolute;
-      right: 6px;
+      right: 5px;
       background: #24140B;
       color: #FFFFFF;
       border: none;
-      padding: 5px 9px;
+      padding: 5px 10px;
       border-radius: 8px;
       font-family: var(--font-main);
       font-size: 0.72rem;
@@ -858,6 +907,7 @@
       gap: 4px;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background 0.15s ease;
     }
 
     .btn-locate-inside-input:active {
@@ -868,7 +918,7 @@
     .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 160px;
+      height: 155px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--color-border);
@@ -968,17 +1018,6 @@
       flex-shrink: 0;
     }
 
-    /* Takeaway Store Card */
-    .clean-takeaway-card {
-      background: var(--color-surface-soft);
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid var(--color-border);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
     /* Form Fields Grid */
     .form-two-col {
       display: grid;
@@ -1000,7 +1039,7 @@
 
     /* Clean Items Summary */
     .clean-items-box {
-      background: var(--color-surface-soft);
+      background: #FAFAFA;
       border-radius: 10px;
       padding: 8px 10px;
       border: 1px solid var(--color-border);
@@ -1021,23 +1060,24 @@
     .clean-bill-breakdown {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding-top: 4px;
+      gap: 5px;
+      padding-top: 6px;
       border-top: 1px dashed var(--color-border);
     }
 
     .clean-bill-line {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.8rem;
       color: var(--color-text-muted);
     }
 
     .clean-bill-line.total-line {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--color-text-main);
-      padding-top: 4px;
+      padding-top: 6px;
       border-top: 1px solid var(--color-border);
     }
 
@@ -1047,7 +1087,7 @@
       color: #FFFFFF;
       border: none;
       padding: 13px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-family: var(--font-main);
       font-weight: 800;
       font-size: 0.95rem;
@@ -1153,7 +1193,7 @@
       </div>
     </div>
 
-    <!-- CLEAN, DECLUTTERED CHECKOUT MODAL DRAWER -->
+    <!-- LUXURY DIFFERENTIATED CHECKOUT MODAL DRAWER -->
     <div class="modal-overlay" id="checkout-modal" onclick="if(event.target === this) closeCheckoutModal()">
       <div class="modal-sheet">
         <div class="modal-header-clean">
@@ -1166,7 +1206,7 @@
 
         <div class="modal-body-clean">
           
-          <!-- ORDER TYPE SWITCH -->
+          <!-- 1. ORDER TYPE SELECTOR -->
           <div class="order-segmented-control">
             <button type="button" class="order-seg-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
               <i class="ph ph-moped"></i> Doorstep Delivery
@@ -1176,10 +1216,14 @@
             </button>
           </div>
 
-          <!-- SECTION: LOCATION & ADDRESS (DELIVERY ONLY) -->
-          <div class="clean-section-block" id="block-delivery-location">
-            <div class="clean-section-label">
-              <span>Delivery Address (2 km Zone)</span>
+          <!-- 2. CARD: DELIVERY LOCATION (DELIVERY ONLY) -->
+          <div class="checkout-card-box" id="block-delivery-location">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="card-icon-pill icon-location"><i class="ph ph-map-pin"></i></div>
+                <span class="card-header-title">Delivery Location</span>
+              </div>
+              <span class="card-header-badge badge-green">2 km Zone</span>
             </div>
 
             <!-- Address Input with 1-Tap Auto-Locate Button -->
@@ -1214,28 +1258,44 @@
             </div>
           </div>
 
-          <!-- SECTION: STORE PICKUP INFO (TAKEAWAY ONLY) -->
-          <div class="clean-takeaway-card" id="block-takeaway-info" style="display: none;">
-            <div style="font-weight: 800; font-size: 0.9rem; color: var(--color-primary-dark);">
+          <!-- 2B. CARD: STORE PICKUP INFO (TAKEAWAY ONLY) -->
+          <div class="checkout-card-box" id="block-takeaway-info" style="display: none;">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="card-icon-pill icon-store"><i class="ph ph-storefront"></i></div>
+                <span class="card-header-title">Store Pickup Point</span>
+              </div>
+              <span class="card-header-badge badge-green">FREE Pickup</span>
+            </div>
+            
+            <div style="font-weight: 800; font-size: 0.88rem; color: var(--color-primary-dark);">
               🏢 Santhi Ganesh Bakery & Cafe
             </div>
-            <div style="font-size: 0.76rem; color: var(--color-text-muted);">
+            <div style="font-size: 0.76rem; color: var(--color-text-muted); line-height: 1.3;">
               92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
             </div>
-            <div style="display: flex; gap: 6px; margin-top: 4px; font-size: 0.72rem; font-weight: 700;">
-              <span style="background: #FFF3E0; color: #E65100; padding: 2px 6px; border-radius: 4px;">⏱️ Ready in 15–20 Mins</span>
-              <span style="background: #E8F5E9; color: #1B5E20; padding: 2px 6px; border-radius: 4px;">🎉 FREE Pickup (₹0)</span>
+            <div style="display: flex; gap: 6px; font-size: 0.72rem; font-weight: 700;">
+              <span style="background: #FFF3E0; color: #E65100; padding: 3px 8px; border-radius: 6px;">⏱️ Ready in 15–20 Mins</span>
+              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 3px;">
+                <i class="ph ph-navigation-arrow"></i> Directions ↗
+              </a>
             </div>
           </div>
 
-          <!-- SECTION: CUSTOMER DETAILS -->
-          <div class="clean-section-block">
-            <div class="clean-section-label">Contact Details</div>
+          <!-- 3. CARD: CUSTOMER CONTACT DETAILS -->
+          <div class="checkout-card-box">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="card-icon-pill icon-contact"><i class="ph ph-user"></i></div>
+                <span class="card-header-title">Customer Contact</span>
+              </div>
+              <span class="card-header-badge badge-gray">Required</span>
+            </div>
             
             <div class="form-two-col">
               <div class="field-wrap">
-                <label>Your Name *</label>
-                <input type="text" id="cust-name" class="clean-input-box" placeholder="Name" oninput="this.classList.remove('input-error')">
+                <label>Full Name *</label>
+                <input type="text" id="cust-name" class="clean-input-box" placeholder="Your name" oninput="this.classList.remove('input-error')">
               </div>
               <div class="field-wrap">
                 <label>Mobile Number *</label>
@@ -1245,7 +1305,7 @@
 
             <!-- Optional Takeaway Pickup Timing -->
             <div class="field-wrap" id="field-pickup-time" style="display: none;">
-              <label>Pickup Time</label>
+              <label>Estimated Pickup Time</label>
               <select id="cust-pickup-time" class="clean-input-box">
                 <option value="Ready in 15–20 Mins">⚡ As soon as ready (~15–20 Mins)</option>
                 <option value="In 30 Mins">🕐 In 30 Mins</option>
@@ -1256,14 +1316,18 @@
 
             <!-- Optional Cooking / Landmark Note -->
             <div class="field-wrap">
-              <input type="text" id="cust-instructions" class="clean-input-box" placeholder="Landmark or cooking instructions (optional)">
+              <input type="text" id="cust-instructions" class="clean-input-box" placeholder="Landmark or special instructions (optional)">
             </div>
           </div>
 
-          <!-- SECTION: ORDER ITEMS & BILL -->
-          <div class="clean-section-block">
-            <div class="clean-section-label">
-              <span>Order Summary (<span id="modal-item-count">0</span> items)</span>
+          <!-- 4. CARD: ORDER ITEMS & BILL BREAKDOWN -->
+          <div class="checkout-card-box">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="card-icon-pill icon-order"><i class="ph ph-receipt"></i></div>
+                <span class="card-header-title">Order & Bill Summary</span>
+              </div>
+              <span class="card-header-badge badge-amber" id="modal-item-badge">0 Items</span>
             </div>
             
             <div class="clean-items-box" id="modal-cart-items-list">
@@ -1280,7 +1344,7 @@
                 <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
               </div>
               <div class="clean-bill-line total-line">
-                <span>Total Amount</span>
+                <span>Total Payable</span>
                 <span id="bill-grand-total" style="color: var(--color-primary-dark);">₹0</span>
               </div>
             </div>
@@ -1725,7 +1789,7 @@
 
     function renderCheckoutModalContent() {
       const container = document.getElementById('modal-cart-items-list');
-      const itemCountEl = document.getElementById('modal-item-count');
+      const itemBadgeEl = document.getElementById('modal-item-badge');
       const subtotalEl = document.getElementById('bill-subtotal');
       const deliveryFeeEl = document.getElementById('bill-delivery-fee');
       const feeTypeEl = document.getElementById('lbl-fee-type');
@@ -1733,7 +1797,7 @@
 
       const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, isTakeaway } = calculateCartTotals();
 
-      if (itemCountEl) itemCountEl.textContent = totalItems;
+      if (itemBadgeEl) itemBadgeEl.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'}`;
 
       if (deliveryCart.length === 0) {
         container.innerHTML = `<div style="text-align: center; padding: 12px; color: #888; font-size: 0.8rem;">Your cart is empty</div>`;
@@ -1841,7 +1905,6 @@
     }
 
     function onAddressInput(val) {
-      // If user types standard neighborhood, center automatically
       const lower = val.toLowerCase();
       if (lower.includes('thirunagar') || lower.includes('cheranmahadevi')) {
         setQuickArea(8.7261, 77.6769, val);
