@@ -884,37 +884,79 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .btn-gps-detect-center {
+    .map-container-relative {
+      position: relative;
+      width: 100%;
+      margin: 8px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    #delivery-live-map {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      z-index: 10;
+    }
+
+    /* Floating GPS Button directly inside Map Center */
+    .map-center-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 400;
+      pointer-events: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-map-floating-gps {
       background: #2E7D32;
       color: #FFFFFF;
-      border: none;
+      border: 2px solid #FFFFFF;
       padding: 10px 18px;
-      border-radius: 14px;
+      border-radius: 24px;
       font-family: var(--font-main);
       font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.35);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
       transition: all 0.2s ease;
-      width: 100%;
-      max-width: 320px;
+      white-space: nowrap;
+      animation: pulseGpsBtn 2.4s infinite;
     }
 
-    .btn-gps-detect-center:active {
-      transform: scale(0.96);
+    @keyframes pulseGpsBtn {
+      0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 8px 24px rgba(46, 125, 50, 0.65); }
     }
 
-    #delivery-live-map {
-      width: 100%;
-      height: 200px;
-      border-radius: 10px;
-      border: 1px solid var(--color-border);
-      margin: 10px 0 8px;
-      z-index: 10;
+    .btn-map-floating-gps:active {
+      transform: scale(0.95);
+    }
+
+    /* When location is picked, move button to clean bottom-center pill */
+    .map-center-overlay.located {
+      top: auto;
+      bottom: 10px;
+      transform: translateX(-50%);
+    }
+
+    .map-center-overlay.located .btn-map-floating-gps {
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      background: rgba(36, 20, 11, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      animation: none;
     }
 
     /* Map Distance & Zone Status Bar */
@@ -956,49 +998,6 @@
       display: flex;
       align-items: center;
       gap: 4px;
-    }
-
-    /* Out of Range Notice Alert Card */
-    .out-of-range-alert {
-      display: none;
-      background: #FFF3E0;
-      border: 1.5px solid #FF9800;
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 10px;
-      color: #5D4037;
-      font-size: 0.76rem;
-      line-height: 1.35;
-    }
-
-    .out-of-range-alert.visible {
-      display: block;
-    }
-
-    .btn-range-action {
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-family: var(--font-main);
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.15s ease;
-      border: none;
-    }
-
-    .btn-edit-loc {
-      background: #FFFFFF;
-      color: var(--color-primary-dark);
-      border: 1px solid var(--color-primary);
-    }
-
-    .btn-proceed-callback {
-      background: #E65100;
-      color: #FFFFFF;
-      box-shadow: 0 2px 6px rgba(230, 81, 0, 0.3);
     }
 
     /* ====================================================
@@ -1332,50 +1331,29 @@
               <i class="ph ph-map-trifold"></i> 1. Delivery Location (5 km Radius)
             </div>
 
-            <!-- Prominently Centered Auto-Detect GPS Button -->
-            <div style="display: flex; justify-content: center; width: 100%;">
-              <button type="button" class="btn-gps-detect-center" id="btn-detect-gps" onclick="detectGPSLocation()">
-                <i class="ph ph-crosshair" style="font-size: 1.15rem;"></i>
-                <span>Use My Live GPS Location</span>
-              </button>
+            <!-- Leaflet Map Container with Floating Center GPS Button Overlay -->
+            <div class="map-container-relative">
+              <div id="delivery-live-map"></div>
+              
+              <!-- Centered Floating GPS Button Overlay Inside Map -->
+              <div class="map-center-overlay" id="map-center-overlay">
+                <button type="button" class="btn-map-floating-gps" id="btn-detect-gps" onclick="detectGPSLocation()">
+                  <i class="ph ph-crosshair" style="font-size: 1.15rem;"></i>
+                  <span id="lbl-btn-gps-text">Tap to Locate Me / Use GPS</span>
+                </button>
+              </div>
             </div>
-
-            <!-- Leaflet Map Container -->
-            <div id="delivery-live-map"></div>
 
             <!-- Location & Range Status Bar -->
             <div class="map-status-info status-initial" id="map-distance-status">
               <span id="lbl-map-zone-status">
-                <i class="ph ph-hand-pointing"></i> Tap "Use My Live GPS Location" or tap the map to set your address
+                <i class="ph ph-hand-pointing"></i> Tap the center button above or tap map to set address
               </span>
               <span id="lbl-map-distance-text" style="font-weight: 700;"></span>
             </div>
 
-            <!-- Out of 5km Range Smart Action Card -->
-            <div class="out-of-range-alert" id="out-of-range-box">
-              <div style="display: flex; gap: 8px; align-items: flex-start;">
-                <i class="ph ph-warning-circle" style="font-size: 1.4rem; color: #E65100; flex-shrink: 0; margin-top: 1px;"></i>
-                <div style="flex: 1;">
-                  <strong style="color: #BF360C; font-size: 0.82rem; display: block; margin-bottom: 3px;" id="out-of-range-title">
-                    Location is outside our standard 5 km delivery radius
-                  </strong>
-                  <p style="font-size: 0.74rem; color: #5D4037; margin-bottom: 8px; line-height: 1.35;">
-                    Standard live delivery is within 5 km of 92 Cheranmahadevi Rd, Thirunagar. You can edit your location or place the order anyway to request a callback for custom delivery:
-                  </p>
-                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button type="button" onclick="focusOnMap()" class="btn-range-action btn-edit-loc">
-                      <i class="ph ph-pencil-simple"></i> Edit / Choose Location on Map
-                    </button>
-                    <button type="button" onclick="allowOutOfRangeOrder()" class="btn-range-action btn-proceed-callback">
-                      <i class="ph ph-phone-call"></i> Order Anyway & Request Call Back
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <p class="map-instruction-hint">
-              <i class="ph ph-info"></i> Green boundary circle represents our standard 5 km coverage from Thirunagar store.
+              <i class="ph ph-info"></i> Green circle indicates our 5 km delivery coverage from Thirunagar store.
             </p>
           </div>
 
@@ -1397,30 +1375,30 @@
 
             <div class="form-group-field">
               <label>Your Full Name *</label>
-              <input type="text" id="cust-name" class="form-input-field" placeholder="e.g. Anand Kumar" oninput="clearFieldError(this)">
+              <input type="text" id="cust-name" class="form-input-field" placeholder="Enter your full name" oninput="clearFieldError(this)">
               <span class="field-error-msg" id="err-cust-name">Please enter your full name</span>
             </div>
 
             <div class="form-group-field">
               <label>Mobile / WhatsApp Number *</label>
-              <input type="tel" id="cust-phone" class="form-input-field" placeholder="e.g. 9876543210" maxlength="10" oninput="clearFieldError(this)">
+              <input type="tel" id="cust-phone" class="form-input-field" placeholder="Enter 10-digit mobile number" maxlength="10" oninput="clearFieldError(this)">
               <span class="field-error-msg" id="err-cust-phone">Please enter a valid 10-digit mobile number</span>
             </div>
 
             <div class="form-group-field">
               <label>Complete Delivery Address (Door No, Street, Area) *</label>
-              <input type="text" id="cust-address" class="form-input-field" placeholder="Select on map above or type your complete address" oninput="clearFieldError(this)">
+              <input type="text" id="cust-address" class="form-input-field" placeholder="Enter delivery address or select on map" oninput="clearFieldError(this)">
               <span class="field-error-msg" id="err-cust-address">Please enter your complete delivery address</span>
             </div>
 
             <div class="form-group-field">
               <label>Nearby Landmark (Optional)</label>
-              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near Bus Stand / School / Water Tank">
+              <input type="text" id="cust-landmark" class="form-input-field" placeholder="Enter nearby landmark (optional)">
             </div>
 
             <div class="form-group-field">
               <label>Cooking / Delivery Instructions (Optional)</label>
-              <input type="text" id="cust-instructions" class="form-input-field" placeholder="e.g. Less spicy, Extra tissue, Don't ring bell">
+              <input type="text" id="cust-instructions" class="form-input-field" placeholder="Cooking or delivery instructions (optional)">
             </div>
 
             <label class="radius-confirm-label" id="lbl-radius-confirm">
@@ -1507,7 +1485,6 @@
     let userLocation = null;
     let userDistanceKm = null;
     let isWithinZone = null;
-    let specialCallbackRequested = false;
     let leafletMap = null;
     let userMarker = null;
     let radiusCircle = null;
@@ -2120,27 +2097,33 @@
       const statusBox = document.getElementById('map-distance-status');
       const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       const distTextEl = document.getElementById('lbl-map-distance-text');
-      const outOfRangeBox = document.getElementById('out-of-range-box');
-      const outOfRangeTitle = document.getElementById('out-of-range-title');
       const chkRadius = document.getElementById('chk-radius-confirm');
       const lblRadius = document.getElementById('lbl-radius-confirm');
       const txtRadius = document.getElementById('txt-radius-confirm-label');
       const orderBtn = document.getElementById('btn-place-whatsapp-order');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
+      const mapOverlay = document.getElementById('map-center-overlay');
+      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
+
+      // Update center GPS button inside map
+      if (mapOverlay) {
+        mapOverlay.classList.add('located');
+      }
+      if (gpsBtnText) {
+        gpsBtnText.textContent = '📍 Re-Detect GPS';
+      }
 
       if (distTextEl) {
         distTextEl.textContent = `${userDistanceKm.toFixed(1)} km from Bakery`;
       }
 
       if (isWithinZone) {
-        specialCallbackRequested = false;
         if (statusBox) {
           statusBox.className = 'map-status-info status-success';
         }
         if (zoneStatusEl) {
           zoneStatusEl.innerHTML = '<i class="ph ph-check-circle" style="font-size: 1.1rem; color:#2E7D32;"></i> <strong>Within 5 km Delivery Zone</strong>';
         }
-        if (outOfRangeBox) outOfRangeBox.classList.remove('visible');
         if (chkRadius) chkRadius.checked = true;
         if (lblRadius) lblRadius.classList.remove('error-text');
         if (txtRadius) {
@@ -2159,13 +2142,9 @@
         if (zoneStatusEl) {
           zoneStatusEl.innerHTML = '<i class="ph ph-warning-octagon" style="font-size: 1.1rem; color:#C62828;"></i> <strong>Outside 5 km Delivery Radius</strong>';
         }
-        if (outOfRangeBox) outOfRangeBox.classList.add('visible');
-        if (outOfRangeTitle) {
-          outOfRangeTitle.textContent = `Location is ${userDistanceKm.toFixed(1)} km away (Outside standard 5 km delivery radius)`;
-        }
         if (lblRadius) lblRadius.classList.add('error-text');
         if (txtRadius) {
-          txtRadius.innerHTML = `I understand this address is <strong>${userDistanceKm.toFixed(1)} km away</strong> (> 5 km) and request a callback from the bakery manager to confirm delivery.`;
+          txtRadius.innerHTML = `I understand this address is <strong>${userDistanceKm.toFixed(1)} km away</strong> (> 5 km) and request a callback from the bakery manager for custom delivery.`;
         }
         if (chkRadius) chkRadius.checked = true;
         
@@ -2183,33 +2162,6 @@
       }
     }
 
-    function focusOnMap() {
-      const mapContainer = document.getElementById('delivery-live-map');
-      if (mapContainer) {
-        mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-
-    function allowOutOfRangeOrder() {
-      specialCallbackRequested = true;
-      const chkRadius = document.getElementById('chk-radius-confirm');
-      if (chkRadius) chkRadius.checked = true;
-      
-      const formSec = document.querySelector('.checkout-form-section');
-      if (formSec) {
-        formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      const orderBtn = document.getElementById('btn-place-whatsapp-order');
-      const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
-      if (orderBtn) {
-        orderBtn.className = 'btn-send-whatsapp-order btn-special-delivery';
-      }
-      if (orderBtnLbl && userDistanceKm) {
-        orderBtnLbl.textContent = `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`;
-      }
-    }
-
     function detectGPSLocation() {
       if (!navigator.geolocation) {
         alert('Geolocation is not supported by your device/browser.');
@@ -2217,8 +2169,9 @@
       }
 
       const btn = document.getElementById('btn-detect-gps');
-      if (btn) {
-        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Detecting GPS...';
+      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
+      if (gpsBtnText) {
+        gpsBtnText.textContent = 'Detecting GPS...';
       }
 
       navigator.geolocation.getCurrentPosition(
@@ -2236,11 +2189,8 @@
 
           handleLocationUpdate(lat, lng, true);
 
-          if (btn) {
-            btn.innerHTML = '<i class="ph ph-check"></i> GPS Located!';
-            setTimeout(() => {
-              btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My Live GPS Location';
-            }, 2500);
+          if (gpsBtnText) {
+            gpsBtnText.textContent = '📍 Re-Detect GPS';
           }
         },
         (err) => {
@@ -2252,8 +2202,8 @@
             errMsg = '⏳ GPS request timed out. Please tap directly on the map to set your address.';
           }
           alert(errMsg);
-          if (btn) {
-            btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My Live GPS Location';
+          if (gpsBtnText) {
+            gpsBtnText.textContent = 'Tap to Locate Me / Use GPS';
           }
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -2335,7 +2285,7 @@
 
       // 3. Address Validation
       if (!address) {
-        showFieldError('cust-address', 'Please select your delivery address on the map or type it');
+        showFieldError('cust-address', 'Please enter your delivery address or select on map');
         return;
       }
 
@@ -2363,7 +2313,7 @@
       if (isOutRange) {
         text += `⚠️ *SPECIAL DELIVERY REQUEST (Outside 5 km Radius)*\n`;
         text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery\n`;
-        text += `📞 *Note:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
+        text += `📞 *Notice:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
         text += `------------------------------------\n`;
       }
 
