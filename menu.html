@@ -859,8 +859,21 @@
       flex: 1;
     }
 
+    /* Section Title Standard */
+    .checkout-form-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* ====================================================
-       INTERACTIVE LIVE MAP & GPS PICKER SECTION
+       SECTION 1: INTERACTIVE LIVE MAP & GPS PICKER
        ==================================================== */
     .map-picker-card {
       background: #FFFFFF;
@@ -871,52 +884,36 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .map-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .map-header-title {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--color-primary-dark);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    .btn-gps-detect {
+    .btn-gps-detect-center {
       background: #2E7D32;
       color: #FFFFFF;
       border: none;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 0.74rem;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-family: var(--font-main);
+      font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
-      transition: all 0.15s ease;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.35);
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 320px;
     }
 
-    .btn-gps-detect:active {
-      transform: scale(0.94);
+    .btn-gps-detect-center:active {
+      transform: scale(0.96);
     }
 
     #delivery-live-map {
       width: 100%;
-      height: 195px;
+      height: 200px;
       border-radius: 10px;
       border: 1px solid var(--color-border);
-      margin-bottom: 8px;
+      margin: 10px 0 8px;
       z-index: 10;
     }
 
@@ -964,36 +961,72 @@
     /* Out of Range Notice Alert Card */
     .out-of-range-alert {
       display: none;
-      background: #FDEDEC;
-      border: 1.5px solid #E74C3C;
+      background: #FFF3E0;
+      border: 1.5px solid #FF9800;
       border-radius: 10px;
-      padding: 10px 12px;
-      margin-top: 8px;
-      color: #922B21;
+      padding: 12px;
+      margin-top: 10px;
+      color: #5D4037;
       font-size: 0.76rem;
       line-height: 1.35;
     }
 
     .out-of-range-alert.visible {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      display: block;
     }
 
-    /* Modal Items List */
+    .btn-range-action {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-family: var(--font-main);
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      border: none;
+    }
+
+    .btn-edit-loc {
+      background: #FFFFFF;
+      color: var(--color-primary-dark);
+      border: 1px solid var(--color-primary);
+    }
+
+    .btn-proceed-callback {
+      background: #E65100;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(230, 81, 0, 0.3);
+    }
+
+    /* ====================================================
+       SECTION 2: SELECTED ORDER ITEMS
+       ==================================================== */
+    .order-items-card {
+      background: var(--color-surface-soft);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      border: 1px solid var(--color-border);
+    }
+
     .cart-items-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 8px;
     }
 
     .cart-item-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid var(--color-border);
+      background: #FFFFFF;
+      padding: 8px 10px;
+      border-radius: 8px;
     }
 
     .cart-item-left {
@@ -1030,25 +1063,15 @@
       text-align: right;
     }
 
-    /* Customer Form Details */
+    /* ====================================================
+       SECTION 3: CUSTOMER & ADDRESS DETAILS
+       ==================================================== */
     .checkout-form-section {
       background: var(--color-surface-soft);
       border-radius: 12px;
       padding: 14px;
       margin-bottom: 16px;
       border: 1px solid var(--color-border);
-    }
-
-    .checkout-form-title {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--color-primary-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .form-group-field {
@@ -1121,11 +1144,13 @@
     }
 
     .radius-confirm-label.error-text {
-      color: #D32F2F;
+      color: #D84315;
       font-weight: 700;
     }
 
-    /* Bill Breakdown */
+    /* ====================================================
+       SECTION 4: BILL BREAKDOWN & PAYMENT
+       ==================================================== */
     .bill-card {
       background: #FFFFFF;
       border: 1px solid var(--color-border);
@@ -1176,21 +1201,20 @@
       transform: scale(0.98);
     }
 
-    .btn-send-whatsapp-order.btn-disabled-range {
-      background: #C62828 !important;
-      box-shadow: none !important;
-      cursor: not-allowed;
+    .btn-send-whatsapp-order.btn-special-delivery {
+      background: linear-gradient(135deg, #E65100 0%, #D84315 100%) !important;
+      box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35) !important;
     }
 
     /* Empty state */
     .empty-cart-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px 20px;
     }
 
     .empty-cart-icon {
-      font-size: 3.5rem;
-      margin-bottom: 12px;
+      font-size: 3rem;
+      margin-bottom: 10px;
       opacity: 0.6;
     }
 
@@ -1302,14 +1326,17 @@
 
         <div class="modal-body">
           
-          <!-- INTERACTIVE LIVE MAP & GPS PICKER -->
+          <!-- SECTION 1: INTERACTIVE LIVE MAP & GPS PICKER -->
           <div class="map-picker-card">
-            <div class="map-header-row">
-              <span class="map-header-title">
-                <i class="ph ph-map-trifold"></i> Delivery Location (5 km Radius)
-              </span>
-              <button type="button" class="btn-gps-detect" id="btn-detect-gps" onclick="detectGPSLocation()">
-                <i class="ph ph-crosshair"></i> Use My GPS Location
+            <div class="checkout-form-title">
+              <i class="ph ph-map-trifold"></i> 1. Delivery Location (5 km Radius)
+            </div>
+
+            <!-- Prominently Centered Auto-Detect GPS Button -->
+            <div style="display: flex; justify-content: center; width: 100%;">
+              <button type="button" class="btn-gps-detect-center" id="btn-detect-gps" onclick="detectGPSLocation()">
+                <i class="ph ph-crosshair" style="font-size: 1.15rem;"></i>
+                <span>Use My Live GPS Location</span>
               </button>
             </div>
 
@@ -1319,33 +1346,53 @@
             <!-- Location & Range Status Bar -->
             <div class="map-status-info status-initial" id="map-distance-status">
               <span id="lbl-map-zone-status">
-                <i class="ph ph-hand-pointing"></i> Tap "Use My GPS Location" or tap the map to set your doorstep
+                <i class="ph ph-hand-pointing"></i> Tap "Use My Live GPS Location" or tap the map to set your address
               </span>
               <span id="lbl-map-distance-text" style="font-weight: 700;"></span>
             </div>
 
-            <!-- Out of 5km Range Warning Box -->
+            <!-- Out of 5km Range Smart Action Card -->
             <div class="out-of-range-alert" id="out-of-range-box">
-              <i class="ph ph-warning-circle" style="font-size: 1.3rem; flex-shrink: 0;"></i>
-              <div>
-                <strong>Outside 5 km Delivery Zone:</strong> We deliver exclusively within a 5 km radius of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Please select a delivery point within the green circle.
+              <div style="display: flex; gap: 8px; align-items: flex-start;">
+                <i class="ph ph-warning-circle" style="font-size: 1.4rem; color: #E65100; flex-shrink: 0; margin-top: 1px;"></i>
+                <div style="flex: 1;">
+                  <strong style="color: #BF360C; font-size: 0.82rem; display: block; margin-bottom: 3px;" id="out-of-range-title">
+                    Location is outside our standard 5 km delivery radius
+                  </strong>
+                  <p style="font-size: 0.74rem; color: #5D4037; margin-bottom: 8px; line-height: 1.35;">
+                    Standard live delivery is within 5 km of 92 Cheranmahadevi Rd, Thirunagar. You can edit your location or place the order anyway to request a callback for custom delivery:
+                  </p>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" onclick="focusOnMap()" class="btn-range-action btn-edit-loc">
+                      <i class="ph ph-pencil-simple"></i> Edit / Choose Location on Map
+                    </button>
+                    <button type="button" onclick="allowOutOfRangeOrder()" class="btn-range-action btn-proceed-callback">
+                      <i class="ph ph-phone-call"></i> Order Anyway & Request Call Back
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <p class="map-instruction-hint">
-              <i class="ph ph-info"></i> Green circle indicates our 5 km delivery coverage from Thirunagar store.
+              <i class="ph ph-info"></i> Green boundary circle represents our standard 5 km coverage from Thirunagar store.
             </p>
           </div>
 
-          <!-- CART ITEMS LIST -->
-          <div class="cart-items-list" id="modal-cart-items-list">
-            <!-- Dynamic Items -->
+          <!-- SECTION 2: SELECTED ORDER ITEMS -->
+          <div class="order-items-card">
+            <div class="checkout-form-title">
+              <i class="ph ph-shopping-bag"></i> 2. Selected Order Items (<span id="modal-item-count">0</span>)
+            </div>
+            <div class="cart-items-list" id="modal-cart-items-list">
+              <!-- Dynamic Items -->
+            </div>
           </div>
 
-          <!-- CUSTOMER & DELIVERY ADDRESS FORM -->
+          <!-- SECTION 3: CUSTOMER & DELIVERY ADDRESS FORM -->
           <div class="checkout-form-section">
             <div class="checkout-form-title">
-              <i class="ph ph-user"></i> Customer & Address Details
+              <i class="ph ph-user"></i> 3. Customer & Address Details
             </div>
 
             <div class="form-group-field">
@@ -1378,12 +1425,16 @@
 
             <label class="radius-confirm-label" id="lbl-radius-confirm">
               <input type="checkbox" id="chk-radius-confirm" checked>
-              <span>I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.</span>
+              <span id="txt-radius-confirm-label">I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.</span>
             </label>
           </div>
 
-          <!-- BILL BREAKDOWN -->
+          <!-- SECTION 4: BILL BREAKDOWN & PAYMENT -->
           <div class="bill-card">
+            <div class="checkout-form-title" style="margin-bottom: 12px; border-bottom: 1px dashed var(--color-border); padding-bottom: 6px;">
+              <i class="ph ph-receipt"></i> 4. Bill Summary & Delivery Fee
+            </div>
+
             <div class="bill-row">
               <span>Item Total</span>
               <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
@@ -1456,6 +1507,7 @@
     let userLocation = null;
     let userDistanceKm = null;
     let isWithinZone = null;
+    let specialCallbackRequested = false;
     let leafletMap = null;
     let userMarker = null;
     let radiusCircle = null;
@@ -1901,12 +1953,15 @@
 
     function renderCheckoutModalContent() {
       const container = document.getElementById('modal-cart-items-list');
+      const itemCountEl = document.getElementById('modal-item-count');
       const subtotalEl = document.getElementById('bill-subtotal');
       const deliveryFeeEl = document.getElementById('bill-delivery-fee');
       const feeNoteEl = document.getElementById('bill-delivery-fee-note');
       const grandTotalEl = document.getElementById('bill-grand-total');
 
       const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree } = calculateCartTotals();
+
+      if (itemCountEl) itemCountEl.textContent = totalItems;
 
       if (deliveryCart.length === 0) {
         container.innerHTML = `
@@ -2066,8 +2121,10 @@
       const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       const distTextEl = document.getElementById('lbl-map-distance-text');
       const outOfRangeBox = document.getElementById('out-of-range-box');
+      const outOfRangeTitle = document.getElementById('out-of-range-title');
       const chkRadius = document.getElementById('chk-radius-confirm');
       const lblRadius = document.getElementById('lbl-radius-confirm');
+      const txtRadius = document.getElementById('txt-radius-confirm-label');
       const orderBtn = document.getElementById('btn-place-whatsapp-order');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
 
@@ -2076,6 +2133,7 @@
       }
 
       if (isWithinZone) {
+        specialCallbackRequested = false;
         if (statusBox) {
           statusBox.className = 'map-status-info status-success';
         }
@@ -2085,9 +2143,12 @@
         if (outOfRangeBox) outOfRangeBox.classList.remove('visible');
         if (chkRadius) chkRadius.checked = true;
         if (lblRadius) lblRadius.classList.remove('error-text');
+        if (txtRadius) {
+          txtRadius.innerHTML = 'I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.';
+        }
         
         if (orderBtn) {
-          orderBtn.classList.remove('btn-disabled-range');
+          orderBtn.className = 'btn-send-whatsapp-order';
           orderBtn.disabled = false;
         }
         if (orderBtnLbl) orderBtnLbl.textContent = 'Place Order on WhatsApp';
@@ -2099,18 +2160,53 @@
           zoneStatusEl.innerHTML = '<i class="ph ph-warning-octagon" style="font-size: 1.1rem; color:#C62828;"></i> <strong>Outside 5 km Delivery Radius</strong>';
         }
         if (outOfRangeBox) outOfRangeBox.classList.add('visible');
-        if (chkRadius) chkRadius.checked = false;
+        if (outOfRangeTitle) {
+          outOfRangeTitle.textContent = `Location is ${userDistanceKm.toFixed(1)} km away (Outside standard 5 km delivery radius)`;
+        }
         if (lblRadius) lblRadius.classList.add('error-text');
+        if (txtRadius) {
+          txtRadius.innerHTML = `I understand this address is <strong>${userDistanceKm.toFixed(1)} km away</strong> (> 5 km) and request a callback from the bakery manager to confirm delivery.`;
+        }
+        if (chkRadius) chkRadius.checked = true;
         
         if (orderBtn) {
-          orderBtn.classList.add('btn-disabled-range');
-          orderBtn.disabled = true;
+          orderBtn.className = 'btn-send-whatsapp-order btn-special-delivery';
+          orderBtn.disabled = false;
         }
-        if (orderBtnLbl) orderBtnLbl.textContent = `🚫 Cannot Deliver (${userDistanceKm.toFixed(1)} km > 5 km)`;
+        if (orderBtnLbl) {
+          orderBtnLbl.textContent = `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`;
+        }
       }
 
       if (doGeocode) {
         reverseGeocodeAddress(lat, lng);
+      }
+    }
+
+    function focusOnMap() {
+      const mapContainer = document.getElementById('delivery-live-map');
+      if (mapContainer) {
+        mapContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function allowOutOfRangeOrder() {
+      specialCallbackRequested = true;
+      const chkRadius = document.getElementById('chk-radius-confirm');
+      if (chkRadius) chkRadius.checked = true;
+      
+      const formSec = document.querySelector('.checkout-form-section');
+      if (formSec) {
+        formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      const orderBtn = document.getElementById('btn-place-whatsapp-order');
+      const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
+      if (orderBtn) {
+        orderBtn.className = 'btn-send-whatsapp-order btn-special-delivery';
+      }
+      if (orderBtnLbl && userDistanceKm) {
+        orderBtnLbl.textContent = `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`;
       }
     }
 
@@ -2135,7 +2231,7 @@
           placeOrMoveUserMarker(lat, lng);
 
           if (leafletMap) {
-            leafletMap.setView([lat, lng], 15);
+            leafletMap.setView([lat, lng], 14);
           }
 
           handleLocationUpdate(lat, lng, true);
@@ -2143,7 +2239,7 @@
           if (btn) {
             btn.innerHTML = '<i class="ph ph-check"></i> GPS Located!';
             setTimeout(() => {
-              btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My GPS Location';
+              btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My Live GPS Location';
             }, 2500);
           }
         },
@@ -2157,7 +2253,7 @@
           }
           alert(errMsg);
           if (btn) {
-            btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My GPS Location';
+            btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My Live GPS Location';
           }
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -2243,14 +2339,8 @@
         return;
       }
 
-      // 4. Distance / Radius Restriction Validation
-      if (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM) {
-        alert(`🚫 Delivery Unavailable: Your selected location is ${userDistanceKm.toFixed(1)} km from our kitchen, which exceeds our 5 km delivery radius from 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.`);
-        return;
-      }
-
       if (!radiusConfirmed) {
-        alert('Please confirm that your delivery address is within the 5 km radius of Santhi Ganesh Bakery, Thirunagar.');
+        alert('Please confirm the delivery address acknowledgment checkbox.');
         return;
       }
 
@@ -2263,20 +2353,28 @@
         ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
         : `https://www.google.com/maps?q=${encodeURIComponent(address + ', Tirunelveli')}`;
 
-      const distanceNote = userDistanceKm !== null 
-        ? `${userDistanceKm.toFixed(1)} km from Bakery (Within 5 km Zone ✅)` 
-        : `Within 5 km Radius ✅`;
+      const isOutRange = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM);
 
       let text = `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
       text += `*Santhi Ganesh Bakery & Cafe (Delivery)*\n`;
       text += `*Kitchen: 92 Cheranmahadevi Rd, Thirunagar*\n`;
       text += `------------------------------------\n`;
+
+      if (isOutRange) {
+        text += `⚠️ *SPECIAL DELIVERY REQUEST (Outside 5 km Radius)*\n`;
+        text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery\n`;
+        text += `📞 *Note:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
+        text += `------------------------------------\n`;
+      }
+
       text += `👤 *Customer:* ${name}\n`;
       text += `📱 *Phone:* ${phoneClean}\n`;
       text += `🏠 *Delivery Address:* ${address}\n`;
       if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
       text += `🗺️ *Live GPS Map Pin:* ${mapsLink}\n`;
-      text += `🛵 *Distance:* ${distanceNote}\n`;
+      if (!isOutRange) {
+        text += `🛵 *Distance:* ${userDistanceKm ? userDistanceKm.toFixed(1) + ' km (Within 5 km Zone ✅)' : 'Within 5 km Zone ✅'}\n`;
+      }
       text += `📅 *Order Time:* ${currentTime} (Est: 30–45 mins)\n`;
       text += `------------------------------------\n`;
       text += `*ITEMS ORDERED:*\n`;
@@ -2291,7 +2389,12 @@
       text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
       if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
       text += `------------------------------------\n`;
-      text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
+      
+      if (isOutRange) {
+        text += `Please review and call back customer to confirm order feasibility. Thank you!`;
+      } else {
+        text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
+      }
 
       // Event Tracking
       if (typeof trackEvent === 'function') {
@@ -2302,6 +2405,7 @@
           lat: userLocation ? userLocation.lat : null,
           lng: userLocation ? userLocation.lng : null,
           distance_km: userDistanceKm,
+          is_out_range: isOutRange,
           items_count: deliveryCart.length,
           subtotal: subtotal,
           delivery_fee: deliveryFee,
@@ -2320,7 +2424,7 @@
         localStorage.removeItem('sg_delivery_cart');
         updateCartUI();
         closeCheckoutModal();
-        alert(`🎉 Order #SG-CAFE-${refId} Placed Successfully!\nOur team will prepare and deliver your order in 30–45 mins.`);
+        alert(`🎉 Order #SG-CAFE-${refId} Placed Successfully!\nOur team will review your order and get in touch.`);
       }, 500);
     }
 
