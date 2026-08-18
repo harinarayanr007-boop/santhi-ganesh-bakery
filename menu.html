@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Online Cafe & Food Delivery | Santhi Ganesh Bakery</title>
-  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Live delivery within 5 km radius with GPS tracking. FREE delivery above ₹300!">
+  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Live delivery within 5 km radius & quick store takeaway. FREE delivery above ₹300!">
 
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -192,7 +192,7 @@
     }
 
     .hero-pill-delivery {
-      background: #2E7D32;
+      background: #A6601B;
       color: #FFFFFF;
       font-weight: 800;
     }
@@ -745,7 +745,7 @@
     }
 
     .delivery-free {
-      background: #2E7D32;
+      background: #A6601B;
       color: #FFFFFF;
     }
 
@@ -754,10 +754,11 @@
       color: #FFE6BA;
     }
 
+    /* Refined Luxury Checkout Button */
     .btn-checkout-now {
-      background: #25D366;
+      background: linear-gradient(135deg, #A6601B 0%, #7D450F 100%);
       color: #FFFFFF;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 9px 18px;
       border-radius: 16px;
       font-family: var(--font-main);
@@ -767,7 +768,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+      box-shadow: 0 4px 14px rgba(125, 69, 15, 0.4);
       transition: all 0.2s ease;
     }
 
@@ -859,6 +860,41 @@
       flex: 1;
     }
 
+    /* ORDER TYPE SEGMENTED CONTROL: DELIVERY VS TAKEAWAY */
+    .order-type-switch {
+      display: flex;
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .order-type-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-family: var(--font-main);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .order-type-btn.active {
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(36, 20, 11, 0.2);
+    }
+
     /* Section Title Standard */
     .checkout-form-title {
       font-size: 0.82rem;
@@ -895,7 +931,7 @@
 
     #delivery-live-map {
       width: 100%;
-      height: 220px;
+      height: 210px;
       border-radius: 12px;
       border: 1px solid var(--color-border);
       z-index: 10;
@@ -916,27 +952,27 @@
     }
 
     .btn-map-floating-gps {
-      background: #2E7D32;
+      background: linear-gradient(135deg, #24140B 0%, #3D2211 100%);
       color: #FFFFFF;
-      border: 2px solid #FFFFFF;
-      padding: 10px 18px;
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      padding: 9px 18px;
       border-radius: 24px;
       font-family: var(--font-main);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
       transition: all 0.2s ease;
       white-space: nowrap;
       animation: pulseGpsBtn 2.4s infinite;
     }
 
     @keyframes pulseGpsBtn {
-      0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4); }
-      50% { transform: scale(1.04); box-shadow: 0 8px 24px rgba(46, 125, 50, 0.65); }
+      0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(36, 20, 11, 0.45); }
+      50% { transform: scale(1.04); box-shadow: 0 8px 24px rgba(166, 96, 27, 0.55); }
     }
 
     .btn-map-floating-gps:active {
@@ -998,6 +1034,46 @@
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    /* TAKEAWAY INFO CARD */
+    .takeaway-info-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .store-pickup-box {
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .pickup-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #FFF3E0;
+      color: #E65100;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-directions-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--color-primary-dark);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 4px;
     }
 
     /* ====================================================
@@ -1177,6 +1253,7 @@
       margin-bottom: 0;
     }
 
+    /* Official WhatsApp Order Dispatch Button */
     .btn-send-whatsapp-order {
       width: 100%;
       background: #25D366;
@@ -1253,9 +1330,9 @@
     <section class="menu-hero">
       <div class="hero-banner-card">
         <div class="hero-badge-row">
-          <span class="hero-pill hero-pill-delivery" id="hero-badge-delivery"><i class="ph ph-moped"></i> Live Food Delivery</span>
+          <span class="hero-pill hero-pill-delivery" id="hero-badge-delivery"><i class="ph ph-moped"></i> Live Delivery & Takeaway</span>
           <span class="hero-pill hero-pill-radius" id="hero-badge-radius"><i class="ph ph-map-pin"></i> 5 km Radius</span>
-          <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 30–45 Mins</span>
+          <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 20–35 Mins</span>
         </div>
         <h1 class="hero-title" id="hero-main-title">Santhi Ganesh Cafe Delivery</h1>
         <p class="hero-sub" id="hero-main-sub">Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas</p>
@@ -1312,21 +1389,33 @@
       </div>
     </div>
 
-    <!-- LIVE FOOD DELIVERY CHECKOUT MODAL WITH LIVE MAP PICKER -->
+    <!-- LIVE FOOD DELIVERY & TAKEAWAY CHECKOUT MODAL -->
     <div class="modal-overlay" id="checkout-modal" onclick="if(event.target === this) closeCheckoutModal()">
       <div class="modal-sheet">
         <div class="modal-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-moped" style="font-size: 1.4rem; color: var(--color-primary);"></i>
-            <h2 class="modal-title" id="lbl-modal-title">Live Delivery Order</h2>
+            <i class="ph ph-bag" style="font-size: 1.4rem; color: var(--color-primary);" id="modal-header-icon"></i>
+            <h2 class="modal-title" id="lbl-modal-title">Live Delivery & Takeaway</h2>
           </div>
           <button class="modal-close-btn" onclick="closeCheckoutModal()"><i class="ph ph-x"></i></button>
         </div>
 
         <div class="modal-body">
           
-          <!-- SECTION 1: INTERACTIVE LIVE MAP & GPS PICKER -->
-          <div class="map-picker-card">
+          <!-- ORDER TYPE TOGGLE: DELIVERY VS TAKEAWAY -->
+          <div class="order-type-switch">
+            <button type="button" class="order-type-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
+              <i class="ph ph-moped" style="font-size: 1.1rem;"></i>
+              <span>Doorstep Delivery</span>
+            </button>
+            <button type="button" class="order-type-btn" id="btn-type-takeaway" onclick="setOrderType('takeaway')">
+              <i class="ph ph-tote" style="font-size: 1.1rem;"></i>
+              <span>Store Takeaway (Pickup)</span>
+            </button>
+          </div>
+
+          <!-- SECTION 1A: INTERACTIVE LIVE MAP & GPS PICKER (DELIVERY ONLY) -->
+          <div class="map-picker-card" id="section-delivery-map">
             <div class="checkout-form-title">
               <i class="ph ph-map-trifold"></i> 1. Delivery Location (5 km Radius)
             </div>
@@ -1357,6 +1446,28 @@
             </p>
           </div>
 
+          <!-- SECTION 1B: STORE PICKUP LOCATION INFO (TAKEAWAY ONLY) -->
+          <div class="takeaway-info-card" id="section-takeaway-info" style="display: none;">
+            <div class="checkout-form-title">
+              <i class="ph ph-storefront"></i> 1. Store Pickup Location
+            </div>
+            <div class="store-pickup-box">
+              <div style="font-weight: 800; font-size: 0.95rem; color: var(--color-primary-dark); margin-bottom: 2px;">
+                🏢 Santhi Ganesh Bakery & Cafe
+              </div>
+              <div style="font-size: 0.78rem; color: var(--color-text-muted); line-height: 1.35; margin-bottom: 8px;">
+                92, Cheranmahadevi Rd, Thirunagar, Tirunelveli, Tamil Nadu 627006
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                <span class="pickup-pill"><i class="ph ph-clock"></i> Ready in 15–20 Mins</span>
+                <span class="pickup-pill" style="background:#EFEBE9; color:#4E342E;"><i class="ph ph-tag"></i> FREE Pickup (₹0 Fee)</span>
+              </div>
+              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" class="btn-directions-link">
+                <i class="ph ph-navigation-arrow"></i> Open Store Location in Google Maps ↗
+              </a>
+            </div>
+          </div>
+
           <!-- SECTION 2: SELECTED ORDER ITEMS -->
           <div class="order-items-card">
             <div class="checkout-form-title">
@@ -1367,10 +1478,10 @@
             </div>
           </div>
 
-          <!-- SECTION 3: CUSTOMER & DELIVERY ADDRESS FORM -->
+          <!-- SECTION 3: CUSTOMER & ADDRESS DETAILS -->
           <div class="checkout-form-section">
             <div class="checkout-form-title">
-              <i class="ph ph-user"></i> 3. Customer & Address Details
+              <i class="ph ph-user"></i> 3. Customer Details
             </div>
 
             <div class="form-group-field">
@@ -1385,20 +1496,35 @@
               <span class="field-error-msg" id="err-cust-phone">Please enter a valid 10-digit mobile number</span>
             </div>
 
-            <div class="form-group-field">
-              <label>Complete Delivery Address (Door No, Street, Area) *</label>
-              <input type="text" id="cust-address" class="form-input-field" placeholder="Enter delivery address or select on map" oninput="clearFieldError(this)">
-              <span class="field-error-msg" id="err-cust-address">Please enter your complete delivery address</span>
+            <!-- DELIVERY ADDRESS FIELDS (Visible only on Delivery mode) -->
+            <div id="wrapper-delivery-fields">
+              <div class="form-group-field" id="field-delivery-address">
+                <label>Complete Delivery Address (Door No, Street, Area) *</label>
+                <input type="text" id="cust-address" class="form-input-field" placeholder="Enter delivery address or select on map" oninput="clearFieldError(this)">
+                <span class="field-error-msg" id="err-cust-address">Please enter your complete delivery address</span>
+              </div>
+
+              <div class="form-group-field" id="field-delivery-landmark">
+                <label>Nearby Landmark (Optional)</label>
+                <input type="text" id="cust-landmark" class="form-input-field" placeholder="Enter nearby landmark (optional)">
+              </div>
+            </div>
+
+            <!-- PICKUP TIMING FIELD (Visible only on Takeaway mode) -->
+            <div class="form-group-field" id="field-pickup-time" style="display: none;">
+              <label>Estimated Pickup Time</label>
+              <select id="cust-pickup-time" class="form-input-field" style="cursor: pointer;">
+                <option value="Ready in 15–20 Mins">⚡ As soon as ready (~15–20 Mins)</option>
+                <option value="In 30 Mins">🕐 In 30 Mins</option>
+                <option value="In 45 Mins">🕐 In 45 Mins</option>
+                <option value="In 1 Hour">🕐 In 1 Hour</option>
+                <option value="Custom Time">🕐 Specify time in notes below</option>
+              </select>
             </div>
 
             <div class="form-group-field">
-              <label>Nearby Landmark (Optional)</label>
-              <input type="text" id="cust-landmark" class="form-input-field" placeholder="Enter nearby landmark (optional)">
-            </div>
-
-            <div class="form-group-field">
-              <label>Cooking / Delivery Instructions (Optional)</label>
-              <input type="text" id="cust-instructions" class="form-input-field" placeholder="Cooking or delivery instructions (optional)">
+              <label>Cooking / Special Instructions (Optional)</label>
+              <input type="text" id="cust-instructions" class="form-input-field" placeholder="Cooking or packaging instructions (optional)">
             </div>
 
             <label class="radius-confirm-label" id="lbl-radius-confirm">
@@ -1410,15 +1536,15 @@
           <!-- SECTION 4: BILL BREAKDOWN & PAYMENT -->
           <div class="bill-card">
             <div class="checkout-form-title" style="margin-bottom: 12px; border-bottom: 1px dashed var(--color-border); padding-bottom: 6px;">
-              <i class="ph ph-receipt"></i> 4. Bill Summary & Delivery Fee
+              <i class="ph ph-receipt"></i> 4. Bill Summary & Payment
             </div>
 
             <div class="bill-row">
               <span>Item Total</span>
               <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
             </div>
-            <div class="bill-row">
-              <span>Delivery Fee (within 5 km)</span>
+            <div class="bill-row" id="row-delivery-fee">
+              <span id="lbl-fee-type">Delivery Fee (within 5 km)</span>
               <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
             </div>
             <div class="bill-row" style="font-size: 0.75rem; color: #7D450F; margin-top: -3px;" id="bill-delivery-fee-note">
@@ -1426,22 +1552,22 @@
             </div>
             <div class="bill-row">
               <span>GST & Packaging</span>
-              <span style="color: #2E7D32; font-weight: 700;">Included</span>
+              <span style="color: #24140B; font-weight: 700;">Included</span>
             </div>
             <div class="bill-row total">
-              <span>Grand Total</span>
+              <span id="lbl-grand-total-text">Grand Total</span>
               <span id="bill-grand-total" style="color: #A6601B;">₹0</span>
             </div>
           </div>
 
-          <!-- WHATSAPP ORDER BUTTON -->
-          <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendDeliveryOrderWhatsApp()">
+          <!-- OFFICIAL WHATSAPP ORDER BUTTON -->
+          <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendOrderWhatsApp()">
             <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i>
             <span id="lbl-btn-whatsapp">Place Order on WhatsApp</span>
           </button>
           
           <p style="text-align: center; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 8px;">
-            ⚡ Instant order confirmation directly with our Thirunagar bakery delivery kitchen
+            ⚡ Instant order confirmation directly with our Thirunagar bakery kitchen
           </p>
 
         </div>
@@ -1465,6 +1591,7 @@
       var IN_STORE_MENU = (typeof window !== 'undefined' && window.IN_STORE_MENU) ? window.IN_STORE_MENU : [];
     }
 
+    let currentOrderType = 'delivery'; // 'delivery' | 'takeaway'
     let activeCategory = 'juices';
     let searchQuery = '';
     let deliveryCart = JSON.parse(localStorage.getItem('sg_delivery_cart') || '[]');
@@ -1481,7 +1608,7 @@
     const FREE_DELIVERY_THRESHOLD = 300;
     const STANDARD_DELIVERY_FEE = 30;
 
-    // User Location State (Clean initial state, NO dummy info)
+    // User Location State
     let userLocation = null;
     let userDistanceKm = null;
     let isWithinZone = null;
@@ -1511,9 +1638,9 @@
       en: {
         back_home: "Home",
         lang_label: "தமிழ்",
-        hero_delivery: '<i class="ph ph-moped"></i> Live Food Delivery',
+        hero_delivery: '<i class="ph ph-moped"></i> Live Delivery & Takeaway',
         hero_radius: '<i class="ph ph-map-pin"></i> 5 km Radius',
-        hero_time: '<i class="ph ph-clock"></i> 30–45 Mins',
+        hero_time: '<i class="ph ph-clock"></i> 20–35 Mins',
         hero_title: "Santhi Ganesh Cafe Delivery",
         hero_sub: "Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas",
         hero_rule: '<span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>',
@@ -1531,9 +1658,9 @@
       ta: {
         back_home: "முகப்பு",
         lang_label: "English",
-        hero_delivery: '<i class="ph ph-moped"></i> நேரடி உணவு டெலிவரி',
-        hero_radius: '<i class="ph ph-map-pin"></i> 5 கி.மீ எல்லை மட்டும்',
-        hero_time: '<i class="ph ph-clock"></i> 30–45 நிமிடங்கள்',
+        hero_delivery: '<i class="ph ph-moped"></i> டெலிவரி & டேக்அவே',
+        hero_radius: '<i class="ph ph-map-pin"></i> 5 கி.மீ எல்லை',
+        hero_time: '<i class="ph ph-clock"></i> 20–35 நிமிடங்கள்',
         hero_title: "சாந்தி கணேஷ் கஃபே டெலிவரி",
         hero_sub: "புதிய பழச்சாறுகள் • மில்க் ஷேக்ஸ் • சாட் • பாவ் பாஜி • பர்கர் • பீட்சா",
         hero_rule: '<span>🛵 <strong>₹300க்கு மேல் இலவச டெலிவரி</strong>! (₹300க்கு கீழ்: ₹30 கட்டணம்)</span>',
@@ -1551,7 +1678,65 @@
     };
 
     // ==========================================
-    // 2. LANGUAGE ENGINE
+    // 2. ORDER TYPE SWITCHER (DELIVERY VS TAKEAWAY)
+    // ==========================================
+    function setOrderType(type) {
+      currentOrderType = type;
+
+      const btnDelivery = document.getElementById('btn-type-delivery');
+      const btnTakeaway = document.getElementById('btn-type-takeaway');
+      const secMap = document.getElementById('section-delivery-map');
+      const secTakeaway = document.getElementById('section-takeaway-info');
+      const wrapDeliveryFields = document.getElementById('wrapper-delivery-fields');
+      const fieldPickupTime = document.getElementById('field-pickup-time');
+      const lblRadius = document.getElementById('lbl-radius-confirm');
+      const modalTitle = document.getElementById('lbl-modal-title');
+      const modalIcon = document.getElementById('modal-header-icon');
+      const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
+
+      if (type === 'takeaway') {
+        if (btnDelivery) btnDelivery.classList.remove('active');
+        if (btnTakeaway) btnTakeaway.classList.add('active');
+
+        if (secMap) secMap.style.display = 'none';
+        if (secTakeaway) secTakeaway.style.display = 'block';
+
+        if (wrapDeliveryFields) wrapDeliveryFields.style.display = 'none';
+        if (fieldPickupTime) fieldPickupTime.style.display = 'block';
+        if (lblRadius) lblRadius.style.display = 'none';
+
+        if (modalTitle) modalTitle.textContent = 'Store Takeaway Order';
+        if (modalIcon) modalIcon.className = 'ph ph-tote';
+        if (orderBtnLbl) orderBtnLbl.textContent = 'Send Takeaway Order on WhatsApp';
+      } else {
+        if (btnDelivery) btnDelivery.classList.add('active');
+        if (btnTakeaway) btnTakeaway.classList.remove('active');
+
+        if (secMap) secMap.style.display = 'block';
+        if (secTakeaway) secTakeaway.style.display = 'none';
+
+        if (wrapDeliveryFields) wrapDeliveryFields.style.display = 'block';
+        if (fieldPickupTime) fieldPickupTime.style.display = 'none';
+        if (lblRadius) lblRadius.style.display = 'flex';
+
+        if (modalTitle) modalTitle.textContent = 'Live Delivery Order';
+        if (modalIcon) modalIcon.className = 'ph ph-moped';
+        if (orderBtnLbl) {
+          orderBtnLbl.textContent = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM)
+            ? `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`
+            : 'Place Order on WhatsApp';
+        }
+
+        setTimeout(() => {
+          if (leafletMap) leafletMap.invalidateSize();
+        }, 150);
+      }
+
+      renderCheckoutModalContent();
+    }
+
+    // ==========================================
+    // 3. LANGUAGE ENGINE
     // ==========================================
     function applyMenuLanguage(lang) {
       currentMenuLang = lang;
@@ -1619,7 +1804,7 @@
     }
 
     // ==========================================
-    // 3. RENDER MENU ITEMS
+    // 4. RENDER MENU ITEMS
     // ==========================================
     function renderMenu() {
       const container = document.getElementById('menu-sections-container');
@@ -1834,7 +2019,7 @@
     }
 
     // ==========================================
-    // 4. CART TOTALS & UI
+    // 5. CART TOTALS & UI
     // ==========================================
     function updateItemQty(itemId, change) {
       const item = liveMenuItems.find(i => i.id === itemId);
@@ -1868,10 +2053,12 @@
     function calculateCartTotals() {
       const totalItems = deliveryCart.reduce((sum, item) => sum + item.qty, 0);
       const subtotal = deliveryCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      const isFreeDelivery = subtotal >= FREE_DELIVERY_THRESHOLD;
-      const deliveryFee = (subtotal > 0 && !isFreeDelivery) ? STANDARD_DELIVERY_FEE : 0;
+      
+      const isTakeaway = (currentOrderType === 'takeaway');
+      const isFreeDelivery = isTakeaway || (subtotal >= FREE_DELIVERY_THRESHOLD);
+      const deliveryFee = (subtotal > 0 && !isTakeaway && !isFreeDelivery) ? STANDARD_DELIVERY_FEE : 0;
       const grandTotal = subtotal > 0 ? (subtotal + deliveryFee) : 0;
-      const remainingForFree = Math.max(0, FREE_DELIVERY_THRESHOLD - subtotal);
+      const remainingForFree = isTakeaway ? 0 : Math.max(0, FREE_DELIVERY_THRESHOLD - subtotal);
 
       return {
         totalItems,
@@ -1879,7 +2066,8 @@
         isFreeDelivery,
         deliveryFee,
         grandTotal,
-        remainingForFree
+        remainingForFree,
+        isTakeaway
       };
     }
 
@@ -1901,7 +2089,7 @@
         if (isFreeDelivery) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = 'FREE Delivery';
-          progressText.innerHTML = '<i class="ph ph-sparkle" style="color:#69F0AE;"></i> 🎉 You unlocked <strong>FREE Delivery</strong>!';
+          progressText.innerHTML = '<i class="ph ph-sparkle" style="color:#FFE082;"></i> 🎉 You unlocked <strong>FREE Delivery</strong>!';
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
           statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
@@ -1917,10 +2105,11 @@
       document.getElementById('checkout-modal').classList.add('active');
       document.body.style.overflow = 'hidden';
       
-      // Initialize or refresh map when modal opens
-      setTimeout(() => {
-        initOrUpdateDeliveryMap();
-      }, 250);
+      if (currentOrderType === 'delivery') {
+        setTimeout(() => {
+          initOrUpdateDeliveryMap();
+        }, 250);
+      }
     }
 
     function closeCheckoutModal() {
@@ -1933,10 +2122,11 @@
       const itemCountEl = document.getElementById('modal-item-count');
       const subtotalEl = document.getElementById('bill-subtotal');
       const deliveryFeeEl = document.getElementById('bill-delivery-fee');
+      const feeTypeEl = document.getElementById('lbl-fee-type');
       const feeNoteEl = document.getElementById('bill-delivery-fee-note');
       const grandTotalEl = document.getElementById('bill-grand-total');
 
-      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree } = calculateCartTotals();
+      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree, isTakeaway } = calculateCartTotals();
 
       if (itemCountEl) itemCountEl.textContent = totalItems;
 
@@ -1980,19 +2170,25 @@
 
       subtotalEl.textContent = `₹${subtotal}`;
       
-      if (isFreeDelivery) {
-        deliveryFeeEl.innerHTML = `<span style="color: #2E7D32; font-weight: 800;">FREE</span> <s style="color: #888; font-size: 0.8rem;">₹${STANDARD_DELIVERY_FEE}</s>`;
-        feeNoteEl.innerHTML = `<span style="color: #2E7D32;">🎉 You qualified for FREE Delivery!</span>`;
+      if (isTakeaway) {
+        if (feeTypeEl) feeTypeEl.textContent = 'Store Pickup / Takeaway';
+        if (deliveryFeeEl) deliveryFeeEl.innerHTML = `<span style="color: #24140B; font-weight: 800;">FREE (₹0)</span>`;
+        if (feeNoteEl) feeNoteEl.innerHTML = `<span style="color: #7D450F;">* Self-pickup at 92 Cheranmahadevi Rd, Thirunagar</span>`;
+      } else if (isFreeDelivery) {
+        if (feeTypeEl) feeTypeEl.textContent = 'Delivery Fee (within 5 km)';
+        if (deliveryFeeEl) deliveryFeeEl.innerHTML = `<span style="color: #A6601B; font-weight: 800;">FREE</span> <s style="color: #888; font-size: 0.8rem;">₹${STANDARD_DELIVERY_FEE}</s>`;
+        if (feeNoteEl) feeNoteEl.innerHTML = `<span style="color: #7D450F;">🎉 You qualified for FREE Delivery!</span>`;
       } else {
-        deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
-        feeNoteEl.innerHTML = `<span>Add <strong>₹${remainingForFree}</strong> more to unlock FREE Delivery</span>`;
+        if (feeTypeEl) feeTypeEl.textContent = 'Delivery Fee (within 5 km)';
+        if (deliveryFeeEl) deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
+        if (feeNoteEl) feeNoteEl.innerHTML = `<span>Add <strong>₹${remainingForFree}</strong> more to unlock FREE Delivery</span>`;
       }
 
       grandTotalEl.textContent = `₹${grandTotal}`;
     }
 
     // ==========================================
-    // 5. INTERACTIVE LIVE MAP & GPS ENGINE
+    // 6. INTERACTIVE LIVE MAP & GPS ENGINE
     // ==========================================
     function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
       const R = 6371; // Earth radius in km
@@ -2039,9 +2235,9 @@
 
         // 2. Translucent 5 km Radius Boundary Circle
         radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
-          color: '#2E7D32',
-          fillColor: '#81C784',
-          fillOpacity: 0.16,
+          color: '#A6601B',
+          fillColor: '#D95338',
+          fillOpacity: 0.12,
           radius: 5000, // 5 km
           weight: 2,
           dashArray: '5, 6'
@@ -2284,9 +2480,9 @@
     }
 
     // ==========================================
-    // 6. WHATSAPP LIVE DELIVERY ORDER DISPATCH
+    // 7. UNIFIED WHATSAPP ORDER DISPATCH (DELIVERY & TAKEAWAY)
     // ==========================================
-    function sendDeliveryOrderWhatsApp() {
+    function sendOrderWhatsApp() {
       if (deliveryCart.length === 0) {
         alert('Please add dishes or items to your cart first!');
         return;
@@ -2296,7 +2492,9 @@
       const phone = (document.getElementById('cust-phone')?.value || '').trim();
       const address = (document.getElementById('cust-address')?.value || '').trim();
       const landmark = (document.getElementById('cust-landmark')?.value || '').trim();
+      const pickupTime = document.getElementById('cust-pickup-time')?.value || 'Ready in 15–20 Mins';
       const instructions = (document.getElementById('cust-instructions')?.value || '').trim();
+      const isTakeaway = (currentOrderType === 'takeaway');
       const radiusConfirmed = document.getElementById('chk-radius-confirm')?.checked;
 
       // 1. Full Name Validation
@@ -2312,13 +2510,13 @@
         return;
       }
 
-      // 3. Address Validation
-      if (!address) {
+      // 3. Address Validation (only for delivery)
+      if (!isTakeaway && !address) {
         showFieldError('cust-address', 'Please enter your delivery address or select on map');
         return;
       }
 
-      if (!radiusConfirmed) {
+      if (!isTakeaway && !radiusConfirmed) {
         alert('Please confirm the delivery address acknowledgment checkbox.');
         return;
       }
@@ -2327,64 +2525,89 @@
       const refId = Math.floor(100000 + Math.random() * 900000);
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
-      // Google Maps Location Link for rider turn-by-turn navigation
-      const mapsLink = userLocation 
-        ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
-        : `https://www.google.com/maps?q=${encodeURIComponent(address + ', Tirunelveli')}`;
+      let text = '';
 
-      const isOutRange = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM);
-
-      let text = `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
-      text += `*Santhi Ganesh Bakery & Cafe (Delivery)*\n`;
-      text += `*Kitchen: 92 Cheranmahadevi Rd, Thirunagar*\n`;
-      text += `------------------------------------\n`;
-
-      if (isOutRange) {
-        text += `⚠️ *SPECIAL DELIVERY REQUEST (Outside 5 km Radius)*\n`;
-        text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery\n`;
-        text += `📞 *Notice:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
+      if (isTakeaway) {
+        // TAKEAWAY ORDER TEMPLATE
+        text += `🛍️ *NEW TAKEAWAY / STORE PICKUP ORDER (#SG-PICKUP-${refId})*\n`;
+        text += `*Santhi Ganesh Bakery & Cafe (Store Pickup)*\n`;
+        text += `*Store: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli*\n`;
         text += `------------------------------------\n`;
-      }
+        text += `👤 *Customer:* ${name}\n`;
+        text += `📱 *Phone:* ${phoneClean}\n`;
+        text += `⏱️ *Pickup Timing:* ${pickupTime}\n`;
+        text += `📅 *Order Time:* ${currentTime}\n`;
+        text += `------------------------------------\n`;
+        text += `*ITEMS TO PREPARE:*\n`;
 
-      text += `👤 *Customer:* ${name}\n`;
-      text += `📱 *Phone:* ${phoneClean}\n`;
-      text += `🏠 *Delivery Address:* ${address}\n`;
-      if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
-      text += `🗺️ *Live GPS Map Pin:* ${mapsLink}\n`;
-      if (!isOutRange) {
-        text += `🛵 *Distance:* ${userDistanceKm ? userDistanceKm.toFixed(1) + ' km (Within 5 km Zone ✅)' : 'Within 5 km Zone ✅'}\n`;
-      }
-      text += `📅 *Order Time:* ${currentTime} (Est: 30–45 mins)\n`;
-      text += `------------------------------------\n`;
-      text += `*ITEMS ORDERED:*\n`;
+        deliveryCart.forEach((item, index) => {
+          text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        });
 
-      deliveryCart.forEach((item, index) => {
-        text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
-      });
-
-      text += `------------------------------------\n`;
-      text += `🍲 *Item Total:* ₹${subtotal}\n`;
-      text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order > ₹300)' : `₹${deliveryFee}`}\n`;
-      text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
-      if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
-      text += `------------------------------------\n`;
-      
-      if (isOutRange) {
-        text += `Please review and call back customer to confirm order feasibility. Thank you!`;
+        text += `------------------------------------\n`;
+        text += `🍲 *Item Total:* ₹${subtotal}\n`;
+        text += `🛍️ *Pickup / Packing Fee:* FREE (₹0)\n`;
+        text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
+        if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
+        text += `------------------------------------\n`;
+        text += `Please confirm my takeaway order and start preparation. Thank you!`;
       } else {
-        text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
+        // HOME DELIVERY ORDER TEMPLATE
+        const mapsLink = userLocation 
+          ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
+          : `https://www.google.com/maps?q=${encodeURIComponent(address + ', Tirunelveli')}`;
+
+        const isOutRange = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM);
+
+        text += `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
+        text += `*Santhi Ganesh Bakery & Cafe (Home Delivery)*\n`;
+        text += `*Kitchen: 92 Cheranmahadevi Rd, Thirunagar*\n`;
+        text += `------------------------------------\n`;
+
+        if (isOutRange) {
+          text += `⚠️ *SPECIAL DELIVERY REQUEST (Outside 5 km Radius)*\n`;
+          text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery\n`;
+          text += `📞 *Notice:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
+          text += `------------------------------------\n`;
+        }
+
+        text += `👤 *Customer:* ${name}\n`;
+        text += `📱 *Phone:* ${phoneClean}\n`;
+        text += `🏠 *Delivery Address:* ${address}\n`;
+        if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
+        text += `🗺️ *Live GPS Map Pin:* ${mapsLink}\n`;
+        if (!isOutRange) {
+          text += `🛵 *Distance:* ${userDistanceKm ? userDistanceKm.toFixed(1) + ' km (Within 5 km Zone ✅)' : 'Within 5 km Zone ✅'}\n`;
+        }
+        text += `📅 *Order Time:* ${currentTime} (Est: 20–35 mins)\n`;
+        text += `------------------------------------\n`;
+        text += `*ITEMS ORDERED:*\n`;
+
+        deliveryCart.forEach((item, index) => {
+          text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        });
+
+        text += `------------------------------------\n`;
+        text += `🍲 *Item Total:* ₹${subtotal}\n`;
+        text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order > ₹300)' : `₹${deliveryFee}`}\n`;
+        text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
+        if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
+        text += `------------------------------------\n`;
+        
+        if (isOutRange) {
+          text += `Please review and call back customer to confirm order feasibility. Thank you!`;
+        } else {
+          text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
+        }
       }
 
       // Event Tracking
       if (typeof trackEvent === 'function') {
-        trackEvent('cafe_delivery_order', {
-          ref_id: `#SG-CAFE-${refId}`,
+        trackEvent(isTakeaway ? 'cafe_takeaway_order' : 'cafe_delivery_order', {
+          ref_id: isTakeaway ? `#SG-PICKUP-${refId}` : `#SG-CAFE-${refId}`,
           customer_name: name,
           phone: phoneClean,
-          lat: userLocation ? userLocation.lat : null,
-          lng: userLocation ? userLocation.lng : null,
-          distance_km: userDistanceKm,
-          is_out_range: isOutRange,
+          order_type: currentOrderType,
           items_count: deliveryCart.length,
           subtotal: subtotal,
           delivery_fee: deliveryFee,
@@ -2403,12 +2626,12 @@
         localStorage.removeItem('sg_delivery_cart');
         updateCartUI();
         closeCheckoutModal();
-        alert(`🎉 Order #SG-CAFE-${refId} Placed Successfully!\nOur team will review your order and get in touch.`);
+        alert(`🎉 Order Placed Successfully!\nOur team will review your order and start preparation.`);
       }, 500);
     }
 
     // ==========================================
-    // 7. SUPABASE LIVE CLOUD DATA INTEGRATION
+    // 8. SUPABASE LIVE CLOUD DATA INTEGRATION
     // ==========================================
     async function loadCafeMenuFromSupabase() {
       try {
