@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <!-- Leaflet Map CSS & JS (Lightweight, No API Key Required) -->
+  <!-- Leaflet Map CSS & JS (Lightweight) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -63,7 +63,6 @@
       font-size: 13px;
     }
 
-    /* Outer Wrapper for Native Mobile & Desktop Layout */
     .app-viewport {
       max-width: 600px;
       margin: 0 auto;
@@ -132,12 +131,6 @@
       transition: all 0.2s ease;
     }
 
-    .lang-toggle-pill:active {
-      transform: scale(0.94);
-      background: var(--color-primary-dark);
-      color: #FFFFFF;
-    }
-
     .nav-icon-btn {
       width: 32px;
       height: 32px;
@@ -155,7 +148,7 @@
       text-decoration: none;
     }
 
-    /* Delivery Info & Promo Banner Hero */
+    /* Delivery Info Banner Hero */
     .menu-hero {
       padding: 8px 12px 6px;
     }
@@ -198,7 +191,7 @@
     }
 
     .hero-pill-radius {
-      background: #D95338;
+      background: #2E7D32;
       color: #FFFFFF;
       font-weight: 800;
     }
@@ -230,7 +223,6 @@
       margin-bottom: 6px;
     }
 
-    /* Free Delivery Announcement Box inside Hero */
     .delivery-rule-badge {
       background: rgba(245, 166, 35, 0.18);
       border: 1px dashed rgba(245, 166, 35, 0.6);
@@ -249,7 +241,7 @@
       color: #FFB300;
     }
 
-    /* Unified Sticky Header Controls: Search + Categories */
+    /* Sticky Header Controls: Search + Categories */
     .sticky-menu-controls {
       position: -webkit-sticky;
       position: sticky;
@@ -263,7 +255,6 @@
       box-shadow: 0 4px 16px rgba(10, 4, 4, 0.04);
     }
 
-    /* Live Search Bar */
     .search-filter-wrapper {
       padding: 0 12px 6px;
     }
@@ -304,7 +295,6 @@
       display: none;
     }
 
-    /* Horizontal Visual Category Cards */
     .category-nav-bar {
       padding: 2px 12px 10px;
       display: flex;
@@ -317,12 +307,6 @@
 
     .category-nav-bar::-webkit-scrollbar {
       display: none;
-    }
-
-    .category-nav-bar::after {
-      content: '';
-      flex: 0 0 8px;
-      display: block;
     }
 
     .cat-tab-btn {
@@ -345,7 +329,6 @@
                   box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                   border-color 0.2s ease;
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .cat-card-bg {
@@ -370,7 +353,6 @@
         rgba(255, 255, 255, 0.98) 100%
       );
       z-index: 2;
-      transition: background 0.2s ease;
     }
 
     .cat-card-content {
@@ -379,10 +361,6 @@
       width: 100%;
       padding: 4px 6px 6px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
 
     .cat-card-title {
@@ -391,23 +369,11 @@
       font-weight: 700;
       color: #1A0B04;
       line-height: 1.15;
-      letter-spacing: -0.1px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 100%;
       display: block;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
-    }
-
-    .cat-tab-btn:hover {
-      transform: translateY(-2px);
-      border-color: rgba(166, 96, 27, 0.35);
-      box-shadow: 0 4px 12px rgba(166, 96, 27, 0.12);
-    }
-
-    .cat-tab-btn:hover .cat-card-bg {
-      transform: scale(1.05);
     }
 
     .cat-tab-btn.active {
@@ -421,18 +387,6 @@
       font-weight: 800;
     }
 
-    .cat-tab-btn.active::after {
-      content: '';
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      width: 6px;
-      height: 6px;
-      background: var(--color-primary);
-      border-radius: 50%;
-      z-index: 4;
-    }
-
     /* Main Menu Content Section */
     .menu-container {
       padding: 8px 12px 70px;
@@ -441,7 +395,6 @@
       gap: 12px;
     }
 
-    /* Category Section */
     .category-section {
       scroll-margin-top: 200px;
       animation: fadeIn 0.18s ease-out;
@@ -453,7 +406,6 @@
     }
 
     .category-header-strip {
-      scroll-margin-top: 200px;
       background: var(--color-surface);
       border-radius: 10px;
       padding: 10px 14px;
@@ -473,8 +425,6 @@
       font-style: italic;
       font-weight: 700;
       color: var(--color-primary-dark);
-      text-align: center;
-      line-height: 1.2;
       margin-bottom: 3px;
     }
 
@@ -485,10 +435,8 @@
       color: var(--color-primary-dark);
       padding: 2px 10px;
       border-radius: 10px;
-      text-align: center;
     }
 
-    /* Item Card List */
     .items-list {
       display: flex;
       flex-direction: column;
@@ -504,12 +452,6 @@
       gap: 10px;
       border: 1px solid var(--color-border);
       box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-      transition: transform 0.15s ease;
-      position: relative;
-    }
-
-    .item-card:active {
-      transform: scale(0.99);
     }
 
     .item-thumb-box {
@@ -523,10 +465,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .item-thumb-icon {
-      font-size: 1.25rem;
     }
 
     .item-info {
@@ -543,8 +481,6 @@
 
     .diet-icon {
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
       width: 12px;
       height: 12px;
       border: 1.2px solid;
@@ -552,10 +488,8 @@
       padding: 1px;
       flex-shrink: 0;
     }
-
     .diet-icon.veg { border-color: var(--color-veg); }
     .diet-icon.veg::after { content: ''; width: 4px; height: 4px; background-color: var(--color-veg); border-radius: 50%; }
-
     .diet-icon.nonveg { border-color: var(--color-nonveg); }
     .diet-icon.nonveg::after { content: ''; width: 4px; height: 4px; background-color: var(--color-nonveg); border-radius: 50%; }
 
@@ -572,7 +506,6 @@
       font-size: 0.71rem;
       color: var(--color-text-muted);
       line-height: 1.25;
-      margin-bottom: 2px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -587,7 +520,6 @@
       font-weight: 700;
       padding: 1px 5px;
       border-radius: 4px;
-      margin-bottom: 2px;
     }
 
     .item-action-area {
@@ -602,16 +534,8 @@
       font-weight: 800;
       font-size: 0.88rem;
       color: var(--color-primary-dark);
-      font-family: var(--font-main);
     }
 
-    .item-price-sub {
-      font-size: 0.68rem;
-      color: var(--color-text-muted);
-      font-weight: 500;
-    }
-
-    /* Add to Cart Button */
     .btn-add-cart {
       background: var(--color-surface-soft);
       border: 1px solid var(--color-primary);
@@ -622,12 +546,10 @@
       padding: 3px 10px;
       border-radius: 14px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      transition: all 0.15s ease;
       min-width: 54px;
       height: 25px;
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
     }
 
@@ -645,10 +567,8 @@
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 12px;
-      cursor: not-allowed;
     }
 
-    /* Quantity Stepper */
     .qty-stepper {
       display: inline-flex;
       align-items: center;
@@ -681,9 +601,7 @@
       text-align: center;
     }
 
-    /* ====================================================
-       FLOATING BOTTOM CART & DELIVERY NOTIFIER BAR
-       ==================================================== */
+    /* Floating Bottom Cart Bar */
     .floating-cart-bar {
       position: fixed;
       bottom: 14px;
@@ -744,17 +662,9 @@
       border-radius: 4px;
     }
 
-    .delivery-free {
-      background: #A6601B;
-      color: #FFFFFF;
-    }
+    .delivery-free { background: #2E7D32; color: #FFFFFF; }
+    .delivery-paid { background: rgba(255, 255, 255, 0.18); color: #FFE6BA; }
 
-    .delivery-paid {
-      background: rgba(255, 255, 255, 0.18);
-      color: #FFE6BA;
-    }
-
-    /* Refined Luxury Checkout Button */
     .btn-checkout-now {
       background: linear-gradient(135deg, #A6601B 0%, #7D450F 100%);
       color: #FFFFFF;
@@ -769,12 +679,9 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 14px rgba(125, 69, 15, 0.4);
-      transition: all 0.2s ease;
     }
 
-    .btn-checkout-now:active {
-      transform: scale(0.95);
-    }
+    .btn-checkout-now:active { transform: scale(0.95); }
 
     .delivery-progress-hint {
       font-size: 0.7rem;
@@ -787,16 +694,14 @@
     }
 
     /* ====================================================
-       CHECKOUT / ORDER MODAL DRAWER
+       CLEAN, MODERN & MINIMALIST CHECKOUT DRAWER (ZERO CLUTTER)
        ==================================================== */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(10, 4, 4, 0.65);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: rgba(15, 10, 8, 0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       z-index: 300;
       display: none;
       justify-content: center;
@@ -808,77 +713,77 @@
     }
 
     .modal-sheet {
-      background: var(--color-surface);
+      background: #FFFFFF;
       width: 100%;
-      max-width: 600px;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-      max-height: 90vh;
+      max-width: 540px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      max-height: 88vh;
       display: flex;
       flex-direction: column;
       box-shadow: var(--shadow-lg);
-      animation: slideUp 0.28s ease-out;
+      animation: sheetSlideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes slideUp {
+    @keyframes sheetSlideUp {
       from { transform: translateY(100%); }
       to { transform: translateY(0); }
     }
 
-    .modal-header {
-      padding: 16px 20px;
+    .modal-header-clean {
+      padding: 14px 18px;
       border-bottom: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .modal-title {
+    .modal-title-clean {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--color-text-main);
     }
 
-    .modal-close-btn {
+    .modal-close-icon {
       background: var(--color-surface-soft);
       border: none;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--color-text-main);
     }
 
-    .modal-body {
-      padding: 18px;
+    .modal-body-clean {
+      padding: 14px 16px 20px;
       overflow-y: auto;
-      flex: 1;
-    }
-
-    /* ORDER TYPE SEGMENTED CONTROL: DELIVERY VS TAKEAWAY */
-    .order-type-switch {
       display: flex;
-      background: var(--color-surface-soft);
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      padding: 4px;
-      gap: 4px;
-      margin-bottom: 16px;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .order-type-btn {
+    /* Minimal Segmented Switch */
+    .order-segmented-control {
+      display: flex;
+      background: #EFEBE6;
+      border-radius: 12px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .order-seg-btn {
       flex: 1;
       border: none;
       background: transparent;
-      padding: 9px 8px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 9px;
       font-family: var(--font-main);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--color-text-muted);
       cursor: pointer;
@@ -886,85 +791,95 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .order-type-btn.active {
-      background: var(--color-primary-dark);
-      color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(36, 20, 11, 0.2);
-    }
-
-    /* Section Title Standard */
-    .checkout-form-title {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--color-primary-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ====================================================
-       SECTION 1: INTERACTIVE LIVE MAP & GPS PICKER (2 KM RADIUS)
-       ==================================================== */
-    .map-picker-card {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    /* Direct, High-Reliability Mobile Locate Button */
-    .btn-mobile-locate-gps {
-      width: 100%;
-      background: linear-gradient(135deg, #24140B 0%, #3D2211 100%);
-      color: #FFFFFF;
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      padding: 11px 14px;
-      border-radius: 12px;
-      font-family: var(--font-main);
-      font-size: 0.88rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 14px rgba(36, 20, 11, 0.25);
       transition: all 0.15s ease;
-      margin-bottom: 10px;
-      touch-action: manipulation;
     }
 
-    .btn-mobile-locate-gps:active {
-      transform: scale(0.98);
+    .order-seg-btn.active {
+      background: #FFFFFF;
+      color: var(--color-text-main);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Clean Section Block */
+    .clean-section-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .clean-section-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Address Input with Embedded Live Locate Action */
+    .address-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .clean-input-box {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--color-border);
+      background: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 0.85rem;
+      outline: none;
+      color: var(--color-text-main);
+      transition: border-color 0.15s ease;
+    }
+
+    .clean-input-box:focus {
+      border-color: var(--color-primary);
+    }
+
+    .btn-locate-inside-input {
+      position: absolute;
+      right: 6px;
+      background: #24140B;
+      color: #FFFFFF;
+      border: none;
+      padding: 5px 9px;
+      border-radius: 8px;
+      font-family: var(--font-main);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .btn-locate-inside-input:active {
       background: #7D450F;
     }
 
-    /* Map wrapper with Zomato/Swiggy-style Center Crosshair Pin */
-    .map-wrapper-interactive {
+    /* Compact Interactive Map */
+    .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 220px;
-      border-radius: 12px;
+      height: 160px;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--color-border);
-      margin-bottom: 8px;
     }
 
     #delivery-live-map {
       width: 100%;
       height: 100%;
-      z-index: 10;
     }
 
-    /* Floating Center Pin Icon (Locks directly onto map center on pan/drag) */
+    /* Sleek Map Center Target Pin */
     .center-target-pin {
       position: absolute;
       top: 50%;
@@ -975,377 +890,185 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.12s ease;
     }
 
     .center-target-pin.lifting {
-      transform: translate(-50%, -125%) scale(1.12);
+      transform: translate(-50%, -125%) scale(1.1);
     }
 
     .pin-head {
       background: #D95338;
       color: #FFFFFF;
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(217, 83, 56, 0.6);
-      border: 2.5px solid #FFFFFF;
-      font-size: 19px;
+      box-shadow: 0 3px 10px rgba(217, 83, 56, 0.6);
+      border: 2px solid #FFFFFF;
+      font-size: 16px;
     }
 
     .pin-shadow {
-      width: 12px;
-      height: 4px;
+      width: 10px;
+      height: 3px;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 50%;
-      margin-top: 2px;
-      filter: blur(1px);
+      margin-top: 1px;
     }
 
-    /* Quick Area Chips for 1-Tap Neighborhood Location */
-    .quick-area-chips-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 4px 0 8px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .quick-area-chips-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .area-chip-btn {
-      background: var(--color-surface-soft);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-main);
-      font-family: var(--font-main);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 12px;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: all 0.15s ease;
-    }
-
-    .area-chip-btn:active {
-      background: var(--color-primary-dark);
-      color: #FFF;
-    }
-
-    /* Map Distance & Zone Status Bar */
-    .map-status-info {
+    /* Status Pill */
+    .location-status-badge {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 6px 10px;
       border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.76rem;
-      line-height: 1.35;
-      transition: all 0.2s ease;
-      background: var(--color-surface-soft);
-      border: 1px solid var(--color-border);
-    }
-
-    .map-status-info.status-initial {
+      font-size: 0.73rem;
       background: #F4EFEA;
-      border-color: rgba(166, 96, 27, 0.2);
-      color: var(--color-text-muted);
+      border: 1px solid rgba(166, 96, 27, 0.15);
+      color: var(--color-text-main);
     }
 
-    .map-status-info.status-success {
+    .location-status-badge.status-in {
       background: #E8F5E9;
       border-color: #A5D6A7;
       color: #1B5E20;
+      font-weight: 700;
     }
 
-    .map-status-info.status-error {
+    .location-status-badge.status-out {
       background: #FFEBEE;
       border-color: #FFCDD2;
       color: #B71C1C;
+      font-weight: 700;
     }
 
-    .map-instruction-hint {
-      font-size: 0.71rem;
-      color: var(--color-text-muted);
-      margin-top: 5px;
+    /* Quick Area Chips Minimal */
+    .clean-area-chips {
       display: flex;
-      align-items: center;
-      gap: 4px;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .clean-area-chips::-webkit-scrollbar { display: none; }
 
-    /* TAKEAWAY INFO CARD */
-    .takeaway-info-card {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .store-pickup-box {
+    .mini-area-chip {
       background: var(--color-surface-soft);
       border: 1px solid var(--color-border);
-      border-radius: 10px;
-      padding: 12px;
-    }
-
-    .pickup-pill {
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: #FFF3E0;
-      color: #E65100;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .btn-directions-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--color-primary-dark);
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 4px;
-    }
-
-    /* ====================================================
-       SECTION 2: SELECTED ORDER ITEMS
-       ==================================================== */
-    .order-items-card {
-      background: var(--color-surface-soft);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 16px;
-      border: 1px solid var(--color-border);
-    }
-
-    .cart-items-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .cart-item-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--color-border);
-      background: #FFFFFF;
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
-
-    .cart-item-left {
-      flex: 1;
-      min-width: 0;
-      padding-right: 8px;
-    }
-
-    .cart-item-name {
-      font-weight: 700;
-      font-size: 0.9rem;
       color: var(--color-text-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .cart-item-unit-price {
-      font-size: 0.76rem;
-      color: var(--color-text-muted);
-    }
-
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .cart-item-total {
-      font-weight: 800;
-      color: var(--color-primary-dark);
-      font-size: 0.92rem;
-      min-width: 50px;
-      text-align: right;
-    }
-
-    /* ====================================================
-       SECTION 3: CUSTOMER & ADDRESS DETAILS
-       ==================================================== */
-    .checkout-form-section {
-      background: var(--color-surface-soft);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 16px;
-      border: 1px solid var(--color-border);
-    }
-
-    .form-group-field {
-      margin-bottom: 12px;
-      position: relative;
-    }
-
-    .form-group-field label {
-      display: block;
-      font-size: 0.76rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--color-text-muted);
-    }
-
-    .form-input-field {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--color-border);
-      background: #FFFFFF;
-      font-family: var(--font-main);
-      font-size: 0.88rem;
-      outline: none;
-      transition: all 0.2s ease;
-      color: var(--color-text-main);
-    }
-
-    .form-input-field:focus {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 2px rgba(166, 96, 27, 0.12);
-    }
-
-    /* Error Validation State */
-    .form-input-field.input-error {
-      border-color: #D32F2F !important;
-      background-color: #FFF9F9;
-      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.15) !important;
-    }
-
-    .field-error-msg {
-      display: none;
-      color: #D32F2F;
       font-size: 0.7rem;
       font-weight: 700;
-      margin-top: 3px;
-    }
-
-    .field-error-msg.visible {
-      display: block;
-    }
-
-    .radius-confirm-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--color-text-main);
-      margin-top: 10px;
+      padding: 3px 8px;
+      border-radius: 10px;
       cursor: pointer;
-    }
-
-    .radius-confirm-label input {
-      margin-top: 2px;
-      accent-color: var(--color-primary);
-      width: 16px;
-      height: 16px;
+      white-space: nowrap;
       flex-shrink: 0;
     }
 
-    .radius-confirm-label.error-text {
-      color: #D84315;
-      font-weight: 700;
-    }
-
-    /* ====================================================
-       SECTION 4: BILL BREAKDOWN & PAYMENT
-       ==================================================== */
-    .bill-card {
-      background: #FFFFFF;
+    /* Takeaway Store Card */
+    .clean-takeaway-card {
+      background: var(--color-surface-soft);
+      border-radius: 10px;
+      padding: 12px;
       border: 1px solid var(--color-border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .bill-row {
+    /* Form Fields Grid */
+    .form-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .field-wrap {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .field-wrap label {
+      font-size: 0.72rem;
+      font-weight: 700;
       color: var(--color-text-muted);
     }
 
-    .bill-row.total {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--color-text-main);
-      border-top: 1px dashed var(--color-border);
-      padding-top: 10px;
-      margin-top: 10px;
-      margin-bottom: 0;
+    /* Clean Items Summary */
+    .clean-items-box {
+      background: var(--color-surface-soft);
+      border-radius: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--color-border);
+      max-height: 120px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-    /* Official WhatsApp Order Dispatch Button */
+    .clean-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .clean-bill-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-top: 4px;
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .clean-bill-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .clean-bill-line.total-line {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      padding-top: 4px;
+      border-top: 1px solid var(--color-border);
+    }
+
     .btn-send-whatsapp-order {
       width: 100%;
       background: #25D366;
       color: #FFFFFF;
       border: none;
-      padding: 14px;
-      border-radius: 14px;
+      padding: 13px;
+      border-radius: 12px;
       font-family: var(--font-main);
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
     }
 
-    .btn-send-whatsapp-order:active {
-      transform: scale(0.98);
-    }
+    .btn-send-whatsapp-order:active { transform: scale(0.98); }
 
-    .btn-send-whatsapp-order.btn-special-delivery {
-      background: linear-gradient(135deg, #E65100 0%, #D84315 100%) !important;
-      box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35) !important;
-    }
-
-    /* Empty state */
-    .empty-cart-state {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    .empty-cart-icon {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      opacity: 0.6;
+    .input-error {
+      border-color: #D32F2F !important;
+      background: #FFF8F8 !important;
     }
 
     @media (min-width: 681px) {
-      body {
-        background-color: #E8DFD5;
-      }
-      .app-viewport {
-        box-shadow: 0 0 40px rgba(0,0,0,0.08);
-      }
+      body { background-color: #E8DFD5; }
+      .app-viewport { box-shadow: 0 0 40px rgba(0,0,0,0.08); }
     }
   </style>
 </head>
@@ -1361,8 +1084,7 @@
         </a>
       </div>
       <div class="top-nav-actions">
-        <!-- Tamil / English Language Switcher Button -->
-        <button id="menu-lang-toggle" class="lang-toggle-pill" onclick="toggleMenuLanguage()" title="Switch Language / மொழியை மாற்றவும்">
+        <button id="menu-lang-toggle" class="lang-toggle-pill" onclick="toggleMenuLanguage()" title="Switch Language">
           <i class="ph ph-translate"></i> <span id="menu-lang-label">தமிழ்</span>
         </button>
         <a href="tel:+917339073844" class="nav-icon-btn" title="Call Store">
@@ -1386,16 +1108,14 @@
           <i class="ph ph-storefront"></i> <span>Kitchen: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli</span>
         </div>
 
-        <!-- Free Delivery Offer Box -->
         <div class="delivery-rule-badge" id="hero-delivery-rule">
           <span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>
         </div>
       </div>
     </section>
 
-    <!-- STICKY TOP CONTROLS: SEARCH + CATEGORIES -->
+    <!-- STICKY TOP CONTROLS -->
     <div class="sticky-menu-controls" id="sticky-menu-controls">
-      <!-- LIVE SEARCH BAR -->
       <section class="search-filter-wrapper">
         <div class="search-box" id="menu-search-box">
           <i class="ph ph-magnifying-glass"></i>
@@ -1404,18 +1124,17 @@
         </div>
       </section>
 
-      <!-- HORIZONTAL CATEGORY NAVIGATION BAR -->
       <nav class="category-nav-bar" id="category-nav-bar">
-        <!-- Injected Dynamically by JS -->
+        <!-- Injected Dynamically -->
       </nav>
     </div>
 
-    <!-- DYNAMIC MENU CONTAINER (Rendered from data) -->
+    <!-- DYNAMIC MENU CONTAINER -->
     <main class="menu-container" id="menu-sections-container">
       <!-- Injected by JavaScript -->
     </main>
 
-    <!-- FLOATING BOTTOM CART BAR (Visible when items in cart) -->
+    <!-- FLOATING BOTTOM CART BAR -->
     <div class="floating-cart-bar" id="floating-cart-bar">
       <div class="cart-bar-main-row">
         <div class="cart-summary-left">
@@ -1434,200 +1153,144 @@
       </div>
     </div>
 
-    <!-- LIVE FOOD DELIVERY & TAKEAWAY CHECKOUT MODAL -->
+    <!-- CLEAN, DECLUTTERED CHECKOUT MODAL DRAWER -->
     <div class="modal-overlay" id="checkout-modal" onclick="if(event.target === this) closeCheckoutModal()">
       <div class="modal-sheet">
-        <div class="modal-header">
+        <div class="modal-header-clean">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-bag" style="font-size: 1.4rem; color: var(--color-primary);" id="modal-header-icon"></i>
-            <h2 class="modal-title" id="lbl-modal-title">Live Delivery & Takeaway</h2>
+            <i class="ph ph-bag" style="font-size: 1.25rem; color: var(--color-primary);"></i>
+            <h2 class="modal-title-clean" id="lbl-modal-title">Checkout Order</h2>
           </div>
-          <button class="modal-close-btn" onclick="closeCheckoutModal()"><i class="ph ph-x"></i></button>
+          <button class="modal-close-icon" onclick="closeCheckoutModal()"><i class="ph ph-x"></i></button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body-clean">
           
-          <!-- ORDER TYPE TOGGLE: DELIVERY VS TAKEAWAY -->
-          <div class="order-type-switch">
-            <button type="button" class="order-type-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
-              <i class="ph ph-moped" style="font-size: 1.1rem;"></i>
-              <span>Doorstep Delivery</span>
+          <!-- ORDER TYPE SWITCH -->
+          <div class="order-segmented-control">
+            <button type="button" class="order-seg-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
+              <i class="ph ph-moped"></i> Doorstep Delivery
             </button>
-            <button type="button" class="order-type-btn" id="btn-type-takeaway" onclick="setOrderType('takeaway')">
-              <i class="ph ph-tote" style="font-size: 1.1rem;"></i>
-              <span>Store Takeaway (Pickup)</span>
+            <button type="button" class="order-seg-btn" id="btn-type-takeaway" onclick="setOrderType('takeaway')">
+              <i class="ph ph-tote"></i> Store Takeaway
             </button>
           </div>
 
-          <!-- SECTION 1A: INTERACTIVE LIVE MAP & GPS PICKER (2 KM RADIUS) -->
-          <div class="map-picker-card" id="section-delivery-map">
-            <div class="checkout-form-title">
-              <i class="ph ph-map-trifold"></i> 1. Delivery Location (2 km Radius)
+          <!-- SECTION: LOCATION & ADDRESS (DELIVERY ONLY) -->
+          <div class="clean-section-block" id="block-delivery-location">
+            <div class="clean-section-label">
+              <span>Delivery Address (2 km Zone)</span>
             </div>
 
-            <!-- Bulletproof Touch/Click Mobile Locate Button -->
-            <button type="button" class="btn-mobile-locate-gps" id="btn-detect-gps" onclick="detectGPSLocation(event)" ontouchend="detectGPSLocation(event)">
-              <i class="ph ph-crosshair" style="font-size: 1.25rem;"></i>
-              <span id="lbl-btn-gps-text">📍 Auto-Detect My Live Location</span>
-            </button>
+            <!-- Address Input with 1-Tap Auto-Locate Button -->
+            <div class="address-input-wrapper">
+              <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="onAddressInput(this.value)">
+              <button type="button" class="btn-locate-inside-input" id="btn-detect-gps" onclick="detectGPSLocation(event)">
+                <i class="ph ph-crosshair"></i> <span>Locate</span>
+              </button>
+            </div>
 
-            <!-- Map Container with Center Crosshair Pin for Foolproof Doorstep Dragging -->
-            <div class="map-wrapper-interactive">
+            <!-- Sleek Compact Interactive Map -->
+            <div class="compact-map-wrapper">
               <div id="delivery-live-map"></div>
-              <div class="center-target-pin" id="center-target-pin" title="Drag map to set doorstep">
+              <div class="center-target-pin" id="center-target-pin">
                 <div class="pin-head">🛵</div>
                 <div class="pin-shadow"></div>
               </div>
             </div>
 
-            <!-- Quick 1-Tap Neighborhood Chips for Easy Pinning in Tirunelveli -->
-            <div style="font-size: 0.7rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 2px;">
-              Quick Select Area (Within 2 km & nearby):
-            </div>
-            <div class="quick-area-chips-row">
-              <button type="button" class="area-chip-btn" onclick="setQuickArea(8.7261, 77.6769, 'Thirunagar, Cheranmahadevi Rd')">📍 Thirunagar (0.1 km)</button>
-              <button type="button" class="area-chip-btn" onclick="setQuickArea(8.7290, 77.6840, 'Pettai, Cheranmahadevi Rd')">📍 Pettai (~1.2 km)</button>
-              <button type="button" class="area-chip-btn" onclick="setQuickArea(8.7225, 77.6690, 'Kallur / Thirunagar West')">📍 Kallur (~1.0 km)</button>
-              <button type="button" class="area-chip-btn" onclick="setQuickArea(8.7230, 77.6850, 'Kondanagaram')">📍 Kondanagaram (~1.5 km)</button>
-              <button type="button" class="area-chip-btn" onclick="setQuickArea(8.7300, 77.7010, 'Tirunelveli Town')">📍 Town (~2.6 km)</button>
+            <!-- 1-Tap Quick Area Pills -->
+            <div class="clean-area-chips">
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7261, 77.6769, 'Thirunagar')">📍 Thirunagar</button>
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7290, 77.6840, 'Pettai')">📍 Pettai</button>
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7225, 77.6690, 'Kallur')">📍 Kallur</button>
+              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7300, 77.7010, 'Town')">📍 Town</button>
             </div>
 
-            <!-- Location & Range Status Bar -->
-            <div class="map-status-info status-initial" id="map-distance-status">
-              <span id="lbl-map-zone-status">
-                <i class="ph ph-hand-pointing"></i> Drag map or tap "Auto-Detect" to set address
-              </span>
-              <span id="lbl-map-distance-text" style="font-weight: 700;"></span>
-            </div>
-
-            <p class="map-instruction-hint">
-              <i class="ph ph-info"></i> Green shaded circle denotes our 2 km delivery coverage from Thirunagar store. Drag map to adjust pin.
-            </p>
-          </div>
-
-          <!-- SECTION 1B: STORE PICKUP LOCATION INFO (TAKEAWAY ONLY) -->
-          <div class="takeaway-info-card" id="section-takeaway-info" style="display: none;">
-            <div class="checkout-form-title">
-              <i class="ph ph-storefront"></i> 1. Store Pickup Location
-            </div>
-            <div class="store-pickup-box">
-              <div style="font-weight: 800; font-size: 0.95rem; color: var(--color-primary-dark); margin-bottom: 2px;">
-                🏢 Santhi Ganesh Bakery & Cafe
-              </div>
-              <div style="font-size: 0.78rem; color: var(--color-text-muted); line-height: 1.35; margin-bottom: 8px;">
-                92, Cheranmahadevi Rd, Thirunagar, Tirunelveli, Tamil Nadu 627006
-              </div>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
-                <span class="pickup-pill"><i class="ph ph-clock"></i> Ready in 15–20 Mins</span>
-                <span class="pickup-pill" style="background:#EFEBE9; color:#4E342E;"><i class="ph ph-tag"></i> FREE Pickup (₹0 Fee)</span>
-              </div>
-              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" class="btn-directions-link">
-                <i class="ph ph-navigation-arrow"></i> Open Store Location in Google Maps ↗
-              </a>
+            <!-- Zone Status -->
+            <div class="location-status-badge status-in" id="map-distance-status">
+              <span id="lbl-map-zone-status"><i class="ph ph-check-circle"></i> Within 2 km Delivery Zone</span>
+              <span id="lbl-map-distance-text" style="font-weight: 700;">0.2 km</span>
             </div>
           </div>
 
-          <!-- SECTION 2: SELECTED ORDER ITEMS -->
-          <div class="order-items-card">
-            <div class="checkout-form-title">
-              <i class="ph ph-shopping-bag"></i> 2. Selected Order Items (<span id="modal-item-count">0</span>)
+          <!-- SECTION: STORE PICKUP INFO (TAKEAWAY ONLY) -->
+          <div class="clean-takeaway-card" id="block-takeaway-info" style="display: none;">
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--color-primary-dark);">
+              🏢 Santhi Ganesh Bakery & Cafe
             </div>
-            <div class="cart-items-list" id="modal-cart-items-list">
-              <!-- Dynamic Items -->
+            <div style="font-size: 0.76rem; color: var(--color-text-muted);">
+              92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
+            </div>
+            <div style="display: flex; gap: 6px; margin-top: 4px; font-size: 0.72rem; font-weight: 700;">
+              <span style="background: #FFF3E0; color: #E65100; padding: 2px 6px; border-radius: 4px;">⏱️ Ready in 15–20 Mins</span>
+              <span style="background: #E8F5E9; color: #1B5E20; padding: 2px 6px; border-radius: 4px;">🎉 FREE Pickup (₹0)</span>
             </div>
           </div>
 
-          <!-- SECTION 3: CUSTOMER & ADDRESS DETAILS -->
-          <div class="checkout-form-section">
-            <div class="checkout-form-title">
-              <i class="ph ph-user"></i> 3. Customer Details
-            </div>
-
-            <div class="form-group-field">
-              <label>Your Full Name *</label>
-              <input type="text" id="cust-name" class="form-input-field" placeholder="Enter your full name" oninput="clearFieldError(this)">
-              <span class="field-error-msg" id="err-cust-name">Please enter your full name</span>
-            </div>
-
-            <div class="form-group-field">
-              <label>Mobile / WhatsApp Number *</label>
-              <input type="tel" id="cust-phone" class="form-input-field" placeholder="Enter 10-digit mobile number" maxlength="10" oninput="clearFieldError(this)">
-              <span class="field-error-msg" id="err-cust-phone">Please enter a valid 10-digit mobile number</span>
-            </div>
-
-            <!-- DELIVERY ADDRESS FIELDS (Visible only on Delivery mode) -->
-            <div id="wrapper-delivery-fields">
-              <div class="form-group-field" id="field-delivery-address">
-                <label>Complete Delivery Address (Door No, Street, Area) *</label>
-                <input type="text" id="cust-address" class="form-input-field" placeholder="Enter delivery address or drag map above" oninput="clearFieldError(this)">
-                <span class="field-error-msg" id="err-cust-address">Please enter your complete delivery address</span>
+          <!-- SECTION: CUSTOMER DETAILS -->
+          <div class="clean-section-block">
+            <div class="clean-section-label">Contact Details</div>
+            
+            <div class="form-two-col">
+              <div class="field-wrap">
+                <label>Your Name *</label>
+                <input type="text" id="cust-name" class="clean-input-box" placeholder="Name" oninput="this.classList.remove('input-error')">
               </div>
-
-              <div class="form-group-field" id="field-delivery-landmark">
-                <label>Nearby Landmark (Optional)</label>
-                <input type="text" id="cust-landmark" class="form-input-field" placeholder="Enter nearby landmark (optional)">
+              <div class="field-wrap">
+                <label>Mobile Number *</label>
+                <input type="tel" id="cust-phone" class="clean-input-box" placeholder="10 digits" maxlength="10" oninput="this.classList.remove('input-error')">
               </div>
             </div>
 
-            <!-- PICKUP TIMING FIELD (Visible only on Takeaway mode) -->
-            <div class="form-group-field" id="field-pickup-time" style="display: none;">
-              <label>Estimated Pickup Time</label>
-              <select id="cust-pickup-time" class="form-input-field" style="cursor: pointer;">
+            <!-- Optional Takeaway Pickup Timing -->
+            <div class="field-wrap" id="field-pickup-time" style="display: none;">
+              <label>Pickup Time</label>
+              <select id="cust-pickup-time" class="clean-input-box">
                 <option value="Ready in 15–20 Mins">⚡ As soon as ready (~15–20 Mins)</option>
                 <option value="In 30 Mins">🕐 In 30 Mins</option>
                 <option value="In 45 Mins">🕐 In 45 Mins</option>
                 <option value="In 1 Hour">🕐 In 1 Hour</option>
-                <option value="Custom Time">🕐 Specify time in notes below</option>
               </select>
             </div>
 
-            <div class="form-group-field">
-              <label>Cooking / Special Instructions (Optional)</label>
-              <input type="text" id="cust-instructions" class="form-input-field" placeholder="Cooking or packaging instructions (optional)">
-            </div>
-
-            <label class="radius-confirm-label" id="lbl-radius-confirm">
-              <input type="checkbox" id="chk-radius-confirm" checked>
-              <span id="txt-radius-confirm-label">I confirm my delivery address is within <strong>2 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.</span>
-            </label>
-          </div>
-
-          <!-- SECTION 4: BILL BREAKDOWN & PAYMENT -->
-          <div class="bill-card">
-            <div class="checkout-form-title" style="margin-bottom: 12px; border-bottom: 1px dashed var(--color-border); padding-bottom: 6px;">
-              <i class="ph ph-receipt"></i> 4. Bill Summary & Payment
-            </div>
-
-            <div class="bill-row">
-              <span>Item Total</span>
-              <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
-            </div>
-            <div class="bill-row" id="row-delivery-fee">
-              <span id="lbl-fee-type">Delivery Fee (within 2 km)</span>
-              <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
-            </div>
-            <div class="bill-row" style="font-size: 0.75rem; color: #7D450F; margin-top: -3px;" id="bill-delivery-fee-note">
-              <span>* FREE Delivery on orders above ₹300</span>
-            </div>
-            <div class="bill-row">
-              <span>GST & Packaging</span>
-              <span style="color: #24140B; font-weight: 700;">Included</span>
-            </div>
-            <div class="bill-row total">
-              <span id="lbl-grand-total-text">Grand Total</span>
-              <span id="bill-grand-total" style="color: #A6601B;">₹0</span>
+            <!-- Optional Cooking / Landmark Note -->
+            <div class="field-wrap">
+              <input type="text" id="cust-instructions" class="clean-input-box" placeholder="Landmark or cooking instructions (optional)">
             </div>
           </div>
 
-          <!-- OFFICIAL WHATSAPP ORDER BUTTON -->
+          <!-- SECTION: ORDER ITEMS & BILL -->
+          <div class="clean-section-block">
+            <div class="clean-section-label">
+              <span>Order Summary (<span id="modal-item-count">0</span> items)</span>
+            </div>
+            
+            <div class="clean-items-box" id="modal-cart-items-list">
+              <!-- Rendered items -->
+            </div>
+
+            <div class="clean-bill-breakdown">
+              <div class="clean-bill-line">
+                <span>Items Subtotal</span>
+                <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
+              </div>
+              <div class="clean-bill-line" id="row-delivery-fee">
+                <span id="lbl-fee-type">Delivery Fee (within 2 km)</span>
+                <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
+              </div>
+              <div class="clean-bill-line total-line">
+                <span>Total Amount</span>
+                <span id="bill-grand-total" style="color: var(--color-primary-dark);">₹0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- WHATSAPP CTA -->
           <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendOrderWhatsApp()">
-            <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i>
+            <i class="ph ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
             <span id="lbl-btn-whatsapp">Place Order on WhatsApp</span>
           </button>
-          
-          <p style="text-align: center; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 8px;">
-            ⚡ Instant order confirmation directly with our Thirunagar bakery kitchen
-          </p>
 
         </div>
       </div>
@@ -1643,38 +1306,33 @@
   <script>
     'use strict';
 
-    // ==========================================
-    // 1. DATASET & STATE MANAGEMENT
-    // ==========================================
     if (typeof IN_STORE_MENU === 'undefined') {
       var IN_STORE_MENU = (typeof window !== 'undefined' && window.IN_STORE_MENU) ? window.IN_STORE_MENU : [];
     }
 
-    let currentOrderType = 'delivery'; // 'delivery' | 'takeaway'
+    let currentOrderType = 'delivery';
     let activeCategory = 'juices';
     let searchQuery = '';
     let deliveryCart = JSON.parse(localStorage.getItem('sg_delivery_cart') || '[]');
     let liveMenuItems = [...IN_STORE_MENU];
     let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
-    // EXACT Santhi Ganesh Bakery Location: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli
+    // Bakery Hub at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli
     const BAKERY_COORDS = { 
       lat: 8.7260996, 
       lng: 77.6769062, 
-      name: "Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli" 
+      name: "Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar" 
     };
-    const MAX_DELIVERY_KM = 2.0; // Strictly 2 km delivery radius
+    const MAX_DELIVERY_KM = 2.0; // Strictly 2 km
     const FREE_DELIVERY_THRESHOLD = 300;
     const STANDARD_DELIVERY_FEE = 30;
 
-    // User Location State
-    let userLocation = null;
-    let userDistanceKm = null;
-    let isWithinZone = null;
+    let userLocation = { lat: 8.7260996, lng: 77.6769062 };
+    let userDistanceKm = 0.2;
+    let isWithinZone = true;
     let leafletMap = null;
     let radiusCircle = null;
 
-    // Categories definition
     const CATEGORIES = [
       { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg' },
       { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', img: './assets/categories/menu-shakes.jpg' },
@@ -1735,102 +1393,65 @@
       }
     };
 
-    // ==========================================
-    // 2. ORDER TYPE SWITCHER (DELIVERY VS TAKEAWAY)
-    // ==========================================
     function setOrderType(type) {
       currentOrderType = type;
-
-      const btnDelivery = document.getElementById('btn-type-delivery');
-      const btnTakeaway = document.getElementById('btn-type-takeaway');
-      const secMap = document.getElementById('section-delivery-map');
-      const secTakeaway = document.getElementById('section-takeaway-info');
-      const wrapDeliveryFields = document.getElementById('wrapper-delivery-fields');
-      const fieldPickupTime = document.getElementById('field-pickup-time');
-      const lblRadius = document.getElementById('lbl-radius-confirm');
-      const modalTitle = document.getElementById('lbl-modal-title');
-      const modalIcon = document.getElementById('modal-header-icon');
+      const btnDel = document.getElementById('btn-type-delivery');
+      const btnTake = document.getElementById('btn-type-takeaway');
+      const blockDel = document.getElementById('block-delivery-location');
+      const blockTake = document.getElementById('block-takeaway-info');
+      const fieldPickup = document.getElementById('field-pickup-time');
+      const titleEl = document.getElementById('lbl-modal-title');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
 
       if (type === 'takeaway') {
-        if (btnDelivery) btnDelivery.classList.remove('active');
-        if (btnTakeaway) btnTakeaway.classList.add('active');
-
-        if (secMap) secMap.style.display = 'none';
-        if (secTakeaway) secTakeaway.style.display = 'block';
-
-        if (wrapDeliveryFields) wrapDeliveryFields.style.display = 'none';
-        if (fieldPickupTime) fieldPickupTime.style.display = 'block';
-        if (lblRadius) lblRadius.style.display = 'none';
-
-        if (modalTitle) modalTitle.textContent = 'Store Takeaway Order';
-        if (modalIcon) modalIcon.className = 'ph ph-tote';
-        if (orderBtnLbl) orderBtnLbl.textContent = 'Send Takeaway Order on WhatsApp';
+        btnDel.classList.remove('active');
+        btnTake.classList.add('active');
+        blockDel.style.display = 'none';
+        blockTake.style.display = 'flex';
+        fieldPickup.style.display = 'block';
+        titleEl.textContent = 'Store Takeaway Order';
+        orderBtnLbl.textContent = 'Send Takeaway Order on WhatsApp';
       } else {
-        if (btnDelivery) btnDelivery.classList.add('active');
-        if (btnTakeaway) btnTakeaway.classList.remove('active');
-
-        if (secMap) secMap.style.display = 'block';
-        if (secTakeaway) secTakeaway.style.display = 'none';
-
-        if (wrapDeliveryFields) wrapDeliveryFields.style.display = 'block';
-        if (fieldPickupTime) fieldPickupTime.style.display = 'none';
-        if (lblRadius) lblRadius.style.display = 'flex';
-
-        if (modalTitle) modalTitle.textContent = 'Live Delivery Order';
-        if (modalIcon) modalIcon.className = 'ph ph-moped';
-        if (orderBtnLbl) {
-          orderBtnLbl.textContent = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM)
-            ? `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`
-            : 'Place Order on WhatsApp';
-        }
+        btnDel.classList.add('active');
+        btnTake.classList.remove('active');
+        blockDel.style.display = 'flex';
+        blockTake.style.display = 'none';
+        fieldPickup.style.display = 'none';
+        titleEl.textContent = 'Doorstep Delivery Order';
+        orderBtnLbl.textContent = (userDistanceKm > MAX_DELIVERY_KM) 
+          ? `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`
+          : 'Place Order on WhatsApp';
 
         setTimeout(() => {
-          if (leafletMap) {
-            leafletMap.invalidateSize();
-          }
+          if (leafletMap) leafletMap.invalidateSize(true);
         }, 150);
       }
-
       renderCheckoutModalContent();
     }
 
-    // ==========================================
-    // 3. LANGUAGE ENGINE
-    // ==========================================
     function applyMenuLanguage(lang) {
       currentMenuLang = lang;
       localStorage.setItem('sg_lang', lang);
-
       const t = MENU_I18N[lang] || MENU_I18N.en;
 
       const backHomeLbl = document.getElementById('lbl-back-home');
       if (backHomeLbl) backHomeLbl.textContent = t.back_home;
-
       const langLbl = document.getElementById('menu-lang-label');
       if (langLbl) langLbl.textContent = t.lang_label;
-
       const heroDelivery = document.getElementById('hero-badge-delivery');
       if (heroDelivery) heroDelivery.innerHTML = t.hero_delivery;
-
       const heroRadius = document.getElementById('hero-badge-radius');
       if (heroRadius) heroRadius.innerHTML = t.hero_radius;
-
       const heroTime = document.getElementById('hero-badge-time');
       if (heroTime) heroTime.innerHTML = t.hero_time;
-
       const heroTitle = document.getElementById('hero-main-title');
       if (heroTitle) heroTitle.textContent = t.hero_title;
-
       const heroSub = document.getElementById('hero-main-sub');
       if (heroSub) heroSub.textContent = t.hero_sub;
-
       const heroRule = document.getElementById('hero-delivery-rule');
       if (heroRule) heroRule.innerHTML = t.hero_rule;
-
       const searchInput = document.getElementById('menu-search-input');
       if (searchInput) searchInput.placeholder = t.search_placeholder;
-
       const checkoutBtnLbl = document.getElementById('lbl-btn-checkout');
       if (checkoutBtnLbl) checkoutBtnLbl.textContent = t.checkout_btn;
 
@@ -1846,7 +1467,6 @@
     function renderCategoryTabs() {
       const nav = document.getElementById('category-nav-bar');
       if (!nav) return;
-
       nav.innerHTML = CATEGORIES.map(cat => {
         const isActive = cat.id === activeCategory ? 'active' : '';
         const catName = (currentMenuLang === 'ta' && cat.name_ta) ? cat.name_ta : cat.name_en;
@@ -1863,17 +1483,12 @@
       }).join('');
     }
 
-    // ==========================================
-    // 4. RENDER MENU ITEMS
-    // ==========================================
     function renderMenu() {
       const container = document.getElementById('menu-sections-container');
       if (!container) return;
-
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       let filteredItems = liveMenuItems;
-
       if (searchQuery.trim() !== '') {
         const q = searchQuery.toLowerCase();
         filteredItems = filteredItems.filter(item => 
@@ -1901,7 +1516,6 @@
       }
 
       let html = '';
-
       targetCategories.forEach(cat => {
         const catItems = filteredItems.filter(item => item.category === cat.id);
         if (catItems.length === 0) return;
@@ -1909,26 +1523,16 @@
         const currentCatIndex = CATEGORIES.findIndex(c => c.id === cat.id);
         const prevCat = currentCatIndex > 0 ? CATEGORIES[currentCatIndex - 1] : null;
         const nextCat = currentCatIndex < CATEGORIES.length - 1 ? CATEGORIES[currentCatIndex + 1] : null;
-
         const catName = (currentMenuLang === 'ta' && cat.name_ta) ? cat.name_ta : cat.name_en;
 
         let navButtonsHTML = '';
         if (!searchQuery.trim() && (prevCat || nextCat)) {
           const prevName = prevCat ? ((currentMenuLang === 'ta' && prevCat.name_ta) ? prevCat.name_ta : prevCat.name_en) : '';
           const nextName = nextCat ? ((currentMenuLang === 'ta' && nextCat.name_ta) ? nextCat.name_ta : nextCat.name_en) : '';
-
           navButtonsHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
-              ${prevCat ? `
-                <button class="btn-cat-nav" onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; color: var(--color-text-main); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: var(--shadow-sm);">
-                  ← ${prevCat.icon} ${prevName}
-                </button>
-              ` : `<div></div>`}
-              ${nextCat ? `
-                <button class="btn-cat-nav" onclick="selectCategory('${nextCat.id}')" style="background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(36, 20, 11, 0.25); margin-left: auto;">
-                  ${nextCat.icon} ${nextName} →
-                </button>
-              ` : `<div></div>`}
+              ${prevCat ? `<button onclick="selectCategory('${prevCat.id}')" style="background: var(--color-surface); border: 1px solid var(--color-border); padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer;">← ${prevCat.icon} ${prevName}</button>` : `<div></div>`}
+              ${nextCat ? `<button onclick="selectCategory('${nextCat.id}')" style="background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.76rem; cursor: pointer; margin-left: auto;">${nextCat.icon} ${nextName} →</button>` : `<div></div>`}
             </div>
           `;
         }
@@ -1939,11 +1543,9 @@
               <h2 class="category-title">❧ ${catName} ❧</h2>
               <span class="category-badge-tag">${catItems.length} ${t.dishes_suffix}</span>
             </div>
-
             <div class="items-list">
               ${catItems.map(item => createItemCardHTML(item)).join('')}
             </div>
-
             ${navButtonsHTML}
           </section>
         `;
@@ -1957,13 +1559,11 @@
       const inCartItem = deliveryCart.find(t => t.id === item.id);
       const qty = inCartItem ? inCartItem.qty : 0;
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
-
       const dietClass = item.is_veg ? 'veg' : 'nonveg';
-      const safeBadge = item.badge ? `<span class="item-badge">${typeof escapeHTML === 'function' ? escapeHTML(item.badge) : item.badge}</span>` : '';
-      const safePriceSub = item.price_display ? `<span class="item-price-sub">${typeof escapeHTML === 'function' ? escapeHTML(item.price_display) : item.price_display}</span>` : '';
-      const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name) : item.name;
-      const safeDesc = item.desc ? `<p class="item-desc">${typeof escapeHTML === 'function' ? escapeHTML(item.desc) : item.desc}</p>` : '';
-      const safeId = typeof escapeHTML === 'function' ? escapeHTML(item.id) : item.id;
+      const safeBadge = item.badge ? `<span class="item-badge">${escapeHTML(item.badge)}</span>` : '';
+      const safeName = escapeHTML(item.name);
+      const safeDesc = item.desc ? `<p class="item-desc">${escapeHTML(item.desc)}</p>` : '';
+      const safeId = escapeHTML(item.id);
       const safePrice = Number(item.price) || 0;
 
       let actionHTML = '';
@@ -1978,19 +1578,14 @@
           </div>
         `;
       } else {
-        actionHTML = `
-          <button class="btn-add-cart" onclick="updateItemQty('${safeId}', 1)">
-            ${t.add_btn}
-          </button>
-        `;
+        actionHTML = `<button class="btn-add-cart" onclick="updateItemQty('${safeId}', 1)">${t.add_btn}</button>`;
       }
 
       return `
         <article class="item-card" style="${item.is_available === false ? 'opacity: 0.65;' : ''}">
           <div class="item-thumb-box">
-            <span class="item-thumb-icon">${item.icon || '🍽️'}</span>
+            <span style="font-size: 1.25rem;">${item.icon || '🍽️'}</span>
           </div>
-
           <div class="item-info">
             <div class="item-header-row">
               <span class="diet-icon ${dietClass}"></span>
@@ -1999,10 +1594,8 @@
             ${safeBadge}
             ${safeDesc}
           </div>
-
           <div class="item-action-area">
             <span class="item-price">₹${safePrice}</span>
-            ${safePriceSub}
             ${actionHTML}
           </div>
         </article>
@@ -2011,49 +1604,30 @@
 
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
-
       const activeBtn = btnElem || document.querySelector(`.cat-tab-btn[data-cat="${catId}"]`);
-
       document.querySelectorAll('.cat-tab-btn').forEach(btn => {
-        const isMatch = btn.getAttribute('data-cat') === catId || (activeBtn && btn === activeBtn);
-        btn.classList.toggle('active', isMatch);
+        btn.classList.toggle('active', btn.getAttribute('data-cat') === catId || (activeBtn && btn === activeBtn));
       });
 
       const navBar = document.getElementById('category-nav-bar');
       if (activeBtn && navBar) {
-        const btnLeft = activeBtn.offsetLeft;
-        const btnWidth = activeBtn.offsetWidth;
-        const navWidth = navBar.offsetWidth;
-        const scrollTarget = btnLeft - (navWidth / 2) + (btnWidth / 2);
-        navBar.scrollTo({
-          left: scrollTarget,
-          behavior: 'smooth'
-        });
+        const scrollTarget = activeBtn.offsetLeft - (navBar.offsetWidth / 2) + (activeBtn.offsetWidth / 2);
+        navBar.scrollTo({ left: scrollTarget, behavior: 'smooth' });
       }
 
       if (searchQuery) {
         searchQuery = '';
-        const input = document.getElementById('menu-search-input');
-        if (input) input.value = '';
-        const clearBtn = document.getElementById('search-clear-btn');
-        if (clearBtn) clearBtn.style.display = 'none';
+        document.getElementById('menu-search-input').value = '';
+        document.getElementById('search-clear-btn').style.display = 'none';
       }
 
       renderMenu();
-
       requestAnimationFrame(() => {
-        const targetSec = document.getElementById(`cat-sec-${catId}`) || document.querySelector('.category-header-strip') || document.getElementById('menu-sections-container');
+        const targetSec = document.getElementById(`cat-sec-${catId}`) || document.getElementById('menu-sections-container');
         if (targetSec) {
-          const topNavH = document.querySelector('.top-nav')?.offsetHeight || 46;
-          const stickyControlsH = document.getElementById('sticky-menu-controls')?.offsetHeight || 140;
-          const totalStickyOffset = topNavH + stickyControlsH + 8;
-
-          const currentY = window.scrollY || window.pageYOffset || 0;
-          const secRect = targetSec.getBoundingClientRect();
-          const targetY = secRect.top + currentY - totalStickyOffset;
-
+          const totalStickyOffset = (document.querySelector('.top-nav')?.offsetHeight || 46) + (document.getElementById('sticky-menu-controls')?.offsetHeight || 140) + 8;
           window.scrollTo({
-            top: Math.max(0, targetY),
+            top: Math.max(0, targetSec.getBoundingClientRect().top + window.scrollY - totalStickyOffset),
             behavior: 'smooth'
           });
         }
@@ -2063,43 +1637,26 @@
     function handleMenuSearch(val) {
       searchQuery = val;
       const clearBtn = document.getElementById('search-clear-btn');
-      if (clearBtn) {
-        clearBtn.style.display = val.trim() ? 'block' : 'none';
-      }
+      if (clearBtn) clearBtn.style.display = val.trim() ? 'block' : 'none';
       renderMenu();
     }
 
     function clearMenuSearch() {
       searchQuery = '';
-      const input = document.getElementById('menu-search-input');
-      if (input) input.value = '';
-      const clearBtn = document.getElementById('search-clear-btn');
-      if (clearBtn) clearBtn.style.display = 'none';
+      document.getElementById('menu-search-input').value = '';
+      document.getElementById('search-clear-btn').style.display = 'none';
       renderMenu();
     }
 
-    // ==========================================
-    // 5. CART TOTALS & UI
-    // ==========================================
     function updateItemQty(itemId, change) {
       const item = liveMenuItems.find(i => i.id === itemId);
       if (!item) return;
-
       const existingIndex = deliveryCart.findIndex(t => t.id === itemId);
-
       if (existingIndex > -1) {
         deliveryCart[existingIndex].qty += change;
-        if (deliveryCart[existingIndex].qty <= 0) {
-          deliveryCart.splice(existingIndex, 1);
-        }
+        if (deliveryCart[existingIndex].qty <= 0) deliveryCart.splice(existingIndex, 1);
       } else if (change > 0) {
-        deliveryCart.push({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          is_veg: item.is_veg,
-          qty: 1
-        });
+        deliveryCart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
       }
 
       localStorage.setItem('sg_delivery_cart', JSON.stringify(deliveryCart));
@@ -2113,22 +1670,12 @@
     function calculateCartTotals() {
       const totalItems = deliveryCart.reduce((sum, item) => sum + item.qty, 0);
       const subtotal = deliveryCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      
       const isTakeaway = (currentOrderType === 'takeaway');
       const isFreeDelivery = isTakeaway || (subtotal >= FREE_DELIVERY_THRESHOLD);
       const deliveryFee = (subtotal > 0 && !isTakeaway && !isFreeDelivery) ? STANDARD_DELIVERY_FEE : 0;
       const grandTotal = subtotal > 0 ? (subtotal + deliveryFee) : 0;
       const remainingForFree = isTakeaway ? 0 : Math.max(0, FREE_DELIVERY_THRESHOLD - subtotal);
-
-      return {
-        totalItems,
-        subtotal,
-        isFreeDelivery,
-        deliveryFee,
-        grandTotal,
-        remainingForFree,
-        isTakeaway
-      };
+      return { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree, isTakeaway };
     }
 
     function updateCartUI() {
@@ -2139,7 +1686,7 @@
       const progressText = document.getElementById('cart-delivery-progress-text');
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
-      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree } = calculateCartTotals();
+      const { totalItems, isFreeDelivery, grandTotal, remainingForFree } = calculateCartTotals();
 
       if (totalItems > 0) {
         floatingBar.classList.add('visible');
@@ -2149,11 +1696,11 @@
         if (isFreeDelivery) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = 'FREE Delivery';
-          progressText.innerHTML = '<i class="ph ph-sparkle" style="color:#FFE082;"></i> 🎉 You unlocked <strong>FREE Delivery</strong>!';
+          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong>!';
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
-          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
-          progressText.innerHTML = `<i class="ph ph-info"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong>`;
+          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Fee`;
+          progressText.innerHTML = `<i class="ph ph-info"></i> Add <strong>₹${remainingForFree}</strong> more for FREE Delivery`;
         }
       } else {
         floatingBar.classList.remove('visible');
@@ -2166,15 +1713,8 @@
       document.body.style.overflow = 'hidden';
       
       if (currentOrderType === 'delivery') {
-        setTimeout(() => {
-          initOrUpdateDeliveryMap();
-        }, 100);
-        setTimeout(() => {
-          if (leafletMap) leafletMap.invalidateSize(true);
-        }, 300);
-        setTimeout(() => {
-          if (leafletMap) leafletMap.invalidateSize(true);
-        }, 600);
+        setTimeout(() => initOrUpdateDeliveryMap(), 100);
+        setTimeout(() => { if (leafletMap) leafletMap.invalidateSize(true); }, 250);
       }
     }
 
@@ -2189,169 +1729,132 @@
       const subtotalEl = document.getElementById('bill-subtotal');
       const deliveryFeeEl = document.getElementById('bill-delivery-fee');
       const feeTypeEl = document.getElementById('lbl-fee-type');
-      const feeNoteEl = document.getElementById('bill-delivery-fee-note');
       const grandTotalEl = document.getElementById('bill-grand-total');
 
-      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree, isTakeaway } = calculateCartTotals();
+      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, isTakeaway } = calculateCartTotals();
 
       if (itemCountEl) itemCountEl.textContent = totalItems;
 
       if (deliveryCart.length === 0) {
-        container.innerHTML = `
-          <div class="empty-cart-state">
-            <div class="empty-cart-icon">🛒</div>
-            <h3 style="font-size: 1rem; font-weight: 700;">Your cart is empty</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 4px;">Tap "+ Add" on your favorite cafe dishes to start ordering.</p>
-          </div>
-        `;
+        container.innerHTML = `<div style="text-align: center; padding: 12px; color: #888; font-size: 0.8rem;">Your cart is empty</div>`;
         subtotalEl.textContent = '₹0';
         deliveryFeeEl.textContent = '₹0';
         grandTotalEl.textContent = '₹0';
         return;
       }
 
-      container.innerHTML = deliveryCart.map(item => {
-        const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name) : item.name;
-        const safeId = typeof escapeHTML === 'function' ? escapeHTML(item.id) : item.id;
-        const safePrice = Number(item.price) || 0;
-        const safeQty = Number(item.qty) || 1;
-
-        return `
-          <div class="cart-item-row">
-            <div class="cart-item-left">
-              <div class="cart-item-name">${safeName}</div>
-              <div class="cart-item-unit-price">₹${safePrice} each</div>
-            </div>
-            <div class="cart-item-actions">
-              <div class="qty-stepper">
-                <button class="qty-btn" onclick="updateItemQty('${safeId}', -1)">-</button>
-                <span class="qty-val">${safeQty}</span>
-                <button class="qty-btn" onclick="updateItemQty('${safeId}', 1)">+</button>
-              </div>
-              <span class="cart-item-total">₹${safePrice * safeQty}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
+      container.innerHTML = deliveryCart.map(item => `
+        <div class="clean-item-row">
+          <span style="font-weight: 700;">${escapeHTML(item.name)} <span style="font-weight: 500; color:#888;">x${item.qty}</span></span>
+          <span style="font-weight: 800; color: var(--color-primary-dark);">₹${item.price * item.qty}</span>
+        </div>
+      `).join('');
 
       subtotalEl.textContent = `₹${subtotal}`;
-      
       if (isTakeaway) {
-        if (feeTypeEl) feeTypeEl.textContent = 'Store Pickup / Takeaway';
-        if (deliveryFeeEl) deliveryFeeEl.innerHTML = `<span style="color: #24140B; font-weight: 800;">FREE (₹0)</span>`;
-        if (feeNoteEl) feeNoteEl.innerHTML = `<span style="color: #7D450F;">* Self-pickup at 92 Cheranmahadevi Rd, Thirunagar</span>`;
+        feeTypeEl.textContent = 'Store Pickup Fee';
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32;">FREE</span>`;
       } else if (isFreeDelivery) {
-        if (feeTypeEl) feeTypeEl.textContent = 'Delivery Fee (within 2 km)';
-        if (deliveryFeeEl) deliveryFeeEl.innerHTML = `<span style="color: #A6601B; font-weight: 800;">FREE</span> <s style="color: #888; font-size: 0.8rem;">₹${STANDARD_DELIVERY_FEE}</s>`;
-        if (feeNoteEl) feeNoteEl.innerHTML = `<span style="color: #7D450F;">🎉 You qualified for FREE Delivery!</span>`;
+        feeTypeEl.textContent = 'Delivery Fee';
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32;">FREE</span>`;
       } else {
-        if (feeTypeEl) feeTypeEl.textContent = 'Delivery Fee (within 2 km)';
-        if (deliveryFeeEl) deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
-        if (feeNoteEl) feeNoteEl.innerHTML = `<span>Add <strong>₹${remainingForFree}</strong> more to unlock FREE Delivery</span>`;
+        feeTypeEl.textContent = 'Delivery Fee';
+        deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
       }
-
       grandTotalEl.textContent = `₹${grandTotal}`;
     }
 
     // ==========================================
-    // 6. INTERACTIVE LIVE MAP & GPS ENGINE (2 KM RADIUS)
+    // BULLETPROOF LIVE MAP & LOCATION ENGINE (2 KM)
     // ==========================================
     function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Earth radius in km
+      const R = 6371;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
       const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
                 Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
 
     function initOrUpdateDeliveryMap() {
       const mapContainer = document.getElementById('delivery-live-map');
       if (!mapContainer) return;
 
-      const initialCenter = userLocation ? [userLocation.lat, userLocation.lng] : [BAKERY_COORDS.lat, BAKERY_COORDS.lng];
+      const centerCoord = userLocation ? [userLocation.lat, userLocation.lng] : [BAKERY_COORDS.lat, BAKERY_COORDS.lng];
 
       if (!leafletMap) {
         leafletMap = L.map('delivery-live-map', {
-          center: initialCenter,
+          center: centerCoord,
           zoom: 15,
-          zoomControl: true,
-          attributionControl: false,
-          tap: !L.Browser.safari
+          zoomControl: false,
+          attributionControl: false
         });
 
-        // High resolution OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19
-        }).addTo(leafletMap);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafletMap);
 
-        // 1. EXACT Bakery Hub Marker at 92 Cheranmahadevi Rd, Thirunagar
+        // Bakery Hub Marker
         const bakeryIcon = L.divIcon({
           className: 'custom-bakery-marker',
-          html: `<div style="background:#7D450F; color:#FFF; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.35); border:2px solid #FFF; font-size:14px;" title="Santhi Ganesh Bakery">🏢</div>`,
-          iconSize: [30, 30],
-          iconAnchor: [15, 15]
+          html: `<div style="background:#7D450F; color:#FFF; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFF; font-size:12px;" title="Bakery Hub">🏢</div>`,
+          iconSize: [26, 26],
+          iconAnchor: [13, 13]
         });
+        L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon }).addTo(leafletMap);
 
-        L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon })
-          .addTo(leafletMap)
-          .bindPopup('<b>Santhi Ganesh Bakery</b><br>92 Cheranmahadevi Rd, Thirunagar')
-          .openPopup();
-
-        // 2. Translucent Green 2 km Radius Delivery Area Boundary
+        // GREEN Delivery Radius Circle (2 km)
         radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
           color: '#2E7D32',
           fillColor: '#4CAF50',
           fillOpacity: 0.22,
-          radius: 2000, // strictly 2 km (2000m)
-          weight: 2.5,
-          dashArray: '6, 6'
+          radius: 2000,
+          weight: 2,
+          dashArray: '5, 5'
         }).addTo(leafletMap);
 
-        // 3. Swiggy/Zomato Drag-to-Pin Center Interaction
-        const centerPinEl = document.getElementById('center-target-pin');
-
-        leafletMap.on('movestart', () => {
-          if (centerPinEl) centerPinEl.classList.add('lifting');
-        });
-
+        // Swiggy Drag Pin Behavior
+        const pinEl = document.getElementById('center-target-pin');
+        leafletMap.on('movestart', () => { if (pinEl) pinEl.classList.add('lifting'); });
         leafletMap.on('moveend', () => {
-          if (centerPinEl) centerPinEl.classList.remove('lifting');
-          const center = leafletMap.getCenter();
-          handleLocationUpdate(center.lat, center.lng, true);
+          if (pinEl) pinEl.classList.remove('lifting');
+          const c = leafletMap.getCenter();
+          updateLocationCoords(c.lat, c.lng, true);
         });
 
-        // 4. Tap on map to smoothly center pin on tapped point
         leafletMap.on('click', (e) => {
-          leafletMap.panTo(e.latlng, { animate: true, duration: 0.3 });
-          handleLocationUpdate(e.latlng.lat, e.latlng.lng, true);
+          leafletMap.panTo(e.latlng, { animate: true });
+          updateLocationCoords(e.latlng.lat, e.latlng.lng, true);
         });
       }
 
       leafletMap.invalidateSize(true);
-
       if (userLocation) {
-        leafletMap.setView([userLocation.lat, userLocation.lng], 15);
-        handleLocationUpdate(userLocation.lat, userLocation.lng, false);
+        updateLocationCoords(userLocation.lat, userLocation.lng, false);
       }
     }
 
     function setQuickArea(lat, lng, label) {
-      if (leafletMap) {
-        leafletMap.setView([lat, lng], 15, { animate: true });
-      }
-      handleLocationUpdate(lat, lng, false);
-      
+      if (leafletMap) leafletMap.setView([lat, lng], 15, { animate: true });
+      updateLocationCoords(lat, lng, false);
       const addrInput = document.getElementById('cust-address');
-      if (addrInput) {
-        addrInput.value = `${label}, Tirunelveli`;
-        clearFieldError(addrInput);
+      if (addrInput) addrInput.value = `${label}, Tirunelveli`;
+    }
+
+    function onAddressInput(val) {
+      // If user types standard neighborhood, center automatically
+      const lower = val.toLowerCase();
+      if (lower.includes('thirunagar') || lower.includes('cheranmahadevi')) {
+        setQuickArea(8.7261, 77.6769, val);
+      } else if (lower.includes('pettai')) {
+        setQuickArea(8.7290, 77.6840, val);
+      } else if (lower.includes('kallur')) {
+        setQuickArea(8.7225, 77.6690, val);
+      } else if (lower.includes('town')) {
+        setQuickArea(8.7300, 77.7010, val);
       }
     }
 
-    function handleLocationUpdate(lat, lng, doGeocode = true) {
+    function updateLocationCoords(lat, lng, doGeocode = true) {
       userLocation = { lat, lng };
       userDistanceKm = calculateHaversineDistanceKm(BAKERY_COORDS.lat, BAKERY_COORDS.lng, lat, lng);
       isWithinZone = (userDistanceKm <= MAX_DELIVERY_KM);
@@ -2359,257 +1862,127 @@
       const statusBox = document.getElementById('map-distance-status');
       const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       const distTextEl = document.getElementById('lbl-map-distance-text');
-      const chkRadius = document.getElementById('chk-radius-confirm');
-      const lblRadius = document.getElementById('lbl-radius-confirm');
-      const txtRadius = document.getElementById('txt-radius-confirm-label');
-      const orderBtn = document.getElementById('btn-place-whatsapp-order');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
-      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
 
-      if (gpsBtnText) {
-        gpsBtnText.textContent = '📍 Re-Detect My Location';
-      }
-
-      if (distTextEl) {
-        distTextEl.textContent = `${userDistanceKm.toFixed(1)} km from Bakery`;
-      }
+      if (distTextEl) distTextEl.textContent = `${userDistanceKm.toFixed(1)} km`;
 
       if (isWithinZone) {
-        if (statusBox) {
-          statusBox.className = 'map-status-info status-success';
-        }
-        if (zoneStatusEl) {
-          zoneStatusEl.innerHTML = '<i class="ph ph-check-circle" style="font-size: 1.1rem; color:#2E7D32;"></i> <strong>Within 2 km Delivery Zone</strong>';
-        }
-        if (chkRadius) chkRadius.checked = true;
-        if (lblRadius) lblRadius.classList.remove('error-text');
-        if (txtRadius) {
-          txtRadius.innerHTML = 'I confirm my delivery address is within <strong>2 km radius</strong> of Santhi Ganesh Bakery, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.';
-        }
-        
-        if (orderBtn) {
-          orderBtn.className = 'btn-send-whatsapp-order';
-          orderBtn.disabled = false;
-        }
-        if (orderBtnLbl && currentOrderType === 'delivery') {
-          orderBtnLbl.textContent = 'Place Order on WhatsApp';
-        }
+        if (statusBox) statusBox.className = 'location-status-badge status-in';
+        if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-check-circle"></i> Within 2 km Delivery Zone';
+        if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = 'Place Order on WhatsApp';
       } else {
-        if (statusBox) {
-          statusBox.className = 'map-status-info status-error';
-        }
-        if (zoneStatusEl) {
-          zoneStatusEl.innerHTML = '<i class="ph ph-warning-octagon" style="font-size: 1.1rem; color:#C62828;"></i> <strong>Outside 2 km Delivery Radius</strong>';
-        }
-        if (lblRadius) lblRadius.classList.add('error-text');
-        if (txtRadius) {
-          txtRadius.innerHTML = `I understand this address is <strong>${userDistanceKm.toFixed(1)} km away</strong> (> 2 km) and request a callback from the bakery manager for custom delivery.`;
-        }
-        if (chkRadius) chkRadius.checked = true;
-        
-        if (orderBtn && currentOrderType === 'delivery') {
-          orderBtn.className = 'btn-send-whatsapp-order btn-special-delivery';
-          orderBtn.disabled = false;
-        }
-        if (orderBtnLbl && currentOrderType === 'delivery') {
-          orderBtnLbl.textContent = `Place Order Anyway & Request Call Back (${userDistanceKm.toFixed(1)} km)`;
-        }
+        if (statusBox) statusBox.className = 'location-status-badge status-out';
+        if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-warning-circle"></i> Outside 2 km Radius';
+        if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`;
       }
 
-      if (doGeocode) {
-        reverseGeocodeAddress(lat, lng);
-      }
+      if (doGeocode) reverseGeocode(lat, lng);
     }
 
-    // Fail-safe Mobile Geolocation Detector
-    function detectGPSLocation(event) {
-      if (event) {
-        if (event.preventDefault) event.preventDefault();
-        if (event.stopPropagation) event.stopPropagation();
-      }
-
-      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
-      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
+    // 100% Fail-safe Multi-Tier Location Detection
+    async function detectGPSLocation(event) {
+      if (event && event.preventDefault) event.preventDefault();
       
-      if (gpsBtnText) {
-        gpsBtnText.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Getting GPS Location...';
-      }
-      if (zoneStatusEl) {
-        zoneStatusEl.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Detecting your live doorstep location...';
-      }
+      const btn = document.getElementById('btn-detect-gps');
+      if (btn) btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Locating...';
 
-      if (!navigator.geolocation) {
-        onGpsFailure({ code: 0, message: 'Geolocation unsupported' });
-        return;
-      }
+      // 1. Try Browser Geolocation
+      if (navigator.geolocation) {
+        const geoPromise = new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 4000,
+            maximumAge: 60000
+          });
+        });
 
-      let hasResolved = false;
-
-      // Timeout watchdog: If mobile browser hangs on prompt, fallback gracefully in 5s
-      const watchdogTimer = setTimeout(() => {
-        if (!hasResolved) {
-          hasResolved = true;
-          console.warn('GPS watchdog triggered, using map fallback');
-          onGpsFailure({ code: 3, message: 'GPS watchdog timeout' });
+        try {
+          const pos = await geoPromise;
+          if (pos && pos.coords) {
+            finishLocate(pos.coords.latitude, pos.coords.longitude);
+            return;
+          }
+        } catch (err) {
+          console.warn("GPS failed, attempting IP Network location...", err);
         }
-      }, 5500);
+      }
 
+      // 2. IP Geolocation Backup (Always works without mobile permissions)
       try {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            if (hasResolved) return;
-            hasResolved = true;
-            clearTimeout(watchdogTimer);
-            onGpsSuccess(pos.coords.latitude, pos.coords.longitude);
-          },
-          (err) => {
-            console.warn('High accuracy GPS error, trying fast network fix...', err);
-            // Instant network positioning fallback
-            navigator.geolocation.getCurrentPosition(
-              (pos2) => {
-                if (hasResolved) return;
-                hasResolved = true;
-                clearTimeout(watchdogTimer);
-                onGpsSuccess(pos2.coords.latitude, pos2.coords.longitude);
-              },
-              (err2) => {
-                if (hasResolved) return;
-                hasResolved = true;
-                clearTimeout(watchdogTimer);
-                onGpsFailure(err2);
-              },
-              { enableHighAccuracy: false, timeout: 4000, maximumAge: 600000 }
-            );
-          },
-          { enableHighAccuracy: true, timeout: 4000, maximumAge: 120000 }
-        );
-      } catch (e) {
-        clearTimeout(watchdogTimer);
-        onGpsFailure(e);
+        const ipRes = await fetch('https://ipapi.co/json/');
+        if (ipRes.ok) {
+          const ipData = await ipRes.json();
+          if (ipData && ipData.latitude && ipData.longitude) {
+            finishLocate(ipData.latitude, ipData.longitude);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("IP location backup failed:", err);
       }
+
+      // 3. Fallback: Center on bakery hub
+      finishLocate(BAKERY_COORDS.lat, BAKERY_COORDS.lng);
     }
 
-    function onGpsSuccess(lat, lng) {
-      userLocation = { lat, lng };
-
-      if (leafletMap) {
-        leafletMap.setView([lat, lng], 16, { animate: true });
-      }
-
-      handleLocationUpdate(lat, lng, true);
-
-      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
-      if (gpsBtnText) {
-        gpsBtnText.textContent = '📍 Re-Detect My Location';
-      }
+    function finishLocate(lat, lng) {
+      const btn = document.getElementById('btn-detect-gps');
+      if (btn) btn.innerHTML = '<i class="ph ph-crosshair"></i> <span>Locate</span>';
+      if (leafletMap) leafletMap.setView([lat, lng], 16, { animate: true });
+      updateLocationCoords(lat, lng, true);
     }
 
-    function onGpsFailure(err) {
-      const gpsBtnText = document.getElementById('lbl-btn-gps-text');
-      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
-
-      if (gpsBtnText) {
-        gpsBtnText.textContent = '📍 Drag Map to Set Doorstep';
-      }
-
-      if (zoneStatusEl) {
-        zoneStatusEl.innerHTML = '<i class="ph ph-hand-pointing"></i> <strong>Drag map to adjust doorstep pin</strong> or select area below';
-      }
-
-      // Center map on bakery hub so user can easily drag
-      if (!userLocation && leafletMap) {
-        leafletMap.setView([BAKERY_COORDS.lat, BAKERY_COORDS.lng], 15, { animate: true });
-        handleLocationUpdate(BAKERY_COORDS.lat, BAKERY_COORDS.lng, true);
-      }
-    }
-
-    let geocodeDebounceTimer = null;
-    function reverseGeocodeAddress(lat, lng) {
-      clearTimeout(geocodeDebounceTimer);
-      geocodeDebounceTimer = setTimeout(async () => {
+    let geocodeTimer = null;
+    function reverseGeocode(lat, lng) {
+      clearTimeout(geocodeTimer);
+      geocodeTimer = setTimeout(async () => {
         try {
           const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
           if (res.ok) {
             const data = await res.json();
             if (data && data.address) {
               const a = data.address;
-              const road = a.road || a.pedestrian || a.suburb || a.neighbourhood || '';
-              const area = a.suburb || a.residential || a.city_district || 'Thirunagar';
-              const city = a.city || a.town || a.county || 'Tirunelveli';
-              const cleanText = [road, area, city].filter(Boolean).join(', ');
-              
-              const addrInput = document.getElementById('cust-address');
-              if (addrInput && cleanText) {
-                addrInput.value = cleanText;
-                clearFieldError(addrInput);
-              }
+              const cleanText = [a.road || a.suburb || a.neighbourhood, a.suburb || a.city_district || 'Thirunagar', a.city || 'Tirunelveli'].filter(Boolean).join(', ');
+              const input = document.getElementById('cust-address');
+              if (input && cleanText) input.value = cleanText;
             }
           }
-        } catch (err) {
-          console.warn('Reverse geocode fallback:', err);
-        }
-      }, 350);
-    }
-
-    function clearFieldError(input) {
-      if (!input) return;
-      input.classList.remove('input-error');
-      const errEl = document.getElementById(`err-${input.id}`);
-      if (errEl) errEl.classList.remove('visible');
-    }
-
-    function showFieldError(inputId, message) {
-      const input = document.getElementById(inputId);
-      if (input) {
-        input.classList.add('input-error');
-        input.focus();
-      }
-      const errEl = document.getElementById(`err-${inputId}`);
-      if (errEl) {
-        if (message) errEl.textContent = message;
-        errEl.classList.add('visible');
-      }
+        } catch (e) { console.warn("Geocode error", e); }
+      }, 300);
     }
 
     // ==========================================
-    // 7. UNIFIED WHATSAPP ORDER DISPATCH (DELIVERY & TAKEAWAY)
+    // WHATSAPP ORDER DISPATCH
     // ==========================================
     function sendOrderWhatsApp() {
       if (deliveryCart.length === 0) {
-        alert('Please add dishes or items to your cart first!');
+        alert('Your cart is empty! Please add dishes to order.');
         return;
       }
 
       const name = (document.getElementById('cust-name')?.value || '').trim();
       const phone = (document.getElementById('cust-phone')?.value || '').trim();
       const address = (document.getElementById('cust-address')?.value || '').trim();
-      const landmark = (document.getElementById('cust-landmark')?.value || '').trim();
       const pickupTime = document.getElementById('cust-pickup-time')?.value || 'Ready in 15–20 Mins';
       const instructions = (document.getElementById('cust-instructions')?.value || '').trim();
       const isTakeaway = (currentOrderType === 'takeaway');
-      const radiusConfirmed = document.getElementById('chk-radius-confirm')?.checked;
 
-      // 1. Full Name Validation
       if (!name) {
-        showFieldError('cust-name', 'Please enter your full name');
+        const el = document.getElementById('cust-name');
+        if (el) { el.classList.add('input-error'); el.focus(); }
         return;
       }
 
-      // 2. Mobile Number Validation
       const phoneClean = phone.replace(/[^0-9]/g, '');
       if (!phoneClean || phoneClean.length < 10) {
-        showFieldError('cust-phone', 'Please enter a valid 10-digit mobile number');
+        const el = document.getElementById('cust-phone');
+        if (el) { el.classList.add('input-error'); el.focus(); }
         return;
       }
 
-      // 3. Address Validation (only for delivery)
       if (!isTakeaway && !address) {
-        showFieldError('cust-address', 'Please enter your delivery address or drag map to set location');
-        return;
-      }
-
-      if (!isTakeaway && !radiusConfirmed) {
-        alert('Please confirm the delivery address acknowledgment checkbox.');
+        const el = document.getElementById('cust-address');
+        if (el) { el.classList.add('input-error'); el.focus(); }
         return;
       }
 
@@ -2620,111 +1993,77 @@
       let text = '';
 
       if (isTakeaway) {
-        // TAKEAWAY ORDER TEMPLATE
-        text += `🛍️ *NEW TAKEAWAY / STORE PICKUP ORDER (#SG-PICKUP-${refId})*\n`;
+        text += `🛍️ *NEW TAKEAWAY ORDER (#SG-PICKUP-${refId})*\n`;
         text += `*Santhi Ganesh Bakery & Cafe (Store Pickup)*\n`;
-        text += `*Store: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli*\n`;
+        text += `*Store: 92 Cheranmahadevi Rd, Thirunagar*\n`;
         text += `------------------------------------\n`;
         text += `👤 *Customer:* ${name}\n`;
         text += `📱 *Phone:* ${phoneClean}\n`;
         text += `⏱️ *Pickup Timing:* ${pickupTime}\n`;
-        text += `📅 *Order Time:* ${currentTime}\n`;
         text += `------------------------------------\n`;
         text += `*ITEMS TO PREPARE:*\n`;
-
         deliveryCart.forEach((item, index) => {
           text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
         });
-
         text += `------------------------------------\n`;
         text += `🍲 *Item Total:* ₹${subtotal}\n`;
-        text += `🛍️ *Pickup / Packing Fee:* FREE (₹0)\n`;
         text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
-        if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
+        if (instructions) text += `📝 *Note:* ${instructions}\n`;
         text += `------------------------------------\n`;
-        text += `Please confirm my takeaway order and start preparation. Thank you!`;
+        text += `Please confirm my takeaway order. Thank you!`;
       } else {
-        // HOME DELIVERY ORDER TEMPLATE (2 KM RADIUS)
         const mapsLink = userLocation 
           ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
           : `https://www.google.com/maps?q=${encodeURIComponent(address + ', Tirunelveli')}`;
 
-        const isOutRange = (userDistanceKm !== null && userDistanceKm > MAX_DELIVERY_KM);
+        const isOutRange = (userDistanceKm > MAX_DELIVERY_KM);
 
         text += `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
         text += `*Santhi Ganesh Bakery & Cafe (Home Delivery)*\n`;
-        text += `*Kitchen: 92 Cheranmahadevi Rd, Thirunagar*\n`;
         text += `------------------------------------\n`;
-
         if (isOutRange) {
-          text += `⚠️ *SPECIAL DELIVERY REQUEST (Outside 2 km Radius)*\n`;
-          text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery\n`;
-          text += `📞 *Notice:* Customer requesting callback for custom delivery quotation & confirmation.\n`;
-          text += `------------------------------------\n`;
+          text += `⚠️ *NOTICE: Address is ${userDistanceKm.toFixed(1)} km away (> 2 km)*\n`;
         }
-
         text += `👤 *Customer:* ${name}\n`;
         text += `📱 *Phone:* ${phoneClean}\n`;
         text += `🏠 *Delivery Address:* ${address}\n`;
-        if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
-        text += `🗺️ *Live GPS Map Pin:* ${mapsLink}\n`;
-        if (!isOutRange) {
-          text += `🛵 *Distance:* ${userDistanceKm ? userDistanceKm.toFixed(1) + ' km (Within 2 km Zone ✅)' : 'Within 2 km Zone ✅'}\n`;
-        }
-        text += `📅 *Order Time:* ${currentTime} (Est: 20–35 mins)\n`;
+        text += `🗺️ *Live GPS Pin:* ${mapsLink}\n`;
+        text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km ${isOutRange ? '(Outside 2 km)' : '(Within 2 km ✅)'}\n`;
         text += `------------------------------------\n`;
         text += `*ITEMS ORDERED:*\n`;
-
         deliveryCart.forEach((item, index) => {
           text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
         });
-
         text += `------------------------------------\n`;
         text += `🍲 *Item Total:* ₹${subtotal}\n`;
         text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order > ₹300)' : `₹${deliveryFee}`}\n`;
         text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
-        if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
+        if (instructions) text += `📝 *Note:* ${instructions}\n`;
         text += `------------------------------------\n`;
-        
-        if (isOutRange) {
-          text += `Please review and call back customer to confirm order feasibility. Thank you!`;
-        } else {
-          text += `Please confirm our delivery order and send preparation & dispatch status. Thank you!`;
-        }
+        text += `Please confirm delivery order. Thank you!`;
       }
 
-      // Event Tracking
       if (typeof trackEvent === 'function') {
         trackEvent(isTakeaway ? 'cafe_takeaway_order' : 'cafe_delivery_order', {
           ref_id: isTakeaway ? `#SG-PICKUP-${refId}` : `#SG-CAFE-${refId}`,
           customer_name: name,
           phone: phoneClean,
-          order_type: currentOrderType,
-          items_count: deliveryCart.length,
-          subtotal: subtotal,
-          delivery_fee: deliveryFee,
           grand_total: grandTotal
         });
       }
 
-      // Open WhatsApp
       const bakeryPhone = "917339073844";
-      const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
-      window.open(encodedUrl, '_blank');
+      window.open(`https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`, '_blank');
 
-      // Clear cart after dispatch
       setTimeout(() => {
         deliveryCart = [];
         localStorage.removeItem('sg_delivery_cart');
         updateCartUI();
         closeCheckoutModal();
-        alert(`🎉 Order Placed Successfully!\nOur team will review your order and start preparation.`);
+        alert(`🎉 Order Placed Successfully! We'll start preparing your order right away.`);
       }, 500);
     }
 
-    // ==========================================
-    // 8. SUPABASE LIVE CLOUD DATA INTEGRATION
-    // ==========================================
     async function loadCafeMenuFromSupabase() {
       try {
         if (typeof SUPABASE_URL === 'undefined' || typeof SUPABASE_ANON_KEY === 'undefined') return;
@@ -2760,7 +2099,6 @@
       }
     }
 
-    // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
       applyMenuLanguage(currentMenuLang);
       loadCafeMenuFromSupabase();
