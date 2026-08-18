@@ -6,8 +6,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>In-Store Digital Menu | Santhi Ganesh Bakery & Cafe</title>
-  <meta name="description" content="Explore Santhi Ganesh Bakery & Cafe in-store digital menu. Fresh Juices, Milkshakes, Chat, Burgers, Pizzas, Sandwiches, Brownies, and Hot Drinks.">
+  <title>Online Cafe & Food Delivery | Santhi Ganesh Bakery</title>
+  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe. Live delivery within 5 km radius in Palayamkottai & Tirunelveli. FREE delivery above ₹300!">
 
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
       --color-nonveg: #C62828;
       --shadow-sm: 0 2px 8px rgba(26, 18, 11, 0.04);
       --shadow-md: 0 8px 24px rgba(26, 18, 11, 0.08);
-      --shadow-lg: 0 16px 40px rgba(26, 18, 11, 0.12);
+      --shadow-lg: 0 16px 40px rgba(26, 18, 11, 0.14);
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
@@ -54,14 +54,14 @@
       background-color: var(--color-bg);
       color: var(--color-text-main);
       line-height: 1.35;
-      padding-bottom: 75px;
+      padding-bottom: 90px;
       overflow-x: hidden;
       font-size: 13px;
     }
 
-    /* Outer Wrapper for Native App Feeling */
+    /* Outer Wrapper for Native Mobile & Desktop Layout */
     .app-viewport {
-      max-width: 580px;
+      max-width: 600px;
       margin: 0 auto;
       background-color: var(--color-bg);
       min-height: 100vh;
@@ -82,7 +82,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 44px;
+      height: 46px;
     }
 
     .top-nav-left {
@@ -94,13 +94,13 @@
     .back-home-btn {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
       color: var(--color-primary-dark);
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       background: rgba(166, 96, 27, 0.1);
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 14px;
       transition: all 0.2s ease;
     }
@@ -148,68 +148,99 @@
       cursor: pointer;
       box-shadow: var(--shadow-sm);
       transition: all 0.2s ease;
+      text-decoration: none;
     }
 
-    .nav-icon-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* Compact Ambiance Hero */
+    /* Delivery Info & Promo Banner Hero */
     .menu-hero {
       padding: 8px 12px 6px;
     }
 
     .hero-banner-card {
       background: linear-gradient(135deg, #24140B 0%, #3D2211 100%);
-      border-radius: 12px;
+      border-radius: 14px;
       color: #FFFFFF;
       box-shadow: var(--shadow-sm);
-      padding: 10px 12px;
+      padding: 12px 14px;
+      position: relative;
+      overflow: hidden;
     }
 
     .hero-badge-row {
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       flex-wrap: wrap;
     }
 
     .hero-pill {
       background: rgba(255, 255, 255, 0.15);
-      padding: 2px 7px;
+      padding: 2px 8px;
       border-radius: 8px;
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.3px;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
+    }
+
+    .hero-pill-delivery {
+      background: #2E7D32;
+      color: #FFFFFF;
+      font-weight: 800;
+    }
+
+    .hero-pill-radius {
+      background: #D95338;
+      color: #FFFFFF;
+      font-weight: 800;
     }
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 1px;
+      margin-bottom: 2px;
       color: #F8F3ED;
     }
 
     .hero-sub {
-      font-size: 0.72rem;
-      color: rgba(248, 243, 237, 0.82);
+      font-size: 0.74rem;
+      color: rgba(248, 243, 237, 0.88);
       display: flex;
       align-items: center;
       gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* Free Delivery Announcement Box inside Hero */
+    .delivery-rule-badge {
+      background: rgba(245, 166, 35, 0.18);
+      border: 1px dashed rgba(245, 166, 35, 0.6);
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: #FFE6BA;
+      line-height: 1.25;
+    }
+
+    .delivery-rule-badge strong {
+      color: #FFB300;
     }
 
     /* Unified Sticky Header Controls: Search + Categories */
     .sticky-menu-controls {
       position: -webkit-sticky;
       position: sticky;
-      top: 44px;
+      top: 46px;
       z-index: 95;
       background: rgba(244, 239, 234, 0.98);
       backdrop-filter: blur(14px);
@@ -246,7 +277,7 @@
       background: transparent;
       outline: none;
       font-family: var(--font-main);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       width: 100%;
       color: var(--color-text-main);
     }
@@ -260,7 +291,7 @@
       display: none;
     }
 
-    /* Horizontal Visual Category Cards (Inside Sticky Wrapper) */
+    /* Horizontal Visual Category Cards */
     .category-nav-bar {
       padding: 2px 12px 10px;
       display: flex;
@@ -281,7 +312,6 @@
       display: block;
     }
 
-    /* Category Card: Shows ~3.2 cards on screen so user knows to scroll */
     .cat-tab-btn {
       flex: 0 0 104px;
       width: 104px;
@@ -355,7 +385,6 @@
       max-width: 100%;
       display: block;
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
-      transition: color 0.15s ease;
     }
 
     .cat-tab-btn:hover {
@@ -370,12 +399,12 @@
 
     .cat-tab-btn.active {
       transform: translateY(-2px);
-      border: 2px solid var(--color-desert);
+      border: 2px solid var(--color-primary);
       box-shadow: 0 4px 14px rgba(166, 96, 27, 0.22);
     }
 
     .cat-tab-btn.active .cat-card-title {
-      color: var(--color-desert);
+      color: var(--color-primary);
       font-weight: 800;
     }
 
@@ -386,7 +415,7 @@
       right: 4px;
       width: 6px;
       height: 6px;
-      background: var(--color-desert);
+      background: var(--color-primary);
       border-radius: 50%;
       z-index: 4;
     }
@@ -401,7 +430,7 @@
 
     /* Category Section */
     .category-section {
-      scroll-margin-top: 195px;
+      scroll-margin-top: 200px;
       animation: fadeIn 0.18s ease-out;
     }
 
@@ -411,7 +440,7 @@
     }
 
     .category-header-strip {
-      scroll-margin-top: 195px;
+      scroll-margin-top: 200px;
       background: var(--color-surface);
       border-radius: 10px;
       padding: 10px 14px;
@@ -470,7 +499,6 @@
       transform: scale(0.99);
     }
 
-    /* Dish Thumbnail */
     .item-thumb-box {
       width: 38px;
       height: 38px;
@@ -488,7 +516,6 @@
       font-size: 1.25rem;
     }
 
-    /* Item Details */
     .item-info {
       flex: 1;
       min-width: 0;
@@ -513,29 +540,11 @@
       flex-shrink: 0;
     }
 
-    .diet-icon.veg {
-      border-color: var(--color-veg);
-    }
+    .diet-icon.veg { border-color: var(--color-veg); }
+    .diet-icon.veg::after { content: ''; width: 4px; height: 4px; background-color: var(--color-veg); border-radius: 50%; }
 
-    .diet-icon.veg::after {
-      content: '';
-      width: 4px;
-      height: 4px;
-      background-color: var(--color-veg);
-      border-radius: 50%;
-    }
-
-    .diet-icon.nonveg {
-      border-color: var(--color-nonveg);
-    }
-
-    .diet-icon.nonveg::after {
-      content: '';
-      width: 4px;
-      height: 4px;
-      background-color: var(--color-nonveg);
-      border-radius: 50%;
-    }
+    .diet-icon.nonveg { border-color: var(--color-nonveg); }
+    .diet-icon.nonveg::after { content: ''; width: 4px; height: 4px; background-color: var(--color-nonveg); border-radius: 50%; }
 
     .item-name {
       font-weight: 700;
@@ -568,7 +577,6 @@
       margin-bottom: 2px;
     }
 
-    /* Right Action Area */
     .item-action-area {
       display: flex;
       flex-direction: column;
@@ -590,10 +598,10 @@
       font-weight: 500;
     }
 
-    /* Add to Tray Button */
-    .btn-add-tray {
+    /* Add to Cart Button */
+    .btn-add-cart {
       background: var(--color-surface-soft);
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--color-primary);
       color: var(--color-primary-dark);
       font-family: var(--font-main);
       font-weight: 700;
@@ -605,12 +613,12 @@
       align-items: center;
       gap: 3px;
       transition: all 0.15s ease;
-      min-width: 52px;
+      min-width: 54px;
       height: 25px;
       justify-content: center;
     }
 
-    .btn-add-tray:active {
+    .btn-add-cart:active {
       transform: scale(0.92);
       background: var(--color-primary-dark);
       color: #FFF;
@@ -659,85 +667,115 @@
       min-width: 14px;
       text-align: center;
     }
-      font-size: 0.9rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
 
-    .qty-val {
-      font-weight: 700;
-      font-size: 0.85rem;
-      min-width: 14px;
-      text-align: center;
-    }
-
-    /* Floating Bottom Order Bar (Tray summary) */
-    .floating-tray-bar {
+    /* ====================================================
+       FLOATING BOTTOM CART & DELIVERY NOTIFIER BAR
+       ==================================================== */
+    .floating-cart-bar {
       position: fixed;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      max-width: 648px;
+      bottom: 14px;
+      left: 12px;
+      right: 12px;
+      max-width: 576px;
       margin: 0 auto;
-      background: linear-gradient(135deg, #1A120B 0%, #3D2314 100%);
+      background: linear-gradient(135deg, #1A120B 0%, #351C0D 100%);
       color: #FFFFFF;
-      border-radius: 24px;
-      padding: 12px 18px;
+      border-radius: 20px;
+      padding: 10px 16px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 6px;
       box-shadow: var(--shadow-lg);
       z-index: 200;
-      transform: translateY(120%);
+      transform: translateY(140%);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .floating-tray-bar.visible {
+    .floating-cart-bar.visible {
       transform: translateY(0);
     }
 
-    .tray-summary {
+    .cart-bar-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-summary-left {
       display: flex;
       flex-direction: column;
     }
 
-    .tray-count-text {
-      font-size: 0.75rem;
+    .cart-items-count-label {
+      font-size: 0.72rem;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 700;
+      letter-spacing: 0.4px;
     }
 
-    .tray-total-price {
+    .cart-total-price {
       font-size: 1.15rem;
       font-weight: 800;
       color: #FFB300;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
 
-    .btn-view-tray {
-      background: #F5A623;
-      color: #0A0404;
+    .cart-delivery-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .delivery-free {
+      background: #2E7D32;
+      color: #FFFFFF;
+    }
+
+    .delivery-paid {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFE6BA;
+    }
+
+    .btn-checkout-now {
+      background: #25D366;
+      color: #FFFFFF;
       border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
+      padding: 9px 18px;
+      border-radius: 16px;
       font-family: var(--font-main);
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
       transition: all 0.2s ease;
     }
 
-    .btn-view-tray:active {
+    .btn-checkout-now:active {
       transform: scale(0.95);
     }
 
-    /* Modal / Bottom Drawer for In-Store Order Tray */
-    .tray-modal-overlay {
+    .delivery-progress-hint {
+      font-size: 0.7rem;
+      color: #FFE082;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 4px;
+    }
+
+    /* ====================================================
+       CHECKOUT / ORDER MODAL DRAWER
+       ==================================================== */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -751,21 +789,21 @@
       align-items: flex-end;
     }
 
-    .tray-modal-overlay.active {
+    .modal-overlay.active {
       display: flex;
     }
 
-    .tray-modal-sheet {
+    .modal-sheet {
       background: var(--color-surface);
       width: 100%;
-      max-width: 680px;
+      max-width: 600px;
       border-top-left-radius: 24px;
       border-top-right-radius: 24px;
-      max-height: 88vh;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
       box-shadow: var(--shadow-lg);
-      animation: slideUp 0.3s ease;
+      animation: slideUp 0.28s ease-out;
     }
 
     @keyframes slideUp {
@@ -773,22 +811,22 @@
       to { transform: translateY(0); }
     }
 
-    .tray-modal-header {
-      padding: 18px 20px;
+    .modal-header {
+      padding: 16px 20px;
       border-bottom: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .tray-modal-title {
+    .modal-title {
       font-family: var(--font-serif);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--color-text-main);
     }
 
-    .tray-modal-close {
+    .modal-close-btn {
       background: var(--color-surface-soft);
       border: none;
       width: 32px;
@@ -799,127 +837,177 @@
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
+      color: var(--color-text-main);
     }
 
-    .tray-modal-body {
-      padding: 20px;
+    .modal-body {
+      padding: 18px;
       overflow-y: auto;
       flex: 1;
     }
 
-    .tray-items-list {
+    /* 5 km Delivery Restriction Notice inside Modal */
+    .delivery-radius-notice-card {
+      background: #FFF8E7;
+      border: 1px solid #FFE082;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      align-items: flex-start;
+      gap: 8px;
     }
 
-    .tray-item-row {
+    .delivery-radius-notice-card i {
+      font-size: 1.3rem;
+      color: #E65100;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .delivery-radius-notice-text {
+      font-size: 0.78rem;
+      color: #5D4037;
+      line-height: 1.35;
+    }
+
+    .delivery-radius-notice-text strong {
+      color: #BF360C;
+    }
+
+    /* Modal Items List */
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .cart-item-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 12px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--color-border);
     }
 
-    .tray-item-left {
+    .cart-item-left {
       flex: 1;
+      min-width: 0;
+      padding-right: 8px;
     }
 
-    .tray-item-name {
+    .cart-item-name {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      color: var(--color-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .tray-item-unit-price {
-      font-size: 0.8rem;
+    .cart-item-unit-price {
+      font-size: 0.76rem;
       color: var(--color-text-muted);
     }
 
-    .tray-item-actions {
+    .cart-item-actions {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .tray-item-total {
-      font-weight: 700;
-      color: var(--color-terracotta);
-      font-size: 0.95rem;
+    .cart-item-total {
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      font-size: 0.92rem;
       min-width: 50px;
       text-align: right;
     }
 
-    /* Dining Options in Tray */
-    .dining-toggle-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .dining-toggle-btn {
-      padding: 10px;
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      background: var(--color-surface-soft);
-      font-family: var(--font-main);
-      font-weight: 700;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: var(--color-text-muted);
-    }
-
-    .dining-toggle-btn.active {
-      background: var(--color-primary-dark);
-      color: #FFFFFF;
-      border-color: var(--color-primary-dark);
-    }
-
-    .form-group-tray {
-      margin-bottom: 16px;
-    }
-
-    .form-group-tray label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-    }
-
-    .input-tray {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-soft);
-      font-family: var(--font-main);
-      font-size: 0.95rem;
-      outline: none;
-    }
-
-    .input-tray:focus {
-      border-color: var(--color-primary);
-      background: #FFFFFF;
-    }
-
-    .tray-bill-breakdown {
+    /* Customer Form Details */
+    .checkout-form-section {
       background: var(--color-surface-soft);
       border-radius: 12px;
       padding: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .checkout-form-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-group-field {
+      margin-bottom: 10px;
+    }
+
+    .form-group-field label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--color-text-muted);
+    }
+
+    .form-input-field {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input-field:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(166, 96, 27, 0.12);
+    }
+
+    .radius-confirm-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .radius-confirm-label input {
+      margin-top: 2px;
+      accent-color: var(--color-primary);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Bill Breakdown */
+    .bill-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 18px;
     }
 
     .bill-row {
       display: flex;
       justify-content: space-between;
-      font-size: 0.9rem;
+      align-items: center;
+      font-size: 0.85rem;
       margin-bottom: 6px;
       color: var(--color-text-muted);
     }
@@ -929,8 +1017,8 @@
       font-weight: 800;
       color: var(--color-text-main);
       border-top: 1px dashed var(--color-border);
-      padding-top: 8px;
-      margin-top: 8px;
+      padding-top: 10px;
+      margin-top: 10px;
       margin-bottom: 0;
     }
 
@@ -958,18 +1046,17 @@
     }
 
     /* Empty state */
-    .empty-tray-state {
+    .empty-cart-state {
       text-align: center;
       padding: 40px 20px;
     }
 
-    .empty-tray-icon {
+    .empty-cart-icon {
       font-size: 3.5rem;
       margin-bottom: 12px;
       opacity: 0.6;
     }
 
-    /* Responsive adjustments */
     @media (min-width: 681px) {
       body {
         background-color: #E8DFD5;
@@ -1002,16 +1089,21 @@
       </div>
     </header>
 
-    <!-- COMPACT IN-STORE HERO -->
+    <!-- DELIVERY HERO BANNER -->
     <section class="menu-hero">
       <div class="hero-banner-card">
         <div class="hero-badge-row">
-          <span class="hero-pill" id="hero-badge-loc"><i class="ph ph-map-pin"></i> Palayamkottai</span>
-          <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 7am–10:30pm</span>
-          <span class="hero-pill" id="hero-badge-service" style="background: rgba(37, 211, 102, 0.3);"><i class="ph ph-check-circle"></i> Dine-In & Parcel</span>
+          <span class="hero-pill hero-pill-delivery" id="hero-badge-delivery"><i class="ph ph-moped"></i> Live Food Delivery</span>
+          <span class="hero-pill hero-pill-radius" id="hero-badge-radius"><i class="ph ph-map-pin"></i> 5 km Radius Only</span>
+          <span class="hero-pill" id="hero-badge-time"><i class="ph ph-clock"></i> 30–45 Mins</span>
         </div>
-        <h1 class="hero-title" id="hero-main-title">Santhi Ganesh Cafe Menu</h1>
-        <p class="hero-sub" id="hero-main-sub">Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas</p>
+        <h1 class="hero-title" id="hero-main-title">Santhi Ganesh Cafe Delivery</h1>
+        <p class="hero-sub" id="hero-main-sub">Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas</p>
+        
+        <!-- Free Delivery Offer Box -->
+        <div class="delivery-rule-badge" id="hero-delivery-rule">
+          <span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>
+        </div>
       </div>
     </section>
 
@@ -1028,20 +1120,7 @@
 
       <!-- HORIZONTAL CATEGORY NAVIGATION BAR -->
       <nav class="category-nav-bar" id="category-nav-bar">
-        <button class="cat-tab-btn active" data-cat="juices" onclick="selectCategory('juices', this)">🧃 Fresh Juice (16)</button>
-        <button class="cat-tab-btn" data-cat="shakes" onclick="selectCategory('shakes', this)">🥤 Milk Shakes (9)</button>
-        <button class="cat-tab-btn" data-cat="falooda" onclick="selectCategory('falooda', this)">🍨 Falooda & Desserts (6)</button>
-        <button class="cat-tab-btn" data-cat="mojito" onclick="selectCategory('mojito', this)">🍹 Mojitos (7)</button>
-        <button class="cat-tab-btn" data-cat="brownie" onclick="selectCategory('brownie', this)">🍫 Brownies & Cakes (14)</button>
-        <button class="cat-tab-btn" data-cat="icecream" onclick="selectCategory('icecream', this)">🍦 Scoop Ice Cream (6)</button>
-        <button class="cat-tab-btn" data-cat="hotdrinks" onclick="selectCategory('hotdrinks', this)">☕ Hot Drinks (13)</button>
-        <button class="cat-tab-btn" data-cat="chat" onclick="selectCategory('chat', this)">🫓 Chat & Snacks (25)</button>
-        <button class="cat-tab-btn" data-cat="pavbhaji" onclick="selectCategory('pavbhaji', this)">🍲 Pav Bhaji (5)</button>
-        <button class="cat-tab-btn" data-cat="toast" onclick="selectCategory('toast', this)">🍞 Toasts (6)</button>
-        <button class="cat-tab-btn" data-cat="burger" onclick="selectCategory('burger', this)">🍔 Burgers (8)</button>
-        <button class="cat-tab-btn" data-cat="pizza" onclick="selectCategory('pizza', this)">🍕 Pizzas (8)</button>
-        <button class="cat-tab-btn" data-cat="sandwich" onclick="selectCategory('sandwich', this)">🥪 Sandwiches (13)</button>
-        <button class="cat-tab-btn" data-cat="momos" onclick="selectCategory('momos', this)">🥟 Momos & Crispy (5)</button>
+        <!-- Injected Dynamically by JS -->
       </nav>
     </div>
 
@@ -1050,79 +1129,119 @@
       <!-- Injected by JavaScript -->
     </main>
 
-    <!-- FLOATING BOTTOM ORDER BAR (Visible when items in tray) -->
-    <div class="floating-tray-bar" id="floating-tray-bar">
-      <div class="tray-summary">
-        <span class="tray-count-text" id="tray-bar-count">0 Items Selected</span>
-        <span class="tray-total-price" id="tray-bar-total">₹0</span>
+    <!-- FLOATING BOTTOM CART BAR (Visible when items in cart) -->
+    <div class="floating-cart-bar" id="floating-cart-bar">
+      <div class="cart-bar-main-row">
+        <div class="cart-summary-left">
+          <span class="cart-items-count-label" id="cart-bar-count">0 Items Selected</span>
+          <div class="cart-total-price">
+            <span id="cart-bar-total">₹0</span>
+            <span class="cart-delivery-badge" id="cart-delivery-status-pill">FREE Delivery</span>
+          </div>
+        </div>
+        <button class="btn-checkout-now" onclick="openCheckoutModal()">
+          <i class="ph ph-shopping-bag"></i> <span id="lbl-btn-checkout">Order Now</span> <i class="ph ph-arrow-right"></i>
+        </button>
       </div>
-      <button class="btn-view-tray" onclick="openTrayModal()">
-        View Order Tray <i class="ph ph-arrow-right"></i>
-      </button>
+      <div class="delivery-progress-hint" id="cart-delivery-progress-text">
+        <i class="ph ph-info"></i> Add ₹300 for FREE delivery
+      </div>
     </div>
 
-    <!-- IN-STORE ORDER TRAY MODAL -->
-    <div class="tray-modal-overlay" id="tray-modal" onclick="if(event.target === this) closeTrayModal()">
-      <div class="tray-modal-sheet">
-        <div class="tray-modal-header">
+    <!-- LIVE FOOD DELIVERY CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkout-modal" onclick="if(event.target === this) closeCheckoutModal()">
+      <div class="modal-sheet">
+        <div class="modal-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-shopping-bag" style="font-size: 1.4rem; color: var(--color-primary);"></i>
-            <h2 class="tray-modal-title">Your Order Tray</h2>
+            <i class="ph ph-moped" style="font-size: 1.4rem; color: var(--color-primary);"></i>
+            <h2 class="modal-title" id="lbl-modal-title">Live Delivery Order</h2>
           </div>
-          <button class="tray-modal-close" onclick="closeTrayModal()"><i class="ph ph-x"></i></button>
+          <button class="modal-close-btn" onclick="closeCheckoutModal()"><i class="ph ph-x"></i></button>
         </div>
 
-        <div class="tray-modal-body">
+        <div class="modal-body">
           
-          <!-- Dining Option Toggle -->
-          <div class="dining-toggle-group">
-            <button class="dining-toggle-btn active" id="btn-dinein" onclick="setDiningType('Dine-In')">
-              🍽️ Dine-In (At Table)
-            </button>
-            <button class="dining-toggle-btn" id="btn-takeaway" onclick="setDiningType('Takeaway / Parcel')">
-              🛍️ Takeaway Parcel
-            </button>
+          <!-- 5 KM RADIUS DELIVERY NOTICE -->
+          <div class="delivery-radius-notice-card">
+            <i class="ph ph-warning-circle"></i>
+            <div class="delivery-radius-notice-text">
+              <strong>5 km Delivery Radius Only:</strong> We deliver exclusively within a 5 km radius of Santhi Ganesh Bakery (Palayamkottai & Tirunelveli). Estimated delivery time: <strong>30–45 mins</strong>.
+            </div>
           </div>
 
-          <!-- Table Number (if Dine-In) -->
-          <div class="form-group-tray" id="table-number-group">
-            <label>Table Number / Counter #</label>
-            <input type="text" id="tray-table-number" class="input-tray" placeholder="e.g. Table 4 or AC Hall 2">
-          </div>
-
-          <!-- Tray Items List -->
-          <div class="tray-items-list" id="tray-items-list">
+          <!-- CART ITEMS LIST -->
+          <div class="cart-items-list" id="modal-cart-items-list">
             <!-- Dynamic Items -->
           </div>
 
-          <!-- Special Note -->
-          <div class="form-group-tray">
-            <label>Special Instructions (Optional)</label>
-            <input type="text" id="tray-note" class="input-tray" placeholder="e.g. Less spicy, Extra ice, No sugar in juice">
+          <!-- CUSTOMER & DELIVERY ADDRESS FORM -->
+          <div class="checkout-form-section">
+            <div class="checkout-form-title">
+              <i class="ph ph-map-pin"></i> Delivery Details (5 km Radius)
+            </div>
+
+            <div class="form-group-field">
+              <label>Your Full Name *</label>
+              <input type="text" id="cust-name" class="form-input-field" placeholder="e.g. Anand Kumar">
+            </div>
+
+            <div class="form-group-field">
+              <label>Mobile / WhatsApp Number *</label>
+              <input type="tel" id="cust-phone" class="form-input-field" placeholder="e.g. 9876543210" maxlength="10">
+            </div>
+
+            <div class="form-group-field">
+              <label>Complete Delivery Address (Door No, Street, Area) *</label>
+              <input type="text" id="cust-address" class="form-input-field" placeholder="e.g. Flat 3B, North Car St, Palayamkottai">
+            </div>
+
+            <div class="form-group-field">
+              <label>Nearby Landmark (Optional)</label>
+              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near St. Xavier's College / Bus Stand">
+            </div>
+
+            <div class="form-group-field">
+              <label>Cooking / Delivery Instructions (Optional)</label>
+              <input type="text" id="cust-instructions" class="form-input-field" placeholder="e.g. Less spicy, Extra tissue, Don't ring bell">
+            </div>
+
+            <label class="radius-confirm-label">
+              <input type="checkbox" id="chk-radius-confirm" checked>
+              <span>I confirm my delivery address is within <strong>5 km radius</strong> of Santhi Ganesh Bakery, Palayamkottai.</span>
+            </label>
           </div>
 
-          <!-- Bill Summary -->
-          <div class="tray-bill-breakdown">
+          <!-- BILL BREAKDOWN -->
+          <div class="bill-card">
             <div class="bill-row">
               <span>Item Total</span>
-              <span id="bill-subtotal">₹0</span>
+              <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
             </div>
             <div class="bill-row">
-              <span>GST & Taxes</span>
-              <span>Included</span>
+              <span>Delivery Fee (within 5 km)</span>
+              <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
+            </div>
+            <div class="bill-row" style="font-size: 0.75rem; color: #7D450F; margin-top: -3px;" id="bill-delivery-fee-note">
+              <span>* FREE Delivery on orders above ₹300</span>
+            </div>
+            <div class="bill-row">
+              <span>GST & Packaging</span>
+              <span style="color: #2E7D32; font-weight: 700;">Included</span>
             </div>
             <div class="bill-row total">
               <span>Grand Total</span>
-              <span id="bill-grand-total">₹0</span>
+              <span id="bill-grand-total" style="color: #A6601B;">₹0</span>
             </div>
           </div>
 
-          <!-- WhatsApp Order Button -->
-          <button class="btn-send-whatsapp-order" onclick="sendInStoreOrderWhatsApp()">
-            <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i> Send Order to Counter WhatsApp
+          <!-- WHATSAPP ORDER BUTTON -->
+          <button class="btn-send-whatsapp-order" onclick="sendDeliveryOrderWhatsApp()">
+            <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i>
+            <span id="lbl-btn-whatsapp">Place Order on WhatsApp</span>
           </button>
-          <p style="text-align: center; font-size: 0.75rem; color: var(--color-text-muted); margin-top: 8px;">
-            ⚡ Instant direct order notification sent to our kitchen counter
+          
+          <p style="text-align: center; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 8px;">
+            ⚡ Instant order confirmation directly with our bakery delivery kitchen
           </p>
 
         </div>
@@ -1137,25 +1256,26 @@
   <script src="./app.js"></script>
 
   <script>
+    'use strict';
+
     // ==========================================
-    // 1. IN-STORE MENU DATASET (Complete 100+ items)
+    // 1. DATASET & STATE MANAGEMENT
     // ==========================================
-    // IN_STORE_MENU is loaded from data/cafe-menu-data.js
     if (typeof IN_STORE_MENU === 'undefined') {
       var IN_STORE_MENU = (typeof window !== 'undefined' && window.IN_STORE_MENU) ? window.IN_STORE_MENU : [];
     }
 
-    // ==========================================
-    // 2. STATE MANAGEMENT & BILINGUAL ENGINE
-    // ==========================================
     let activeCategory = 'juices';
     let searchQuery = '';
-    let inStoreTray = JSON.parse(localStorage.getItem('sg_instore_tray') || '[]');
-    let diningType = 'Dine-In';
+    let deliveryCart = JSON.parse(localStorage.getItem('sg_delivery_cart') || '[]');
     let liveMenuItems = [...IN_STORE_MENU];
     let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
-    // Categories definition with English & Tamil & Food Images
+    // Delivery rules configuration
+    const FREE_DELIVERY_THRESHOLD = 300;
+    const STANDARD_DELIVERY_FEE = 30;
+
+    // Categories definition with English & Tamil & Visual Background Images
     const CATEGORIES = [
       { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg', desc_en: '100% natural, freshly squeezed juices made to order', desc_ta: 'இயற்கையான புதிய பழச்சாறுகள்' },
       { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', img: './assets/categories/menu-shakes.jpg', desc_en: 'Thick & creamy shakes blended with rich dairy ice cream', desc_ta: 'சுவையான ஐஸ்கிரீம் மில்க் ஷேக்ஸ்' },
@@ -1165,11 +1285,11 @@
       { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஸ்கூப் ஐஸ்கிரீம்', icon: '🍦', img: './assets/categories/menu-icecream.jpg', desc_en: 'Premium dairy scoops served in bowls or waffle cones', desc_ta: 'சுவையான பால் ஐஸ்கிரீம் ஸ்கூப்கள்' },
       { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & சூடான பானங்கள்', icon: '☕', img: './assets/categories/menu-hotdrinks.jpg', desc_en: 'Traditional South Indian tea, filter coffee and healthy heritage brews', desc_ta: 'பாரம்பரிய நெல்லை டீ & பில்டர் காபி' },
       { id: 'chat', name_en: 'Chat & Snacks', name_ta: 'சாட் & ஸ்நாக்ஸ்', icon: '🫓', img: './assets/categories/menu-chat.jpg', desc_en: 'Crispy street chaat, samosas, fries and savory quick bites', desc_ta: 'மொறுமொறுப்பான சாட் மற்றும் சமோசா' },
-      { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', img: './assets/categories/menu-pavbhaji.jpg', desc: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', desc_ta: 'வெண்ணெய் பாவ் பன் & மசாலா பாஜி' },
-      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', img: './assets/categories/menu-toast.jpg', desc: 'Bakery fresh bread slices crisped on butter griddle', desc_ta: 'பேக்கரி பிரெட் டோஸ்ட் வகைகள்' },
-      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', img: './assets/categories/menu-burger.jpg', desc: 'Fresh baked sesame buns with juicy patties and crispy vegetables', desc_ta: 'புதிய பன் மற்றும் பர்கர் வகைகள்' },
-      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', img: './assets/categories/menu-pizza.jpg', desc: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', desc_ta: 'சீஸ் & மசாலா பீட்சா வகைகள்' },
-      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg', desc: 'Freshly sliced bakery bread grilled with mouthwatering fillings', desc_ta: 'கிரில் செய்யப்பட்ட சாண்ட்விச்கள்' },
+      { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', img: './assets/categories/menu-pavbhaji.jpg', desc_en: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', desc_ta: 'வெண்ணெய் பாவ் பன் & மசாலா பாஜி' },
+      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', img: './assets/categories/menu-toast.jpg', desc_en: 'Bakery fresh bread slices crisped on butter griddle', desc_ta: 'பேக்கரி பிரெட் டோஸ்ட் வகைகள்' },
+      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', img: './assets/categories/menu-burger.jpg', desc_en: 'Fresh baked sesame buns with juicy patties and crispy vegetables', desc_ta: 'புதிய பன் மற்றும் பர்கர் வகைகள்' },
+      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', img: './assets/categories/menu-pizza.jpg', desc_en: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', desc_ta: 'சீஸ் & மசாலா பீட்சா வகைகள்' },
+      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg', desc_en: 'Freshly sliced bakery bread grilled with mouthwatering fillings', desc_ta: 'கிரில் செய்யப்பட்ட சாண்ட்விச்கள்' },
       { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ் & கிரிஸ்பி', icon: '🥟', img: './assets/categories/menu-momos.jpg', desc_en: 'Steamed or fried dumplings served with fiery red chutney', desc_ta: 'கார சட்னியுடன் கூடிய சுவையான மோமோஸ்' }
     ];
 
@@ -1177,16 +1297,17 @@
       en: {
         back_home: "Home",
         lang_label: "தமிழ்",
-        hero_loc: '<i class="ph ph-map-pin"></i> Palayamkottai',
-        hero_time: '<i class="ph ph-clock"></i> 7am–10:30pm',
-        hero_service: '<i class="ph ph-check-circle"></i> Dine-In & Parcel',
-        hero_title: "Santhi Ganesh Cafe Menu",
-        hero_sub: "Fresh Juices • Milkshakes • Chaat • Hot Drinks • Burgers • Pizzas",
+        hero_delivery: '<i class="ph ph-moped"></i> Live Food Delivery',
+        hero_radius: '<i class="ph ph-map-pin"></i> 5 km Radius Only',
+        hero_time: '<i class="ph ph-clock"></i> 30–45 Mins',
+        hero_title: "Santhi Ganesh Cafe Delivery",
+        hero_sub: "Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas",
+        hero_rule: '<span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>',
         search_placeholder: "Search juices, burgers, chat, shakes, tea...",
         dishes_suffix: "Dishes",
         add_btn: "+ Add",
         sold_out: "Sold Out",
-        tray_view: "View Order Tray",
+        checkout_btn: "Order Now",
         items_suffix: "Items",
         item_suffix: "Item",
         empty_title: "No items found",
@@ -1196,16 +1317,17 @@
       ta: {
         back_home: "முகப்பு",
         lang_label: "English",
-        hero_loc: '<i class="ph ph-map-pin"></i> பாளையங்கோட்டை',
-        hero_time: '<i class="ph ph-clock"></i> காலை 7 – இரவு 10:30',
-        hero_service: '<i class="ph ph-check-circle"></i> டைன்-இன் & பார்சல்',
-        hero_title: "சாந்தி கணேஷ் கஃபே மெனு",
-        hero_sub: "புதிய பழச்சாறுகள் • மில்க் ஷேக்ஸ் • சாட் • டீ/காபி • பர்கர் • பீட்சா",
+        hero_delivery: '<i class="ph ph-moped"></i> நேரடி உணவு டெலிவரி',
+        hero_radius: '<i class="ph ph-map-pin"></i> 5 கி.மீ எல்லை மட்டும்',
+        hero_time: '<i class="ph ph-clock"></i> 30–45 நிமிடங்கள்',
+        hero_title: "சாந்தி கணேஷ் கஃபே டெலிவரி",
+        hero_sub: "புதிய பழச்சாறுகள் • மில்க் ஷேக்ஸ் • சாட் • பாவ் பாஜி • பர்கர் • பீட்சா",
+        hero_rule: '<span>🛵 <strong>₹300க்கு மேல் இலவச டெலிவரி</strong>! (₹300க்கு கீழ்: ₹30 கட்டணம்)</span>',
         search_placeholder: "ஜூஸ், பர்கர், சாட், ஷேக்ஸ், டீ தேடுங்கள்...",
         dishes_suffix: "வகைகள்",
         add_btn: "+ சேர்",
         sold_out: "தீர்ந்துவிட்டது",
-        tray_view: "ஆர்டர் கூடையை பார்க்க",
+        checkout_btn: "ஆர்டர் செய்ய",
         items_suffix: "பொருட்கள்",
         item_suffix: "பொருள்",
         empty_title: "பொருட்கள் எதுவும் கிடைக்கவில்லை",
@@ -1214,6 +1336,9 @@
       }
     };
 
+    // ==========================================
+    // 2. LANGUAGE ENGINE
+    // ==========================================
     function applyMenuLanguage(lang) {
       currentMenuLang = lang;
       localStorage.setItem('sg_lang', lang);
@@ -1226,14 +1351,14 @@
       const langLbl = document.getElementById('menu-lang-label');
       if (langLbl) langLbl.textContent = t.lang_label;
 
-      const heroLoc = document.getElementById('hero-badge-loc');
-      if (heroLoc) heroLoc.innerHTML = t.hero_loc;
+      const heroDelivery = document.getElementById('hero-badge-delivery');
+      if (heroDelivery) heroDelivery.innerHTML = t.hero_delivery;
+
+      const heroRadius = document.getElementById('hero-badge-radius');
+      if (heroRadius) heroRadius.innerHTML = t.hero_radius;
 
       const heroTime = document.getElementById('hero-badge-time');
       if (heroTime) heroTime.innerHTML = t.hero_time;
-
-      const heroService = document.getElementById('hero-badge-service');
-      if (heroService) heroService.innerHTML = t.hero_service;
 
       const heroTitle = document.getElementById('hero-main-title');
       if (heroTitle) heroTitle.textContent = t.hero_title;
@@ -1241,8 +1366,14 @@
       const heroSub = document.getElementById('hero-main-sub');
       if (heroSub) heroSub.textContent = t.hero_sub;
 
+      const heroRule = document.getElementById('hero-delivery-rule');
+      if (heroRule) heroRule.innerHTML = t.hero_rule;
+
       const searchInput = document.getElementById('menu-search-input');
       if (searchInput) searchInput.placeholder = t.search_placeholder;
+
+      const checkoutBtnLbl = document.getElementById('lbl-btn-checkout');
+      if (checkoutBtnLbl) checkoutBtnLbl.textContent = t.checkout_btn;
 
       renderCategoryTabs();
       renderMenu();
@@ -1253,7 +1384,7 @@
       applyMenuLanguage(nextLang);
     }
 
-    // Render Visual Category Cards Dynamically with Background Food Images
+    // Render Category Cards Dynamically
     function renderCategoryTabs() {
       const nav = document.getElementById('category-nav-bar');
       if (!nav) return;
@@ -1275,7 +1406,7 @@
     }
 
     // ==========================================
-    // 3. RENDER MENU ITEMS (Compact Native App Style)
+    // 3. RENDER MENU ITEMS
     // ==========================================
     function renderMenu() {
       const container = document.getElementById('menu-sections-container');
@@ -1283,7 +1414,6 @@
 
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
-      // Filter items by search
       let filteredItems = liveMenuItems;
 
       if (searchQuery.trim() !== '') {
@@ -1307,7 +1437,6 @@
         return;
       }
 
-      // Group filtered items by selected active category (or all if searching)
       let targetCategories = CATEGORIES;
       if (!searchQuery.trim() && activeCategory !== 'all') {
         targetCategories = CATEGORIES.filter(cat => cat.id === activeCategory);
@@ -1349,7 +1478,7 @@
         html += `
           <section class="category-section" id="cat-sec-${cat.id}">
             
-            <!-- Centered Prominent Category Header -->
+            <!-- Category Header -->
             <div class="category-header-strip">
               <h2 class="category-title">❧ ${catName} ❧</h2>
               <span class="category-badge-tag">${catItems.length} ${t.dishes_suffix}</span>
@@ -1367,12 +1496,12 @@
       });
 
       container.innerHTML = html;
-      updateTrayUI();
+      updateCartUI();
     }
 
     function createItemCardHTML(item) {
-      const inTrayItem = inStoreTray.find(t => t.id === item.id);
-      const qty = inTrayItem ? inTrayItem.qty : 0;
+      const inCartItem = deliveryCart.find(t => t.id === item.id);
+      const qty = inCartItem ? inCartItem.qty : 0;
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       const dietClass = item.is_veg ? 'veg' : 'nonveg';
@@ -1396,7 +1525,7 @@
         `;
       } else {
         actionHTML = `
-          <button class="btn-add-tray" onclick="updateItemQty('${safeId}', 1)">
+          <button class="btn-add-cart" onclick="updateItemQty('${safeId}', 1)">
             ${t.add_btn}
           </button>
         `;
@@ -1427,7 +1556,7 @@
     }
 
     // ==========================================
-    // 4. INTERACTIVITY & NO AUTO-SCROLL SWITCH
+    // 4. CATEGORY SELECTOR & SEARCH
     // ==========================================
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
@@ -1439,7 +1568,6 @@
         btn.classList.toggle('active', isMatch);
       });
 
-      // 1. Horizontal Scroll: Center active category card in the tab strip
       const navBar = document.getElementById('category-nav-bar');
       if (activeBtn && navBar) {
         const btnLeft = activeBtn.offsetLeft;
@@ -1460,14 +1588,12 @@
         if (clearBtn) clearBtn.style.display = 'none';
       }
 
-      // 2. Render new category DOM first so target category section and title exist
       renderMenu();
 
-      // 3. Vertical Scroll: If user has scrolled down, bring them right to the category header
       requestAnimationFrame(() => {
         const targetSec = document.getElementById(`cat-sec-${catId}`) || document.querySelector('.category-header-strip') || document.getElementById('menu-sections-container');
         if (targetSec) {
-          const topNavH = document.querySelector('.top-nav')?.offsetHeight || 44;
+          const topNavH = document.querySelector('.top-nav')?.offsetHeight || 46;
           const stickyControlsH = document.getElementById('sticky-menu-controls')?.offsetHeight || 140;
           const totalStickyOffset = topNavH + stickyControlsH + 8;
 
@@ -1501,30 +1627,22 @@
       renderMenu();
     }
 
-    function toggleSearch() {
-      const input = document.getElementById('menu-search-input');
-      if (input) {
-        input.focus();
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-
     // ==========================================
-    // 5. TRAY & CART MANAGEMENT
+    // 5. DELIVERY CART MANAGEMENT & BILLING
     // ==========================================
     function updateItemQty(itemId, change) {
       const item = liveMenuItems.find(i => i.id === itemId);
       if (!item) return;
 
-      const existingIndex = inStoreTray.findIndex(t => t.id === itemId);
+      const existingIndex = deliveryCart.findIndex(t => t.id === itemId);
 
       if (existingIndex > -1) {
-        inStoreTray[existingIndex].qty += change;
-        if (inStoreTray[existingIndex].qty <= 0) {
-          inStoreTray.splice(existingIndex, 1);
+        deliveryCart[existingIndex].qty += change;
+        if (deliveryCart[existingIndex].qty <= 0) {
+          deliveryCart.splice(existingIndex, 1);
         }
       } else if (change > 0) {
-        inStoreTray.push({
+        deliveryCart.push({
           id: item.id,
           name: item.name,
           price: item.price,
@@ -1533,145 +1651,209 @@
         });
       }
 
-      localStorage.setItem('sg_instore_tray', JSON.stringify(inStoreTray));
+      localStorage.setItem('sg_delivery_cart', JSON.stringify(deliveryCart));
       renderMenu();
-      updateTrayUI();
-      if (document.getElementById('tray-modal').classList.contains('active')) {
-        renderTrayModalContent();
+      updateCartUI();
+      if (document.getElementById('checkout-modal').classList.contains('active')) {
+        renderCheckoutModalContent();
       }
     }
 
-    function updateTrayUI() {
-      const floatingBar = document.getElementById('floating-tray-bar');
-      const barCount = document.getElementById('tray-bar-count');
-      const barTotal = document.getElementById('tray-bar-total');
+    function calculateCartTotals() {
+      const totalItems = deliveryCart.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = deliveryCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const isFreeDelivery = subtotal >= FREE_DELIVERY_THRESHOLD;
+      const deliveryFee = (subtotal > 0 && !isFreeDelivery) ? STANDARD_DELIVERY_FEE : 0;
+      const grandTotal = subtotal > 0 ? (subtotal + deliveryFee) : 0;
+      const remainingForFree = Math.max(0, FREE_DELIVERY_THRESHOLD - subtotal);
+
+      return {
+        totalItems,
+        subtotal,
+        isFreeDelivery,
+        deliveryFee,
+        grandTotal,
+        remainingForFree
+      };
+    }
+
+    function updateCartUI() {
+      const floatingBar = document.getElementById('floating-cart-bar');
+      const barCount = document.getElementById('cart-bar-count');
+      const barTotal = document.getElementById('cart-bar-total');
+      const statusPill = document.getElementById('cart-delivery-status-pill');
+      const progressText = document.getElementById('cart-delivery-progress-text');
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
-      const totalItems = inStoreTray.reduce((sum, item) => sum + item.qty, 0);
-      const totalPrice = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree } = calculateCartTotals();
 
       if (totalItems > 0) {
         floatingBar.classList.add('visible');
         barCount.textContent = `${totalItems} ${totalItems === 1 ? t.item_suffix : t.items_suffix}`;
-        barTotal.textContent = `₹${totalPrice}`;
+        barTotal.textContent = `₹${grandTotal}`;
+
+        if (isFreeDelivery) {
+          statusPill.className = 'cart-delivery-badge delivery-free';
+          statusPill.textContent = 'FREE Delivery';
+          progressText.innerHTML = '<i class="ph ph-sparkle" style="color:#69F0AE;"></i> 🎉 You unlocked <strong>FREE Delivery</strong>!';
+        } else {
+          statusPill.className = 'cart-delivery-badge delivery-paid';
+          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
+          progressText.innerHTML = `<i class="ph ph-info"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong>`;
+        }
       } else {
         floatingBar.classList.remove('visible');
       }
     }
 
-    function openTrayModal() {
-      renderTrayModalContent();
-      document.getElementById('tray-modal').classList.add('active');
+    function openCheckoutModal() {
+      renderCheckoutModalContent();
+      document.getElementById('checkout-modal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeTrayModal() {
-      document.getElementById('tray-modal').classList.remove('active');
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    function setDiningType(type) {
-      diningType = type;
-      document.getElementById('btn-dinein').classList.toggle('active', type === 'Dine-In');
-      document.getElementById('btn-takeaway').classList.toggle('active', type !== 'Dine-In');
-      
-      const tableGroup = document.getElementById('table-number-group');
-      if (tableGroup) {
-        tableGroup.style.display = (type === 'Dine-In') ? 'block' : 'none';
-      }
-    }
-
-    function renderTrayModalContent() {
-      const container = document.getElementById('tray-items-list');
+    function renderCheckoutModalContent() {
+      const container = document.getElementById('modal-cart-items-list');
       const subtotalEl = document.getElementById('bill-subtotal');
+      const deliveryFeeEl = document.getElementById('bill-delivery-fee');
+      const feeNoteEl = document.getElementById('bill-delivery-fee-note');
       const grandTotalEl = document.getElementById('bill-grand-total');
 
-      if (inStoreTray.length === 0) {
+      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree } = calculateCartTotals();
+
+      if (deliveryCart.length === 0) {
         container.innerHTML = `
-          <div class="empty-tray-state">
-            <div class="empty-tray-icon">🛒</div>
-            <h3 style="font-size: 1rem; font-weight: 700;">Your tray is empty</h3>
-            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 4px;">Tap "+ Add" on any dish to begin your order.</p>
+          <div class="empty-cart-state">
+            <div class="empty-cart-icon">🛒</div>
+            <h3 style="font-size: 1rem; font-weight: 700;">Your cart is empty</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 4px;">Tap "+ Add" on your favorite cafe dishes to start ordering.</p>
           </div>
         `;
         subtotalEl.textContent = '₹0';
+        deliveryFeeEl.textContent = '₹0';
         grandTotalEl.textContent = '₹0';
         return;
       }
 
-      const total = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-      container.innerHTML = inStoreTray.map(item => {
+      container.innerHTML = deliveryCart.map(item => {
         const safeName = typeof escapeHTML === 'function' ? escapeHTML(item.name) : item.name;
         const safeId = typeof escapeHTML === 'function' ? escapeHTML(item.id) : item.id;
         const safePrice = Number(item.price) || 0;
         const safeQty = Number(item.qty) || 1;
 
         return `
-          <div class="tray-item-row">
-            <div class="tray-item-left">
-              <div class="tray-item-name">${safeName}</div>
-              <div class="tray-item-unit-price">₹${safePrice} each</div>
+          <div class="cart-item-row">
+            <div class="cart-item-left">
+              <div class="cart-item-name">${safeName}</div>
+              <div class="cart-item-unit-price">₹${safePrice} each</div>
             </div>
-            <div class="tray-item-actions">
+            <div class="cart-item-actions">
               <div class="qty-stepper">
                 <button class="qty-btn" onclick="updateItemQty('${safeId}', -1)">-</button>
                 <span class="qty-val">${safeQty}</span>
                 <button class="qty-btn" onclick="updateItemQty('${safeId}', 1)">+</button>
               </div>
-              <span class="tray-item-total">₹${safePrice * safeQty}</span>
+              <span class="cart-item-total">₹${safePrice * safeQty}</span>
             </div>
           </div>
         `;
       }).join('');
 
-      subtotalEl.textContent = `₹${total}`;
-      grandTotalEl.textContent = `₹${total}`;
+      subtotalEl.textContent = `₹${subtotal}`;
+      
+      if (isFreeDelivery) {
+        deliveryFeeEl.innerHTML = `<span style="color: #2E7D32; font-weight: 800;">FREE</span> <s style="color: #888; font-size: 0.8rem;">₹${STANDARD_DELIVERY_FEE}</s>`;
+        feeNoteEl.innerHTML = `<span style="color: #2E7D32;">🎉 You qualified for FREE Delivery!</span>`;
+      } else {
+        deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
+        feeNoteEl.innerHTML = `<span>Add <strong>₹${remainingForFree}</strong> more to unlock FREE Delivery</span>`;
+      }
+
+      grandTotalEl.textContent = `₹${grandTotal}`;
     }
 
     // ==========================================
-    // 6. WHATSAPP IN-STORE ORDER DISPATCH
+    // 6. WHATSAPP LIVE DELIVERY ORDER DISPATCH
     // ==========================================
-    function sendInStoreOrderWhatsApp() {
-      if (inStoreTray.length === 0) {
-        alert('Please add items to your tray first!');
+    function sendDeliveryOrderWhatsApp() {
+      if (deliveryCart.length === 0) {
+        alert('Please add items to your cart first!');
         return;
       }
 
-      const tableNumber = document.getElementById('tray-table-number')?.value.trim() || 'Counter / Self';
-      const note = document.getElementById('tray-note')?.value.trim();
-      const grandTotal = inStoreTray.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      const refId = Math.floor(100000 + Math.random() * 900000);
+      const name = (document.getElementById('cust-name')?.value || '').trim();
+      const phone = (document.getElementById('cust-phone')?.value || '').trim();
+      const address = (document.getElementById('cust-address')?.value || '').trim();
+      const landmark = (document.getElementById('cust-landmark')?.value || '').trim();
+      const instructions = (document.getElementById('cust-instructions')?.value || '').trim();
+      const radiusConfirmed = document.getElementById('chk-radius-confirm')?.checked;
 
-      let text = `🛎️ *IN-STORE ORDER (#SG-TRAY-${refId})*\n`;
+      if (!name) {
+        alert('Please enter your Full Name!');
+        document.getElementById('cust-name')?.focus();
+        return;
+      }
+
+      if (!phone || phone.length < 10) {
+        alert('Please enter a valid 10-digit Mobile / WhatsApp Number!');
+        document.getElementById('cust-phone')?.focus();
+        return;
+      }
+
+      if (!address) {
+        alert('Please enter your Complete Delivery Address!');
+        document.getElementById('cust-address')?.focus();
+        return;
+      }
+
+      if (!radiusConfirmed) {
+        alert('Please confirm that your delivery location is within 5 km radius of Santhi Ganesh Bakery!');
+        return;
+      }
+
+      const { subtotal, isFreeDelivery, deliveryFee, grandTotal } = calculateCartTotals();
+      const refId = Math.floor(100000 + Math.random() * 900000);
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      let text = `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
       text += `*Santhi Ganesh Bakery & Cafe*\n`;
       text += `------------------------------------\n`;
-      text += `📍 *Order Type:* ${diningType}\n`;
-      if (diningType === 'Dine-In') {
-        text += `🪑 *Table Number:* ${tableNumber}\n`;
-      }
-      text += `📅 *Time:* ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}\n`;
+      text += `👤 *Customer:* ${name}\n`;
+      text += `📱 *Phone:* ${phone}\n`;
+      text += `🏠 *Delivery Address:* ${address}\n`;
+      if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
+      text += `🛵 *Delivery Area:* Within 5 km Radius (Palayamkottai)\n`;
+      text += `📅 *Order Time:* ${currentTime} (Est: 30–45 mins)\n`;
       text += `------------------------------------\n`;
       text += `*ITEMS ORDERED:*\n`;
 
-      inStoreTray.forEach((item, index) => {
+      deliveryCart.forEach((item, index) => {
         text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
       });
 
       text += `------------------------------------\n`;
-      text += `💰 *TOTAL AMOUNT:* ₹${grandTotal}\n`;
-      if (note) text += `📝 *Special Note:* ${note}\n`;
+      text += `🍲 *Item Total:* ₹${subtotal}\n`;
+      text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order > ₹300)' : `₹${deliveryFee}`}\n`;
+      text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
+      if (instructions) text += `📝 *Instructions:* ${instructions}\n`;
       text += `------------------------------------\n`;
-      text += `Please prepare our order. Thank you!`;
+      text += `Please confirm our delivery order and send payment / dispatch status. Thank you!`;
 
-      // Track event
+      // Event Tracking
       if (typeof trackEvent === 'function') {
-        trackEvent('instore_menu_order', {
-          ref_id: `#SG-TRAY-${refId}`,
-          dining_type: diningType,
-          table: tableNumber,
-          items_count: inStoreTray.length,
-          total: grandTotal
+        trackEvent('cafe_delivery_order', {
+          ref_id: `#SG-CAFE-${refId}`,
+          customer_name: name,
+          phone: phone,
+          items_count: deliveryCart.length,
+          subtotal: subtotal,
+          delivery_fee: deliveryFee,
+          grand_total: grandTotal
         });
       }
 
@@ -1680,13 +1862,13 @@
       const encodedUrl = `https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`;
       window.open(encodedUrl, '_blank');
 
-      // Clear tray after dispatch
+      // Clear cart after dispatch
       setTimeout(() => {
-        inStoreTray = [];
-        localStorage.removeItem('sg_instore_tray');
-        updateTrayUI();
-        closeTrayModal();
-        alert(`🎉 Order #SG-TRAY-${refId} Sent to Counter!\nOur team will prepare your order right away.`);
+        deliveryCart = [];
+        localStorage.removeItem('sg_delivery_cart');
+        updateCartUI();
+        closeCheckoutModal();
+        alert(`🎉 Order #SG-CAFE-${refId} Placed Successfully!\nOur team will prepare and deliver your order in 30–45 mins.`);
       }, 500);
     }
 
@@ -1695,6 +1877,7 @@
     // ==========================================
     async function loadCafeMenuFromSupabase() {
       try {
+        if (typeof SUPABASE_URL === 'undefined' || typeof SUPABASE_ANON_KEY === 'undefined') return;
         const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?select=*&order=display_order.asc,created_at.asc`, {
           headers: {
             'apikey': SUPABASE_ANON_KEY,
