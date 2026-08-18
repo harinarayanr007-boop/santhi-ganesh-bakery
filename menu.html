@@ -7,13 +7,17 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Online Cafe & Food Delivery | Santhi Ganesh Bakery</title>
-  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe. Live delivery within 5 km radius in Palayamkottai & Tirunelveli. FREE delivery above ₹300!">
+  <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe. Live delivery within 5 km radius in Palayamkottai & Tirunelveli with GPS tracking. FREE delivery above ₹300!">
 
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Leaflet Map CSS & JS (Lightweight, No API Key Required) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <!-- Website Favicon Icon -->
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
@@ -846,33 +850,102 @@
       flex: 1;
     }
 
-    /* 5 km Delivery Restriction Notice inside Modal */
-    .delivery-radius-notice-card {
-      background: #FFF8E7;
-      border: 1px solid #FFE082;
-      border-radius: 10px;
-      padding: 10px 12px;
+    /* ====================================================
+       INTERACTIVE LIVE MAP & GPS PICKER SECTION
+       ==================================================== */
+    .map-picker-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 12px;
       margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .map-header-row {
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .delivery-radius-notice-card i {
-      font-size: 1.3rem;
-      color: #E65100;
-      flex-shrink: 0;
-      margin-top: 1px;
+    .map-header-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
-    .delivery-radius-notice-text {
-      font-size: 0.78rem;
-      color: #5D4037;
-      line-height: 1.35;
+    .btn-gps-detect {
+      background: #2E7D32;
+      color: #FFFFFF;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
+      transition: all 0.15s ease;
     }
 
-    .delivery-radius-notice-text strong {
-      color: #BF360C;
+    .btn-gps-detect:active {
+      transform: scale(0.94);
+    }
+
+    #delivery-live-map {
+      width: 100%;
+      height: 190px;
+      border-radius: 10px;
+      border: 1px solid var(--color-border);
+      margin-bottom: 8px;
+      z-index: 10;
+    }
+
+    .map-status-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      line-height: 1.3;
+    }
+
+    .map-status-badge-ok {
+      color: #2E7D32;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .map-status-badge-warn {
+      color: #C62828;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .map-instruction-hint {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* Modal Items List */
@@ -1148,7 +1221,7 @@
       </div>
     </div>
 
-    <!-- LIVE FOOD DELIVERY CHECKOUT MODAL -->
+    <!-- LIVE FOOD DELIVERY CHECKOUT MODAL WITH LIVE MAP PICKER -->
     <div class="modal-overlay" id="checkout-modal" onclick="if(event.target === this) closeCheckoutModal()">
       <div class="modal-sheet">
         <div class="modal-header">
@@ -1161,12 +1234,30 @@
 
         <div class="modal-body">
           
-          <!-- 5 KM RADIUS DELIVERY NOTICE -->
-          <div class="delivery-radius-notice-card">
-            <i class="ph ph-warning-circle"></i>
-            <div class="delivery-radius-notice-text">
-              <strong>5 km Delivery Radius Only:</strong> We deliver exclusively within a 5 km radius of Santhi Ganesh Bakery (Palayamkottai & Tirunelveli). Estimated delivery time: <strong>30–45 mins</strong>.
+          <!-- INTERACTIVE LIVE MAP & GPS PICKER -->
+          <div class="map-picker-card">
+            <div class="map-header-row">
+              <span class="map-header-title">
+                <i class="ph ph-map-trifold"></i> Set Delivery Location (5 km)
+              </span>
+              <button type="button" class="btn-gps-detect" onclick="detectGPSLocation()">
+                <i class="ph ph-crosshair"></i> Use My GPS Location
+              </button>
             </div>
+
+            <!-- Leaflet Map Container -->
+            <div id="delivery-live-map"></div>
+
+            <div class="map-status-info" id="map-distance-status">
+              <span class="map-status-badge-ok" id="lbl-map-zone-status">
+                <i class="ph ph-check-circle"></i> Within 5 km Delivery Zone
+              </span>
+              <span id="lbl-map-distance-text" style="font-weight: 700; color: var(--color-text-main);">~2.2 km from Bakery</span>
+            </div>
+
+            <p class="map-instruction-hint">
+              <i class="ph ph-hand-pointing"></i> Drag the red pin or tap on map to choose your exact gate/door.
+            </p>
           </div>
 
           <!-- CART ITEMS LIST -->
@@ -1177,7 +1268,7 @@
           <!-- CUSTOMER & DELIVERY ADDRESS FORM -->
           <div class="checkout-form-section">
             <div class="checkout-form-title">
-              <i class="ph ph-map-pin"></i> Delivery Details (5 km Radius)
+              <i class="ph ph-user"></i> Customer & Address Details
             </div>
 
             <div class="form-group-field">
@@ -1192,12 +1283,12 @@
 
             <div class="form-group-field">
               <label>Complete Delivery Address (Door No, Street, Area) *</label>
-              <input type="text" id="cust-address" class="form-input-field" placeholder="e.g. Flat 3B, North Car St, Palayamkottai">
+              <input type="text" id="cust-address" class="form-input-field" placeholder="Select on map above to auto-fill or type address">
             </div>
 
             <div class="form-group-field">
               <label>Nearby Landmark (Optional)</label>
-              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near St. Xavier's College / Bus Stand">
+              <input type="text" id="cust-landmark" class="form-input-field" placeholder="e.g. Near St. Xavier's College / VOC Ground">
             </div>
 
             <div class="form-group-field">
@@ -1241,7 +1332,7 @@
           </button>
           
           <p style="text-align: center; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 8px;">
-            ⚡ Instant order confirmation directly with our bakery delivery kitchen
+            ⚡ Instant WhatsApp order with Live GPS location link sent directly to delivery kitchen
           </p>
 
         </div>
@@ -1271,26 +1362,36 @@
     let liveMenuItems = [...IN_STORE_MENU];
     let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
-    // Delivery rules configuration
+    // Bakery Hub Coordinates: Palayamkottai / Tirunelveli
+    const BAKERY_COORDS = { lat: 8.7185, lng: 77.7340, name: "Santhi Ganesh Bakery, Palayamkottai" };
+    const MAX_DELIVERY_KM = 5.0;
     const FREE_DELIVERY_THRESHOLD = 300;
     const STANDARD_DELIVERY_FEE = 30;
 
-    // Categories definition with English & Tamil & Visual Background Images
+    // User Location State
+    let userLocation = { lat: 8.7198, lng: 77.7360 };
+    let userDistanceKm = 0.8;
+    let isWithinZone = true;
+    let leafletMap = null;
+    let userMarker = null;
+    let radiusCircle = null;
+
+    // Categories definition
     const CATEGORIES = [
-      { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg', desc_en: '100% natural, freshly squeezed juices made to order', desc_ta: 'இயற்கையான புதிய பழச்சாறுகள்' },
-      { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', img: './assets/categories/menu-shakes.jpg', desc_en: 'Thick & creamy shakes blended with rich dairy ice cream', desc_ta: 'சுவையான ஐஸ்கிரீம் மில்க் ஷேக்ஸ்' },
-      { id: 'falooda', name_en: 'Falooda & Desserts', name_ta: 'பலுடா & இனிப்புகள்', icon: '🍨', img: './assets/categories/menu-falooda.jpg', desc_en: 'Layered royal sundaes, cut fruits and traditional sweets', desc_ta: 'ராயல் பலுடா மற்றும் பழங்கள்' },
-      { id: 'mojito', name_en: 'Mojitos', name_ta: 'மொஜிட்டோ குளிர்பானங்கள்', icon: '🍹', img: './assets/categories/menu-mojito.jpg', desc_en: 'Crisp sparkling mocktails with crushed mint and citrus', desc_ta: 'புதினா மற்றும் எலுமிச்சை குளிர்பானங்கள்' },
-      { id: 'brownie', name_en: 'Brownies & Pastries', name_ta: 'பிரவுனி & பேஸ்ட்ரிகள்', icon: '🍫', img: './assets/categories/menu-brownie.jpg', desc_en: 'Fresh baked daily pastry slices and warm dessert sizzlers', desc_ta: 'தினமும் சுடப்படும் பேஸ்ட்ரி துண்டுகள்' },
-      { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஸ்கூப் ஐஸ்கிரீம்', icon: '🍦', img: './assets/categories/menu-icecream.jpg', desc_en: 'Premium dairy scoops served in bowls or waffle cones', desc_ta: 'சுவையான பால் ஐஸ்கிரீம் ஸ்கூப்கள்' },
-      { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & சூடான பானங்கள்', icon: '☕', img: './assets/categories/menu-hotdrinks.jpg', desc_en: 'Traditional South Indian tea, filter coffee and healthy heritage brews', desc_ta: 'பாரம்பரிய நெல்லை டீ & பில்டர் காபி' },
-      { id: 'chat', name_en: 'Chat & Snacks', name_ta: 'சாட் & ஸ்நாக்ஸ்', icon: '🫓', img: './assets/categories/menu-chat.jpg', desc_en: 'Crispy street chaat, samosas, fries and savory quick bites', desc_ta: 'மொறுமொறுப்பான சாட் மற்றும் சமோசா' },
-      { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', img: './assets/categories/menu-pavbhaji.jpg', desc_en: 'Butter toasted pav buns with hot spiced vegetable mash (Extra Pav ₹25)', desc_ta: 'வெண்ணெய் பாவ் பன் & மசாலா பாஜி' },
-      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', img: './assets/categories/menu-toast.jpg', desc_en: 'Bakery fresh bread slices crisped on butter griddle', desc_ta: 'பேக்கரி பிரெட் டோஸ்ட் வகைகள்' },
-      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', img: './assets/categories/menu-burger.jpg', desc_en: 'Fresh baked sesame buns with juicy patties and crispy vegetables', desc_ta: 'புதிய பன் மற்றும் பர்கர் வகைகள்' },
-      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', img: './assets/categories/menu-pizza.jpg', desc_en: 'Fresh dough baked with Italian herb sauce and 100% mozzarella', desc_ta: 'சீஸ் & மசாலா பீட்சா வகைகள்' },
-      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg', desc_en: 'Freshly sliced bakery bread grilled with mouthwatering fillings', desc_ta: 'கிரில் செய்யப்பட்ட சாண்ட்விச்கள்' },
-      { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ் & கிரிஸ்பி', icon: '🥟', img: './assets/categories/menu-momos.jpg', desc_en: 'Steamed or fried dumplings served with fiery red chutney', desc_ta: 'கார சட்னியுடன் கூடிய சுவையான மோமோஸ்' }
+      { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg' },
+      { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', img: './assets/categories/menu-shakes.jpg' },
+      { id: 'falooda', name_en: 'Falooda & Desserts', name_ta: 'பலுடா & இனிப்புகள்', icon: '🍨', img: './assets/categories/menu-falooda.jpg' },
+      { id: 'mojito', name_en: 'Mojitos', name_ta: 'மொஜிட்டோ குளிர்பானங்கள்', icon: '🍹', img: './assets/categories/menu-mojito.jpg' },
+      { id: 'brownie', name_en: 'Brownies & Pastries', name_ta: 'பிரவுனி & பேஸ்ட்ரிகள்', icon: '🍫', img: './assets/categories/menu-brownie.jpg' },
+      { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஸ்கூப் ஐஸ்கிரீம்', icon: '🍦', img: './assets/categories/menu-icecream.jpg' },
+      { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & சூடான பானங்கள்', icon: '☕', img: './assets/categories/menu-hotdrinks.jpg' },
+      { id: 'chat', name_en: 'Chat & Snacks', name_ta: 'சாட் & ஸ்நாக்ஸ்', icon: '🫓', img: './assets/categories/menu-chat.jpg' },
+      { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', img: './assets/categories/menu-pavbhaji.jpg' },
+      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', img: './assets/categories/menu-toast.jpg' },
+      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', img: './assets/categories/menu-burger.jpg' },
+      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', img: './assets/categories/menu-pizza.jpg' },
+      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg' },
+      { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ் & கிரிஸ்பி', icon: '🥟', img: './assets/categories/menu-momos.jpg' }
     ];
 
     const MENU_I18N = {
@@ -1384,7 +1485,6 @@
       applyMenuLanguage(nextLang);
     }
 
-    // Render Category Cards Dynamically
     function renderCategoryTabs() {
       const nav = document.getElementById('category-nav-bar');
       if (!nav) return;
@@ -1477,20 +1577,16 @@
 
         html += `
           <section class="category-section" id="cat-sec-${cat.id}">
-            
-            <!-- Category Header -->
             <div class="category-header-strip">
               <h2 class="category-title">❧ ${catName} ❧</h2>
               <span class="category-badge-tag">${catItems.length} ${t.dishes_suffix}</span>
             </div>
 
-            <!-- Item List -->
             <div class="items-list">
               ${catItems.map(item => createItemCardHTML(item)).join('')}
             </div>
 
             ${navButtonsHTML}
-
           </section>
         `;
       });
@@ -1555,9 +1651,6 @@
       `;
     }
 
-    // ==========================================
-    // 4. CATEGORY SELECTOR & SEARCH
-    // ==========================================
     function selectCategory(catId, btnElem) {
       activeCategory = catId;
 
@@ -1628,7 +1721,7 @@
     }
 
     // ==========================================
-    // 5. DELIVERY CART MANAGEMENT & BILLING
+    // 4. CART TOTALS & UI
     // ==========================================
     function updateItemQty(itemId, change) {
       const item = liveMenuItems.find(i => i.id === itemId);
@@ -1710,6 +1803,11 @@
       renderCheckoutModalContent();
       document.getElementById('checkout-modal').classList.add('active');
       document.body.style.overflow = 'hidden';
+      
+      // Initialize or refresh map when modal opens
+      setTimeout(() => {
+        initOrUpdateDeliveryMap();
+      }, 250);
     }
 
     function closeCheckoutModal() {
@@ -1778,6 +1876,192 @@
     }
 
     // ==========================================
+    // 5. INTERACTIVE LIVE MAP & GPS ENGINE
+    // ==========================================
+    function calculateHaversineDistanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Earth radius in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    function initOrUpdateDeliveryMap() {
+      const mapContainer = document.getElementById('delivery-live-map');
+      if (!mapContainer) return;
+
+      if (!leafletMap) {
+        leafletMap = L.map('delivery-live-map', {
+          center: [userLocation.lat, userLocation.lng],
+          zoom: 14,
+          zoomControl: true,
+          attributionControl: false
+        });
+
+        // High resolution OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19
+        }).addTo(leafletMap);
+
+        // 1. Bakery Hub Marker
+        const bakeryIcon = L.divIcon({
+          className: 'custom-bakery-marker',
+          html: `<div style="background:#7D450F; color:#FFF; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.35); border:2.5px solid #FFF; font-size:15px;" title="Santhi Ganesh Bakery">🏢</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        });
+
+        L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon })
+          .addTo(leafletMap)
+          .bindPopup('<b>Santhi Ganesh Bakery</b><br>Palayamkottai Store Hub')
+          .openPopup();
+
+        // 2. Translucent 5 km Radius Boundary Circle
+        radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
+          color: '#2E7D32',
+          fillColor: '#81C784',
+          fillOpacity: 0.16,
+          radius: 5000, // 5 km
+          weight: 2,
+          dashArray: '5, 6'
+        }).addTo(leafletMap);
+
+        // 3. Draggable Customer Pin
+        const userIcon = L.divIcon({
+          className: 'custom-user-marker',
+          html: `<div style="background:#D95338; color:#FFF; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(217,83,56,0.5); border:2.5px solid #FFF; font-size:18px;">🛵</div>`,
+          iconSize: [36, 36],
+          iconAnchor: [18, 36]
+        });
+
+        userMarker = L.marker([userLocation.lat, userLocation.lng], {
+          icon: userIcon,
+          draggable: true
+        }).addTo(leafletMap);
+
+        // Marker drag events
+        userMarker.on('dragend', (e) => {
+          const pos = e.target.getLatLng();
+          handleLocationUpdate(pos.lat, pos.lng);
+        });
+
+        // Tap on map to move pin
+        leafletMap.on('click', (e) => {
+          const lat = e.latlng.lat;
+          const lng = e.latlng.lng;
+          userMarker.setLatLng([lat, lng]);
+          handleLocationUpdate(lat, lng);
+        });
+      }
+
+      leafletMap.invalidateSize();
+      handleLocationUpdate(userLocation.lat, userLocation.lng, false);
+    }
+
+    function handleLocationUpdate(lat, lng, doGeocode = true) {
+      userLocation = { lat, lng };
+      userDistanceKm = calculateHaversineDistanceKm(BAKERY_COORDS.lat, BAKERY_COORDS.lng, lat, lng);
+      isWithinZone = (userDistanceKm <= MAX_DELIVERY_KM);
+
+      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
+      const distTextEl = document.getElementById('lbl-map-distance-text');
+      const chkRadius = document.getElementById('chk-radius-confirm');
+
+      if (distTextEl) {
+        distTextEl.textContent = `~${userDistanceKm.toFixed(1)} km from Bakery`;
+      }
+
+      if (isWithinZone) {
+        if (zoneStatusEl) {
+          zoneStatusEl.className = 'map-status-badge-ok';
+          zoneStatusEl.innerHTML = '<i class="ph ph-check-circle"></i> Within 5 km Delivery Zone';
+        }
+        if (chkRadius) chkRadius.checked = true;
+      } else {
+        if (zoneStatusEl) {
+          zoneStatusEl.className = 'map-status-badge-warn';
+          zoneStatusEl.innerHTML = '<i class="ph ph-warning"></i> Beyond 5 km Delivery Radius';
+        }
+        if (chkRadius) chkRadius.checked = false;
+      }
+
+      if (doGeocode) {
+        reverseGeocodeAddress(lat, lng);
+      }
+    }
+
+    function detectGPSLocation() {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser.');
+        return;
+      }
+
+      const btn = document.querySelector('.btn-gps-detect');
+      if (btn) {
+        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Detecting GPS...';
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+
+          userLocation = { lat, lng };
+
+          if (userMarker) {
+            userMarker.setLatLng([lat, lng]);
+          }
+          if (leafletMap) {
+            leafletMap.setView([lat, lng], 15);
+          }
+
+          handleLocationUpdate(lat, lng, true);
+
+          if (btn) {
+            btn.innerHTML = '<i class="ph ph-check"></i> GPS Located!';
+            setTimeout(() => {
+              btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My GPS Location';
+            }, 2500);
+          }
+        },
+        (err) => {
+          console.warn('GPS detection error:', err);
+          alert('Could not access GPS location. Please ensure location permissions are allowed, or tap on the map to set your address.');
+          if (btn) {
+            btn.innerHTML = '<i class="ph ph-crosshair"></i> Use My GPS Location';
+          }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+
+    async function reverseGeocodeAddress(lat, lng) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.address) {
+            const a = data.address;
+            const road = a.road || a.pedestrian || a.suburb || a.neighbourhood || '';
+            const area = a.suburb || a.residential || a.city_district || 'Palayamkottai';
+            const city = a.city || a.town || a.county || 'Tirunelveli';
+            const cleanText = [road, area, city].filter(Boolean).join(', ');
+            
+            const addrInput = document.getElementById('cust-address');
+            if (addrInput && cleanText) {
+              addrInput.value = cleanText;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Reverse geocode fallback:', err);
+      }
+    }
+
+    // ==========================================
     // 6. WHATSAPP LIVE DELIVERY ORDER DISPATCH
     // ==========================================
     function sendDeliveryOrderWhatsApp() {
@@ -1806,7 +2090,7 @@
       }
 
       if (!address) {
-        alert('Please enter your Complete Delivery Address!');
+        alert('Please enter your Complete Delivery Address or select on the map!');
         document.getElementById('cust-address')?.focus();
         return;
       }
@@ -1819,15 +2103,19 @@
       const { subtotal, isFreeDelivery, deliveryFee, grandTotal } = calculateCartTotals();
       const refId = Math.floor(100000 + Math.random() * 900000);
       const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      // Google Maps Location Link for rider turn-by-turn navigation
+      const mapsLink = `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}`;
 
       let text = `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
-      text += `*Santhi Ganesh Bakery & Cafe*\n`;
+      text += `*Santhi Ganesh Bakery & Cafe (Delivery)*\n`;
       text += `------------------------------------\n`;
       text += `👤 *Customer:* ${name}\n`;
       text += `📱 *Phone:* ${phone}\n`;
       text += `🏠 *Delivery Address:* ${address}\n`;
       if (landmark) text += `📍 *Landmark:* ${landmark}\n`;
-      text += `🛵 *Delivery Area:* Within 5 km Radius (Palayamkottai)\n`;
+      text += `🗺️ *Live GPS Location Pin:* ${mapsLink}\n`;
+      text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km from Bakery (${isWithinZone ? 'Within 5 km Zone ✅' : 'Warning: > 5 km ⚠️'})\n`;
       text += `📅 *Order Time:* ${currentTime} (Est: 30–45 mins)\n`;
       text += `------------------------------------\n`;
       text += `*ITEMS ORDERED:*\n`;
@@ -1850,6 +2138,9 @@
           ref_id: `#SG-CAFE-${refId}`,
           customer_name: name,
           phone: phone,
+          lat: userLocation.lat,
+          lng: userLocation.lng,
+          distance_km: userDistanceKm,
           items_count: deliveryCart.length,
           subtotal: subtotal,
           delivery_fee: deliveryFee,
