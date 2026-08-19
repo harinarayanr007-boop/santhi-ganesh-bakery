@@ -22,6 +22,48 @@
 
   <style>
     /* Hero Styling */
+
+    /* Notion Product Style Hero Headline & Pill */
+    .b2b-notion-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: clamp(2.2rem, 5.2vw, 4.2rem) !important;
+      font-weight: 800 !important;
+      line-height: 1.15 !important;
+      letter-spacing: -2px !important;
+      color: #0A0404 !important;
+      margin-bottom: 20px !important;
+    }
+
+    .b2b-notion-pill {
+      background: linear-gradient(135deg, #FAF8F5 0%, #F5EFE6 100%);
+      border: 1.5px solid #A6601B;
+      color: #8B4513;
+      border-radius: 100px;
+      padding: 4px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      vertical-align: middle;
+      line-height: 1.2;
+      box-shadow: 0 4px 14px rgba(166, 96, 27, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .b2b-green-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #2E7D32;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(46, 125, 50, 0.6);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.85; }
+    }
+
     .b2b-top-eyebrow {
       font-size: 0.9rem;
       font-weight: 800;
@@ -370,7 +412,13 @@
       <div class="container" style="text-align: center;">
         
         <div class="b2b-top-eyebrow">Wholesale</div>
-        <h1 class="b2b-main-headline">Supply for every shop</h1>
+        <h1 class="b2b-notion-headline">
+          Wholesale Bakery partner for 
+          <span class="b2b-notion-pill">
+            <span class="b2b-green-dot"></span>
+            <span id="rotator-word" style="transition: opacity 0.25s ease;">Your Business</span>
+          </span>
+        </h1>
         <p class="b2b-main-subtext">Fresh bread and bakes for businesses across Tirunelveli.</p>
 
         <!-- Single Primary Top CTA -->
@@ -722,6 +770,20 @@
   <script src="./app.js"></script>
   
   <script>
+    // Notion-style Hero Word Rotator
+    const rotKeywords = ["Your Business", "Kirana Stores", "Supermarkets", "Canteens", "Hotels & Cafes", "Event Caterers"];
+    let rotIdx = 0;
+    setInterval(() => {
+      const el = document.getElementById('rotator-word');
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        rotIdx = (rotIdx + 1) % rotKeywords.length;
+        el.textContent = rotKeywords[rotIdx];
+        el.style.opacity = '1';
+      }, 250);
+    }, 2500);
+
     function requestB2BSampleBox() {
       const bizName = (document.getElementById('b2b-biz-name')?.value || '').trim();
       const contactPerson = (document.getElementById('b2b-contact-person')?.value || '').trim();
