@@ -684,13 +684,15 @@
     .btn-checkout-now:active { transform: scale(0.95); }
 
     .delivery-progress-hint {
-      font-size: 0.7rem;
+      font-size: 0.62rem;
       color: #FFE082;
       display: flex;
       align-items: center;
       gap: 4px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 3px;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
     }
 
     /* ====================================================
@@ -1800,15 +1802,15 @@
         if (isTakeaway) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = 'Store Pickup (FREE)';
-          progressText.innerHTML = '<i class="ph ph-storefront"></i> 🏢 Ready for pickup in 15–20 mins (₹0 fee)';
+          progressText.innerHTML = '<i class="ph ph-storefront"></i> Ready for store pickup in 15–20 mins';
         } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = 'FREE Delivery';
-          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong> (Order ≥ ₹300)!';
+          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong>!';
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
           statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
-          progressText.innerHTML = `<i class="ph ph-moped"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong> (₹30 fee under ₹300)`;
+          progressText.innerHTML = `<i class="ph ph-moped"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong>`;
         }
       } else {
         floatingBar.classList.remove('visible');
