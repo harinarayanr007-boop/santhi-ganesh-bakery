@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>B2B Wholesale & Commercial Bakery Supply | Santhi Ganesh Bakery Tirunelveli</title>
+  <title>Wholesale Bakery Partner & Commercial Supply | Santhi Ganesh Bakery Tirunelveli</title>
   <meta name="description" content="Wholesale fresh bread packets, buns, puffs, and pastries for 100+ Kirana stores, supermarkets, universities, hotels, and canteens across Tirunelveli. Doorstep morning delivery.">
   
   <!-- Google Fonts: Aboreto, Lora & Plus Jakarta Sans -->
@@ -21,17 +21,17 @@
   <script src="./i18n.js"></script>
 
   <style>
-    /* B2B Luxury Redesign Styles */
+    /* Clean Professional B2B Bento Grid & Brand Styles */
     .b2b-hero-card {
       background: linear-gradient(145deg, var(--color-bg-secondary) 0%, #FAF8F5 100%);
-      border-radius: 24px;
-      padding: 56px 40px;
+      border-radius: 28px;
+      padding: 64px 40px;
       border: 1px solid var(--color-border-subtle);
       box-shadow: var(--shadow-card);
       text-align: center;
       position: relative;
       overflow: hidden;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
 
     .b2b-hero-card::before {
@@ -49,7 +49,7 @@
       background: rgba(166, 96, 27, 0.08);
       border: 1px solid rgba(166, 96, 27, 0.2);
       color: #8B4513;
-      padding: 6px 18px;
+      padding: 6px 20px;
       border-radius: 30px;
       font-size: 0.85rem;
       font-weight: 700;
@@ -58,74 +58,161 @@
 
     .b2b-hero-title {
       font-family: 'Aboreto', var(--font-heading), serif;
-      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-size: clamp(2.1rem, 4.8vw, 3.6rem);
       font-weight: 700;
       color: var(--color-text-main);
       line-height: 1.25;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .b2b-hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       color: var(--color-text-muted);
-      max-width: 740px;
-      margin: 0 auto 32px;
-      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
     }
 
-    .b2b-cta-group {
+    .b2b-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Modern Bento Grid Layout */
+    .bento-section-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(250px, auto);
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    .bento-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(139, 69, 19, 0.12);
+      border-color: rgba(166, 96, 27, 0.35);
+    }
+
+    .bento-card-lg {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #FAF8F5 0%, #F5EFE6 100%);
+      border: 1px solid rgba(166, 96, 27, 0.18);
+    }
+
+    .bento-card-tall {
+      grid-column: span 1;
+      grid-row: span 2;
+      background: linear-gradient(145deg, #1A120B 0%, #2D1E14 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(166, 96, 27, 0.4);
+    }
+
+    .bento-card-wide {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #FAF8F5 0%, #F7F2EC 100%);
+    }
+
+    .bento-icon-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(166, 96, 27, 0.12);
+      color: #8B4513;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
     }
 
-    /* Interactive Business Showcase Box */
-    .b2b-showcase-box {
-      background: var(--color-bg-secondary);
-      border: 1px solid var(--color-border-subtle);
+    .bento-card-tall .bento-icon-badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: #F5A623;
+    }
+
+    .bento-badge-tag {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
       border-radius: 20px;
-      padding: 32px;
-      box-shadow: var(--shadow-card);
-      margin-top: 40px;
-      text-align: left;
+      background: rgba(46, 125, 50, 0.1);
+      color: #2E7D32;
+      margin-bottom: 12px;
+      align-self: flex-start;
     }
 
-    .b2b-proto-tabs {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 24px;
+    .bento-card-tall .bento-badge-tag {
+      background: rgba(245, 166, 35, 0.2);
+      color: #F5A623;
     }
 
-    .b2b-proto-tab {
-      background: #FFFFFF;
-      border: 1px solid var(--color-border-subtle);
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
+    .bento-title {
+      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
       color: var(--color-text-main);
-    }
-    .b2b-proto-tab.active, .b2b-proto-tab:hover {
-      background: linear-gradient(135deg, #A6601B 0%, #8B4513 100%);
-      color: #FFFFFF;
-      border-color: #8B4513;
-      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25);
+      margin-bottom: 10px;
     }
 
-    .b2b-spec-screen {
+    .bento-card-tall .bento-title {
+      color: #FFFFFF;
+    }
+
+    .bento-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .bento-card-tall .bento-desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .bento-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .bento-pill {
       background: #FFFFFF;
-      border: 1px solid rgba(166, 96, 27, 0.15);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+      border: 1px solid rgba(0,0,0,0.06);
+      color: #555;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 12px;
+    }
+
+    .bento-card-tall .bento-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.9);
     }
 
     /* Continuous Ticker */
@@ -136,7 +223,7 @@
       padding: 16px 0;
       border-top: 1px solid rgba(0,0,0,0.06);
       border-bottom: 1px solid rgba(0,0,0,0.06);
-      margin-top: 40px;
+      margin-bottom: 56px;
     }
 
     .b2b-ticker-move {
@@ -174,24 +261,18 @@
       background: #2E7D32;
     }
 
-    /* Product & Pillar Cards */
-    .b2b-grid-5 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
+    /* Pillars & Form Section */
     .b2b-form-card {
       background: var(--color-bg-secondary);
-      border-radius: 24px;
-      padding: 40px;
+      border-radius: 28px;
+      padding: 44px;
       border: 1px solid var(--color-border-subtle);
       box-shadow: var(--shadow-card);
     }
 
     .b2b-faq-item {
       background: var(--color-bg-secondary);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 24px;
       border: 1px solid var(--color-border-subtle);
       margin-bottom: 16px;
@@ -200,14 +281,14 @@
 
     @media (max-width: 992px) {
       .b2b-hero-card, .b2b-form-card {
-        padding: 32px 20px;
+        padding: 36px 20px;
       }
-      .b2b-grid-5 {
+      .bento-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
       }
-      .b2b-showcase-box {
-        padding: 20px;
+      .bento-card-lg, .bento-card-tall, .bento-card-wide {
+        grid-column: span 1;
+        grid-row: span 1;
       }
     }
   </style>
@@ -228,7 +309,7 @@
           <li><a href="./index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
           <li><a href="./index.html#about" class="nav-link" data-i18n="nav_about">About Us</a></li>
           <li><a href="./products.html" class="nav-link" data-i18n="nav_cakes">Celebration Cakes</a></li>
-          <li><a href="./b2b.html" class="nav-link active" style="color: var(--color-desert); font-weight: 600;" data-i18n="nav_b2b">B2B Wholesale</a></li>
+          <li><a href="./b2b.html" class="nav-link active" style="color: var(--color-desert); font-weight: 600;" data-i18n="nav_b2b">Wholesale Partner</a></li>
           <li><a href="./careers.html" class="nav-link" data-i18n="nav_careers">Careers</a></li>
           <li><a href="./contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
         </ul>
@@ -272,7 +353,7 @@
         <li><a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a></li>
         <li><a href="./index.html#about" class="mobile-nav-link" data-i18n="nav_about">About Us</a></li>
         <li><a href="./products.html" class="mobile-nav-link" data-i18n="nav_cakes">Celebration Cakes</a></li>
-        <li><a href="./b2b.html" class="mobile-nav-link active" data-i18n="nav_b2b">B2B Wholesale</a></li>
+        <li><a href="./b2b.html" class="mobile-nav-link active" data-i18n="nav_b2b">Wholesale Partner</a></li>
         <li><a href="./careers.html" class="mobile-nav-link" data-i18n="nav_careers">Careers</a></li>
         <li><a href="./contact.html" class="mobile-nav-link" data-i18n="nav_contact">Contact & Delivery</a></li>
       </ul>
@@ -285,14 +366,14 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. LUXURY B2B HERO SECTION -->
+    <!-- 2. LUXURY HERO SECTION (Single Top CTA) -->
     <section class="section-padding" style="padding-top: 40px; padding-bottom: 0;">
       <div class="container">
         
         <div class="b2b-hero-card">
           <div class="b2b-pill-tag">
             <i class="ph ph-handshake" style="font-size: 1.1rem;"></i>
-            <span>Commercial Wholesale Bakery Partner • Tirunelveli</span>
+            <span>Wholesale Bakery Supply Partner • Tirunelveli</span>
           </div>
 
           <h1 class="b2b-hero-title" data-i18n="b2b_title">
@@ -300,45 +381,115 @@
           </h1>
 
           <p class="b2b-hero-sub" data-i18n="b2b_sub">
-            Grow your business with daily morning delivery, bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
+            Grow your business with daily morning delivery, direct bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
           </p>
 
-          <div class="b2b-cta-group">
-            <a href="#b2b-form" class="btn btn-primary" style="padding: 14px 32px; font-size: 1.05rem;" data-i18n="b2b_btn_quote">
-              <i class="ph ph-lightning"></i> Get Wholesale Quote
+          <!-- Single Primary Top CTA -->
+          <div class="b2b-hero-cta">
+            <a href="#b2b-form" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.1rem; border-radius: 16px;" data-i18n="b2b_btn_quote">
+              <i class="ph ph-lightning" style="font-size: 1.3rem;"></i> Get Wholesale Quote
             </a>
-            <button onclick="requestB2BSampleBox()" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1.05rem;" data-i18n="b2b_btn_sample">
-              <i class="ph ph-package"></i> Request Free Sample Box 📦
-            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. BENTO GRID OF ALL COMMERCIAL CATEGORIES -->
+    <section class="section-padding" style="padding-top: 0;">
+      <div class="container">
+        
+        <div class="bento-section-title">
+          <p class="text-tagline" style="margin-bottom: 8px;">Commercial Industry Supply</p>
+          <h2 class="text-h2">Tailored Wholesale Solutions For Every Industry</h2>
+        </div>
+
+        <div class="bento-grid">
+          
+          <!-- Bento 1: Kirana & Grocery Stores (Featured Large Bento Span 2) -->
+          <div class="bento-card bento-card-lg">
+            <div>
+              <div class="bento-badge-tag">✓ 25% - 30% Retail Margin • Daily Replacement</div>
+              <div class="bento-icon-badge"><i class="ph ph-storefront"></i></div>
+              <h3 class="bento-title">🏪 Kirana & Grocery Stores</h3>
+              <p class="bento-desc">
+                Daily 5:30 AM morning dispatch of fresh sandwich bread packets, milk loaves, tea buns & crispy butter rusks. Includes unsold bread replacement guarantee for hassle-free retail profits.
+              </p>
+            </div>
+            <div class="bento-pills-row">
+              <span class="bento-pill">🍞 Sandwich Bread</span>
+              <span class="bento-pill">🥛 Milk Bread</span>
+              <span class="bento-pill">🥐 Tea Buns</span>
+              <span class="bento-pill">🔄 Replacement Guarantee</span>
+            </div>
           </div>
 
-          <!-- Interactive Business Category Showcase Card -->
-          <div class="b2b-showcase-box">
-            
-            <div style="margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-              <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #8B4513; display: flex; align-items: center; gap: 6px;">
-                <i class="ph ph-sparkle" style="font-size: 1.1rem;"></i> Select Your Business Industry:
-              </span>
-              <span style="background: rgba(46, 125, 50, 0.1); color: #2E7D32; padding: 4px 14px; border-radius: 12px; font-size: 0.78rem; font-weight: 800;">
-                ✓ 5:30 AM Daily Morning Dispatch
-              </span>
+          <!-- Bento 2: University & College Canteens (Tall Dark Luxury Bento) -->
+          <div class="bento-card bento-card-tall">
+            <div>
+              <div class="bento-badge-tag">⏱️ Dual Shift Timed Dispatch</div>
+              <div class="bento-icon-badge"><i class="ph ph-student"></i></div>
+              <h3 class="bento-title">🏫 University & College Canteens</h3>
+              <p class="bento-desc">
+                Freshly baked warm veg puffs, egg puffs, samosas & tea buns dispatched in dual batches (6:30 AM & 1:00 PM) timed perfectly for student morning and afternoon tea break intervals.
+              </p>
             </div>
-
-            <!-- Prototype Switcher Pills -->
-            <div class="b2b-proto-tabs">
-              <button class="b2b-proto-tab active" onclick="switchProtoTab('kirana', this)">🏪 Kirana & Grocery Shops</button>
-              <button class="b2b-proto-tab" onclick="switchProtoTab('supermarket', this)">🛒 Supermarkets & Retail</button>
-              <button class="b2b-proto-tab" onclick="switchProtoTab('university', this)">🏫 University & Canteens</button>
-              <button class="b2b-proto-tab" onclick="switchProtoTab('hotel', this)">🏨 Hotels & Restaurants</button>
-              <button class="b2b-proto-tab" onclick="switchProtoTab('caterer', this)">🍱 Event Caterers</button>
+            <div class="bento-pills-row">
+              <span class="bento-pill">🥟 Veg & Egg Puffs</span>
+              <span class="bento-pill">🥟 Crispy Samosas</span>
+              <span class="bento-pill">☕ Tea Break Snacks</span>
             </div>
-
-            <!-- Dynamic Interactive Content Screen -->
-            <div id="figma-proto-content" class="b2b-spec-screen">
-              <!-- Rendered dynamically by JS on load -->
-            </div>
-
           </div>
+
+          <!-- Bento 3: Supermarkets & Retail Outlets -->
+          <div class="bento-card">
+            <div>
+              <div class="bento-badge-tag">🏷️ 30% - 35% Retail Margin</div>
+              <div class="bento-icon-badge"><i class="ph ph-shopping-bag-open"></i></div>
+              <h3 class="bento-title">🛒 Supermarkets & Retail</h3>
+              <p class="bento-desc">
+                Artisanal butter cookies, tea rusks & packaged savories with clear MRP, barcode labels & 100% FSSAI certification.
+              </p>
+            </div>
+            <div class="bento-pills-row">
+              <span class="bento-pill">🍪 Butter Cookies</span>
+              <span class="bento-pill">🏷️ Barcode Packaged</span>
+            </div>
+          </div>
+
+          <!-- Bento 4: Hotels & Restaurants -->
+          <div class="bento-card">
+            <div>
+              <div class="bento-badge-tag">🚚 5:00 AM Priority Dispatch</div>
+              <div class="bento-icon-badge"><i class="ph ph-cooking-pot"></i></div>
+              <h3 class="bento-title">🏨 Hotels & Restaurants</h3>
+              <p class="bento-desc">
+                Jumbo sandwich loaves, burger buns, pav buns & pastry dessert slices baked to consistent commercial specs 365 days a year.
+              </p>
+            </div>
+            <div class="bento-pills-row">
+              <span class="bento-pill">🍔 Burger & Pav Buns</span>
+              <span class="bento-pill">🍰 Dessert Supply</span>
+            </div>
+          </div>
+
+          <!-- Bento 5: Event Caterers & Halls (Wide Bento Span 2) -->
+          <div class="bento-card bento-card-wide">
+            <div>
+              <div class="bento-badge-tag">🎁 Custom Branded Party Boxes</div>
+              <div class="bento-icon-badge"><i class="ph ph-confetti"></i></div>
+              <h3 class="bento-title">🍱 Event Caterers & Wedding Halls</h3>
+              <p class="bento-desc">
+                Hygienically sealed individual party snack boxes and mini pastries custom-curated for weddings, corporate events & private functions with direct venue delivery.
+              </p>
+            </div>
+            <div class="bento-pills-row">
+              <span class="bento-pill">📦 Sealed Party Boxes</span>
+              <span class="bento-pill">🧁 Mini Pastries</span>
+              <span class="bento-pill">📍 Venue Delivery</span>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -371,74 +522,7 @@
       </div>
     </section>
 
-    <!-- 3. WHOLESALE PRODUCT RANGE -->
-    <section class="section-padding">
-      <div class="container">
-        <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
-          <p class="text-tagline" style="margin-bottom: 8px;">Commercial Catalog</p>
-          <h2 class="text-h2">What We Supply To Businesses</h2>
-        </div>
-
-        <div class="b2b-grid-5">
-          <!-- Card 1: Breads & Buns -->
-          <div class="heritage-card" style="text-align: left; padding: 28px;">
-            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
-              <i class="ph ph-bread" style="font-size: 1.8rem;"></i>
-            </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_breads_title">Commercial Breads & Buns</h3>
-            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_breads_desc">
-              Sandwich bread, milk bread, wheat loaves, burger buns, hot dog buns & pav.
-            </p>
-          </div>
-
-          <!-- Card 2: Tea-Time Puffs -->
-          <div class="heritage-card" style="text-align: left; padding: 28px;">
-            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
-              <i class="ph ph-cookie" style="font-size: 1.8rem;"></i>
-            </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_puffs_title">Tea-Time Puffs & Snacks</h3>
-            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_puffs_desc">
-              Crispy veg puffs, egg puffs, chicken puffs, samosas & rolls for cafes & tea shops.
-            </p>
-          </div>
-
-          <!-- Card 3: Dessert Supply -->
-          <div class="heritage-card" style="text-align: left; padding: 28px;">
-            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
-              <i class="ph ph-cake" style="font-size: 1.8rem;"></i>
-            </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dessert_title">Restaurant & Dessert Supply</h3>
-            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_dessert_desc">
-              Black forest slices, red velvet, brownies & cupcakes baked for restaurants & cafes.
-            </p>
-          </div>
-
-          <!-- Card 4: Dry Bakes -->
-          <div class="heritage-card" style="text-align: left; padding: 28px;">
-            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
-              <i class="ph ph-package" style="font-size: 1.8rem;"></i>
-            </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dry_title">Dry Bakes & Savories</h3>
-            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_dry_desc">
-              Crispy tea rusks, butter biscuits, cookies & packaged savories for retail shelves.
-            </p>
-          </div>
-
-          <!-- Card 5: Institutional Supply -->
-          <div class="heritage-card" style="text-align: left; padding: 28px;">
-            <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
-              <i class="ph ph-buildings" style="font-size: 1.8rem;"></i>
-            </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_custom_title">Institutional & Canteen Supply</h3>
-            <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_custom_desc">
-              Custom sizing & bulk snack boxes tailored for University & School canteens.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. PILLARS OF TRUST -->
+    <!-- 4. PILLARS OF COMMERCIAL CONVENIENCE -->
     <section class="heritage-section section-padding">
       <div class="container">
         <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
@@ -480,46 +564,46 @@
       </div>
     </section>
 
-    <!-- 5. B2B INQUIRY & SAMPLE FORM -->
+    <!-- 5. B2B FORM SECTION (Primary CTA: Request Free Sample Box) -->
     <section id="b2b-form" class="section-padding">
       <div class="container" style="max-width: 840px;">
         
         <div class="b2b-form-card">
           <div style="text-align: center; margin-bottom: 32px;">
-            <div style="width: 60px; height: 60px; background: rgba(166, 96, 27, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--color-desert); margin-bottom: 16px;">
-              <i class="ph ph-clipboard-text" style="font-size: 2rem;"></i>
+            <div style="width: 64px; height: 64px; background: rgba(166, 96, 27, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--color-desert); margin-bottom: 16px;">
+              <i class="ph ph-package" style="font-size: 2.2rem;"></i>
             </div>
-            <h2 class="text-h2" style="font-size: 1.6rem;" data-i18n="b2b_form_title">Request Wholesale Pricing or Free Sample Box</h2>
+            <h2 class="text-h2" style="font-size: 1.65rem;" data-i18n="b2b_form_title">Request Free Commercial Sample Box</h2>
             <p class="text-regular" style="color: var(--color-text-muted); margin-top: 8px;" data-i18n="b2b_form_sub">
-              Fill out your business details below to get instant wholesale rates and a free sample box delivered to your store.
+              Enter your business details below to receive a free sample box delivered directly to your store or canteen in Tirunelveli.
             </p>
           </div>
 
-          <form id="b2b-inquiry-form" onsubmit="event.preventDefault(); sendWhatsAppB2BInquiry();">
+          <form id="b2b-inquiry-form" onsubmit="event.preventDefault(); requestB2BSampleBox();">
             <!-- Invisible Honeypot Trap Field -->
             <input type="text" id="b2b-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_name">Business / Shop Name:</label>
-                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_name">Business / Shop Name *</label>
+                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
               </div>
 
               <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_contact_person">Contact Person Name:</label>
-                <input type="text" id="b2b-contact-person" required placeholder="Contact Person Name" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_contact_person">Contact Person Name *</label>
+                <input type="text" id="b2b-contact-person" required placeholder="Contact Person Name" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number:</label>
-                <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number *</label>
+                <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
               </div>
 
               <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_type">Business Category:</label>
-                <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_type">Business Category *</label>
+                <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
                   <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
                   <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
                   <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
@@ -531,18 +615,14 @@
             </div>
 
             <div style="margin-bottom: 24px;">
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement:</label>
-              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
+              <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement (Optional):</label>
+              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
             </div>
 
-            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <button type="submit" class="btn btn-primary" style="flex: 1; justify-content: center; padding: 12px;" data-i18n="b2b_btn_submit_quote">
-                Send WhatsApp B2B Inquiry ➔
-              </button>
-              <button type="button" onclick="requestB2BSampleBox()" class="btn btn-secondary" style="flex: 1; justify-content: center; padding: 12px;" data-i18n="b2b_btn_submit_sample">
-                Request Free Sample Box 📦
-              </button>
-            </div>
+            <!-- Single Primary Form CTA Button -->
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 15px; font-size: 1.08rem; border-radius: 16px;" data-i18n="b2b_btn_submit_sample">
+              <i class="ph ph-package" style="font-size: 1.3rem;"></i> Request Free Sample Box 📦
+            </button>
           </form>
         </div>
 
@@ -567,7 +647,7 @@
         <div class="b2b-faq-item">
           <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: How do I get a Free Sample Box for my shop or canteen?</h4>
           <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Fill out the form above or tap "Request Free Sample Box 📦". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business in Tirunelveli.
+            Fill out the form above or tap "Request Free Sample Box 📦". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.
           </p>
         </div>
 
@@ -597,7 +677,7 @@
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <a href="./index.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_home">Home</a>
           <a href="./products.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_cakes">Celebration Cakes</a>
-          <a href="./b2b.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_b2b">B2B Wholesale</a>
+          <a href="./b2b.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_b2b">Wholesale Partner</a>
           <a href="./careers.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_careers">Careers</a>
           <a href="./contact.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_contact">Contact</a>
         </div>
@@ -654,111 +734,49 @@
   <script src="./app.js"></script>
   
   <script>
-    // Interactive Business Spec Tab Data
-    const B2B_SPECS = {
-      kirana: {
-        title: "🏪 Kirana & Grocery Stores",
-        products: "Sandwich Bread, Milk Bread, Tea Buns, Butter Biscuits & Tea Rusks",
-        moq: "15 - 20 Packets Daily",
-        dispatch: "5:30 AM Daily Morning Delivery",
-        margin: "25% - 30% Wholesale Retail Margin",
-        benefit: "Fresh daily stock with return/replacement policy on unsold bread packets."
-      },
-      supermarket: {
-        title: "🛒 Supermarkets & Retail Outlets",
-        products: "Packaged Savories, Butter Cookies, Cake Slices & Premium Toast",
-        moq: "50+ Units per Order",
-        dispatch: "Scheduled Morning Delivery Vehicles",
-        margin: "30% - 35% Bulk Retail Margin",
-        benefit: "Attractive branded shelf packaging with clear MRP & FSSAI barcodes."
-      },
-      university: {
-        title: "🏫 University & College Canteens",
-        products: "Fresh Veg Puffs, Egg Puffs, Samosas, Tea Buns & Snack Boxes",
-        moq: "100+ Pieces Daily",
-        dispatch: "Batch Dispatch at 6:30 AM & 1:00 PM",
-        margin: "Direct Canteen Bulk Rates",
-        benefit: "Freshly baked warm snacks timed perfectly for student break intervals."
-      },
-      hotel: {
-        title: "🏨 Hotels & Restaurants",
-        products: "Jumbo Sandwich Loaves, Burger Buns, Pav Buns & Dessert Slices",
-        moq: "Custom Daily Loaf Volumes",
-        dispatch: "Priority 5:00 AM Commercial Dispatch",
-        margin: "Special Restaurant Contract Rates",
-        benefit: "Consistent size, soft texture, and fresh baking guaranteed 365 days a year."
-      },
-      caterer: {
-        title: "🍱 Event Caterers & Wedding Halls",
-        products: "Customized Party Snack Boxes, Mini Pastries & Welcome Drinks",
-        moq: "50 to 5000+ Event Boxes",
-        dispatch: "On-Site Venue Delivery at Specified Event Time",
-        margin: "Special Event Caterer Discount",
-        benefit: "Hygienically sealed individual snack boxes branded for your event."
-      }
-    };
-
-    function switchProtoTab(catKey, btnEl) {
-      document.querySelectorAll('.b2b-proto-tab').forEach(b => b.classList.remove('active'));
-      if (btnEl) btnEl.classList.add('active');
-
-      const data = B2B_SPECS[catKey] || B2B_SPECS.kirana;
-      const container = document.getElementById('figma-proto-content');
-      if (!container) return;
-
-      container.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: #8B4513; margin: 0;">${data.title}</h3>
-          <span style="background: rgba(166, 96, 27, 0.1); color: #8B4513; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 800;">${data.margin}</span>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px;">
-          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Supplied Products</div>
-            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.products}</div>
-          </div>
-          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Min Order Quantity</div>
-            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.moq}</div>
-          </div>
-          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Dispatch Time</div>
-            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.dispatch}</div>
-          </div>
-        </div>
-
-        <div style="background: rgba(46, 125, 50, 0.08); border-left: 4px solid #2E7D32; padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; color: #1E4620; font-weight: 600;">
-          💡 <strong>Key Advantage:</strong> ${data.benefit}
-        </div>
-      `;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      switchProtoTab('kirana');
-    });
-
     function requestB2BSampleBox() {
-      const bizName = document.getElementById('b2b-biz-name')?.value || '';
-      const phone = document.getElementById('b2b-phone')?.value || '';
+      const bizName = (document.getElementById('b2b-biz-name')?.value || '').trim();
+      const contactPerson = (document.getElementById('b2b-contact-person')?.value || '').trim();
+      const phone = (document.getElementById('b2b-phone')?.value || '').trim();
+      const bizType = document.getElementById('b2b-biz-type')?.value || 'Grocery';
+      const req = (document.getElementById('b2b-requirement')?.value || '').trim();
 
-      if (!bizName || !phone) {
+      if (!bizName || !contactPerson || !phone || phone.length < 10) {
         if (window.showBrandModal) {
           showBrandModal({
-            title: 'Fill Business Details',
-            message: 'Please fill in your Business Name and Mobile Number to request a free sample box.',
+            title: 'Business Details Required',
+            message: 'Please enter your Business Name, Contact Person Name, and valid 10-digit Phone Number.',
             icon: '📦',
             type: 'warning',
             confirmText: 'Understood'
           });
         } else {
-          showBrandToast('Please enter your Business Name and Phone number first.', 'error');
+          showBrandToast('Please fill in required Business Name and Phone number.', 'error');
         }
         return;
       }
 
       const bakeryPhone = "917339073844";
-      const text = `📦 *FREE B2B SAMPLE BOX REQUEST*\nBusiness Name: ${bizName}\nPhone: ${phone}\nPlease arrange a free bakery sample box for our shop. Thank you!`;
+      let text = `📦 *FREE B2B SAMPLE BOX REQUEST*\n`;
+      text += `Business / Shop Name: ${bizName}\n`;
+      text += `Contact Person: ${contactPerson}\n`;
+      text += `Mobile Number: ${phone}\n`;
+      text += `Business Category: ${bizType}\n`;
+      if (req) text += `Daily Requirement: ${req}\n`;
+      text += `------------------------------------\n`;
+      text += `Please arrange a free commercial sample box for our business. Thank you!`;
+
       window.open(`https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`, '_blank');
+      
+      if (window.showBrandModal) {
+        showBrandModal({
+          title: 'Sample Request Sent!',
+          message: '🎉 Your request for a Free Bakery Sample Box has been dispatched to WhatsApp. Our team will coordinate delivery shortly!',
+          icon: '📦',
+          type: 'success',
+          confirmText: 'Awesome'
+        });
+      }
     }
   </script>
 </body>
