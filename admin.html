@@ -2144,8 +2144,9 @@
       if (cake) openCakeModal(cake);
     }
 
-    function deleteCake(id) {
-      if (confirm('Are you sure you want to delete this cake?')) {
+    async function deleteCake(id) {
+      const ok = await showBrandConfirm('Are you sure you want to delete this cake?', 'Delete Cake', 'Yes, Delete', 'Cancel');
+      if (ok) {
         productsList = productsList.filter(p => p.id !== id);
         PRODUCTS_DATA = productsList;
         filterAndRenderCakesTable();
@@ -2244,8 +2245,9 @@
       if (job) openJobModal(job);
     }
 
-    function deleteJob(id) {
-      if (confirm('Are you sure you want to delete this job opening?')) {
+    async function deleteJob(id) {
+      const ok = await showBrandConfirm('Are you sure you want to delete this job opening?', 'Delete Job', 'Yes, Delete', 'Cancel');
+      if (ok) {
         jobsList = jobsList.filter(j => j.id !== id);
         JOBS_DATA = jobsList;
         renderJobsTable();
@@ -2560,7 +2562,8 @@
     }
 
     async function deleteCafeDish(dishId, dishName) {
-      if (!confirm(`Are you sure you want to delete "${dishName}" from the cafe menu?`)) return;
+      const ok = await showBrandConfirm(`Are you sure you want to delete "${dishName}" from the cafe menu?`, 'Delete Dish', 'Yes, Delete', 'Cancel');
+      if (!ok) return;
 
       try {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?id=eq.${dishId}`, {

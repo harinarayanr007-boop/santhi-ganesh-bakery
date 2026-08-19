@@ -2526,10 +2526,17 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(BAKERY_UPI_ID).then(() => {
           if (copyTextLbl) copyTextLbl.textContent = t.copied || 'Copied!';
+          if (window.showBrandToast) {
+            showBrandToast(currentMenuLang === 'ta' ? 'UPI ID நகலெடுக்கப்பட்டது: ' + BAKERY_UPI_ID : 'UPI ID Copied: ' + BAKERY_UPI_ID, 'success');
+          }
           setTimeout(() => { if (copyTextLbl) copyTextLbl.textContent = t.copy_upi || 'Copy'; }, 2000);
         });
       } else {
-        alert(`UPI ID: ${BAKERY_UPI_ID}`);
+        if (window.showBrandAlert) {
+          showBrandAlert(`UPI ID: ${BAKERY_UPI_ID}`, 'Bakery UPI ID', 'brand', '💳');
+        } else {
+          alert(`UPI ID: ${BAKERY_UPI_ID}`);
+        }
       }
     }
 
@@ -2948,7 +2955,17 @@
               : 'GPS timed out. Please tap your location directly on the map.';
           }
           setGpsStatusUI('error', currentMenuLang === 'ta' ? 'GPS பிழை — வரைபடத்தைத் தொடவும்' : 'GPS error — tap map instead');
-          alert(errMsg);
+          if (window.showBrandModal) {
+            showBrandModal({
+              title: currentMenuLang === 'ta' ? 'GPS இருப்பிட அறிவிப்பு' : 'GPS Location Notice',
+              message: errMsg,
+              icon: '📍',
+              type: 'warning',
+              confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Got it'
+            });
+          } else {
+            alert(errMsg);
+          }
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
       );
@@ -2983,7 +3000,19 @@
       }
 
       if (hasError) {
-        alert(currentMenuLang === 'ta' ? "தயவுசெய்து அனைத்து தேவையான விவரங்களையும் (பெயர், மொபைல், முகவரி) பூர்த்தி செய்யவும்." : "Please fill in all required contact and location fields.");
+        if (window.showBrandModal) {
+          showBrandModal({
+            title: currentMenuLang === 'ta' ? 'விவரங்களை பூர்த்தி செய்யவும்' : 'Contact Details Required',
+            message: currentMenuLang === 'ta' 
+              ? "தயவுசெய்து உங்கள் பெயர், 10 இலக்க மொபைல் எண் மற்றும் டெலிவரி முகவரியை பூர்த்தி செய்யவும்." 
+              : "Please fill in all required contact details (Name, 10-digit Mobile Number, and Delivery Address).",
+            icon: '⚠️',
+            type: 'warning',
+            confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Understood'
+          });
+        } else {
+          alert(currentMenuLang === 'ta' ? "தயவுசெய்து அனைத்து தேவையான விவரங்களையும் (பெயர், மொபைல், முகவரி) பூர்த்தி செய்யவும்." : "Please fill in all required contact and location fields.");
+        }
         return;
       }
 
@@ -3141,9 +3170,21 @@
         localStorage.removeItem('sg_delivery_cart');
         updateCartUI();
         closeCheckoutModal();
-        alert(currentMenuLang === 'ta' 
-          ? `🎉 ஆர்டர் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது! நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்.` 
-          : `🎉 Order Placed Successfully! We'll start preparing your order right away.`);
+        if (window.showBrandModal) {
+          showBrandModal({
+            title: currentMenuLang === 'ta' ? 'ஆர்டர் சமர்ப்பிக்கப்பட்டது!' : 'Order Dispatched!',
+            message: currentMenuLang === 'ta' 
+              ? '🎉 உங்கள் ஆர்டர் விவரங்கள் வாட்ஸ்அப்பில் அனுப்பப்பட்டுள்ளன. நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்!' 
+              : "🎉 Your order details have been dispatched to WhatsApp. We'll start preparing your order right away!",
+            icon: '🎉',
+            type: 'success',
+            confirmText: currentMenuLang === 'ta' ? 'அருமை' : 'Awesome'
+          });
+        } else {
+          alert(currentMenuLang === 'ta' 
+            ? `🎉 ஆர்டர் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது! நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்.` 
+            : `🎉 Order Placed Successfully! We'll start preparing your order right away.`);
+        }
       }, 500);
     }
 

@@ -238,9 +238,10 @@
 
     function copyUPI() {
       navigator.clipboard.writeText(BAKERY_UPI_ID).then(() => {
-        alert("UPI ID copied: " + BAKERY_UPI_ID);
+        if (window.showBrandToast) showBrandToast("UPI ID Copied: " + BAKERY_UPI_ID, "success"); else alert("UPI ID copied: " + BAKERY_UPI_ID);
       });
     }
   </script>
+  <script src="./js/utils.js"></script>
 </body>
 </html>
