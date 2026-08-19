@@ -1706,24 +1706,14 @@
             </div>
           </div>
 
-          <!-- 5. CARD: PAYMENT METHOD & EMBEDDED UPI -->
+          <!-- 5. CARD: INSTANT UPI PAYMENT & QR CODE -->
           <div class="checkout-card-box" id="block-payment-method">
             <div class="card-header-row">
               <div class="card-header-left">
-                <div class="card-icon-pill icon-payment" style="background: rgba(166, 96, 27, 0.15); color: #8B4513;"><i class="ph ph-credit-card"></i></div>
-                <span class="card-header-title" id="lbl-title-payment">Payment Method</span>
+                <div class="card-icon-pill icon-payment" style="background: rgba(166, 96, 27, 0.15); color: #8B4513;"><i class="ph ph-qr-code"></i></div>
+                <span class="card-header-title" id="lbl-title-payment">Instant UPI Payment</span>
               </div>
-              <span class="card-header-badge badge-green" id="lbl-badge-payment">0% Fee Direct Pay</span>
-            </div>
-
-            <!-- Payment Mode Selector -->
-            <div class="payment-seg-control">
-              <button type="button" class="payment-seg-btn active" id="btn-pay-upi" onclick="setPaymentMethod('upi')">
-                <i class="ph ph-lightning"></i> <span id="lbl-pay-upi">Instant UPI / QR</span>
-              </button>
-              <button type="button" class="payment-seg-btn" id="btn-pay-cod" onclick="setPaymentMethod('cod')">
-                <i class="ph ph-money"></i> <span id="lbl-pay-cod">Cash on Delivery</span>
-              </button>
+              <span class="card-header-badge badge-green" id="lbl-badge-payment">QR & 1-Tap UPI</span>
             </div>
 
             <!-- EMBEDDED UPI PAYMENT WIDGET -->
@@ -1750,12 +1740,6 @@
                   <i class="ph ph-copy"></i> <span id="lbl-copy-text">Copy</span>
                 </button>
               </div>
-            </div>
-
-            <!-- COD INFO BOX -->
-            <div class="cod-info-box" id="box-cod-info" style="display: none;">
-              <i class="ph ph-hand-coins" style="font-size: 1.2rem; display: block; margin-bottom: 2px;"></i>
-              <span id="lbl-cod-desc">💵 Pay exact amount in cash upon doorstep delivery or at store pickup counter.</span>
             </div>
           </div>
 
@@ -1893,10 +1877,8 @@
         empty_cart_msg: "Your cart is empty",
         saved_profile_hint: "Details saved automatically for 1-tap re-ordering",
 
-        card_payment_title: "Payment Method",
-        badge_payment: "0% Fee Direct Pay",
-        tab_pay_upi: "Instant UPI / QR",
-        tab_pay_cod: "Cash on Delivery",
+        card_payment_title: "Instant UPI Payment",
+        badge_payment: "QR & 1-Tap UPI",
         scan_qr_hint: "Scan with GPay / PhonePe / Paytm",
         btn_gpay: "Pay via GPay / UPI",
         btn_phonepe: "Pay via PhonePe",
@@ -1976,10 +1958,8 @@
         empty_cart_msg: "கூடை காலியாக உள்ளது",
         saved_profile_hint: "1-டேப் ஆர்டருக்காக விவரங்கள் சேமிக்கப்பட்டது",
 
-        card_payment_title: "பணம் செலுத்தும் முறை",
-        badge_payment: "0% கட்டணம் நேரடி பே",
-        tab_pay_upi: "உடனடி UPI / QR",
-        tab_pay_cod: "நேரில் ரொக்கம் (Cash)",
+        card_payment_title: "உடனடி UPI பணம் செலுத்த",
+        badge_payment: "QR & 1-டேப் UPI",
         scan_qr_hint: "GPay / PhonePe / Paytm மூலம் ஸ்கேன் செய்க",
         btn_gpay: "GPay மூலம் செலுத்துக",
         btn_phonepe: "PhonePe மூலம் செலுத்துக",
@@ -2128,11 +2108,7 @@
       if (titlePayment) titlePayment.textContent = t.card_payment_title;
       const badgePayment = document.getElementById('lbl-badge-payment');
       if (badgePayment) badgePayment.textContent = t.badge_payment;
-      const payUpiLbl = document.getElementById('lbl-pay-upi');
-      if (payUpiLbl) payUpiLbl.textContent = t.tab_pay_upi;
-      const payCodLbl = document.getElementById('lbl-pay-cod');
-      if (payCodLbl) payCodLbl.textContent = t.tab_pay_cod;
-      const scanQrHint = document.getElementById('lbl-scan-qr-hint');
+            const scanQrHint = document.getElementById('lbl-scan-qr-hint');
       if (scanQrHint) scanQrHint.textContent = t.scan_qr_hint;
       const btnGpayLbl = document.getElementById('lbl-btn-gpay');
       if (btnGpayLbl) btnGpayLbl.textContent = t.btn_gpay;
@@ -2140,9 +2116,7 @@
       if (btnPhonepeLbl) btnPhonepeLbl.textContent = t.btn_phonepe;
       const copyTextLbl = document.getElementById('lbl-copy-text');
       if (copyTextLbl) copyTextLbl.textContent = t.copy_upi;
-      const codDesc = document.getElementById('lbl-cod-desc');
-      if (codDesc) codDesc.textContent = t.cod_desc;
-
+      
       setOrderType(currentOrderType);
       renderCategoryTabs();
       renderMenu();
@@ -2517,29 +2491,6 @@
       }
       grandTotalEl.textContent = `₹${grandTotal}`;
       updateEmbeddedUPI();
-    }
-
-    let currentPaymentMethod = 'upi';
-
-    function setPaymentMethod(method) {
-      currentPaymentMethod = method;
-      const btnUpi = document.getElementById('btn-pay-upi');
-      const btnCod = document.getElementById('btn-pay-cod');
-      const boxUpi = document.getElementById('box-embedded-upi');
-      const boxCod = document.getElementById('box-cod-info');
-
-      if (method === 'cod') {
-        if (btnUpi) btnUpi.classList.remove('active');
-        if (btnCod) btnCod.classList.add('active');
-        if (boxUpi) boxUpi.style.display = 'none';
-        if (boxCod) boxCod.style.display = 'block';
-      } else {
-        if (btnUpi) btnUpi.classList.add('active');
-        if (btnCod) btnCod.classList.remove('active');
-        if (boxUpi) boxUpi.style.display = 'flex';
-        if (boxCod) boxCod.style.display = 'none';
-        updateEmbeddedUPI();
-      }
     }
 
     function updateEmbeddedUPI() {
@@ -3095,13 +3046,9 @@
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
           text += `💰 *கவுண்டரில் செலுத்த வேண்டிய தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          if (currentPaymentMethod === 'upi') {
-            text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
-            text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
-            text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
-          } else {
-            text += `💳 *பணம் செலுத்தும் முறை:* 💵 கடையில் ரொக்கம் (Cash at Counter)\n`;
-          }
+          text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
+          text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
+          text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து எனது டேக்அவே ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
@@ -3122,13 +3069,9 @@
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
           text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          if (currentPaymentMethod === 'upi') {
-            text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
-            text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
-            text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
-          } else {
-            text += `💳 *Payment Method:* 💵 Cash at Store Counter\n`;
-          }
+          text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
+          text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
+          text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm my takeaway order. Thank you!`;
@@ -3162,13 +3105,9 @@
           text += `🛵 *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் ✅)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
           text += `💰 *மொத்த தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          if (currentPaymentMethod === 'upi') {
-            text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
-            text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
-            text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
-          } else {
-            text += `💳 *பணம் செலுத்தும் முறை:* 💵 டெலிவரியின் போது ரொக்கம் (Cash on Delivery)\n`;
-          }
+          text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
+          text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
+          text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து டெலிவரி ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
@@ -3194,13 +3133,9 @@
           text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
           text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          if (currentPaymentMethod === 'upi') {
-            text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
-            text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
-            text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
-          } else {
-            text += `💳 *Payment Method:* 💵 Cash on Delivery (Pay upon delivery)\n`;
-          }
+          text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
+          text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
+          text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm delivery order. Thank you!`;
