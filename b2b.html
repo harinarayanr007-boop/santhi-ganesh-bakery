@@ -6,7 +6,7 @@
   <title>B2B Wholesale & Commercial Bakery Supply | Santhi Ganesh Bakery Tirunelveli</title>
   <meta name="description" content="Wholesale fresh bread packets, buns, puffs, and pastries for 100+ Kirana stores, supermarkets, universities, hotels, and canteens across Tirunelveli. Doorstep morning delivery.">
   
-  <!-- Google Fonts: Aboreto & Lora -->
+  <!-- Google Fonts: Aboreto, Lora & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -21,268 +21,192 @@
   <script src="./i18n.js"></script>
 
   <style>
-    /* Figma BizScaler Design System & Prototype Styles */
-    .figma-avatar-stack {
+    /* B2B Luxury Redesign Styles */
+    .b2b-hero-card {
+      background: linear-gradient(145deg, var(--color-bg-secondary) 0%, #FAF8F5 100%);
+      border-radius: 24px;
+      padding: 56px 40px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .b2b-hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #A6601B 0%, #8B4513 50%, #A6601B 100%);
+    }
+
+    .b2b-pill-tag {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 8px;
-    }
-
-    .figma-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      margin-left: -12px;
-      border: 3px solid #FFF;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    .figma-circle:first-child { margin-left: 0; }
-    .figma-circle-blue { background-color: #b8d9f3; }
-    .figma-circle-black { background-color: #000000; }
-
-    .figma-tools-pill {
-      display: inline-block;
-      border: 1px solid #a3a3a3;
-      padding: 5px 16px;
-      border-radius: 89px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: #000;
-      background: #FFF;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .figma-hero-headline {
-      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
-      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -2.5px;
-      color: #000;
+      gap: 8px;
+      background: rgba(166, 96, 27, 0.08);
+      border: 1px solid rgba(166, 96, 27, 0.2);
+      color: #8B4513;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
       margin-bottom: 20px;
     }
 
-    .figma-pink-pill {
-      background-color: #f3b8c0;
-      border-radius: 115px;
-      padding: 4px 22px;
-      display: inline-flex;
+    .b2b-hero-title {
+      font-family: 'Aboreto', var(--font-heading), serif;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .b2b-hero-sub {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      max-width: 740px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .b2b-cta-group {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      color: #000;
-      vertical-align: middle;
-      line-height: 1;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .figma-red-dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: #FF2D55;
-      display: inline-block;
-      box-shadow: 0 0 12px rgba(255, 45, 85, 0.6);
-      animation: figmaPulse 2s infinite ease-in-out;
-    }
-
-    @keyframes figmaPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.18); opacity: 0.8; }
-    }
-
-    .figma-subtext {
-      font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
-      font-size: 1.15rem;
-      color: #1e1e1e;
-      max-width: 720px;
-      margin: 0 auto 28px;
-      line-height: 1.5;
-    }
-
-    .figma-cta-btn {
-      background-color: #f5a623 !important;
-      color: #000 !important;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: 1.15rem;
-      padding: 14px 36px;
-      border-radius: 16px;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35);
-      transition: all 0.25s ease;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .figma-cta-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(245, 166, 35, 0.45);
-    }
-
-    .figma-cta-subtext {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem;
-      color: #555;
-      margin-top: 8px;
-      display: block;
-    }
-
-    .figma-showcase-box {
-      background-color: #b8d9f3;
-      border-radius: 24px;
+    /* Interactive Business Showcase Box */
+    .b2b-showcase-box {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 20px;
       padding: 32px;
-      max-width: 960px;
-      margin: 36px auto 0;
-      box-shadow: 0 16px 40px rgba(184, 217, 243, 0.45);
-      position: relative;
+      box-shadow: var(--shadow-card);
+      margin-top: 40px;
       text-align: left;
-      border: 2px solid rgba(255, 255, 255, 0.6);
     }
 
-    .figma-proto-tabs {
+    .b2b-proto-tabs {
       display: flex;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
       margin-bottom: 24px;
     }
 
-    .figma-proto-tab {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+    .b2b-proto-tab {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-subtle);
       padding: 10px 20px;
       border-radius: 30px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
-      color: #000;
+      color: var(--color-text-main);
     }
-    .figma-proto-tab.active, .figma-proto-tab:hover {
-      background: #000;
-      color: #FFF;
+    .b2b-proto-tab.active, .b2b-proto-tab:hover {
+      background: linear-gradient(135deg, #A6601B 0%, #8B4513 100%);
+      color: #FFFFFF;
+      border-color: #8B4513;
+      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25);
     }
 
-    .figma-ticker-wrap {
+    .b2b-spec-screen {
+      background: #FFFFFF;
+      border: 1px solid rgba(166, 96, 27, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    /* Continuous Ticker */
+    .b2b-ticker-wrap {
       width: 100%;
       overflow: hidden;
-      background-color: #FFFFFF;
+      background: #FFFFFF;
       padding: 16px 0;
       border-top: 1px solid rgba(0,0,0,0.06);
       border-bottom: 1px solid rgba(0,0,0,0.06);
-      margin-top: 48px;
+      margin-top: 40px;
     }
 
-    .figma-ticker-move {
+    .b2b-ticker-move {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       width: max-content;
-      animation: figmaTicker 28s linear infinite;
+      animation: b2bTicker 30s linear infinite;
     }
-    .figma-ticker-move:hover {
+    .b2b-ticker-move:hover {
       animation-play-state: paused;
     }
 
-    @keyframes figmaTicker {
+    @keyframes b2bTicker {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    .figma-ticker-pill {
-      background-color: #b8d9f3;
-      color: #000;
-      border-radius: 45.5px;
-      padding: 7px 18px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 500;
+    .b2b-ticker-pill {
+      background: rgba(166, 96, 27, 0.08);
+      color: #8B4513;
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       white-space: nowrap;
     }
 
-    .figma-ticker-dot {
+    .b2b-ticker-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: #007AFF;
-      display: inline-block;
+      background: #2E7D32;
     }
 
-    /* Original B2B Page Styles */
-    .b2b-hero-card {
-      background-color: var(--color-bg-secondary);
-      border-radius: var(--radius-lg);
-      padding: 48px;
-      border: 1px solid var(--color-border-subtle);
-      box-shadow: var(--shadow-card);
-      margin-bottom: 40px;
-    }
-
-    .b2b-trust-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 32px;
-      margin-bottom: 32px;
-    }
-
-    .b2b-trust-item {
-      background: rgba(166, 96, 27, 0.05);
-      border: 1px solid rgba(166, 96, 27, 0.15);
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .b2b-trust-item i {
-      font-size: 1.8rem;
-      color: var(--color-desert);
-      flex-shrink: 0;
-    }
-
-    .b2b-form-card {
-      background-color: var(--color-bg-secondary);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      border: 1px solid var(--color-border-subtle);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      z-index: 2;
-    }
-
+    /* Product & Pillar Cards */
     .b2b-grid-5 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
+    .b2b-form-card {
+      background: var(--color-bg-secondary);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-card);
+    }
+
     .b2b-faq-item {
-      background-color: var(--color-bg-secondary);
-      border-radius: var(--radius-md);
-      padding: 20px;
+      background: var(--color-bg-secondary);
+      border-radius: 16px;
+      padding: 24px;
       border: 1px solid var(--color-border-subtle);
       margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     @media (max-width: 992px) {
       .b2b-hero-card, .b2b-form-card {
-        padding: 28px 20px;
+        padding: 32px 20px;
       }
-      .b2b-trust-grid, .b2b-grid-5 {
+      .b2b-grid-5 {
         grid-template-columns: 1fr;
         gap: 16px;
       }
-      .figma-showcase-box {
+      .b2b-showcase-box {
         padding: 20px;
       }
     }
@@ -295,7 +219,7 @@
     <div class="container navbar-inner">
       <!-- Brand Logo -->
       <a href="./index.html" class="brand-logo">
-        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - The Best Bakery Tirunelveli" class="brand-logo-img">
+        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - Tirunelveli" class="brand-logo-img">
       </a>
 
       <!-- Desktop Nav Links -->
@@ -361,112 +285,96 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. FIGMA BIZSCALER DESIGN HERO & INTERACTIVE PROTOTYPE SECTION -->
-    <section class="section-padding" style="padding-top: 36px; padding-bottom: 0;">
-      <div class="container" style="text-align: center;">
+    <!-- 2. LUXURY B2B HERO SECTION -->
+    <section class="section-padding" style="padding-top: 40px; padding-bottom: 0;">
+      <div class="container">
         
-        <!-- Figma Top Avatar Circles Stack -->
-        <div class="figma-avatar-stack">
-          <div class="figma-circle figma-circle-blue"></div>
-          <div class="figma-circle figma-circle-black"></div>
-          <div class="figma-circle figma-circle-blue"></div>
-          <div class="figma-circle figma-circle-black"></div>
-          <div class="figma-circle figma-circle-blue"></div>
-        </div>
-        
-        <div>
-          <span class="figma-tools-pill">15+ Commercial Products Supply</span>
-        </div>
-
-        <!-- Figma High-Impact Headline with Pink Pill & Red Dot -->
-        <h1 class="figma-hero-headline">
-          <span data-i18n="b2b_title">Wholesale Bakery partner for</span> 
-          <span class="figma-pink-pill">
-            <span class="figma-red-dot"></span>
-            <span data-i18n="figma_pill_your">Your</span>
-          </span> 
-          <span data-i18n="figma_word_biz">Business</span>
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="figma-subtext" data-i18n="b2b_sub">
-          Grow your business with daily morning delivery, bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
-        </p>
-
-        <!-- Figma Saffron Orange CTA Button -->
-        <div>
-          <a href="#b2b-form" class="figma-cta-btn" data-i18n="b2b_btn_quote">
-            <i class="ph ph-lightning" style="font-size: 1.3rem;"></i> Start Wholesale Partnership
-          </a>
-          <span class="figma-cta-subtext">Join 100+ daily business partners across Tirunelveli</span>
-        </div>
-
-        <!-- Interactive Figma Prototype Showcase Card (#b8d9f3) -->
-        <div class="figma-showcase-box">
-          
-          <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-            <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #000;">
-              ✨ Interactive Business Prototype — Click Tabs to Switch Specs:
-            </span>
-            <span style="background: rgba(0,0,0,0.1); padding: 4px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; color: #000;">
-              Live Figma Prototype
-            </span>
+        <div class="b2b-hero-card">
+          <div class="b2b-pill-tag">
+            <i class="ph ph-handshake" style="font-size: 1.1rem;"></i>
+            <span>Commercial Wholesale Bakery Partner • Tirunelveli</span>
           </div>
 
-          <!-- Prototype Switcher Pills -->
-          <div class="figma-proto-tabs">
-            <button class="figma-proto-tab active" onclick="switchProtoTab('kirana', this)">🏪 Kirana & Grocery Shops</button>
-            <button class="figma-proto-tab" onclick="switchProtoTab('supermarket', this)">🛒 Supermarkets & Retail</button>
-            <button class="figma-proto-tab" onclick="switchProtoTab('university', this)">🏫 University & Canteens</button>
-            <button class="figma-proto-tab" onclick="switchProtoTab('hotel', this)">🏨 Hotels & Restaurants</button>
-            <button class="figma-proto-tab" onclick="switchProtoTab('caterer', this)">🍱 Event Caterers</button>
+          <h1 class="b2b-hero-title" data-i18n="b2b_title">
+            Wholesale Bakery Partner For Your Business
+          </h1>
+
+          <p class="b2b-hero-sub" data-i18n="b2b_sub">
+            Grow your business with daily morning delivery, bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
+          </p>
+
+          <div class="b2b-cta-group">
+            <a href="#b2b-form" class="btn btn-primary" style="padding: 14px 32px; font-size: 1.05rem;" data-i18n="b2b_btn_quote">
+              <i class="ph ph-lightning"></i> Get Wholesale Quote
+            </a>
+            <button onclick="requestB2BSampleBox()" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1.05rem;" data-i18n="b2b_btn_sample">
+              <i class="ph ph-package"></i> Request Free Sample Box 📦
+            </button>
           </div>
 
-          <!-- Dynamic Interactive Content Screen -->
-          <div id="figma-proto-content" style="background: #FFFFFF; border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); transition: all 0.3s ease;">
-            <!-- Rendered dynamically by JS on page load -->
-          </div>
+          <!-- Interactive Business Category Showcase Card -->
+          <div class="b2b-showcase-box">
+            
+            <div style="margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+              <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #8B4513; display: flex; align-items: center; gap: 6px;">
+                <i class="ph ph-sparkle" style="font-size: 1.1rem;"></i> Select Your Business Industry:
+              </span>
+              <span style="background: rgba(46, 125, 50, 0.1); color: #2E7D32; padding: 4px 14px; border-radius: 12px; font-size: 0.78rem; font-weight: 800;">
+                ✓ 5:30 AM Daily Morning Dispatch
+              </span>
+            </div>
 
+            <!-- Prototype Switcher Pills -->
+            <div class="b2b-proto-tabs">
+              <button class="b2b-proto-tab active" onclick="switchProtoTab('kirana', this)">🏪 Kirana & Grocery Shops</button>
+              <button class="b2b-proto-tab" onclick="switchProtoTab('supermarket', this)">🛒 Supermarkets & Retail</button>
+              <button class="b2b-proto-tab" onclick="switchProtoTab('university', this)">🏫 University & Canteens</button>
+              <button class="b2b-proto-tab" onclick="switchProtoTab('hotel', this)">🏨 Hotels & Restaurants</button>
+              <button class="b2b-proto-tab" onclick="switchProtoTab('caterer', this)">🍱 Event Caterers</button>
+            </div>
+
+            <!-- Dynamic Interactive Content Screen -->
+            <div id="figma-proto-content" class="b2b-spec-screen">
+              <!-- Rendered dynamically by JS on load -->
+            </div>
+
+          </div>
         </div>
 
       </div>
 
-      <!-- Figma Continuous Infinite Ticker Bar (Bottom of Hero) -->
-      <div class="figma-ticker-wrap">
-        <div class="figma-ticker-move">
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Palayamkottai</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Vannarpettai</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tirunelveli Town</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Junction</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Perumalpuram</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> High Ground</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Maharajanagar</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> University Hubs</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Supermarkets</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tea Shops</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Caterers</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Hotels</span>
-          <!-- Duplicate for continuous infinite scroll -->
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Palayamkottai</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Vannarpettai</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tirunelveli Town</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Junction</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Perumalpuram</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> High Ground</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Maharajanagar</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> University Hubs</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Supermarkets</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Tea Shops</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Caterers</span>
-          <span class="figma-ticker-pill"><span class="figma-ticker-dot"></span> Hotels</span>
+      <!-- Continuous Infinite Ticker Bar -->
+      <div class="b2b-ticker-wrap">
+        <div class="b2b-ticker-move">
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Palayamkottai</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Vannarpettai</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Tirunelveli Town</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Junction</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Perumalpuram</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> High Ground</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Maharajanagar</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> University Hubs</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Supermarkets</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Tea Shops</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Caterers</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Hotels</span>
+          <!-- Duplicate for seamless scroll -->
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Palayamkottai</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Vannarpettai</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Tirunelveli Town</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Junction</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Perumalpuram</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> High Ground</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Maharajanagar</span>
+          <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> University Hubs</span>
         </div>
       </div>
     </section>
 
-    <!-- 4. WHOLESALE PRODUCT RANGE -->
+    <!-- 3. WHOLESALE PRODUCT RANGE -->
     <section class="section-padding">
       <div class="container">
-        <div class="catalog-header" style="margin-bottom: 48px; text-align: center;">
+        <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
           <p class="text-tagline" style="margin-bottom: 8px;">Commercial Catalog</p>
           <h2 class="text-h2">What We Supply To Businesses</h2>
         </div>
@@ -494,12 +402,12 @@
             </p>
           </div>
 
-          <!-- Card 3: Cafe & Dessert -->
+          <!-- Card 3: Dessert Supply -->
           <div class="heritage-card" style="text-align: left; padding: 28px;">
             <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
               <i class="ph ph-cake" style="font-size: 1.8rem;"></i>
             </div>
-            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dessert_title">Cafe & Dessert Supply</h3>
+            <h3 class="heritage-title" style="font-size: 1.15rem; margin-bottom: 8px;" data-i18n="b2b_cat_dessert_title">Restaurant & Dessert Supply</h3>
             <p class="text-small" style="color: var(--color-text-muted); line-height: 1.5;" data-i18n="b2b_cat_dessert_desc">
               Black forest slices, red velvet, brownies & cupcakes baked for restaurants & cafes.
             </p>
@@ -516,7 +424,7 @@
             </p>
           </div>
 
-          <!-- Card 5: University & Canteen -->
+          <!-- Card 5: Institutional Supply -->
           <div class="heritage-card" style="text-align: left; padding: 28px;">
             <div style="width: 52px; height: 52px; background: rgba(166, 96, 27, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-desert);">
               <i class="ph ph-buildings" style="font-size: 1.8rem;"></i>
@@ -530,10 +438,10 @@
       </div>
     </section>
 
-    <!-- 5. 4 B2B PILLARS -->
+    <!-- 4. PILLARS OF TRUST -->
     <section class="heritage-section section-padding">
       <div class="container">
-        <div class="catalog-header" style="margin-bottom: 48px; text-align: center;">
+        <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
           <p class="text-tagline" style="margin-bottom: 8px;">Why Choose Us</p>
           <h2 class="text-h2">Built For Commercial Convenience</h2>
         </div>
@@ -572,9 +480,9 @@
       </div>
     </section>
 
-    <!-- 6. INTERACTIVE B2B INQUIRY & SAMPLE REQUEST FORM -->
+    <!-- 5. B2B INQUIRY & SAMPLE FORM -->
     <section id="b2b-form" class="section-padding">
-      <div class="container" style="max-width: 800px;">
+      <div class="container" style="max-width: 840px;">
         
         <div class="b2b-form-card">
           <div style="text-align: center; margin-bottom: 32px;">
@@ -588,13 +496,13 @@
           </div>
 
           <form id="b2b-inquiry-form" onsubmit="event.preventDefault(); sendWhatsAppB2BInquiry();">
-            <!-- Invisible Honeypot Trap Field (Catches automated spam bots) -->
+            <!-- Invisible Honeypot Trap Field -->
             <input type="text" id="b2b-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_name">Business / Shop Name:</label>
-                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket / City Cafe" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
               </div>
 
               <div>
@@ -606,7 +514,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number:</label>
-                <input type="tel" id="b2b-phone" required placeholder="e.g. 9876543210" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+                <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 12px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
               </div>
 
               <div>
@@ -615,7 +523,7 @@
                   <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
                   <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
                   <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
-                  <option value="Hotel / Restaurant / Cafe" data-i18n="b2b_opt_hotel">Hotel / Restaurant / Cafe</option>
+                  <option value="Hotel / Restaurant" data-i18n="b2b_opt_hotel">Hotel / Restaurant</option>
                   <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
                   <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
                 </select>
@@ -641,7 +549,7 @@
       </div>
     </section>
 
-    <!-- 7. B2B FAQS -->
+    <!-- 6. B2B FAQS -->
     <section class="section-padding" style="padding-top: 0;">
       <div class="container" style="max-width: 800px;">
         <div class="catalog-header" style="margin-bottom: 32px; text-align: center;">
@@ -652,14 +560,14 @@
         <div class="b2b-faq-item">
           <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
           <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            We offer low MOQs for local Kirana shops and cafes (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, volume discounts apply based on daily quantity.
+            We offer low MOQs for local Kirana shops (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, tiered volume discounts apply.
           </p>
         </div>
 
         <div class="b2b-faq-item">
           <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: How do I get a Free Sample Box for my shop or canteen?</h4>
           <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Simply fill out the form above or tap "Request Free Sample Box 📦". Our team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.
+            Fill out the form above or tap "Request Free Sample Box 📦". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business in Tirunelveli.
           </p>
         </div>
 
@@ -674,13 +582,13 @@
 
   </main>
 
-  <!-- 8. FOOTER SECTION -->
+  <!-- 7. FOOTER SECTION -->
   <footer class="footer">
     <div class="container footer-container">
       <div>
         <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px; margin-bottom: 16px;">
         <p class="text-small" style="color: rgba(255,255,255,0.7); max-width: 320px; line-height: 1.6;">
-          Handcrafted cakes, fresh daily bakes, and wholesale bakery supply across Tirunelveli since day one.
+          Handcrafted cakes, fresh daily bakes, and wholesale bakery supply across Tirunelveli.
         </p>
       </div>
 
@@ -744,5 +652,114 @@
   <script src="./js/utils.js"></script>
   <script src="./data/products-data.js"></script>
   <script src="./app.js"></script>
+  
+  <script>
+    // Interactive Business Spec Tab Data
+    const B2B_SPECS = {
+      kirana: {
+        title: "🏪 Kirana & Grocery Stores",
+        products: "Sandwich Bread, Milk Bread, Tea Buns, Butter Biscuits & Tea Rusks",
+        moq: "15 - 20 Packets Daily",
+        dispatch: "5:30 AM Daily Morning Delivery",
+        margin: "25% - 30% Wholesale Retail Margin",
+        benefit: "Fresh daily stock with return/replacement policy on unsold bread packets."
+      },
+      supermarket: {
+        title: "🛒 Supermarkets & Retail Outlets",
+        products: "Packaged Savories, Butter Cookies, Cake Slices & Premium Toast",
+        moq: "50+ Units per Order",
+        dispatch: "Scheduled Morning Delivery Vehicles",
+        margin: "30% - 35% Bulk Retail Margin",
+        benefit: "Attractive branded shelf packaging with clear MRP & FSSAI barcodes."
+      },
+      university: {
+        title: "🏫 University & College Canteens",
+        products: "Fresh Veg Puffs, Egg Puffs, Samosas, Tea Buns & Snack Boxes",
+        moq: "100+ Pieces Daily",
+        dispatch: "Batch Dispatch at 6:30 AM & 1:00 PM",
+        margin: "Direct Canteen Bulk Rates",
+        benefit: "Freshly baked warm snacks timed perfectly for student break intervals."
+      },
+      hotel: {
+        title: "🏨 Hotels & Restaurants",
+        products: "Jumbo Sandwich Loaves, Burger Buns, Pav Buns & Dessert Slices",
+        moq: "Custom Daily Loaf Volumes",
+        dispatch: "Priority 5:00 AM Commercial Dispatch",
+        margin: "Special Restaurant Contract Rates",
+        benefit: "Consistent size, soft texture, and fresh baking guaranteed 365 days a year."
+      },
+      caterer: {
+        title: "🍱 Event Caterers & Wedding Halls",
+        products: "Customized Party Snack Boxes, Mini Pastries & Welcome Drinks",
+        moq: "50 to 5000+ Event Boxes",
+        dispatch: "On-Site Venue Delivery at Specified Event Time",
+        margin: "Special Event Caterer Discount",
+        benefit: "Hygienically sealed individual snack boxes branded for your event."
+      }
+    };
+
+    function switchProtoTab(catKey, btnEl) {
+      document.querySelectorAll('.b2b-proto-tab').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const data = B2B_SPECS[catKey] || B2B_SPECS.kirana;
+      const container = document.getElementById('figma-proto-content');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: #8B4513; margin: 0;">${data.title}</h3>
+          <span style="background: rgba(166, 96, 27, 0.1); color: #8B4513; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 800;">${data.margin}</span>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px;">
+          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Supplied Products</div>
+            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.products}</div>
+          </div>
+          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Min Order Quantity</div>
+            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.moq}</div>
+          </div>
+          <div style="background: #FAF8F5; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #777; text-transform: uppercase;">Dispatch Time</div>
+            <div style="font-size: 0.92rem; font-weight: 700; color: #1A120B; margin-top: 4px;">${data.dispatch}</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(46, 125, 50, 0.08); border-left: 4px solid #2E7D32; padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; color: #1E4620; font-weight: 600;">
+          💡 <strong>Key Advantage:</strong> ${data.benefit}
+        </div>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      switchProtoTab('kirana');
+    });
+
+    function requestB2BSampleBox() {
+      const bizName = document.getElementById('b2b-biz-name')?.value || '';
+      const phone = document.getElementById('b2b-phone')?.value || '';
+
+      if (!bizName || !phone) {
+        if (window.showBrandModal) {
+          showBrandModal({
+            title: 'Fill Business Details',
+            message: 'Please fill in your Business Name and Mobile Number to request a free sample box.',
+            icon: '📦',
+            type: 'warning',
+            confirmText: 'Understood'
+          });
+        } else {
+          showBrandToast('Please enter your Business Name and Phone number first.', 'error');
+        }
+        return;
+      }
+
+      const bakeryPhone = "917339073844";
+      const text = `📦 *FREE B2B SAMPLE BOX REQUEST*\nBusiness Name: ${bizName}\nPhone: ${phone}\nPlease arrange a free bakery sample box for our shop. Thank you!`;
+      window.open(`https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
 </body>
 </html>
