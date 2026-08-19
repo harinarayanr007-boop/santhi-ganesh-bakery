@@ -1571,7 +1571,7 @@
 
             <!-- Address Input with 1-Tap Auto-Locate Button -->
             <div class="address-input-wrapper">
-              <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="onAddressInput(this.value)">
+              <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="saveCustomerProfile(); onAddressInput(this.value);">
               <button type="button" class="btn-locate-inside-input" id="btn-detect-gps" onclick="detectGPSLocation(event)">
                 <i class="ph ph-crosshair"></i> <span id="lbl-btn-locate">Locate</span>
               </button>
@@ -1648,14 +1648,17 @@
             <div class="form-two-col">
               <div class="field-wrap">
                 <label id="lbl-label-name">Full Name *</label>
-                <input type="text" id="cust-name" class="clean-input-box" placeholder="Your name" oninput="this.classList.remove('input-error')">
+                <input type="text" id="cust-name" class="clean-input-box" placeholder="Your name" oninput="saveCustomerProfile(); this.classList.remove('input-error');">
               </div>
               <div class="field-wrap">
                 <label id="lbl-label-phone">Mobile Number *</label>
-                <input type="tel" id="cust-phone" class="clean-input-box" placeholder="10 digits" maxlength="10" oninput="this.classList.remove('input-error')">
+                <input type="tel" id="cust-phone" class="clean-input-box" placeholder="10 digits" maxlength="10" oninput="saveCustomerProfile(); this.classList.remove('input-error');">
               </div>
             </div>
 
+            <div id="lbl-saved-profile-hint" style="font-size: 0.68rem; color: #2E7D32; font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+              <i class="ph ph-floppy-disk"></i> <span id="lbl-saved-hint-text">Details saved automatically for 1-tap re-ordering</span>
+            </div>
             <!-- Optional Takeaway Pickup Timing -->
             <div class="field-wrap" id="field-pickup-time" style="display: none;">
               <label id="lbl-label-pickup-time">Estimated Pickup Time</label>
@@ -1888,6 +1891,7 @@
         fee_free_val_takeaway: "FREE (₹0)",
         bill_total_label: "Total Payable",
         empty_cart_msg: "Your cart is empty",
+        saved_profile_hint: "Details saved automatically for 1-tap re-ordering",
 
         card_payment_title: "Payment Method",
         badge_payment: "0% Fee Direct Pay",
@@ -1970,6 +1974,7 @@
         fee_free_val_takeaway: "இலவசம் (₹0)",
         bill_total_label: "செலுத்த வேண்டிய தொகை",
         empty_cart_msg: "கூடை காலியாக உள்ளது",
+        saved_profile_hint: "1-டேப் ஆர்டருக்காக விவரங்கள் சேமிக்கப்பட்டது",
 
         card_payment_title: "பணம் செலுத்தும் முறை",
         badge_payment: "0% கட்டணம் நேரடி பே",
@@ -2400,7 +2405,33 @@
       }
     }
 
+    
+    function loadSavedCustomerProfile() {
+      const savedName = localStorage.getItem('sg_customer_name') || '';
+      const savedPhone = localStorage.getItem('sg_customer_phone') || '';
+      const savedAddress = localStorage.getItem('sg_customer_address') || '';
+
+      const nameEl = document.getElementById('cust-name');
+      const phoneEl = document.getElementById('cust-phone');
+      const addrEl = document.getElementById('cust-address');
+
+      if (nameEl && savedName) nameEl.value = savedName;
+      if (phoneEl && savedPhone) phoneEl.value = savedPhone;
+      if (addrEl && savedAddress) addrEl.value = savedAddress;
+    }
+
+    function saveCustomerProfile() {
+      const nameEl = document.getElementById('cust-name');
+      const phoneEl = document.getElementById('cust-phone');
+      const addrEl = document.getElementById('cust-address');
+
+      if (nameEl && nameEl.value.trim()) localStorage.setItem('sg_customer_name', nameEl.value.trim());
+      if (phoneEl && phoneEl.value.trim()) localStorage.setItem('sg_customer_phone', phoneEl.value.trim());
+      if (addrEl && addrEl.value.trim()) localStorage.setItem('sg_customer_address', addrEl.value.trim());
+    }
+
     function openCheckoutModal() {
+      loadSavedCustomerProfile();
       renderCheckoutModalContent();
       document.getElementById('checkout-modal').classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -2535,7 +2566,7 @@
         if (window.showBrandAlert) {
           showBrandAlert(`UPI ID: ${BAKERY_UPI_ID}`, 'Bakery UPI ID', 'brand', '💳');
         } else {
-          alert(`UPI ID: ${BAKERY_UPI_ID}`);
+          showBrandToast(`UPI ID: ${BAKERY_UPI_ID}`, "success");
         }
       }
     }
@@ -2964,7 +2995,7 @@
               confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Got it'
             });
           } else {
-            alert(errMsg);
+            showBrandToast(errMsg, "error");
           }
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
@@ -3011,7 +3042,7 @@
             confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Understood'
           });
         } else {
-          alert(currentMenuLang === 'ta' ? "தயவுசெய்து அனைத்து தேவையான விவரங்களையும் (பெயர், மொபைல், முகவரி) பூர்த்தி செய்யவும்." : "Please fill in all required contact and location fields.");
+          showBrandToast(currentMenuLang === 'ta' ? "தயவுசெய்து அனைத்து தேவையான விவரங்களையும் பூர்த்தி செய்யவும்." : "Please fill in required name, phone, and address.", "error");
         }
         return;
       }
@@ -3180,10 +3211,6 @@
             type: 'success',
             confirmText: currentMenuLang === 'ta' ? 'அருமை' : 'Awesome'
           });
-        } else {
-          alert(currentMenuLang === 'ta' 
-            ? `🎉 ஆர்டர் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது! நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்.` 
-            : `🎉 Order Placed Successfully! We'll start preparing your order right away.`);
         }
       }, 500);
     }
