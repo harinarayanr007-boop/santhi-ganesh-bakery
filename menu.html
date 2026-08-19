@@ -601,26 +601,27 @@
       text-align: center;
     }
 
-    /* Floating Bottom Cart Bar */
+    /* Floating Bottom Cart Bar (Sleek Mobile Ratio) */
     .floating-cart-bar {
       position: fixed;
-      bottom: 14px;
-      left: 12px;
-      right: 12px;
-      max-width: 576px;
+      bottom: 12px;
+      left: 10px;
+      right: 10px;
+      max-width: 520px;
       margin: 0 auto;
       background: linear-gradient(135deg, #1A120B 0%, #351C0D 100%);
       color: #FFFFFF;
-      border-radius: 20px;
-      padding: 10px 16px;
+      border-radius: 16px;
+      padding: 9px 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      box-shadow: var(--shadow-lg);
+      gap: 4px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
       z-index: 200;
       transform: translateY(140%);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-sizing: border-box;
     }
 
     .floating-cart-bar.visible {
@@ -631,68 +632,87 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
 
     .cart-summary-left {
       display: flex;
       flex-direction: column;
+      min-width: 0;
+      flex: 1;
+      justify-content: center;
     }
 
     .cart-items-count-label {
-      font-size: 0.72rem;
+      font-size: 0.66rem;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.72);
       font-weight: 700;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .cart-total-price {
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 800;
       color: #FFB300;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 6px;
+      line-height: 1.2;
+      flex-wrap: nowrap;
     }
 
     .cart-delivery-badge {
-      font-size: 0.68rem;
-      font-weight: 800;
+      font-size: 0.60rem;
+      font-weight: 700;
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .delivery-free { background: #2E7D32; color: #FFFFFF; }
-    .delivery-paid { background: rgba(255, 255, 255, 0.18); color: #FFE6BA; }
+    .delivery-paid { background: rgba(255, 255, 255, 0.16); color: #FFE6BA; }
 
     .btn-checkout-now {
       background: linear-gradient(135deg, #A6601B 0%, #7D450F 100%);
       color: #FFFFFF;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 9px 18px;
-      border-radius: 16px;
+      padding: 8px 14px;
+      border-radius: 12px;
       font-family: var(--font-main);
       font-weight: 800;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(125, 69, 15, 0.4);
+      justify-content: center;
+      gap: 5px;
+      box-shadow: 0 3px 10px rgba(125, 69, 15, 0.35);
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: transform 0.15s ease, background 0.15s ease;
     }
 
     .btn-checkout-now:active { transform: scale(0.95); }
 
     .delivery-progress-hint {
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       color: #FFE082;
       display: flex;
       align-items: center;
       gap: 4px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 3px;
-      letter-spacing: 0.2px;
-      line-height: 1.2;
+      letter-spacing: 0.1px;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* ====================================================
@@ -1262,17 +1282,23 @@
     }
 
     body.lang-ta .cart-items-count-label {
-      font-size: 0.64rem;
+      font-size: 0.60rem;
       letter-spacing: 0;
     }
 
+    body.lang-ta .cart-delivery-badge {
+      font-size: 0.55rem;
+      padding: 2px 5px;
+    }
+
     body.lang-ta .btn-checkout-now {
-      font-size: 0.8rem;
-      padding: 8px 14px;
+      font-size: 0.74rem;
+      padding: 7px 11px;
+      font-family: 'Noto Sans Tamil', sans-serif;
     }
 
     body.lang-ta .delivery-progress-hint {
-      font-size: 0.58rem;
+      font-size: 0.54rem;
     }
 
     body.lang-ta .modal-title-clean {
@@ -1371,18 +1397,18 @@
     <div class="floating-cart-bar" id="floating-cart-bar">
       <div class="cart-bar-main-row">
         <div class="cart-summary-left">
-          <span class="cart-items-count-label" id="cart-bar-count">0 Items Selected</span>
+          <span class="cart-items-count-label" id="cart-bar-count">0 Items</span>
           <div class="cart-total-price">
             <span id="cart-bar-total">₹0</span>
             <span class="cart-delivery-badge delivery-paid" id="cart-delivery-status-pill">+ ₹30 Delivery</span>
           </div>
         </div>
         <button class="btn-checkout-now" onclick="openCheckoutModal()">
-          <i class="ph ph-shopping-bag"></i> <span id="lbl-btn-checkout">Order Now</span> <i class="ph ph-arrow-right"></i>
+          <span id="lbl-btn-checkout">Order Now</span> <i class="ph ph-arrow-right"></i>
         </button>
       </div>
       <div class="delivery-progress-hint" id="cart-delivery-progress-text">
-        <i class="ph ph-info"></i> Add ₹300 for FREE delivery
+        <i class="ph ph-moped"></i> Add ₹300 for FREE delivery
       </div>
     </div>
 
@@ -1637,6 +1663,11 @@
         empty_title: "No items found",
         empty_sub: "Try clearing your search query.",
         clear_btn: "Clear Search",
+        cart_pickup_badge: "FREE Pickup",
+        cart_pickup_hint: "Ready for store pickup in 15–20 mins",
+        cart_free_delivery_badge: "FREE Delivery",
+        cart_free_delivery_hint: "🎉 Unlocked FREE Delivery!",
+        cart_paid_delivery_badge: "+ ₹30 Delivery",
 
         // Checkout Modal & Takeaway Strings
         modal_title_delivery: "Doorstep Delivery Order",
@@ -1697,12 +1728,17 @@
         dishes_suffix: "வகைகள்",
         add_btn: "+ சேர்",
         sold_out: "தீர்ந்துவிட்டது",
-        checkout_btn: "ஆர்டர் செய்ய",
+        checkout_btn: "ஆர்டர்",
         items_suffix: "பொருட்கள்",
         item_suffix: "பொருள்",
         empty_title: "பொருட்கள் எதுவும் கிடைக்கவில்லை",
         empty_sub: "வேறு பெயரை தேடி பார்க்கவும்.",
         clear_btn: "தேடலை நீக்கு",
+        cart_pickup_badge: "இலவச பிக்கப்",
+        cart_pickup_hint: "15–20 நிமிடங்களில் கடையில் தயார்",
+        cart_free_delivery_badge: "இலவச டெலிவரி",
+        cart_free_delivery_hint: "🎉 இலவச டெலிவரி கிடைத்துவிட்டது!",
+        cart_paid_delivery_badge: "+ ₹30 டெலிவரி",
 
         // Checkout Modal & Takeaway Strings
         modal_title_delivery: "டோர் டெலிவரி ஆர்டர்",
@@ -2126,16 +2162,18 @@
 
         if (isTakeaway) {
           statusPill.className = 'cart-delivery-badge delivery-free';
-          statusPill.textContent = 'Store Pickup (FREE)';
-          progressText.innerHTML = '<i class="ph ph-storefront"></i> Ready for store pickup in 15–20 mins';
+          statusPill.textContent = t.cart_pickup_badge || 'FREE Pickup';
+          progressText.innerHTML = `<i class="ph ph-storefront"></i> ${t.cart_pickup_hint || 'Ready for store pickup in 15–20 mins'}`;
         } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
           statusPill.className = 'cart-delivery-badge delivery-free';
-          statusPill.textContent = 'FREE Delivery';
-          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong>!';
+          statusPill.textContent = t.cart_free_delivery_badge || 'FREE Delivery';
+          progressText.innerHTML = `<i class="ph ph-sparkle"></i> ${t.cart_free_delivery_hint || '🎉 Unlocked <strong>FREE Delivery</strong>!'}`;
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
-          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
-          progressText.innerHTML = `<i class="ph ph-moped"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong>`;
+          statusPill.textContent = currentMenuLang === 'ta' ? `+ ₹${STANDARD_DELIVERY_FEE} டெலிவரி` : `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
+          progressText.innerHTML = currentMenuLang === 'ta'
+            ? `<i class="ph ph-moped"></i> இலவச டெலிவரிக்கு இன்னும் <strong>₹${remainingForFree}</strong>`
+            : `<i class="ph ph-moped"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong>`;
         }
       } else {
         floatingBar.classList.remove('visible');
