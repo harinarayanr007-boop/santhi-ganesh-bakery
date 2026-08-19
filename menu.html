@@ -1367,10 +1367,10 @@
           <!-- 1. ORDER TYPE SELECTOR -->
           <div class="order-segmented-control">
             <button type="button" class="order-seg-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
-              <i class="ph ph-moped"></i> Doorstep Delivery
+              <i class="ph ph-moped"></i> <span id="lbl-seg-delivery">Doorstep Delivery</span>
             </button>
             <button type="button" class="order-seg-btn" id="btn-type-takeaway" onclick="setOrderType('takeaway')">
-              <i class="ph ph-tote"></i> Store Takeaway
+              <i class="ph ph-tote"></i> <span id="lbl-seg-takeaway">Store Takeaway</span>
             </button>
           </div>
 
@@ -1379,16 +1379,16 @@
             <div class="card-header-row">
               <div class="card-header-left">
                 <div class="card-icon-pill icon-location"><i class="ph ph-map-pin"></i></div>
-                <span class="card-header-title">Delivery Location</span>
+                <span class="card-header-title" id="lbl-title-location">Delivery Location</span>
               </div>
-              <span class="card-header-badge badge-green">2 km Zone</span>
+              <span class="card-header-badge badge-green" id="lbl-badge-coverage">2 km Zone</span>
             </div>
 
             <!-- Address Input with 1-Tap Auto-Locate Button -->
             <div class="address-input-wrapper">
               <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="onAddressInput(this.value)">
               <button type="button" class="btn-locate-inside-input" id="btn-detect-gps" onclick="detectGPSLocation(event)">
-                <i class="ph ph-crosshair"></i> <span>Locate</span>
+                <i class="ph ph-crosshair"></i> <span id="lbl-btn-locate">Locate</span>
               </button>
             </div>
 
@@ -1426,20 +1426,20 @@
             <div class="card-header-row">
               <div class="card-header-left">
                 <div class="card-icon-pill icon-store"><i class="ph ph-storefront"></i></div>
-                <span class="card-header-title">Store Pickup Point</span>
+                <span class="card-header-title" id="lbl-title-takeaway">Store Pickup Point</span>
               </div>
-              <span class="card-header-badge badge-green">FREE Pickup</span>
+              <span class="card-header-badge badge-green" id="lbl-badge-pickup">FREE Pickup</span>
             </div>
             
-            <div style="font-weight: 800; font-size: 0.88rem; color: var(--color-primary-dark);">
+            <div style="font-weight: 800; font-size: 0.88rem; color: var(--color-primary-dark);" id="lbl-store-name">
               🏢 Santhi Ganesh Bakery & Cafe
             </div>
-            <div style="font-size: 0.76rem; color: var(--color-text-muted); line-height: 1.3;">
+            <div style="font-size: 0.76rem; color: var(--color-text-muted); line-height: 1.3;" id="lbl-store-addr">
               92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
             </div>
             <div style="display: flex; gap: 6px; font-size: 0.72rem; font-weight: 700;">
-              <span style="background: #FFF3E0; color: #E65100; padding: 3px 8px; border-radius: 6px;">⏱️ Ready in 15–20 Mins</span>
-              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 3px;">
+              <span style="background: #FFF3E0; color: #E65100; padding: 3px 8px; border-radius: 6px;" id="lbl-takeaway-ready">⏱️ Ready in 15–20 Mins</span>
+              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 3px;" id="lbl-takeaway-dir">
                 <i class="ph ph-navigation-arrow"></i> Directions ↗
               </a>
             </div>
@@ -1450,30 +1450,30 @@
             <div class="card-header-row">
               <div class="card-header-left">
                 <div class="card-icon-pill icon-contact"><i class="ph ph-user"></i></div>
-                <span class="card-header-title">Customer Contact</span>
+                <span class="card-header-title" id="lbl-title-contact">Customer Contact</span>
               </div>
-              <span class="card-header-badge badge-gray">Required</span>
+              <span class="card-header-badge badge-gray" id="lbl-badge-required">Required</span>
             </div>
             
             <div class="form-two-col">
               <div class="field-wrap">
-                <label>Full Name *</label>
+                <label id="lbl-label-name">Full Name *</label>
                 <input type="text" id="cust-name" class="clean-input-box" placeholder="Your name" oninput="this.classList.remove('input-error')">
               </div>
               <div class="field-wrap">
-                <label>Mobile Number *</label>
+                <label id="lbl-label-phone">Mobile Number *</label>
                 <input type="tel" id="cust-phone" class="clean-input-box" placeholder="10 digits" maxlength="10" oninput="this.classList.remove('input-error')">
               </div>
             </div>
 
             <!-- Optional Takeaway Pickup Timing -->
             <div class="field-wrap" id="field-pickup-time" style="display: none;">
-              <label>Estimated Pickup Time</label>
+              <label id="lbl-label-pickup-time">Estimated Pickup Time</label>
               <select id="cust-pickup-time" class="clean-input-box">
-                <option value="Ready in 15–20 Mins">⚡ As soon as ready (~15–20 Mins)</option>
-                <option value="In 30 Mins">🕐 In 30 Mins</option>
-                <option value="In 45 Mins">🕐 In 45 Mins</option>
-                <option value="In 1 Hour">🕐 In 1 Hour</option>
+                <option value="Ready in 15–20 Mins" id="opt-pickup-asap">⚡ As soon as ready (~15–20 Mins)</option>
+                <option value="In 30 Mins" id="opt-pickup-30">🕐 In 30 Mins</option>
+                <option value="In 45 Mins" id="opt-pickup-45">🕐 In 45 Mins</option>
+                <option value="In 1 Hour" id="opt-pickup-60">🕐 In 1 Hour</option>
               </select>
             </div>
 
@@ -1488,7 +1488,7 @@
             <div class="card-header-row">
               <div class="card-header-left">
                 <div class="card-icon-pill icon-order"><i class="ph ph-receipt"></i></div>
-                <span class="card-header-title">Order & Bill Summary</span>
+                <span class="card-header-title" id="lbl-title-summary">Order & Bill Summary</span>
               </div>
               <span class="card-header-badge badge-amber" id="modal-item-badge">0 Items</span>
             </div>
@@ -1499,15 +1499,15 @@
 
             <div class="clean-bill-breakdown">
               <div class="clean-bill-line">
-                <span>Items Subtotal</span>
+                <span id="lbl-bill-subtotal">Items Subtotal</span>
                 <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
               </div>
               <div class="clean-bill-line" id="row-delivery-fee">
-                <span id="lbl-fee-type">Delivery Fee (within 2 km)</span>
+                <span id="lbl-fee-type">Delivery Fee (under ₹300)</span>
                 <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
               </div>
               <div class="clean-bill-line total-line">
-                <span>Total Payable</span>
+                <span id="lbl-bill-total">Total Payable</span>
                 <span id="bill-grand-total" style="color: var(--color-primary-dark);">₹0</span>
               </div>
             </div>
@@ -1596,7 +1596,53 @@
         item_suffix: "Item",
         empty_title: "No items found",
         empty_sub: "Try clearing your search query.",
-        clear_btn: "Clear Search"
+        clear_btn: "Clear Search",
+
+        // Checkout Modal & Takeaway Strings
+        modal_title_delivery: "Doorstep Delivery Order",
+        modal_title_takeaway: "Store Takeaway Order",
+        tab_delivery: "Doorstep Delivery",
+        tab_takeaway: "Store Takeaway",
+        card_location_title: "Delivery Location",
+        badge_coverage: "2 km Zone",
+        addr_placeholder: "Door no, Street, Area",
+        btn_locate: "Locate",
+        zone_status_in: "Within 2 km Delivery Zone",
+        zone_status_out: "Outside 2 km Radius • Request Order Anyway",
+        
+        card_takeaway_title: "Store Pickup Point",
+        badge_free_pickup: "FREE Pickup",
+        store_name: "🏢 Santhi Ganesh Bakery & Cafe",
+        store_address: "92, Cheranmahadevi Rd, Thirunagar, Tirunelveli",
+        takeaway_ready: "⏱️ Ready in 15–20 Mins",
+        takeaway_directions: "Directions ↗",
+        
+        card_contact_title: "Customer Contact",
+        badge_required: "Required",
+        label_name: "Full Name *",
+        ph_name: "Your name",
+        label_phone: "Mobile Number *",
+        ph_phone: "10 digits",
+        label_pickup_time: "Estimated Pickup Time",
+        opt_pickup_asap: "⚡ As soon as ready (~15–20 Mins)",
+        opt_pickup_30: "🕐 In 30 Mins",
+        opt_pickup_45: "🕐 In 45 Mins",
+        opt_pickup_60: "🕐 In 1 Hour",
+        ph_instructions: "Landmark or special instructions (optional)",
+        
+        card_summary_title: "Order & Bill Summary",
+        bill_subtotal_label: "Items Subtotal",
+        fee_free_threshold: "Delivery Fee (Order ≥ ₹300)",
+        fee_paid_threshold: "Delivery Fee (Under ₹300)",
+        fee_takeaway_label: "Store Pickup Fee",
+        fee_free_val: "FREE",
+        fee_free_val_takeaway: "FREE (₹0)",
+        bill_total_label: "Total Payable",
+        empty_cart_msg: "Your cart is empty",
+        
+        btn_whatsapp_delivery: "Place Order on WhatsApp",
+        btn_whatsapp_takeaway: "Send Takeaway Order on WhatsApp",
+        btn_whatsapp_out_range: "Request Order Anyway"
       },
       ta: {
         back_home: "முகப்பு",
@@ -1616,12 +1662,59 @@
         item_suffix: "பொருள்",
         empty_title: "பொருட்கள் எதுவும் கிடைக்கவில்லை",
         empty_sub: "வேறு பெயரை தேடி பார்க்கவும்.",
-        clear_btn: "தேடலை நீக்கு"
+        clear_btn: "தேடலை நீக்கு",
+
+        // Checkout Modal & Takeaway Strings
+        modal_title_delivery: "டோர் டெலிவரி ஆர்டர்",
+        modal_title_takeaway: "கடை டேக்அவே ஆர்டர்",
+        tab_delivery: "டோர் டெலிவரி",
+        tab_takeaway: "கடை டேக்அவே",
+        card_location_title: "டெலிவரி முகவரி",
+        badge_coverage: "2 கி.மீ எல்லை",
+        addr_placeholder: "கதவு எண், தெரு, பகுதி",
+        btn_locate: "கண்டறி",
+        zone_status_in: "2 கி.மீ டெலிவரி எல்லைக்குள்",
+        zone_status_out: "2 கி.மீ எல்லைக்கு வெளியே • சிறப்பு கோரிக்கை",
+        
+        card_takeaway_title: "நேரடி வாங்கும் இடம்",
+        badge_free_pickup: "இலவச டேக்அவே",
+        store_name: "🏢 சாந்தி கணேஷ் பேக்கரி & கஃபே",
+        store_address: "92, சேரன்மகாதேவி ரோடு, திருநகர், திருநெல்வேலி",
+        takeaway_ready: "⏱️ 15–20 நிமிடங்களில் தயார்",
+        takeaway_directions: "வழித்தடம் ↗",
+        
+        card_contact_title: "வாடிக்கையாளர் விவரம்",
+        badge_required: "தேவை",
+        label_name: "முழு பெயர் *",
+        ph_name: "உங்கள் பெயர்",
+        label_phone: "மொபைல் எண் *",
+        ph_phone: "10 இலக்கங்கள்",
+        label_pickup_time: "எடுத்துச்செல்லும் நேரம்",
+        opt_pickup_asap: "⚡ உடனடியாக தயாரானதும் (~15–20 நிமி)",
+        opt_pickup_30: "🕐 30 நிமிடங்களில்",
+        opt_pickup_45: "🕐 45 நிமிடங்களில்",
+        opt_pickup_60: "🕐 1 மணிநேரத்தில்",
+        ph_instructions: "அடையாளம் அல்லது குறிப்புகள் (விருப்பத்தேர்வு)",
+        
+        card_summary_title: "ஆர்டர் & பில் சுருக்கம்",
+        bill_subtotal_label: "பொருட்கள் மொத்தம்",
+        fee_free_threshold: "டெலிவரி கட்டணம் (₹300க்கு மேல்)",
+        fee_paid_threshold: "டெலிவரி கட்டணம் (₹300க்கு கீழ்)",
+        fee_takeaway_label: "டேக்அவே கட்டணம்",
+        fee_free_val: "இலவசம்",
+        fee_free_val_takeaway: "இலவசம் (₹0)",
+        bill_total_label: "செலுத்த வேண்டிய தொகை",
+        empty_cart_msg: "கூடை காலியாக உள்ளது",
+        
+        btn_whatsapp_delivery: "வாட்ஸ்அப்பில் ஆர்டர் செய்க",
+        btn_whatsapp_takeaway: "வாட்ஸ்அப்பில் டேக்அவே ஆர்டர் செய்க",
+        btn_whatsapp_out_range: "ஆர்டர் கோரிக்கை அனுப்புக"
       }
     };
 
     function setOrderType(type) {
       currentOrderType = type;
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
       const btnDel = document.getElementById('btn-type-delivery');
       const btnTake = document.getElementById('btn-type-takeaway');
       const blockDel = document.getElementById('block-delivery-location');
@@ -1636,18 +1729,20 @@
         blockDel.style.display = 'none';
         blockTake.style.display = 'flex';
         fieldPickup.style.display = 'block';
-        titleEl.textContent = currentMenuLang === 'ta' ? 'கடை டேக்அவே ஆர்டர்' : 'Store Takeaway Order';
-        orderBtnLbl.textContent = currentMenuLang === 'ta' ? 'வாட்ஸ்அப்பில் டேக்அவே ஆர்டர் செய்க' : 'Send Takeaway Order on WhatsApp';
+        if (titleEl) titleEl.textContent = t.modal_title_takeaway;
+        if (orderBtnLbl) orderBtnLbl.textContent = t.btn_whatsapp_takeaway;
       } else {
         btnDel.classList.add('active');
         btnTake.classList.remove('active');
         blockDel.style.display = 'flex';
         blockTake.style.display = 'none';
         fieldPickup.style.display = 'none';
-        titleEl.textContent = currentMenuLang === 'ta' ? 'டோர் டெலிவரி ஆர்டர்' : 'Doorstep Delivery Order';
-        orderBtnLbl.textContent = (userDistanceKm > MAX_DELIVERY_KM) 
-          ? (currentMenuLang === 'ta' ? `ஆர்டர் கோரிக்கை அனுப்புக (${userDistanceKm.toFixed(1)} கி.மீ)` : `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`)
-          : (currentMenuLang === 'ta' ? 'வாட்ஸ்அப்பில் ஆர்டர் செய்க' : 'Place Order on WhatsApp');
+        if (titleEl) titleEl.textContent = t.modal_title_delivery;
+        if (orderBtnLbl) {
+          orderBtnLbl.textContent = (userDistanceKm > MAX_DELIVERY_KM) 
+            ? `${t.btn_whatsapp_out_range} (${userDistanceKm.toFixed(1)} ${currentMenuLang === 'ta' ? 'கி.மீ' : 'km'})`
+            : t.btn_whatsapp_delivery;
+        }
 
         setTimeout(() => {
           if (leafletMap) leafletMap.invalidateSize(true);
@@ -1685,6 +1780,69 @@
       const checkoutBtnLbl = document.getElementById('lbl-btn-checkout');
       if (checkoutBtnLbl) checkoutBtnLbl.textContent = t.checkout_btn;
 
+      // Update Modal bilingual labels & placeholders
+      const segDelLbl = document.getElementById('lbl-seg-delivery');
+      if (segDelLbl) segDelLbl.textContent = t.tab_delivery;
+      const segTakeLbl = document.getElementById('lbl-seg-takeaway');
+      if (segTakeLbl) segTakeLbl.textContent = t.tab_takeaway;
+
+      const titleLocation = document.getElementById('lbl-title-location');
+      if (titleLocation) titleLocation.textContent = t.card_location_title;
+      const badgeCoverage = document.getElementById('lbl-badge-coverage');
+      if (badgeCoverage) badgeCoverage.textContent = t.badge_coverage;
+      const btnLocateLbl = document.getElementById('lbl-btn-locate');
+      if (btnLocateLbl) btnLocateLbl.textContent = t.btn_locate;
+      const custAddr = document.getElementById('cust-address');
+      if (custAddr) custAddr.placeholder = t.addr_placeholder;
+
+      const titleTakeaway = document.getElementById('lbl-title-takeaway');
+      if (titleTakeaway) titleTakeaway.textContent = t.card_takeaway_title;
+      const badgePickup = document.getElementById('lbl-badge-pickup');
+      if (badgePickup) badgePickup.textContent = t.badge_free_pickup;
+      const storeName = document.getElementById('lbl-store-name');
+      if (storeName) storeName.textContent = t.store_name;
+      const storeAddr = document.getElementById('lbl-store-addr');
+      if (storeAddr) storeAddr.textContent = t.store_address;
+      const takeawayReady = document.getElementById('lbl-takeaway-ready');
+      if (takeawayReady) takeawayReady.textContent = t.takeaway_ready;
+      const takeawayDir = document.getElementById('lbl-takeaway-dir');
+      if (takeawayDir) takeawayDir.innerHTML = `<i class="ph ph-navigation-arrow"></i> ${t.takeaway_directions}`;
+
+      const titleContact = document.getElementById('lbl-title-contact');
+      if (titleContact) titleContact.textContent = t.card_contact_title;
+      const badgeReq = document.getElementById('lbl-badge-required');
+      if (badgeReq) badgeReq.textContent = t.badge_required;
+      const labelName = document.getElementById('lbl-label-name');
+      if (labelName) labelName.textContent = t.label_name;
+      const custName = document.getElementById('cust-name');
+      if (custName) custName.placeholder = t.ph_name;
+      const labelPhone = document.getElementById('lbl-label-phone');
+      if (labelPhone) labelPhone.textContent = t.label_phone;
+      const custPhone = document.getElementById('cust-phone');
+      if (custPhone) custPhone.placeholder = t.ph_phone;
+      const labelPickupTime = document.getElementById('lbl-label-pickup-time');
+      if (labelPickupTime) labelPickupTime.textContent = t.label_pickup_time;
+
+      const optAsap = document.getElementById('opt-pickup-asap');
+      if (optAsap) optAsap.textContent = t.opt_pickup_asap;
+      const opt30 = document.getElementById('opt-pickup-30');
+      if (opt30) opt30.textContent = t.opt_pickup_30;
+      const opt45 = document.getElementById('opt-pickup-45');
+      if (opt45) opt45.textContent = t.opt_pickup_45;
+      const opt60 = document.getElementById('opt-pickup-60');
+      if (opt60) opt60.textContent = t.opt_pickup_60;
+
+      const custInst = document.getElementById('cust-instructions');
+      if (custInst) custInst.placeholder = t.ph_instructions;
+
+      const titleSummary = document.getElementById('lbl-title-summary');
+      if (titleSummary) titleSummary.textContent = t.card_summary_title;
+      const billSubtotalLbl = document.getElementById('lbl-bill-subtotal');
+      if (billSubtotalLbl) billSubtotalLbl.textContent = t.bill_subtotal_label;
+      const billTotalLbl = document.getElementById('lbl-bill-total');
+      if (billTotalLbl) billTotalLbl.textContent = t.bill_total_label;
+
+      setOrderType(currentOrderType);
       renderCategoryTabs();
       renderMenu();
       if (document.getElementById('checkout-modal').classList.contains('active')) {
@@ -1967,13 +2125,14 @@
       const deliveryFeeEl = document.getElementById('bill-delivery-fee');
       const feeTypeEl = document.getElementById('lbl-fee-type');
       const grandTotalEl = document.getElementById('bill-grand-total');
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, isTakeaway } = calculateCartTotals();
 
-      if (itemBadgeEl) itemBadgeEl.textContent = `${totalItems} ${totalItems === 1 ? 'Item' : 'Items'}`;
+      if (itemBadgeEl) itemBadgeEl.textContent = `${totalItems} ${totalItems === 1 ? t.item_suffix : t.items_suffix}`;
 
       if (deliveryCart.length === 0) {
-        container.innerHTML = `<div style="text-align: center; padding: 12px; color: #888; font-size: 0.8rem;">Your cart is empty</div>`;
+        container.innerHTML = `<div style="text-align: center; padding: 12px; color: #888; font-size: 0.8rem;">${t.empty_cart_msg}</div>`;
         subtotalEl.textContent = '₹0';
         deliveryFeeEl.textContent = '₹0';
         grandTotalEl.textContent = '₹0';
@@ -1989,13 +2148,13 @@
 
       subtotalEl.textContent = `₹${subtotal}`;
       if (isTakeaway) {
-        feeTypeEl.textContent = 'Store Pickup Fee';
-        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">FREE (₹0)</span>`;
+        feeTypeEl.textContent = t.fee_takeaway_label;
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">${t.fee_free_val_takeaway}</span>`;
       } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
-        feeTypeEl.textContent = 'Delivery Fee (Order ≥ ₹300)';
-        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">FREE</span>`;
+        feeTypeEl.textContent = t.fee_free_threshold;
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">${t.fee_free_val}</span>`;
       } else {
-        feeTypeEl.textContent = 'Delivery Fee (Under ₹300)';
+        feeTypeEl.textContent = t.fee_paid_threshold;
         deliveryFeeEl.innerHTML = `<span style="color: #8B4513; font-weight: 800;">₹${STANDARD_DELIVERY_FEE}</span>`;
       }
       grandTotalEl.textContent = `₹${grandTotal}`;
@@ -2031,14 +2190,13 @@
         });
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-          maxZoom: 19,
-          subdomains: ['a', 'b', 'c']
+          maxZoom: 19
         }).addTo(leafletMap);
 
-        // Bakery Hub Marker
+        // Santhi Ganesh Bakery Store Icon
         const bakeryIcon = L.divIcon({
-          className: 'custom-bakery-marker',
-          html: `<div style="background:#8B4513; color:#FFF; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFF; font-size:13px; box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Santhi Ganesh Bakery Hub">🏢</div>`,
+          className: 'bakery-hub-marker',
+          html: `<div style="background:#8B4513; color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:2px solid #fff; font-size:14px; box-shadow:0 3px 8px rgba(0,0,0,0.3);">🏢</div>`,
           iconSize: [28, 28],
           iconAnchor: [14, 14]
         });
@@ -2138,193 +2296,184 @@
       userLocation = { lat, lng };
       userDistanceKm = calculateHaversineDistanceKm(BAKERY_COORDS.lat, BAKERY_COORDS.lng, lat, lng);
       isWithinZone = (userDistanceKm <= MAX_DELIVERY_KM);
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
       const statusBox = document.getElementById('map-distance-status');
       const zoneStatusEl = document.getElementById('lbl-map-zone-status');
       const distTextEl = document.getElementById('lbl-map-distance-text');
       const orderBtnLbl = document.getElementById('lbl-btn-whatsapp');
 
-      if (distTextEl) distTextEl.textContent = `${userDistanceKm.toFixed(2)} km`;
+      if (distTextEl) distTextEl.textContent = `${userDistanceKm.toFixed(2)} ${currentMenuLang === 'ta' ? 'கி.மீ' : 'km'}`;
 
       if (isWithinZone) {
         if (statusBox) statusBox.className = 'location-status-badge status-in';
         if (zoneStatusEl) {
           zoneStatusEl.innerHTML = customStatus 
-            ? `<i class="ph ph-check-circle"></i> Within 2 km Zone • <small>${customStatus}</small>`
-            : `<i class="ph ph-check-circle"></i> Within 2 km Delivery Zone`;
+            ? `<i class="ph ph-check-circle"></i> ${t.zone_status_in} • <small>${customStatus}</small>`
+            : `<i class="ph ph-check-circle"></i> ${t.zone_status_in}`;
         }
-        if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = 'Place Order on WhatsApp';
+        if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = t.btn_whatsapp_delivery;
       } else {
         if (statusBox) statusBox.className = 'location-status-badge status-out';
         if (zoneStatusEl) {
-          zoneStatusEl.innerHTML = `<i class="ph ph-warning-circle"></i> Outside 2 km Radius • Request Order Anyway`;
+          zoneStatusEl.innerHTML = `<i class="ph ph-warning-circle"></i> ${t.zone_status_out}`;
         }
-        if (orderBtnLbl && currentOrderType === 'delivery') orderBtnLbl.textContent = `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`;
+        if (orderBtnLbl && currentOrderType === 'delivery') {
+          orderBtnLbl.textContent = `${t.btn_whatsapp_out_range} (${userDistanceKm.toFixed(1)} ${currentMenuLang === 'ta' ? 'கி.மீ' : 'km'})`;
+        }
       }
 
-      if (doGeocode) reverseGeocode(lat, lng);
+      if (doGeocode) {
+        reverseGeocodeNominatim(lat, lng);
+      }
     }
 
-    // High Precision Hardware GPS Location
-    function detectGPSLocation(event) {
-      if (event && event.preventDefault) event.preventDefault();
-      
-      const btn = document.getElementById('btn-detect-gps');
-      const zoneStatusEl = document.getElementById('lbl-map-zone-status');
+    async function reverseGeocodeNominatim(lat, lng) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.address) {
+            const addr = data.address;
+            const road = addr.road || addr.suburb || addr.neighbourhood || addr.residential || '';
+            const locality = addr.city_district || addr.city || 'Tirunelveli';
+            const formatted = [road, locality].filter(Boolean).join(', ');
+            if (formatted) {
+              const input = document.getElementById('cust-address');
+              if (input && !input.value.trim()) input.value = formatted;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Geocoding failed:", err);
+      }
+    }
 
-      if (btn) btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Locating...';
-      if (zoneStatusEl) zoneStatusEl.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Acquiring high-precision GPS...';
+    function detectGPSLocation(e) {
+      if (e) e.preventDefault();
+      const btn = document.getElementById('btn-detect-gps');
+      const origText = btn ? btn.innerHTML : '';
+      if (btn) btn.innerHTML = `<i class="ph ph-spinner ph-spin"></i> <span>...</span>`;
 
       if (!navigator.geolocation) {
-        alert("GPS Geolocation is not supported by your browser. Please drag the map pin to your location.");
-        resetLocateBtn();
+        if (btn) btn.innerHTML = origText;
+        alert(currentMenuLang === 'ta' ? "உங்கள் பிரவுசரில் GPS இருப்பிட வசதி இல்லை. வரைபடத்தில் நேரடியாக தொட்டு இடத்தை தேர்வு செய்யவும்." : "GPS Geolocation is not supported by your browser. Please tap directly on the map.");
         return;
       }
-
-      const geoOptions = {
-        enableHighAccuracy: true, // Forces phone GPS antenna
-        timeout: 10000,           // 10s gives mobile hardware full satellite lock time
-        maximumAge: 0             // Strictly FRESH real-time coordinates, no cache
-      };
 
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const lat = pos.coords.latitude;
           const lng = pos.coords.longitude;
-          const accuracyMeters = Math.round(pos.coords.accuracy || 8);
+          const accuracy = Math.round(pos.coords.accuracy || 20);
 
-          // Draw precision blue accuracy circle
           if (leafletMap) {
+            leafletMap.setView([lat, lng], 17.5, { animate: true });
+
             if (userAccuracyCircle) {
               leafletMap.removeLayer(userAccuracyCircle);
             }
             userAccuracyCircle = L.circle([lat, lng], {
-              radius: Math.max(accuracyMeters, 15),
-              color: '#1E88E5',
+              radius: accuracy,
+              color: '#2196F3',
               fillColor: '#64B5F6',
-              fillOpacity: 0.2,
-              weight: 1.5
+              fillOpacity: 0.15,
+              weight: 1.5,
+              dashArray: '3, 3'
             }).addTo(leafletMap);
-
-            leafletMap.setView([lat, lng], 17.5, { animate: true });
           }
 
-          resetLocateBtn();
-          updateLocationCoords(lat, lng, true, `GPS Accuracy: ±${accuracyMeters}m`);
+          updateLocationCoords(lat, lng, true, `±${accuracy}m`);
+          if (btn) btn.innerHTML = `<i class="ph ph-check"></i> <span>${currentMenuLang === 'ta' ? 'கண்டறியப்பட்டது' : 'Located'}</span>`;
+          setTimeout(() => { if (btn) btn.innerHTML = origText; }, 2000);
         },
         (err) => {
-          console.warn("GPS acquisition failed:", err);
-          resetLocateBtn();
-          
-          let alertMsg = "GPS location timed out. Please drag the pin on the map directly to your doorstep!";
-          if (err.code === 1) {
-            alertMsg = "GPS location permission was denied. Please drag the map pin to place it on your doorstep.";
-          }
-          
-          if (zoneStatusEl) {
-            zoneStatusEl.innerHTML = `<i class="ph ph-hand-pointing"></i> Drag map pin to set exact doorstep`;
-          }
-          
-          // Keep on bakery hub so user is right in Tirunelveli to drag
-          if (leafletMap && !userLocation) {
-            leafletMap.setView([BAKERY_COORDS.lat, BAKERY_COORDS.lng], 16, { animate: true });
-          }
-          alert(alertMsg);
+          console.warn("GPS Device lock error:", err.message);
+          if (btn) btn.innerHTML = origText;
+          alert(currentMenuLang === 'ta' ? "GPS இருப்பிடத்தை பெற முடியவில்லை. வரைபடத்தில் உங்கள் வீட்டின் இடத்தை தொட்டு தேர்வு செய்யவும்." : "Could not get your precise GPS location. Please tap directly on the map to set your location.");
         },
-        geoOptions
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     }
 
-    function resetLocateBtn() {
-      const btn = document.getElementById('btn-detect-gps');
-      if (btn) btn.innerHTML = '<i class="ph ph-crosshair"></i> <span>Locate</span>';
-    }
-
-    let geocodeTimer = null;
-    function reverseGeocode(lat, lng) {
-      clearTimeout(geocodeTimer);
-      geocodeTimer = setTimeout(async () => {
-        try {
-          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data && data.address) {
-              const a = data.address;
-              const street = a.road || a.pedestrian || a.suburb || a.neighbourhood || '';
-              const area = a.suburb || a.city_district || a.village || 'Thirunagar';
-              const city = a.city || a.town || 'Tirunelveli';
-              const cleanText = [street, area, city].filter(Boolean).filter((v, i, arr) => arr.indexOf(v) === i).join(', ');
-              
-              const input = document.getElementById('cust-address');
-              if (input && cleanText) {
-                input.value = cleanText;
-              }
-            }
-          }
-        } catch (e) { console.warn("Geocode error:", e); }
-      }, 400);
-    }
-
-    // ==========================================
-    // WHATSAPP ORDER DISPATCH
-    // ==========================================
     function sendOrderWhatsApp() {
-      if (deliveryCart.length === 0) {
-        alert('Your cart is empty! Please add dishes to order.');
-        return;
-      }
-
-      const name = (document.getElementById('cust-name')?.value || '').trim();
-      const phone = (document.getElementById('cust-phone')?.value || '').trim();
-      const address = (document.getElementById('cust-address')?.value || '').trim();
-      const pickupTime = document.getElementById('cust-pickup-time')?.value || 'Ready in 15–20 Mins';
+      const nameInput = document.getElementById('cust-name');
+      const phoneInput = document.getElementById('cust-phone');
+      const addressInput = document.getElementById('cust-address');
       const instructions = (document.getElementById('cust-instructions')?.value || '').trim();
+      const pickupTime = document.getElementById('cust-pickup-time')?.value || 'Ready in 15–20 Mins';
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const address = addressInput ? addressInput.value.trim() : '';
       const isTakeaway = (currentOrderType === 'takeaway');
 
+      let hasError = false;
+
       if (!name) {
-        const el = document.getElementById('cust-name');
-        if (el) { el.classList.add('input-error'); el.focus(); }
-        return;
+        if (nameInput) nameInput.classList.add('input-error');
+        hasError = true;
       }
-
-      const phoneClean = phone.replace(/[^0-9]/g, '');
-      if (!phoneClean || phoneClean.length < 10) {
-        const el = document.getElementById('cust-phone');
-        if (el) { el.classList.add('input-error'); el.focus(); }
-        return;
+      const phoneClean = phone.replace(/\D/g, '');
+      if (!phone || phoneClean.length < 10) {
+        if (phoneInput) phoneInput.classList.add('input-error');
+        hasError = true;
       }
-
       if (!isTakeaway && !address) {
-        const el = document.getElementById('cust-address');
-        if (el) { el.classList.add('input-error'); el.focus(); }
+        if (addressInput) addressInput.classList.add('input-error');
+        hasError = true;
+      }
+
+      if (hasError) {
+        alert(currentMenuLang === 'ta' ? "தயவுசெய்து அனைத்து தேவையான விவரங்களையும் (பெயர், மொபைல், முகவரி) பூர்த்தி செய்யவும்." : "Please fill in all required contact and location fields.");
         return;
       }
 
       const { subtotal, isFreeDelivery, deliveryFee, grandTotal } = calculateCartTotals();
       const refId = Math.floor(100000 + Math.random() * 900000);
-      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
       let text = '';
 
       if (isTakeaway) {
-        text += `🛍️ *NEW TAKEAWAY ORDER (#SG-PICKUP-${refId})*\n`;
-        text += `*Santhi Ganesh Bakery & Cafe (Store Pickup)*\n`;
-        text += `*Store: 92 Cheranmahadevi Rd, Thirunagar*\n`;
-        text += `------------------------------------\n`;
-        text += `👤 *Customer:* ${name}\n`;
-        text += `📱 *Phone:* ${phoneClean}\n`;
-        text += `⏱️ *Pickup Timing:* ${pickupTime}\n`;
-        text += `------------------------------------\n`;
-        text += `*ITEMS TO PREPARE:*\n`;
-        deliveryCart.forEach((item, index) => {
-          text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
-        });
-        text += `------------------------------------\n`;
-        text += `🍲 *Item Total:* ₹${subtotal}\n`;
-        text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
-        if (instructions) text += `📝 *Note:* ${instructions}\n`;
-        text += `------------------------------------\n`;
-        text += `Please confirm my takeaway order. Thank you!`;
+        if (currentMenuLang === 'ta') {
+          text += `🛍️ *புதிய டேக்அவே ஆர்டர் (#SG-PICKUP-${refId})*\n`;
+          text += `*சாந்தி கணேஷ் பேக்கரி & கஃபே (கடை பிக்கப்)*\n`;
+          text += `*கடை: 92 சேரன்மகாதேவி ரோடு, திருநகர்*\n`;
+          text += `------------------------------------\n`;
+          text += `👤 *வாடிக்கையாளர்:* ${name}\n`;
+          text += `📱 *மொபைல்:* ${phoneClean}\n`;
+          text += `⏱️ *எடுத்துச்செல்லும் நேரம்:* ${pickupTime}\n`;
+          text += `------------------------------------\n`;
+          text += `*ஆர்டர் செய்யப்பட்டவை:*\n`;
+          deliveryCart.forEach((item, index) => {
+            text += `${index + 1}. ${item.name} x ${item.qty} = ₹${Number(item.price) * item.qty}\n`;
+          });
+          text += `------------------------------------\n`;
+          text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
+          text += `💰 *கவுண்டரில் செலுத்த வேண்டிய தொகை:* ₹${grandTotal}\n`;
+          if (instructions) text += `📝 *குறிப்பு:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `தயவுசெய்து எனது டேக்அவே ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
+        } else {
+          text += `🛍️ *NEW TAKEAWAY ORDER (#SG-PICKUP-${refId})*\n`;
+          text += `*Santhi Ganesh Bakery & Cafe (Store Pickup)*\n`;
+          text += `*Store: 92 Cheranmahadevi Rd, Thirunagar*\n`;
+          text += `------------------------------------\n`;
+          text += `👤 *Customer:* ${name}\n`;
+          text += `📱 *Phone:* ${phoneClean}\n`;
+          text += `⏱️ *Pickup Timing:* ${pickupTime}\n`;
+          text += `------------------------------------\n`;
+          text += `*ITEMS TO PREPARE:*\n`;
+          deliveryCart.forEach((item, index) => {
+            text += `${index + 1}. ${item.name} x ${item.qty} = ₹${Number(item.price) * item.qty}\n`;
+          });
+          text += `------------------------------------\n`;
+          text += `🍲 *Item Total:* ₹${subtotal}\n`;
+          text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
+          if (instructions) text += `📝 *Note:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `Please confirm my takeaway order. Thank you!`;
+        }
       } else {
         const mapsLink = userLocation 
           ? `https://www.google.com/maps?q=${userLocation.lat.toFixed(6)},${userLocation.lng.toFixed(6)}` 
@@ -2332,29 +2481,55 @@
 
         const isOutRange = (userDistanceKm > MAX_DELIVERY_KM);
 
-        text += `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
-        text += `*Santhi Ganesh Bakery & Cafe (Home Delivery)*\n`;
-        text += `------------------------------------\n`;
-        if (isOutRange) {
-          text += `⚠️ *NOTICE: Address is ${userDistanceKm.toFixed(1)} km away (> 2 km)*\n`;
+        if (currentMenuLang === 'ta') {
+          text += `🚀 *புதிய கஃபே டெலிவரி ஆர்டர் (#SG-CAFE-${refId})*\n`;
+          text += `*சாந்தி கணேஷ் பேக்கரி & கஃபே (டோர் டெலிவரி)*\n`;
+          text += `------------------------------------\n`;
+          if (isOutRange) {
+            text += `⚠️ *அறிவிப்பு: முகவரி ${userDistanceKm.toFixed(1)} கி.மீ தொலைவில் உள்ளது (> 2 கி.மீ)*\n`;
+          }
+          text += `👤 *வாடிக்கையாளர்:* ${name}\n`;
+          text += `📱 *மொபைல்:* ${phoneClean}\n`;
+          text += `🏠 *டெலிவரி முகவரி:* ${address}\n`;
+          text += `🗺️ *நேரடி GPS இருப்பிடம்:* ${mapsLink}\n`;
+          text += `🛵 *தொலைவு:* ${userDistanceKm.toFixed(1)} கி.மீ ${isOutRange ? '(2 கி.மீ எல்லைக்கு வெளியே)' : '(2 கி.மீ எல்லைக்குள் ✅)'}\n`;
+          text += `------------------------------------\n`;
+          text += `*ஆர்டர் செய்யப்பட்டவை:*\n`;
+          deliveryCart.forEach((item, index) => {
+            text += `${index + 1}. ${item.name} x ${item.qty} = ₹${Number(item.price) * item.qty}\n`;
+          });
+          text += `------------------------------------\n`;
+          text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
+          text += `🛵 *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் ✅)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
+          text += `💰 *மொத்த தொகை:* ₹${grandTotal}\n`;
+          if (instructions) text += `📝 *குறிப்பு:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `தயவுசெய்து டெலிவரி ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
+        } else {
+          text += `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
+          text += `*Santhi Ganesh Bakery & Cafe (Home Delivery)*\n`;
+          text += `------------------------------------\n`;
+          if (isOutRange) {
+            text += `⚠️ *NOTICE: Address is ${userDistanceKm.toFixed(1)} km away (> 2 km)*\n`;
+          }
+          text += `👤 *Customer:* ${name}\n`;
+          text += `📱 *Phone:* ${phoneClean}\n`;
+          text += `🏠 *Delivery Address:* ${address}\n`;
+          text += `🗺️ *Live GPS Pin:* ${mapsLink}\n`;
+          text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km ${isOutRange ? '(Outside 2 km)' : '(Within 2 km ✅)'}\n`;
+          text += `------------------------------------\n`;
+          text += `*ITEMS ORDERED:*\n`;
+          deliveryCart.forEach((item, index) => {
+            text += `${index + 1}. ${item.name} x ${item.qty} = ₹${Number(item.price) * item.qty}\n`;
+          });
+          text += `------------------------------------\n`;
+          text += `🍲 *Item Total:* ₹${subtotal}\n`;
+          text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
+          text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
+          if (instructions) text += `📝 *Note:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `Please confirm delivery order. Thank you!`;
         }
-        text += `👤 *Customer:* ${name}\n`;
-        text += `📱 *Phone:* ${phoneClean}\n`;
-        text += `🏠 *Delivery Address:* ${address}\n`;
-        text += `🗺️ *Live GPS Pin:* ${mapsLink}\n`;
-        text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km ${isOutRange ? '(Outside 2 km)' : '(Within 2 km ✅)'}\n`;
-        text += `------------------------------------\n`;
-        text += `*ITEMS ORDERED:*\n`;
-        deliveryCart.forEach((item, index) => {
-          text += `${index + 1}. ${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
-        });
-        text += `------------------------------------\n`;
-        text += `🍲 *Item Total:* ₹${subtotal}\n`;
-        text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
-        text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
-        if (instructions) text += `📝 *Note:* ${instructions}\n`;
-        text += `------------------------------------\n`;
-        text += `Please confirm delivery order. Thank you!`;
       }
 
       if (typeof trackEvent === 'function') {
@@ -2374,7 +2549,9 @@
         localStorage.removeItem('sg_delivery_cart');
         updateCartUI();
         closeCheckoutModal();
-        alert(`🎉 Order Placed Successfully! We'll start preparing your order right away.`);
+        alert(currentMenuLang === 'ta' 
+          ? `🎉 ஆர்டர் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது! நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்.` 
+          : `🎉 Order Placed Successfully! We'll start preparing your order right away.`);
       }, 500);
     }
 
