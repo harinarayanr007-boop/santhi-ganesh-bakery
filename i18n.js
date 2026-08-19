@@ -102,7 +102,7 @@ const TRANSLATIONS = {
     modal_name_title: "Your Name (Optional)",
     modal_name_sub: "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.",
     modal_name_label: "Customer Name:",
-    modal_name_placeholder: "e.g. Ramesh",
+    modal_name_placeholder: "Your Full Name",
     modal_btn_skip: "Skip",
     modal_btn_continue: "Continue ➔",
 
@@ -168,7 +168,7 @@ const TRANSLATIONS = {
     b2b_label_biz_name: "Business / Shop Name:",
     b2b_ph_biz_name: "e.g. Nellai Supermarket / City Cafe",
     b2b_label_contact_person: "Contact Person Name:",
-    b2b_ph_contact_person: "e.g. Ramesh Kumar",
+    b2b_ph_contact_person: "Contact Person Name",
     b2b_label_phone: "Phone / WhatsApp Number:",
     b2b_ph_phone: "e.g. 9876543210",
     b2b_label_biz_type: "Business Category:",

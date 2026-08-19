@@ -1656,7 +1656,7 @@
               </div>
             </div>
 
-            <div id="lbl-saved-profile-hint" style="font-size: 0.68rem; color: #2E7D32; font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+            <div id="lbl-saved-profile-hint" style="font-size: 0.68rem; color: #2E7D32; font-weight: 700; display: none; align-items: center; gap: 4px; margin-top: 2px;">
               <i class="ph ph-floppy-disk"></i> <span id="lbl-saved-hint-text">Details saved automatically for 1-tap re-ordering</span>
             </div>
             <!-- Optional Takeaway Pickup Timing -->
@@ -2407,27 +2407,50 @@
 
     
     function loadSavedCustomerProfile() {
-      const savedName = localStorage.getItem('sg_customer_name') || '';
-      const savedPhone = localStorage.getItem('sg_customer_phone') || '';
-      const savedAddress = localStorage.getItem('sg_customer_address') || '';
+      const savedName = localStorage.getItem('sg_customer_name');
+      const savedPhone = localStorage.getItem('sg_customer_phone');
+      const savedAddress = localStorage.getItem('sg_customer_address');
 
       const nameEl = document.getElementById('cust-name');
       const phoneEl = document.getElementById('cust-phone');
       const addrEl = document.getElementById('cust-address');
+      const savedHint = document.getElementById('lbl-saved-profile-hint');
 
       if (nameEl && savedName) nameEl.value = savedName;
       if (phoneEl && savedPhone) phoneEl.value = savedPhone;
       if (addrEl && savedAddress) addrEl.value = savedAddress;
+
+      if (savedHint) {
+        if (savedName || savedPhone || savedAddress) {
+          savedHint.style.display = 'flex';
+        } else {
+          savedHint.style.display = 'none';
+        }
+      }
     }
 
     function saveCustomerProfile() {
-      const nameEl = document.getElementById('cust-name');
-      const phoneEl = document.getElementById('cust-phone');
-      const addrEl = document.getElementById('cust-address');
+      const name = (document.getElementById('cust-name')?.value || '').trim();
+      const phone = (document.getElementById('cust-phone')?.value || '').trim();
+      const address = (document.getElementById('cust-address')?.value || '').trim();
+      const savedHint = document.getElementById('lbl-saved-profile-hint');
 
-      if (nameEl && nameEl.value.trim()) localStorage.setItem('sg_customer_name', nameEl.value.trim());
-      if (phoneEl && phoneEl.value.trim()) localStorage.setItem('sg_customer_phone', phoneEl.value.trim());
-      if (addrEl && addrEl.value.trim()) localStorage.setItem('sg_customer_address', addrEl.value.trim());
+      if (name) localStorage.setItem('sg_customer_name', name);
+      else localStorage.removeItem('sg_customer_name');
+
+      if (phone) localStorage.setItem('sg_customer_phone', phone);
+      else localStorage.removeItem('sg_customer_phone');
+
+      if (address) localStorage.setItem('sg_customer_address', address);
+      else localStorage.removeItem('sg_customer_address');
+
+      if (savedHint) {
+        if (name || phone || address) {
+          savedHint.style.display = 'flex';
+        } else {
+          savedHint.style.display = 'none';
+        }
+      }
     }
 
     function openCheckoutModal() {

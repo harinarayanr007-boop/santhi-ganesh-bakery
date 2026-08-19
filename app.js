@@ -593,7 +593,7 @@ function promptWhatsAppCustomerName(onComplete) {
   const titleText = isTa ? "உங்கள் பெயர் (விருப்பத்திற்குரியது)" : "Your Name (Optional)";
   const subText = isTa ? "ஆர்டர் செய்பவர் யார் என்று சாந்தி கணேஷ் பேக்கரி குழுவிற்கு தெரிய உங்கள் பெயரை உள்ளிடவும்." : "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.";
   const labelText = isTa ? "வாடிக்கையாளர் பெயர்:" : "Customer Name:";
-  const placeholderText = isTa ? "எ.கா. ரமேஷ்" : "e.g. Ramesh";
+  const placeholderText = isTa ? "உங்கள் பெயர்" : "Your Full Name";
   const skipLabel = isTa ? "தவிர்" : "Skip";
   const continueText = isTa ? "தொடரவும் ➔" : "Continue ➔";
 
