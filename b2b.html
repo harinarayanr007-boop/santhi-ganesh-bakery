@@ -49,7 +49,7 @@
       line-height: 1.5;
     }
 
-    /* Asymmetric 6-Card Grid Matching User Mockup */
+    /* Asymmetric 6-Card Grid with Rich Bakery Background Images */
     .asymmetric-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -65,77 +65,106 @@
     }
 
     .b2b-style-card {
-      background: linear-gradient(145deg, #1A120B 0%, #2C1F17 100%);
-      border: 1px solid rgba(166, 96, 27, 0.25);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
       border-radius: 24px;
       padding: 36px 32px;
       color: #FFFFFF;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 8px 28px rgba(10, 4, 4, 0.1);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(10, 4, 4, 0.14);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(166, 96, 27, 0.35);
+    }
+
+    /* Dark Luxury Overlay for Readable Contrast */
+    .b2b-style-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 9, 5, 0.75) 0%, rgba(24, 14, 8, 0.94) 100%);
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    .b2b-style-card:hover::before {
+      background: linear-gradient(180deg, rgba(15, 9, 5, 0.65) 0%, rgba(24, 14, 8, 0.88) 100%);
+    }
+
+    .b2b-style-card > * {
       position: relative;
-      overflow: hidden;
+      z-index: 2;
     }
 
     .b2b-style-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: #F5A623;
-      box-shadow: 0 16px 36px rgba(245, 166, 35, 0.25);
+      box-shadow: 0 18px 40px rgba(245, 166, 35, 0.28);
     }
 
     .b2b-card-tall {
-      min-height: 380px;
+      min-height: 390px;
     }
 
     .b2b-card-med {
-      min-height: 250px;
+      min-height: 260px;
     }
 
     .card-eyebrow {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 1.5px;
+      color: #F5A623;
       margin-bottom: 14px;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
     }
 
     .card-icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(245, 166, 35, 0.15);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(245, 166, 35, 0.2);
+      border: 1px solid rgba(245, 166, 35, 0.4);
       color: #F5A623;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
       margin-bottom: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .card-headline {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
       font-weight: 800;
       line-height: 1.25;
       color: #FFFFFF;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .card-body-text {
       font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.85);
       line-height: 1.55;
       margin-bottom: 24px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
     .card-link {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
       color: #F5A623;
       display: inline-flex;
       align-items: center;
@@ -143,6 +172,7 @@
       text-decoration: none;
       transition: gap 0.2s ease;
       margin-top: auto;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     }
 
     .card-link:hover {
@@ -196,6 +226,32 @@
       background: #2E7D32;
     }
 
+    /* Visual Pillars Section */
+    .pillar-visual-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid var(--color-border-subtle);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .pillar-visual-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.1);
+    }
+
+    .pillar-img-box {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .pillar-content {
+      padding: 24px;
+    }
+
     /* Form Card & FAQ Styling */
     .b2b-form-card {
       background: var(--color-bg-secondary);
@@ -220,8 +276,8 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
       }
-      .b2b-card-tall { min-height: 320px; }
-      .b2b-card-med { min-height: 240px; }
+      .b2b-card-tall { min-height: 330px; }
+      .b2b-card-med { min-height: 250px; }
       .b2b-form-card { padding: 36px 28px; }
     }
 
@@ -309,7 +365,7 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. HERO SECTION (Matching User Mockup Header Style) -->
+    <!-- 2. HERO SECTION -->
     <section class="section-padding" style="padding-top: 48px; padding-bottom: 32px;">
       <div class="container" style="text-align: center;">
         
@@ -327,7 +383,7 @@
       </div>
     </section>
 
-    <!-- 3. ASYMMETRIC 6-CARD GRID (Exact Structure Matching Mockup) -->
+    <!-- 3. ASYMMETRIC 6-CARD GRID WITH BAKERY IMAGERY -->
     <section class="section-padding" style="padding-top: 24px; padding-bottom: 0;">
       <div class="container">
         
@@ -335,8 +391,8 @@
           
           <!-- COLUMN 1: Tall Card 1 + Medium Card 5 -->
           <div class="grid-col">
-            <!-- Card 1: Kirana (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 1: Kirana (Tall - Fresh Loaves & Buns Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Kirana</div>
                 <h3 class="card-headline">Daily bread for the corner store</h3>
@@ -345,8 +401,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 5: Canteen (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 5: Canteen (Medium - Puffs & Samosas Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Canteen snacks on a tight schedule</h3>
@@ -358,8 +414,8 @@
 
           <!-- COLUMN 2: Medium Card 2 + Tall Card 3 -->
           <div class="grid-col">
-            <!-- Card 2: Supermarket (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 2: Supermarket (Medium - Cookies & Rusks Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Supermarket shelves stocked and labeled</h3>
@@ -368,8 +424,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 3: Hotels (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 3: Hotels (Tall - Commercial Buns & Kitchen Bakes Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Hotels</div>
                 <h3 class="card-headline">Commercial bakes for the professional kitchen</h3>
@@ -381,8 +437,8 @@
 
           <!-- COLUMN 3: Tall Card 4 + Medium Card 6 -->
           <div class="grid-col">
-            <!-- Card 4: Events (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 4: Events (Tall - Event Pastries & Party Boxes Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Events</div>
                 <h3 class="card-headline">Sealed boxes for the big day</h3>
@@ -391,8 +447,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 6: Dealer Margins (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 6: Dealer Margins (Medium - Golden Bakery Biscuits Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Margins that keep the till ringing</h3>
@@ -434,7 +490,7 @@
       </div>
     </section>
 
-    <!-- 4. PILLARS OF COMMERCIAL CONVENIENCE -->
+    <!-- 4. VISUAL PILLARS OF COMMERCIAL CONVENIENCE -->
     <section class="heritage-section section-padding">
       <div class="container">
         <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
@@ -442,36 +498,56 @@
           <h2 class="text-h2">Built For Commercial Convenience</h2>
         </div>
 
-        <div class="heritage-grid">
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-clock" style="font-size: 2rem;"></i>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          
+          <!-- Visual Pillar 1 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-clock"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar1_title">On-Time 5:30 AM Doorstep Dispatch</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar1_desc">
+                Baked overnight and delivered to your shop or canteen before morning trade starts.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar1_title">On-Time 5:30 AM Doorstep Dispatch</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar1_desc">
-              Baked overnight and delivered to your shop or canteen before morning trade starts.
-            </p>
           </div>
 
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-trend-up" style="font-size: 2rem;"></i>
+          <!-- Visual Pillar 2 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-trend-up"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar2_title">Competitive Wholesale Margins</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar2_desc">
+                Tiered pricing designed to maximize profit margins for local retailers & hotels.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar2_title">Competitive Wholesale Margins</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar2_desc">
-              Tiered pricing designed to maximize profit margins for local retailers & hotels.
-            </p>
           </div>
 
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-shield-check" style="font-size: 2rem;"></i>
+          <!-- Visual Pillar 3 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-shield-check"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar3_title">100% FSSAI Certified Quality</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar3_desc">
+                Hygienic automated baking using pure butter and fresh ingredients with zero harmful preservatives.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar3_title">100% FSSAI Certified Quality</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar3_desc">
-              Hygienic automated baking using pure butter and fresh ingredients with zero harmful preservatives.
-            </p>
           </div>
+
         </div>
       </div>
     </section>
