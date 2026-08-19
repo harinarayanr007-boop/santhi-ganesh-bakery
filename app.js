@@ -964,40 +964,5 @@ if (typeof document !== 'undefined') {
       navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Registration:', err));
     }
   });
-
-  // Handle Smart QR-Code Scan Auto-Install (Zero buttons on normal UI!)
-  let deferredPrompt = null;
-  const isFromQr = (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('qr') === 'install');
-
-  if (typeof window !== 'undefined') {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      deferredPrompt = e;
-      if (isFromQr) {
-        e.preventDefault();
-        setTimeout(() => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-          }
-        }, 1000);
-      }
-    });
-
-    if (isFromQr && /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone) {
-      window.addEventListener('DOMContentLoaded', () => {
-        const iosBanner = document.createElement('div');
-        iosBanner.style.cssText = 'position:fixed; bottom:20px; left:12px; right:12px; background:#1A120B; color:#FFF; padding:12px 16px; border-radius:16px; z-index:9999; box-shadow:0 8px 30px rgba(0,0,0,0.5); font-size:0.78rem; display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px solid rgba(255,255,255,0.2);';
-        iosBanner.innerHTML = `
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:1.3rem;">📲</span>
-            <span>Tap <strong>Share <i class="ph ph-share"></i></strong> and <strong>'Add to Home Screen'</strong> to install!</span>
-          </div>
-          <button onclick="this.parentElement.remove()" style="background:rgba(255,255,255,0.2); border:none; color:#FFF; border-radius:50%; width:24px; height:24px; cursor:pointer; font-weight:bold; line-height:1;">✕</button>
-        `;
-        document.body.appendChild(iosBanner);
-        setTimeout(() => { if (iosBanner.parentElement) iosBanner.remove(); }, 8000);
-      });
-    }
-  }
 }
 

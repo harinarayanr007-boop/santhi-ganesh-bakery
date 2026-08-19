@@ -185,7 +185,7 @@
 
     <div class="qr-container">
       <div id="qrcode"></div>
-      <span class="scan-badge"><i class="ph ph-lightning"></i> SCAN TO ORDER & INSTALL</span>
+      <span class="scan-badge"><i class="ph ph-lightning"></i> SCAN TO ORDER ONLINE</span>
     </div>
 
     <div class="instruction-steps">
@@ -195,11 +195,11 @@
       </div>
       <div class="step-item">
         <div class="step-icon"><i class="ph ph-moped"></i></div>
-        <span>2. Order Juices & Snacks</span>
+        <span>2. Choose Juices & Snacks</span>
       </div>
       <div class="step-item">
-        <div class="step-icon"><i class="ph ph-device-mobile"></i></div>
-        <span>3. Added as App to Phone</span>
+        <div class="step-icon"><i class="ph ph-whatsapp-logo"></i></div>
+        <span>3. Quick WhatsApp Dispatch</span>
       </div>
     </div>
 
@@ -209,9 +209,9 @@
   </div>
 
   <script>
-    // Build QR Target URL pointing directly to PWA install flow
+    // Build QR Target URL pointing directly to Live Menu
     const origin = window.location.origin || 'https://santhi-ganesh-bakery.vercel.app';
-    const qrUrl = origin + '/install.html';
+    const qrUrl = origin + '/menu.html';
 
     new QRCode(document.getElementById('qrcode'), {
       text: qrUrl,
