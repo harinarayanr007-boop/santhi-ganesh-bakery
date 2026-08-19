@@ -2990,7 +2990,7 @@
       const { subtotal, isFreeDelivery, deliveryFee, grandTotal } = calculateCartTotals();
       const refId = Math.floor(100000 + Math.random() * 900000);
       const orderTag = isTakeaway ? `SG-PICKUP-${refId}` : `SG-CAFE-${refId}`;
-      const upiPayLink = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=Santhi+Ganesh+Bakery&am=${grandTotal}&tn=${orderTag}&cu=INR`;
+      const httpsPayLink = `https://santhi-ganesh-bakery.vercel.app/pay.html?am=${grandTotal}&ref=${orderTag}`;
       
       let text = '';
 
@@ -3014,7 +3014,8 @@
           text += `------------------------------------\n`;
           if (currentPaymentMethod === 'upi') {
             text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
-            text += `👉 *UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+            text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
+            text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           } else {
             text += `💳 *பணம் செலுத்தும் முறை:* 💵 கடையில் ரொக்கம் (Cash at Counter)\n`;
           }
@@ -3040,7 +3041,8 @@
           text += `------------------------------------\n`;
           if (currentPaymentMethod === 'upi') {
             text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
-            text += `👉 *Bakery UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+            text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
+            text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           } else {
             text += `💳 *Payment Method:* 💵 Cash at Store Counter\n`;
           }
@@ -3079,7 +3081,8 @@
           text += `------------------------------------\n`;
           if (currentPaymentMethod === 'upi') {
             text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
-            text += `👉 *UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+            text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
+            text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           } else {
             text += `💳 *பணம் செலுத்தும் முறை:* 💵 டெலிவரியின் போது ரொக்கம் (Cash on Delivery)\n`;
           }
@@ -3110,7 +3113,8 @@
           text += `------------------------------------\n`;
           if (currentPaymentMethod === 'upi') {
             text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
-            text += `👉 *Bakery UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+            text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
+            text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           } else {
             text += `💳 *Payment Method:* 💵 Cash on Delivery (Pay upon delivery)\n`;
           }
