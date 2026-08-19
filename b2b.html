@@ -296,6 +296,82 @@
     }
 
     /* Form Card & FAQ Styling */
+
+    /* Expandable Accordion FAQ Styling */
+    .b2b-faq-accordion {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .b2b-faq-item {
+      background: var(--color-bg-secondary);
+      border-radius: 18px;
+      border: 1px solid var(--color-border-subtle);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(10, 4, 4, 0.03);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .b2b-faq-item:hover {
+      border-color: rgba(166, 96, 27, 0.35);
+      box-shadow: 0 8px 24px rgba(139, 69, 19, 0.08);
+    }
+
+    .faq-question-row {
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .faq-question-row h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .faq-chevron {
+      font-size: 1.3rem;
+      color: #8B4513;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    .faq-answer-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+      padding: 0 28px;
+    }
+
+    .b2b-faq-item.active {
+      border-color: rgba(166, 96, 27, 0.4);
+      background: #FFFFFF;
+    }
+
+    .b2b-faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: #A6601B;
+    }
+
+    .b2b-faq-item.active .faq-answer-content {
+      max-height: 300px;
+      padding: 0 28px 24px 28px;
+    }
+
+    .faq-answer-content p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+
     .b2b-form-card {
       background: var(--color-bg-secondary);
       border-radius: 28px;
@@ -660,78 +736,144 @@
       </div>
     </section>
 
-    <!-- 6. B2B FAQS -->
+        <!-- 6. B2B INTERACTIVE FAQS -->
     <section class="section-padding" style="padding-top: 0;">
-      <div class="container" style="max-width: 800px;">
-        <div class="catalog-header" style="margin-bottom: 32px; text-align: center;">
+      <div class="container" style="max-width: 840px;">
+        <div class="catalog-header" style="margin-bottom: 36px; text-align: center;">
           <p class="text-tagline" style="margin-bottom: 8px;">Frequently Asked Questions</p>
-          <h2 class="text-h2">Wholesale Supply Information</h2>
+          <h2 class="text-h2" style="font-family: 'Aboreto', serif; text-transform: uppercase;">Wholesale Supply Information</h2>
         </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            We offer low MOQs for local Kirana shops (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, tiered volume discounts apply.
-          </p>
-        </div>
+        <div class="b2b-faq-accordion">
+          <!-- Item 1 (Active by default) -->
+          <div class="b2b-faq-item active" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>We offer low MOQs for local Kirana shops (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, tiered volume discounts apply based on daily requirement.</p>
+            </div>
+          </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: How do I get a Free Sample Box for my shop or canteen?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Fill out the form above or tap "Request Free Sample Box 📦". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.
-          </p>
-        </div>
+          <!-- Item 2 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: How do I get a Free Sample Box for my shop or canteen?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Fill out the form above or tap "Request Free Sample Box 📦". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.</p>
+            </div>
+          </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What areas across Tirunelveli do you deliver to?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Our morning dispatch vehicles cover Palayamkottai, Vannarpettai, Town, Junction, Perumalpuram, High Ground, Maharajanagar, and surrounding college/university hubs daily before 6 AM.
-          </p>
+          <!-- Item 3 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What areas across Tirunelveli do you deliver to?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Our morning dispatch vehicles cover Palayamkottai, Vannarpettai, Town, Junction, Perumalpuram, High Ground, Maharajanagar, and surrounding college/university hubs daily before 6 AM.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What is your replacement policy for unsold daily bread?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>We offer a hassle-free replacement guarantee on unsold fresh bread packets for verified daily Kirana retail partners to ensure zero wastage and risk-free retail margins.</p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: Can we request custom weight, size, or packaging for canteen snack boxes?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Yes! We manufacture custom-sized veg puffs, egg puffs, tea buns, and branded party boxes tailored to your canteen or event catering specifications.</p>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: How do credit terms and weekly billing work?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>After an initial verification period, established repeat commercial partners are eligible for consolidated weekly or monthly invoice billing.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- 7. FOOTER SECTION -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div>
-        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px; margin-bottom: 16px;">
-        <p class="text-small" style="color: rgba(255,255,255,0.7); max-width: 320px; line-height: 1.6;">
-          Handcrafted cakes, fresh daily bakes, and wholesale bakery supply across Tirunelveli.
-        </p>
-      </div>
+    <!-- 7. SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div>
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 64px; margin-bottom: 18px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <p style="color: rgba(246, 239, 232, 0.8); max-width: 320px; font-size: 0.95rem; line-height: 1.6;">
+            Handcrafted cakes, fresh daily bakes, and commercial wholesale bakery supply across Tirunelveli since day one.
+          </p>
+        </div>
 
-      <div>
-        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_explore">Explore</h4>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <a href="./index.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_home">Home</a>
-          <a href="./products.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_cakes">Celebration Cakes</a>
-          <a href="./b2b.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_b2b">Wholesale Partner</a>
-          <a href="./careers.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_careers">Careers</a>
-          <a href="./contact.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_contact">Contact</a>
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_explore">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="./index.html" data-i18n="nav_home">Home</a></li>
+            <li><a href="./index.html#about" data-i18n="nav_about">About Us</a></li>
+            <li><a href="./products.html" data-i18n="nav_cakes">Celebration Cakes</a></li>
+            <li><a href="./menu.html">Order Online Menu</a></li>
+            <li><a href="./b2b.html" data-i18n="nav_b2b">Wholesale Partner</a></li>
+            <li><a href="./careers.html" data-i18n="nav_careers">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Commercial Services -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="./b2b.html">Kirana Wholesale Supply</a></li>
+            <li><a href="./b2b.html">Supermarket Retail Supply</a></li>
+            <li><a href="./b2b.html">University Canteen Supply</a></li>
+            <li><a href="./b2b.html">Hotel & Restaurant Bakes</a></li>
+            <li><a href="./b2b.html">Event Party Boxes</a></li>
+            <li><a href="./admin.html">Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_contact">Contact Us</h4>
+          <ul class="footer-links" style="font-size: 0.92rem;">
+            <li style="display: flex; gap: 8px; color: rgba(246, 239, 232, 0.85);">
+              <span>📍</span> <span>92, Cheranmahadevi Rd, Thirunagar, Tirunelveli</span>
+            </li>
+            <li style="display: flex; gap: 8px;">
+              <span>📞</span> <a href="tel:917339073844" style="color: #F5A623; font-weight: 700;">+91 733 907 3844</a>
+            </li>
+            <li style="display: flex; gap: 8px;">
+              <span>✉️</span> <a href="mailto:Orders@santhiganesh.com" style="color: rgba(246, 239, 232, 0.85);">Orders@santhiganesh.com</a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div>
-        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_contact">Contact Us</h4>
-        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
-          📍 92, Cheranmahadevi Rd, Thirunagar, Nellai Nagaram, Tirunelveli
-        </p>
-        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
-          📞 +91 733 907 3844
-        </p>
-        <p class="text-small" style="color: rgba(255,255,255,0.8);">
-          ✉️ Orders@santhiganesh.com
-        </p>
+      <div class="footer-bottom">
+        <p>© 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.</p>
       </div>
-    </div>
-
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 48px; text-align: center;">
-      <p class="text-small" style="color: rgba(255,255,255,0.5);">
-        © 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.
-      </p>
     </div>
   </footer>
 
@@ -778,6 +920,15 @@
         el.style.opacity = '1';
       }, 250);
     }, 2500);
+
+    function toggleB2BFaq(itemEl) {
+      if (!itemEl) return;
+      const isActive = itemEl.classList.contains('active');
+      document.querySelectorAll('.b2b-faq-item').forEach(el => el.classList.remove('active'));
+      if (!isActive) {
+        itemEl.classList.add('active');
+      }
+    }
 
     function requestB2BSampleBox() {
       const bizName = (document.getElementById('b2b-biz-name')?.value || '').trim();
