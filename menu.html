@@ -9,10 +9,10 @@
   <title>Online Cafe & Food Delivery | Santhi Ganesh Bakery</title>
   <meta name="description" content="Order fresh juices, milkshakes, pav bhaji, chaat, burgers, pizzas, brownies and hot drinks online from Santhi Ganesh Bakery & Cafe, 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. Live delivery within 2 km radius & quick store takeaway. FREE delivery above ₹300!">
 
-  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <!-- Google Fonts: Plus Jakarta Sans, Playfair Display & Noto Sans Tamil -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Aboreto&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <!-- Leaflet Map CSS & JS -->
@@ -1137,9 +1137,131 @@
 
     .btn-send-whatsapp-order:active { transform: scale(0.98); }
 
-    .input-error {
-      border-color: #D32F2F !important;
-      background: #FFF8F8 !important;
+    /* ====================================================
+       TAMIL (தமிழ்) MOBILE RESPONSIVE TYPOGRAPHY TUNING
+       ==================================================== */
+    body.lang-ta {
+      font-family: 'Noto Sans Tamil', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body.lang-ta .hero-title {
+      font-size: 1.05rem;
+      line-height: 1.35;
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-weight: 700;
+    }
+
+    body.lang-ta .hero-sub {
+      font-size: 0.68rem;
+      line-height: 1.35;
+    }
+
+    body.lang-ta .hero-pill {
+      font-size: 0.62rem;
+      padding: 2px 6px;
+      letter-spacing: 0;
+    }
+
+    body.lang-ta .hero-location-text {
+      font-size: 0.66rem;
+    }
+
+    body.lang-ta .delivery-rule-badge {
+      font-size: 0.66rem;
+      line-height: 1.3;
+    }
+
+    body.lang-ta .search-input {
+      font-size: 0.78rem;
+    }
+
+    body.lang-ta .cat-tab-btn {
+      flex: 0 0 96px;
+      width: 96px;
+      height: 80px;
+    }
+
+    body.lang-ta .cat-card-title {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.2px;
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    body.lang-ta .category-title {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 1.05rem;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    body.lang-ta .category-badge-tag {
+      font-size: 0.66rem;
+    }
+
+    body.lang-ta .item-name {
+      font-size: 0.82rem;
+      font-family: 'Noto Sans Tamil', sans-serif;
+    }
+
+    body.lang-ta .item-desc {
+      font-size: 0.67rem;
+      line-height: 1.3;
+    }
+
+    body.lang-ta .btn-add-cart {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      min-width: 48px;
+    }
+
+    body.lang-ta .btn-sold-out {
+      font-size: 0.62rem;
+      padding: 2px 6px;
+    }
+
+    body.lang-ta .cart-items-count-label {
+      font-size: 0.64rem;
+      letter-spacing: 0;
+    }
+
+    body.lang-ta .btn-checkout-now {
+      font-size: 0.8rem;
+      padding: 8px 14px;
+    }
+
+    body.lang-ta .delivery-progress-hint {
+      font-size: 0.58rem;
+    }
+
+    body.lang-ta .modal-title-clean {
+      font-size: 1.05rem;
+      font-family: 'Noto Sans Tamil', sans-serif;
+    }
+
+    body.lang-ta .order-seg-btn {
+      font-size: 0.75rem;
+      padding: 8px 6px;
+    }
+
+    body.lang-ta .card-header-title {
+      font-size: 0.78rem;
+      font-family: 'Noto Sans Tamil', sans-serif;
+    }
+
+    body.lang-ta .card-header-badge {
+      font-size: 0.64rem;
+    }
+
+    body.lang-ta .btn-send-whatsapp-order {
+      font-size: 0.86rem;
+      padding: 12px;
     }
 
     @media (min-width: 681px) {
@@ -1439,20 +1561,20 @@
     let radiusCircle = null;
 
     const CATEGORIES = [
-      { id: 'juices', name_en: 'Fresh Juice', name_ta: 'புதிய பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg' },
+      { id: 'juices', name_en: 'Fresh Juice', name_ta: 'பழச்சாறு', icon: '🧃', img: './assets/categories/menu-juices.jpg' },
       { id: 'shakes', name_en: 'Milk Shakes', name_ta: 'மில்க் ஷேக்ஸ்', icon: '🥤', img: './assets/categories/menu-shakes.jpg' },
-      { id: 'falooda', name_en: 'Falooda & Desserts', name_ta: 'பலுடா & இனிப்புகள்', icon: '🍨', img: './assets/categories/menu-falooda.jpg' },
-      { id: 'mojito', name_en: 'Mojitos', name_ta: 'மொஜிட்டோ குளிர்பானங்கள்', icon: '🍹', img: './assets/categories/menu-mojito.jpg' },
-      { id: 'brownie', name_en: 'Brownies & Pastries', name_ta: 'பிரவுனி & பேஸ்ட்ரிகள்', icon: '🍫', img: './assets/categories/menu-brownie.jpg' },
-      { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஸ்கூப் ஐஸ்கிரீம்', icon: '🍦', img: './assets/categories/menu-icecream.jpg' },
-      { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & சூடான பானங்கள்', icon: '☕', img: './assets/categories/menu-hotdrinks.jpg' },
+      { id: 'falooda', name_en: 'Falooda & Desserts', name_ta: 'பலுடா & இனிப்பு', icon: '🍨', img: './assets/categories/menu-falooda.jpg' },
+      { id: 'mojito', name_en: 'Mojitos', name_ta: 'மொஜிட்டோ', icon: '🍹', img: './assets/categories/menu-mojito.jpg' },
+      { id: 'brownie', name_en: 'Brownies & Pastries', name_ta: 'பிரவுனி & கேக்', icon: '🍫', img: './assets/categories/menu-brownie.jpg' },
+      { id: 'icecream', name_en: 'Scoop Ice Cream', name_ta: 'ஐஸ்கிரீம்', icon: '🍦', img: './assets/categories/menu-icecream.jpg' },
+      { id: 'hotdrinks', name_en: 'Hot Drinks & Tea', name_ta: 'டீ & காபி', icon: '☕', img: './assets/categories/menu-hotdrinks.jpg' },
       { id: 'chat', name_en: 'Chat & Snacks', name_ta: 'சாட் & ஸ்நாக்ஸ்', icon: '🫓', img: './assets/categories/menu-chat.jpg' },
       { id: 'pavbhaji', name_en: 'Pav Bhaji', name_ta: 'பாவ் பாஜி', icon: '🍲', img: './assets/categories/menu-pavbhaji.jpg' },
-      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட் வகைகள்', icon: '🍞', img: './assets/categories/menu-toast.jpg' },
-      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர் வகைகள்', icon: '🍔', img: './assets/categories/menu-burger.jpg' },
-      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா வகைகள்', icon: '🍕', img: './assets/categories/menu-pizza.jpg' },
-      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச் வகைகள்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg' },
-      { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ் & கிரிஸ்பி', icon: '🥟', img: './assets/categories/menu-momos.jpg' }
+      { id: 'toast', name_en: 'Toasts', name_ta: 'டோஸ்ட்', icon: '🍞', img: './assets/categories/menu-toast.jpg' },
+      { id: 'burger', name_en: 'Burgers', name_ta: 'பர்கர்', icon: '🍔', img: './assets/categories/menu-burger.jpg' },
+      { id: 'pizza', name_en: 'Pizzas', name_ta: 'பீட்சா', icon: '🍕', img: './assets/categories/menu-pizza.jpg' },
+      { id: 'sandwich', name_en: 'Sandwiches', name_ta: 'சாண்ட்விச்', icon: '🥪', img: './assets/categories/menu-sandwich.jpg' },
+      { id: 'momos', name_en: 'Momos & Crispy', name_ta: 'மோமோஸ்', icon: '🥟', img: './assets/categories/menu-momos.jpg' }
     ];
 
     const MENU_I18N = {
@@ -1514,18 +1636,18 @@
         blockDel.style.display = 'none';
         blockTake.style.display = 'flex';
         fieldPickup.style.display = 'block';
-        titleEl.textContent = 'Store Takeaway Order';
-        orderBtnLbl.textContent = 'Send Takeaway Order on WhatsApp';
+        titleEl.textContent = currentMenuLang === 'ta' ? 'கடை டேக்அவே ஆர்டர்' : 'Store Takeaway Order';
+        orderBtnLbl.textContent = currentMenuLang === 'ta' ? 'வாட்ஸ்அப்பில் டேக்அவே ஆர்டர் செய்க' : 'Send Takeaway Order on WhatsApp';
       } else {
         btnDel.classList.add('active');
         btnTake.classList.remove('active');
         blockDel.style.display = 'flex';
         blockTake.style.display = 'none';
         fieldPickup.style.display = 'none';
-        titleEl.textContent = 'Doorstep Delivery Order';
+        titleEl.textContent = currentMenuLang === 'ta' ? 'டோர் டெலிவரி ஆர்டர்' : 'Doorstep Delivery Order';
         orderBtnLbl.textContent = (userDistanceKm > MAX_DELIVERY_KM) 
-          ? `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`
-          : 'Place Order on WhatsApp';
+          ? (currentMenuLang === 'ta' ? `ஆர்டர் கோரிக்கை அனுப்புக (${userDistanceKm.toFixed(1)} கி.மீ)` : `Request Order Anyway (${userDistanceKm.toFixed(1)} km)`)
+          : (currentMenuLang === 'ta' ? 'வாட்ஸ்அப்பில் ஆர்டர் செய்க' : 'Place Order on WhatsApp');
 
         setTimeout(() => {
           if (leafletMap) leafletMap.invalidateSize(true);
@@ -1538,6 +1660,8 @@
     function applyMenuLanguage(lang) {
       currentMenuLang = lang;
       localStorage.setItem('sg_lang', lang);
+      document.body.classList.toggle('lang-ta', lang === 'ta');
+      document.documentElement.lang = lang;
       const t = MENU_I18N[lang] || MENU_I18N.en;
 
       const backHomeLbl = document.getElementById('lbl-back-home');
@@ -1563,6 +1687,9 @@
 
       renderCategoryTabs();
       renderMenu();
+      if (document.getElementById('checkout-modal').classList.contains('active')) {
+        renderCheckoutModalContent();
+      }
     }
 
     function toggleMenuLanguage() {
