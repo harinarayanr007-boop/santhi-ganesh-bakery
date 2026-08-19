@@ -18,6 +18,8 @@
   <!-- Leaflet Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Dynamic UPI QR Code Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <!-- Website Favicon & PWA Manifest -->
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
@@ -1169,12 +1171,129 @@
       color: var(--color-text-muted);
     }
 
-    .clean-bill-line.total-line {
-      font-size: 1.1rem;
+    /* Embedded UPI Payment Widget */
+    .payment-seg-control {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .payment-seg-btn {
+      background: #FAF8F5;
+      border: 1.5px solid rgba(166, 96, 27, 0.2);
+      border-radius: 10px;
+      padding: 8px 6px;
+      font-family: var(--font-main);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .payment-seg-btn.active {
+      background: #8B4513;
+      border-color: #8B4513;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(139, 69, 19, 0.25);
+    }
+
+    .embedded-upi-box {
+      background: #FAF8F5;
+      border: 1px solid rgba(166, 96, 27, 0.18);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .upi-qr-wrapper {
+      background: #FFFFFF;
+      border: 1.5px dashed rgba(166, 96, 27, 0.3);
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upi-qr-wrapper img, .upi-qr-wrapper canvas {
+      display: block;
+      margin: 0 auto;
+      border-radius: 6px;
+    }
+
+    .upi-apps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .btn-upi-app {
+      background: #FFFFFF;
+      border: 1px solid rgba(166, 96, 27, 0.25);
+      border-radius: 8px;
+      padding: 7px 6px;
+      font-size: 0.74rem;
       font-weight: 800;
       color: #8B4513;
-      padding-top: 6px;
-      border-top: 1px solid rgba(166, 96, 27, 0.18);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-decoration: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: all 0.15s ease;
+    }
+
+    .btn-upi-app:active {
+      background: #8B4513;
+      color: #FFFFFF;
+      transform: scale(0.96);
+    }
+
+    .upi-id-pill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid rgba(166, 96, 27, 0.18);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 0.72rem;
+    }
+
+    .btn-copy-upi {
+      background: #8B4513;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cod-info-box {
+      background: rgba(58, 83, 17, 0.08);
+      border: 1px dashed rgba(58, 83, 17, 0.35);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: #2E7D32;
+      font-weight: 700;
+      line-height: 1.3;
     }
 
     .btn-send-whatsapp-order {
@@ -1584,6 +1703,59 @@
             </div>
           </div>
 
+          <!-- 5. CARD: PAYMENT METHOD & EMBEDDED UPI -->
+          <div class="checkout-card-box" id="block-payment-method">
+            <div class="card-header-row">
+              <div class="card-header-left">
+                <div class="card-icon-pill icon-payment" style="background: rgba(166, 96, 27, 0.15); color: #8B4513;"><i class="ph ph-credit-card"></i></div>
+                <span class="card-header-title" id="lbl-title-payment">Payment Method</span>
+              </div>
+              <span class="card-header-badge badge-green" id="lbl-badge-payment">0% Fee Direct Pay</span>
+            </div>
+
+            <!-- Payment Mode Selector -->
+            <div class="payment-seg-control">
+              <button type="button" class="payment-seg-btn active" id="btn-pay-upi" onclick="setPaymentMethod('upi')">
+                <i class="ph ph-lightning"></i> <span id="lbl-pay-upi">Instant UPI / QR</span>
+              </button>
+              <button type="button" class="payment-seg-btn" id="btn-pay-cod" onclick="setPaymentMethod('cod')">
+                <i class="ph ph-money"></i> <span id="lbl-pay-cod">Cash on Delivery</span>
+              </button>
+            </div>
+
+            <!-- EMBEDDED UPI PAYMENT WIDGET -->
+            <div class="embedded-upi-box" id="box-embedded-upi">
+              <div class="upi-qr-wrapper">
+                <div id="checkout-upi-qrcode"></div>
+                <span style="font-size: 0.66rem; color: #777; font-weight: 700; margin-top: 5px;" id="lbl-scan-qr-hint">Scan with GPay / PhonePe / Paytm</span>
+              </div>
+
+              <!-- Quick 1-Tap App Buttons for Mobile -->
+              <div class="upi-apps-grid">
+                <a id="link-gpay-btn" href="#" class="btn-upi-app">
+                  <i class="ph ph-lightning"></i> <span id="lbl-btn-gpay">Pay via GPay / UPI</span>
+                </a>
+                <a id="link-phonepe-btn" href="#" class="btn-upi-app">
+                  <i class="ph ph-device-mobile"></i> <span id="lbl-btn-phonepe">Pay via PhonePe</span>
+                </a>
+              </div>
+
+              <!-- Copy UPI ID -->
+              <div class="upi-id-pill-row">
+                <span style="font-size: 0.70rem; color: #555;">UPI ID: <strong id="lbl-upi-id-val" style="color:#8B4513;">7339073844@okbizaxis</strong></span>
+                <button type="button" class="btn-copy-upi" id="btn-copy-upi" onclick="copyBakeryUPI()">
+                  <i class="ph ph-copy"></i> <span id="lbl-copy-text">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- COD INFO BOX -->
+            <div class="cod-info-box" id="box-cod-info" style="display: none;">
+              <i class="ph ph-hand-coins" style="font-size: 1.2rem; display: block; margin-bottom: 2px;"></i>
+              <span id="lbl-cod-desc">💵 Pay exact amount in cash upon doorstep delivery or at store pickup counter.</span>
+            </div>
+          </div>
+
           <!-- WHATSAPP CTA -->
           <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendOrderWhatsApp()">
             <i class="ph ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
@@ -1716,6 +1888,17 @@
         fee_free_val_takeaway: "FREE (₹0)",
         bill_total_label: "Total Payable",
         empty_cart_msg: "Your cart is empty",
+
+        card_payment_title: "Payment Method",
+        badge_payment: "0% Fee Direct Pay",
+        tab_pay_upi: "Instant UPI / QR",
+        tab_pay_cod: "Cash on Delivery",
+        scan_qr_hint: "Scan with GPay / PhonePe / Paytm",
+        btn_gpay: "Pay via GPay / UPI",
+        btn_phonepe: "Pay via PhonePe",
+        copy_upi: "Copy",
+        copied: "Copied!",
+        cod_desc: "💵 Pay exact amount in cash upon doorstep delivery or at store pickup counter.",
         
         btn_whatsapp_delivery: "Place Order on WhatsApp",
         btn_whatsapp_takeaway: "Send Takeaway Order on WhatsApp",
@@ -1787,6 +1970,17 @@
         fee_free_val_takeaway: "இலவசம் (₹0)",
         bill_total_label: "செலுத்த வேண்டிய தொகை",
         empty_cart_msg: "கூடை காலியாக உள்ளது",
+
+        card_payment_title: "பணம் செலுத்தும் முறை",
+        badge_payment: "0% கட்டணம் நேரடி பே",
+        tab_pay_upi: "உடனடி UPI / QR",
+        tab_pay_cod: "நேரில் ரொக்கம் (Cash)",
+        scan_qr_hint: "GPay / PhonePe / Paytm மூலம் ஸ்கேன் செய்க",
+        btn_gpay: "GPay மூலம் செலுத்துக",
+        btn_phonepe: "PhonePe மூலம் செலுத்துக",
+        copy_upi: "நகலெடு",
+        copied: "நகலெடுக்கப்பட்டது!",
+        cod_desc: "💵 டெலிவரி வரும் போது அல்லது கடையில் பிக்கப் செய்யும் போது ரொக்கமாக செலுத்தவும்.",
         
         btn_whatsapp_delivery: "வாட்ஸ்அப்பில் ஆர்டர் செய்க",
         btn_whatsapp_takeaway: "வாட்ஸ்அப்பில் டேக்அவே ஆர்டர் செய்க",
@@ -1923,6 +2117,26 @@
       if (billSubtotalLbl) billSubtotalLbl.textContent = t.bill_subtotal_label;
       const billTotalLbl = document.getElementById('lbl-bill-total');
       if (billTotalLbl) billTotalLbl.textContent = t.bill_total_label;
+
+      // Payment Method Bilingual Updates
+      const titlePayment = document.getElementById('lbl-title-payment');
+      if (titlePayment) titlePayment.textContent = t.card_payment_title;
+      const badgePayment = document.getElementById('lbl-badge-payment');
+      if (badgePayment) badgePayment.textContent = t.badge_payment;
+      const payUpiLbl = document.getElementById('lbl-pay-upi');
+      if (payUpiLbl) payUpiLbl.textContent = t.tab_pay_upi;
+      const payCodLbl = document.getElementById('lbl-pay-cod');
+      if (payCodLbl) payCodLbl.textContent = t.tab_pay_cod;
+      const scanQrHint = document.getElementById('lbl-scan-qr-hint');
+      if (scanQrHint) scanQrHint.textContent = t.scan_qr_hint;
+      const btnGpayLbl = document.getElementById('lbl-btn-gpay');
+      if (btnGpayLbl) btnGpayLbl.textContent = t.btn_gpay;
+      const btnPhonepeLbl = document.getElementById('lbl-btn-phonepe');
+      if (btnPhonepeLbl) btnPhonepeLbl.textContent = t.btn_phonepe;
+      const copyTextLbl = document.getElementById('lbl-copy-text');
+      if (copyTextLbl) copyTextLbl.textContent = t.copy_upi;
+      const codDesc = document.getElementById('lbl-cod-desc');
+      if (codDesc) codDesc.textContent = t.cod_desc;
 
       setOrderType(currentOrderType);
       renderCategoryTabs();
@@ -2248,6 +2462,75 @@
         deliveryFeeEl.innerHTML = `<span style="color: #8B4513; font-weight: 800;">₹${STANDARD_DELIVERY_FEE}</span>`;
       }
       grandTotalEl.textContent = `₹${grandTotal}`;
+      updateEmbeddedUPI();
+    }
+
+    let currentPaymentMethod = 'upi';
+
+    function setPaymentMethod(method) {
+      currentPaymentMethod = method;
+      const btnUpi = document.getElementById('btn-pay-upi');
+      const btnCod = document.getElementById('btn-pay-cod');
+      const boxUpi = document.getElementById('box-embedded-upi');
+      const boxCod = document.getElementById('box-cod-info');
+
+      if (method === 'cod') {
+        if (btnUpi) btnUpi.classList.remove('active');
+        if (btnCod) btnCod.classList.add('active');
+        if (boxUpi) boxUpi.style.display = 'none';
+        if (boxCod) boxCod.style.display = 'block';
+      } else {
+        if (btnUpi) btnUpi.classList.add('active');
+        if (btnCod) btnCod.classList.remove('active');
+        if (boxUpi) boxUpi.style.display = 'flex';
+        if (boxCod) boxCod.style.display = 'none';
+        updateEmbeddedUPI();
+      }
+    }
+
+    function updateEmbeddedUPI() {
+      const { grandTotal } = calculateCartTotals();
+      const qrBox = document.getElementById('checkout-upi-qrcode');
+      const linkGpay = document.getElementById('link-gpay-btn');
+      const linkPhonePe = document.getElementById('link-phonepe-btn');
+
+      if (grandTotal <= 0) return;
+
+      const refId = Math.floor(100000 + Math.random() * 900000);
+      const orderTag = (currentOrderType === 'takeaway' ? 'SG-PICKUP-' : 'SG-CAFE-') + refId;
+      const upiDeepLink = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=${encodeURIComponent('Santhi Ganesh Bakery')}&am=${grandTotal}&tn=${encodeURIComponent(orderTag)}&cu=INR`;
+
+      if (linkGpay) linkGpay.href = upiDeepLink;
+      if (linkPhonePe) linkPhonePe.href = upiDeepLink;
+
+      if (qrBox && typeof QRCode !== 'undefined') {
+        qrBox.innerHTML = '';
+        try {
+          new QRCode(qrBox, {
+            text: upiDeepLink,
+            width: 120,
+            height: 120,
+            colorDark: "#1A120B",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } catch(e) {
+          console.warn("QR code render error:", e);
+        }
+      }
+    }
+
+    function copyBakeryUPI() {
+      const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
+      const copyTextLbl = document.getElementById('lbl-copy-text');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(BAKERY_UPI_ID).then(() => {
+          if (copyTextLbl) copyTextLbl.textContent = t.copied || 'Copied!';
+          setTimeout(() => { if (copyTextLbl) copyTextLbl.textContent = t.copy_upi || 'Copy'; }, 2000);
+        });
+      } else {
+        alert(`UPI ID: ${BAKERY_UPI_ID}`);
+      }
     }
 
     // ==========================================
@@ -2729,9 +3012,12 @@
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
           text += `💰 *கவுண்டரில் செலுத்த வேண்டிய தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `💳 *UPI மூலம் செலுத்த (1-Tap):*\n`;
-          text += `👉 ${upiPayLink}\n`;
-          text += `(GPay / PhonePe எண்: *7339073844*)\n`;
+          if (currentPaymentMethod === 'upi') {
+            text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
+            text += `👉 *UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+          } else {
+            text += `💳 *பணம் செலுத்தும் முறை:* 💵 கடையில் ரொக்கம் (Cash at Counter)\n`;
+          }
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து எனது டேக்அவே ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
@@ -2752,9 +3038,12 @@
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
           text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `💳 *1-TAP UPI PAYMENT LINK:*\n`;
-          text += `👉 ${upiPayLink}\n`;
-          text += `(GPay / PhonePe Number: *7339073844*)\n`;
+          if (currentPaymentMethod === 'upi') {
+            text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
+            text += `👉 *Bakery UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+          } else {
+            text += `💳 *Payment Method:* 💵 Cash at Store Counter\n`;
+          }
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm my takeaway order. Thank you!`;
@@ -2788,9 +3077,12 @@
           text += `🛵 *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் ✅)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
           text += `💰 *மொத்த தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `💳 *UPI மூலம் செலுத்த (1-Tap):*\n`;
-          text += `👉 ${upiPayLink}\n`;
-          text += `(GPay / PhonePe எண்: *7339073844*)\n`;
+          if (currentPaymentMethod === 'upi') {
+            text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
+            text += `👉 *UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+          } else {
+            text += `💳 *பணம் செலுத்தும் முறை:* 💵 டெலிவரியின் போது ரொக்கம் (Cash on Delivery)\n`;
+          }
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து டெலிவரி ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
@@ -2816,9 +3108,12 @@
           text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
           text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `💳 *1-TAP UPI PAYMENT LINK:*\n`;
-          text += `👉 ${upiPayLink}\n`;
-          text += `(GPay / PhonePe Number: *7339073844*)\n`;
+          if (currentPaymentMethod === 'upi') {
+            text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
+            text += `👉 *Bakery UPI ID:* ${BAKERY_UPI_ID} (GPay: 7339073844)\n`;
+          } else {
+            text += `💳 *Payment Method:* 💵 Cash on Delivery (Pay upon delivery)\n`;
+          }
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm delivery order. Thank you!`;
