@@ -211,7 +211,7 @@
   <script>
     // Build QR Target URL pointing directly to PWA install flow
     const origin = window.location.origin || 'https://santhi-ganesh-bakery.vercel.app';
-    const qrUrl = origin + '/menu.html?qr=install';
+    const qrUrl = origin + '/install.html';
 
     new QRCode(document.getElementById('qrcode'), {
       text: qrUrl,
