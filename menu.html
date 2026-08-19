@@ -1624,6 +1624,7 @@
     const MAX_DELIVERY_KM = 2.0; // Strictly 2 km
     const FREE_DELIVERY_THRESHOLD = 300;
     const STANDARD_DELIVERY_FEE = 30;
+    const BAKERY_UPI_ID = "7339073844@okbizaxis"; // Bakery GPay/UPI ID
 
     let userLocation = { lat: 8.7260996, lng: 77.6769062 };
     let userDistanceKm = 0.2;
@@ -2705,12 +2706,14 @@
 
       const { subtotal, isFreeDelivery, deliveryFee, grandTotal } = calculateCartTotals();
       const refId = Math.floor(100000 + Math.random() * 900000);
+      const orderTag = isTakeaway ? `SG-PICKUP-${refId}` : `SG-CAFE-${refId}`;
+      const upiPayLink = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=Santhi+Ganesh+Bakery&am=${grandTotal}&tn=${orderTag}&cu=INR`;
       
       let text = '';
 
       if (isTakeaway) {
         if (currentMenuLang === 'ta') {
-          text += `🛍️ *புதிய டேக்அவே ஆர்டர் (#SG-PICKUP-${refId})*\n`;
+          text += `🛍️ *புதிய டேக்அவே ஆர்டர் (#${orderTag})*\n`;
           text += `*சாந்தி கணேஷ் பேக்கரி & கஃபே (கடை பிக்கப்)*\n`;
           text += `*கடை: 92 சேரன்மகாதேவி ரோடு, திருநகர்*\n`;
           text += `------------------------------------\n`;
@@ -2725,11 +2728,15 @@
           text += `------------------------------------\n`;
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
           text += `💰 *கவுண்டரில் செலுத்த வேண்டிய தொகை:* ₹${grandTotal}\n`;
-          if (instructions) text += `📝 *குறிப்பு:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `💳 *UPI மூலம் செலுத்த (1-Tap):*\n`;
+          text += `👉 ${upiPayLink}\n`;
+          text += `(GPay / PhonePe எண்: *7339073844*)\n`;
+          if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து எனது டேக்அவே ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
         } else {
-          text += `🛍️ *NEW TAKEAWAY ORDER (#SG-PICKUP-${refId})*\n`;
+          text += `🛍️ *NEW TAKEAWAY ORDER (#${orderTag})*\n`;
           text += `*Santhi Ganesh Bakery & Cafe (Store Pickup)*\n`;
           text += `*Store: 92 Cheranmahadevi Rd, Thirunagar*\n`;
           text += `------------------------------------\n`;
@@ -2744,7 +2751,11 @@
           text += `------------------------------------\n`;
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
           text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
-          if (instructions) text += `📝 *Note:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `💳 *1-TAP UPI PAYMENT LINK:*\n`;
+          text += `👉 ${upiPayLink}\n`;
+          text += `(GPay / PhonePe Number: *7339073844*)\n`;
+          if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm my takeaway order. Thank you!`;
         }
@@ -2756,7 +2767,7 @@
         const isOutRange = (userDistanceKm > MAX_DELIVERY_KM);
 
         if (currentMenuLang === 'ta') {
-          text += `🚀 *புதிய கஃபே டெலிவரி ஆர்டர் (#SG-CAFE-${refId})*\n`;
+          text += `🚀 *புதிய கஃபே டெலிவரி ஆர்டர் (#${orderTag})*\n`;
           text += `*சாந்தி கணேஷ் பேக்கரி & கஃபே (டோர் டெலிவரி)*\n`;
           text += `------------------------------------\n`;
           if (isOutRange) {
@@ -2776,11 +2787,15 @@
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
           text += `🛵 *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் ✅)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
           text += `💰 *மொத்த தொகை:* ₹${grandTotal}\n`;
-          if (instructions) text += `📝 *குறிப்பு:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `💳 *UPI மூலம் செலுத்த (1-Tap):*\n`;
+          text += `👉 ${upiPayLink}\n`;
+          text += `(GPay / PhonePe எண்: *7339073844*)\n`;
+          if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `தயவுசெய்து டெலிவரி ஆர்டரை உறுதிப்படுத்தவும். நன்றி!`;
         } else {
-          text += `🚀 *NEW CAFE DELIVERY ORDER (#SG-CAFE-${refId})*\n`;
+          text += `🚀 *NEW CAFE DELIVERY ORDER (#${orderTag})*\n`;
           text += `*Santhi Ganesh Bakery & Cafe (Home Delivery)*\n`;
           text += `------------------------------------\n`;
           if (isOutRange) {
@@ -2800,7 +2815,11 @@
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
           text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
           text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
-          if (instructions) text += `📝 *Note:* ${instructions}\n`;
+          text += `------------------------------------\n`;
+          text += `💳 *1-TAP UPI PAYMENT LINK:*\n`;
+          text += `👉 ${upiPayLink}\n`;
+          text += `(GPay / PhonePe Number: *7339073844*)\n`;
+          if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
           text += `------------------------------------\n`;
           text += `Please confirm delivery order. Thank you!`;
         }
