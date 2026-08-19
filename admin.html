@@ -836,6 +836,27 @@
         padding: 10px;
       }
     }
+  
+    /* Tablet Responsiveness System (768px - 1024px) */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      html { font-size: 15px; }
+      .admin-kpi-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+      }
+      .admin-tab-btn {
+        padding: 10px 16px !important;
+        font-size: 0.85rem !important;
+      }
+      .table-responsive {
+        overflow-x: auto !important;
+      }
+      .modal-card {
+        max-width: 600px !important;
+        padding: 24px !important;
+      }
+    }
+
   </style>
 </head>
 <body>

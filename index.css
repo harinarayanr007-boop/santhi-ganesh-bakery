@@ -1835,3 +1835,79 @@ html[lang="ta"] .hero-title {
   font-size: 0.85rem;
   opacity: 0.6;
 }
+
+
+/* ==========================================================================
+   TABLET & FLUID RESPONSIVE SYSTEM (768px - 1024px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+  
+  :root {
+    --page-padding-desktop: 32px;
+    --section-padding-desktop: 44px;
+  }
+
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* Navbar Adjustments */
+  .navbar-inner {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 0.88rem;
+  }
+
+  .brand-logo-img {
+    height: 48px !important;
+  }
+
+  /* Typography Scale */
+  .text-h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .text-h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+
+  .text-regular {
+    font-size: 0.95rem;
+  }
+
+  /* Buttons & Controls */
+  .btn {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .text-h1 {
+    font-size: 2.1rem;
+  }
+
+  .text-h2 {
+    font-size: 1.6rem;
+  }
+}

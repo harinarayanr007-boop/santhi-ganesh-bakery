@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wholesale Bakery Partner & Commercial Supply | Santhi Ganesh Bakery Tirunelveli</title>
-  <meta name="description" content="Wholesale fresh bread packets, buns, puffs, and pastries for 100+ Kirana stores, supermarkets, universities, hotels, and canteens across Tirunelveli. Doorstep morning delivery.">
+  <title>Wholesale Supply for Every Shop | Santhi Ganesh Bakery Tirunelveli</title>
+  <meta name="description" content="Fresh bread, buns, puffs, and pastries for business across Tirunelveli. Morning 5:30 AM dispatch with replacement guarantee.">
   
   <!-- Google Fonts: Aboreto, Lora & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,198 +21,133 @@
   <script src="./i18n.js"></script>
 
   <style>
-    /* Clean Professional B2B Bento Grid & Brand Styles */
-    .b2b-hero-card {
-      background: linear-gradient(145deg, var(--color-bg-secondary) 0%, #FAF8F5 100%);
-      border-radius: 28px;
-      padding: 64px 40px;
-      border: 1px solid var(--color-border-subtle);
-      box-shadow: var(--shadow-card);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 48px;
-    }
-
-    .b2b-hero-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #A6601B 0%, #8B4513 50%, #A6601B 100%);
-    }
-
-    .b2b-pill-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(166, 96, 27, 0.08);
-      border: 1px solid rgba(166, 96, 27, 0.2);
+    /* Hero Styling */
+    .b2b-top-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       color: #8B4513;
-      padding: 6px 20px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
-    .b2b-hero-title {
-      font-family: 'Aboreto', var(--font-heading), serif;
-      font-size: clamp(2.1rem, 4.8vw, 3.6rem);
-      font-weight: 700;
-      color: var(--color-text-main);
-      line-height: 1.25;
-      margin-bottom: 18px;
+    .b2b-main-headline {
+      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+      font-weight: 800;
+      color: #0A0404;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
     }
 
-    .b2b-hero-sub {
-      font-size: 1.12rem;
+    .b2b-main-subtext {
+      font-size: clamp(1rem, 2vw, 1.25rem);
       color: var(--color-text-muted);
-      max-width: 720px;
+      max-width: 680px;
       margin: 0 auto 36px;
-      line-height: 1.65;
+      line-height: 1.5;
     }
 
-    .b2b-hero-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Modern Bento Grid Layout */
-    .bento-section-title {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-
-    .bento-grid {
+    /* Asymmetric 6-Card Grid Matching User Mockup */
+    .asymmetric-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: minmax(250px, auto);
-      gap: 20px;
+      gap: 24px;
+      align-items: stretch;
       margin-bottom: 56px;
     }
 
-    .bento-card {
-      background: var(--color-bg-secondary);
-      border: 1px solid var(--color-border-subtle);
+    .grid-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .b2b-style-card {
+      background: linear-gradient(145deg, #1A120B 0%, #2C1F17 100%);
+      border: 1px solid rgba(166, 96, 27, 0.25);
       border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 36px 32px;
+      color: #FFFFFF;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 8px 28px rgba(10, 4, 4, 0.1);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
     }
 
-    .bento-card:hover {
+    .b2b-style-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 16px 36px rgba(139, 69, 19, 0.12);
-      border-color: rgba(166, 96, 27, 0.35);
+      border-color: #F5A623;
+      box-shadow: 0 16px 36px rgba(245, 166, 35, 0.25);
     }
 
-    .bento-card-lg {
-      grid-column: span 2;
-      background: linear-gradient(135deg, #FAF8F5 0%, #F5EFE6 100%);
-      border: 1px solid rgba(166, 96, 27, 0.18);
+    .b2b-card-tall {
+      min-height: 380px;
     }
 
-    .bento-card-tall {
-      grid-column: span 1;
-      grid-row: span 2;
-      background: linear-gradient(145deg, #1A120B 0%, #2D1E14 100%);
-      color: #FFFFFF;
-      border: 1px solid rgba(166, 96, 27, 0.4);
+    .b2b-card-med {
+      min-height: 250px;
     }
 
-    .bento-card-wide {
-      grid-column: span 2;
-      background: linear-gradient(135deg, #FAF8F5 0%, #F7F2EC 100%);
+    .card-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 14px;
     }
 
-    .bento-icon-badge {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: rgba(166, 96, 27, 0.12);
-      color: #8B4513;
+    .card-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(245, 166, 35, 0.15);
+      color: #F5A623;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-bottom: 20px;
     }
 
-    .bento-card-tall .bento-icon-badge {
-      background: rgba(255, 255, 255, 0.15);
-      color: #F5A623;
-    }
-
-    .bento-badge-tag {
-      display: inline-block;
-      font-size: 0.76rem;
+    .card-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: rgba(46, 125, 50, 0.1);
-      color: #2E7D32;
-      margin-bottom: 12px;
-      align-self: flex-start;
-    }
-
-    .bento-card-tall .bento-badge-tag {
-      background: rgba(245, 166, 35, 0.2);
-      color: #F5A623;
-    }
-
-    .bento-title {
-      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--color-text-main);
-      margin-bottom: 10px;
-    }
-
-    .bento-card-tall .bento-title {
+      line-height: 1.25;
       color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
     }
 
-    .bento-desc {
+    .card-body-text {
       font-size: 0.95rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.55;
+      margin-bottom: 24px;
     }
 
-    .bento-card-tall .bento-desc {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .bento-pills-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .card-link {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #F5A623;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: gap 0.2s ease;
       margin-top: auto;
     }
 
-    .bento-pill {
-      background: #FFFFFF;
-      border: 1px solid rgba(0,0,0,0.06);
-      color: #555;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 12px;
-    }
-
-    .bento-card-tall .bento-pill {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.15);
-      color: rgba(255, 255, 255, 0.9);
+    .card-link:hover {
+      gap: 10px;
+      color: #FFFFFF;
     }
 
     /* Continuous Ticker */
@@ -261,7 +196,7 @@
       background: #2E7D32;
     }
 
-    /* Pillars & Form Section */
+    /* Form Card & FAQ Styling */
     .b2b-form-card {
       background: var(--color-bg-secondary);
       border-radius: 28px;
@@ -279,17 +214,25 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
-    @media (max-width: 992px) {
-      .b2b-hero-card, .b2b-form-card {
-        padding: 36px 20px;
+    /* Tablet & Mobile Breakpoints */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .asymmetric-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
       }
-      .bento-grid {
+      .b2b-card-tall { min-height: 320px; }
+      .b2b-card-med { min-height: 240px; }
+      .b2b-form-card { padding: 36px 28px; }
+    }
+
+    @media (max-width: 767px) {
+      .asymmetric-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
       }
-      .bento-card-lg, .bento-card-tall, .bento-card-wide {
-        grid-column: span 1;
-        grid-row: span 1;
-      }
+      .b2b-style-card { padding: 28px 24px; }
+      .b2b-card-tall, .b2b-card-med { min-height: auto; }
+      .b2b-form-card { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -331,7 +274,7 @@
           </svg>
           <span class="cart-badge cart-badge-count">0</span>
         </button>
-        <a href="#b2b-form" class="btn btn-primary" data-i18n="b2b_btn_quote">Wholesale Quote</a>
+        <a href="#b2b-form" class="btn btn-primary" data-i18n="b2b_btn_quote">Get Wholesale Quote</a>
         <button id="mobile-menu-toggle-btn" class="mobile-menu-toggle" aria-label="Toggle Menu">
           ☰
         </button>
@@ -366,127 +309,96 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. LUXURY HERO SECTION (Single Top CTA) -->
-    <section class="section-padding" style="padding-top: 40px; padding-bottom: 0;">
-      <div class="container">
+    <!-- 2. HERO SECTION (Matching User Mockup Header Style) -->
+    <section class="section-padding" style="padding-top: 48px; padding-bottom: 32px;">
+      <div class="container" style="text-align: center;">
         
-        <div class="b2b-hero-card">
-          <div class="b2b-pill-tag">
-            <i class="ph ph-handshake" style="font-size: 1.1rem;"></i>
-            <span>Wholesale Bakery Supply Partner • Tirunelveli</span>
-          </div>
+        <div class="b2b-top-eyebrow">Wholesale</div>
+        <h1 class="b2b-main-headline">Supply for every shop</h1>
+        <p class="b2b-main-subtext">Fresh bread and bakes for businesses across Tirunelveli.</p>
 
-          <h1 class="b2b-hero-title" data-i18n="b2b_title">
-            Wholesale Bakery Partner For Your Business
-          </h1>
-
-          <p class="b2b-hero-sub" data-i18n="b2b_sub">
-            Grow your business with daily morning delivery, direct bulk pricing, and 100+ partner Kirana stores, supermarkets, universities, hotels & canteens across Tirunelveli.
-          </p>
-
-          <!-- Single Primary Top CTA -->
-          <div class="b2b-hero-cta">
-            <a href="#b2b-form" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.1rem; border-radius: 16px;" data-i18n="b2b_btn_quote">
-              <i class="ph ph-lightning" style="font-size: 1.3rem;"></i> Get Wholesale Quote
-            </a>
-          </div>
+        <!-- Single Primary Top CTA -->
+        <div>
+          <a href="#b2b-form" class="btn btn-primary" style="padding: 16px 40px; font-size: 1.08rem; border-radius: 16px;">
+            <i class="ph ph-lightning" style="font-size: 1.3rem;"></i> Get Wholesale Quote
+          </a>
         </div>
 
       </div>
     </section>
 
-    <!-- 3. BENTO GRID OF ALL COMMERCIAL CATEGORIES -->
-    <section class="section-padding" style="padding-top: 0;">
+    <!-- 3. ASYMMETRIC 6-CARD GRID (Exact Structure Matching Mockup) -->
+    <section class="section-padding" style="padding-top: 24px; padding-bottom: 0;">
       <div class="container">
         
-        <div class="bento-section-title">
-          <p class="text-tagline" style="margin-bottom: 8px;">Commercial Industry Supply</p>
-          <h2 class="text-h2">Tailored Wholesale Solutions For Every Industry</h2>
-        </div>
-
-        <div class="bento-grid">
+        <div class="asymmetric-grid">
           
-          <!-- Bento 1: Kirana & Grocery Stores (Featured Large Bento Span 2) -->
-          <div class="bento-card bento-card-lg">
-            <div>
-              <div class="bento-badge-tag">✓ 25% - 30% Retail Margin • Daily Replacement</div>
-              <div class="bento-icon-badge"><i class="ph ph-storefront"></i></div>
-              <h3 class="bento-title">🏪 Kirana & Grocery Stores</h3>
-              <p class="bento-desc">
-                Daily 5:30 AM morning dispatch of fresh sandwich bread packets, milk loaves, tea buns & crispy butter rusks. Includes unsold bread replacement guarantee for hassle-free retail profits.
-              </p>
+          <!-- COLUMN 1: Tall Card 1 + Medium Card 5 -->
+          <div class="grid-col">
+            <!-- Card 1: Kirana (Tall) -->
+            <div class="b2b-style-card b2b-card-tall">
+              <div>
+                <div class="card-eyebrow">Kirana</div>
+                <h3 class="card-headline">Daily bread for the corner store</h3>
+                <p class="card-body-text">Morning dispatch at 5.30 with replacement guarantee.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
-            <div class="bento-pills-row">
-              <span class="bento-pill">🍞 Sandwich Bread</span>
-              <span class="bento-pill">🥛 Milk Bread</span>
-              <span class="bento-pill">🥐 Tea Buns</span>
-              <span class="bento-pill">🔄 Replacement Guarantee</span>
+
+            <!-- Card 5: Canteen (Medium) -->
+            <div class="b2b-style-card b2b-card-med">
+              <div>
+                <div class="card-icon-box"><i class="ph ph-package"></i></div>
+                <h3 class="card-headline">Canteen snacks on a tight schedule</h3>
+                <p class="card-body-text">Puffs and samosas timed for tea breaks.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
           </div>
 
-          <!-- Bento 2: University & College Canteens (Tall Dark Luxury Bento) -->
-          <div class="bento-card bento-card-tall">
-            <div>
-              <div class="bento-badge-tag">⏱️ Dual Shift Timed Dispatch</div>
-              <div class="bento-icon-badge"><i class="ph ph-student"></i></div>
-              <h3 class="bento-title">🏫 University & College Canteens</h3>
-              <p class="bento-desc">
-                Freshly baked warm veg puffs, egg puffs, samosas & tea buns dispatched in dual batches (6:30 AM & 1:00 PM) timed perfectly for student morning and afternoon tea break intervals.
-              </p>
+          <!-- COLUMN 2: Medium Card 2 + Tall Card 3 -->
+          <div class="grid-col">
+            <!-- Card 2: Supermarket (Medium) -->
+            <div class="b2b-style-card b2b-card-med">
+              <div>
+                <div class="card-icon-box"><i class="ph ph-package"></i></div>
+                <h3 class="card-headline">Supermarket shelves stocked and labeled</h3>
+                <p class="card-body-text">Barcoded cookies and rusks with full certification.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
-            <div class="bento-pills-row">
-              <span class="bento-pill">🥟 Veg & Egg Puffs</span>
-              <span class="bento-pill">🥟 Crispy Samosas</span>
-              <span class="bento-pill">☕ Tea Break Snacks</span>
+
+            <!-- Card 3: Hotels (Tall) -->
+            <div class="b2b-style-card b2b-card-tall">
+              <div>
+                <div class="card-eyebrow">Hotels</div>
+                <h3 class="card-headline">Commercial bakes for the professional kitchen</h3>
+                <p class="card-body-text">Burger buns and dessert slices to exact specs.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
           </div>
 
-          <!-- Bento 3: Supermarkets & Retail Outlets -->
-          <div class="bento-card">
-            <div>
-              <div class="bento-badge-tag">🏷️ 30% - 35% Retail Margin</div>
-              <div class="bento-icon-badge"><i class="ph ph-shopping-bag-open"></i></div>
-              <h3 class="bento-title">🛒 Supermarkets & Retail</h3>
-              <p class="bento-desc">
-                Artisanal butter cookies, tea rusks & packaged savories with clear MRP, barcode labels & 100% FSSAI certification.
-              </p>
+          <!-- COLUMN 3: Tall Card 4 + Medium Card 6 -->
+          <div class="grid-col">
+            <!-- Card 4: Events (Tall) -->
+            <div class="b2b-style-card b2b-card-tall">
+              <div>
+                <div class="card-eyebrow">Events</div>
+                <h3 class="card-headline">Sealed boxes for the big day</h3>
+                <p class="card-body-text">Mini pastries delivered straight to the venue.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
-            <div class="bento-pills-row">
-              <span class="bento-pill">🍪 Butter Cookies</span>
-              <span class="bento-pill">🏷️ Barcode Packaged</span>
-            </div>
-          </div>
 
-          <!-- Bento 4: Hotels & Restaurants -->
-          <div class="bento-card">
-            <div>
-              <div class="bento-badge-tag">🚚 5:00 AM Priority Dispatch</div>
-              <div class="bento-icon-badge"><i class="ph ph-cooking-pot"></i></div>
-              <h3 class="bento-title">🏨 Hotels & Restaurants</h3>
-              <p class="bento-desc">
-                Jumbo sandwich loaves, burger buns, pav buns & pastry dessert slices baked to consistent commercial specs 365 days a year.
-              </p>
-            </div>
-            <div class="bento-pills-row">
-              <span class="bento-pill">🍔 Burger & Pav Buns</span>
-              <span class="bento-pill">🍰 Dessert Supply</span>
-            </div>
-          </div>
-
-          <!-- Bento 5: Event Caterers & Halls (Wide Bento Span 2) -->
-          <div class="bento-card bento-card-wide">
-            <div>
-              <div class="bento-badge-tag">🎁 Custom Branded Party Boxes</div>
-              <div class="bento-icon-badge"><i class="ph ph-confetti"></i></div>
-              <h3 class="bento-title">🍱 Event Caterers & Wedding Halls</h3>
-              <p class="bento-desc">
-                Hygienically sealed individual party snack boxes and mini pastries custom-curated for weddings, corporate events & private functions with direct venue delivery.
-              </p>
-            </div>
-            <div class="bento-pills-row">
-              <span class="bento-pill">📦 Sealed Party Boxes</span>
-              <span class="bento-pill">🧁 Mini Pastries</span>
-              <span class="bento-pill">📍 Venue Delivery</span>
+            <!-- Card 6: Dealer Margins (Medium) -->
+            <div class="b2b-style-card b2b-card-med">
+              <div>
+                <div class="card-icon-box"><i class="ph ph-package"></i></div>
+                <h3 class="card-headline">Margins that keep the till ringing</h3>
+                <p class="card-body-text">25 to 35 percent retail margin on every order.</p>
+              </div>
+              <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
           </div>
 
@@ -494,7 +406,7 @@
 
       </div>
 
-      <!-- Continuous Infinite Ticker Bar -->
+      <!-- Continuous Infinite Location Ticker -->
       <div class="b2b-ticker-wrap">
         <div class="b2b-ticker-move">
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Palayamkottai</span>
@@ -509,7 +421,7 @@
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Tea Shops</span>
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Caterers</span>
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Hotels</span>
-          <!-- Duplicate for seamless scroll -->
+          <!-- Duplicate for continuous scroll -->
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Palayamkottai</span>
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Vannarpettai</span>
           <span class="b2b-ticker-pill"><span class="b2b-ticker-dot"></span> Tirunelveli Town</span>
@@ -564,7 +476,7 @@
       </div>
     </section>
 
-    <!-- 5. B2B FORM SECTION (Primary CTA: Request Free Sample Box) -->
+    <!-- 5. B2B FORM SECTION (Primary Form Action: Request Free Sample Box) -->
     <section id="b2b-form" class="section-padding">
       <div class="container" style="max-width: 840px;">
         
