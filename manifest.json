@@ -1,0 +1,25 @@
+{
+  "name": "Santhi Ganesh Bakery & Cafe",
+  "short_name": "SG Bakery",
+  "description": "Order fresh juices, milkshakes, snacks, chaat, pastries, and celebration cakes from Santhi Ganesh Bakery Tirunelveli.",
+  "start_url": "./menu.html?utm_source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F6EFE8",
+  "theme_color": "#8B4513",
+  "icons": [
+    {
+      "src": "./sg-bakery-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./sg-bakery-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
