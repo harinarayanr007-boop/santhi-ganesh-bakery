@@ -1215,7 +1215,7 @@
           <span class="cart-items-count-label" id="cart-bar-count">0 Items Selected</span>
           <div class="cart-total-price">
             <span id="cart-bar-total">₹0</span>
-            <span class="cart-delivery-badge" id="cart-delivery-status-pill">FREE Delivery</span>
+            <span class="cart-delivery-badge delivery-paid" id="cart-delivery-status-pill">+ ₹30 Delivery</span>
           </div>
         </div>
         <button class="btn-checkout-now" onclick="openCheckoutModal()">
@@ -1529,6 +1529,7 @@
           if (leafletMap) leafletMap.invalidateSize(true);
         }, 150);
       }
+      updateCartUI();
       renderCheckoutModalContent();
     }
 
@@ -1771,8 +1772,8 @@
     }
 
     function calculateCartTotals() {
-      const totalItems = deliveryCart.reduce((sum, item) => sum + item.qty, 0);
-      const subtotal = deliveryCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const totalItems = deliveryCart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+      const subtotal = deliveryCart.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 0)), 0);
       const isTakeaway = (currentOrderType === 'takeaway');
       const isFreeDelivery = isTakeaway || (subtotal >= FREE_DELIVERY_THRESHOLD);
       const deliveryFee = (subtotal > 0 && !isTakeaway && !isFreeDelivery) ? STANDARD_DELIVERY_FEE : 0;
@@ -1789,21 +1790,25 @@
       const progressText = document.getElementById('cart-delivery-progress-text');
       const t = MENU_I18N[currentMenuLang] || MENU_I18N.en;
 
-      const { totalItems, isFreeDelivery, grandTotal, remainingForFree } = calculateCartTotals();
+      const { totalItems, subtotal, isFreeDelivery, deliveryFee, grandTotal, remainingForFree, isTakeaway } = calculateCartTotals();
 
       if (totalItems > 0) {
         floatingBar.classList.add('visible');
         barCount.textContent = `${totalItems} ${totalItems === 1 ? t.item_suffix : t.items_suffix}`;
         barTotal.textContent = `₹${grandTotal}`;
 
-        if (isFreeDelivery) {
+        if (isTakeaway) {
+          statusPill.className = 'cart-delivery-badge delivery-free';
+          statusPill.textContent = 'Store Pickup (FREE)';
+          progressText.innerHTML = '<i class="ph ph-storefront"></i> 🏢 Ready for pickup in 15–20 mins (₹0 fee)';
+        } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = 'FREE Delivery';
-          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong>!';
+          progressText.innerHTML = '<i class="ph ph-sparkle"></i> 🎉 Unlocked <strong>FREE Delivery</strong> (Order ≥ ₹300)!';
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
-          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Fee`;
-          progressText.innerHTML = `<i class="ph ph-info"></i> Add <strong>₹${remainingForFree}</strong> more for FREE Delivery`;
+          statusPill.textContent = `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
+          progressText.innerHTML = `<i class="ph ph-moped"></i> Add <strong>₹${remainingForFree}</strong> more for <strong>FREE Delivery</strong> (₹30 fee under ₹300)`;
         }
       } else {
         floatingBar.classList.remove('visible');
@@ -1849,20 +1854,20 @@
       container.innerHTML = deliveryCart.map(item => `
         <div class="clean-item-row">
           <span style="font-weight: 700;">${escapeHTML(item.name)} <span style="font-weight: 500; color:#888;">x${item.qty}</span></span>
-          <span style="font-weight: 800; color: var(--color-primary-dark);">₹${item.price * item.qty}</span>
+          <span style="font-weight: 800; color: var(--color-primary-dark);">₹${Number(item.price) * item.qty}</span>
         </div>
       `).join('');
 
       subtotalEl.textContent = `₹${subtotal}`;
       if (isTakeaway) {
         feeTypeEl.textContent = 'Store Pickup Fee';
-        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32;">FREE</span>`;
-      } else if (isFreeDelivery) {
-        feeTypeEl.textContent = 'Delivery Fee';
-        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32;">FREE</span>`;
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">FREE (₹0)</span>`;
+      } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
+        feeTypeEl.textContent = 'Delivery Fee (Order ≥ ₹300)';
+        deliveryFeeEl.innerHTML = `<span style="color:#2E7D32; font-weight: 800;">FREE</span>`;
       } else {
-        feeTypeEl.textContent = 'Delivery Fee';
-        deliveryFeeEl.textContent = `₹${STANDARD_DELIVERY_FEE}`;
+        feeTypeEl.textContent = 'Delivery Fee (Under ₹300)';
+        deliveryFeeEl.innerHTML = `<span style="color: #8B4513; font-weight: 800;">₹${STANDARD_DELIVERY_FEE}</span>`;
       }
       grandTotalEl.textContent = `₹${grandTotal}`;
     }
@@ -2216,7 +2221,7 @@
         });
         text += `------------------------------------\n`;
         text += `🍲 *Item Total:* ₹${subtotal}\n`;
-        text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order > ₹300)' : `₹${deliveryFee}`}\n`;
+        text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
         text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
         if (instructions) text += `📝 *Note:* ${instructions}\n`;
         text += `------------------------------------\n`;
