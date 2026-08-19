@@ -923,10 +923,11 @@
     .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 160px;
-      border-radius: 10px;
+      height: 220px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid var(--color-border);
+      border: 1.5px solid rgba(166, 96, 27, 0.2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
 
     #delivery-live-map {
@@ -942,21 +943,55 @@
       background: #FFFFFF;
       border: 1.5px solid rgba(166, 96, 27, 0.25);
       color: #8B4513;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       transition: all 0.15s ease;
     }
 
     .btn-map-recenter:active {
       transform: scale(0.92);
       background: #F6EFE8;
+    }
+
+    /* GPS status mini-bar inside map */
+    .map-gps-status {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 50px;
+      z-index: 450;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #555;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    }
+    .map-gps-status.active { display: flex; }
+    .map-gps-status.located { color: #2E7D32; }
+    .map-gps-status.error { color: #C94C4C; }
+    .gps-pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #2196F3;
+      animation: gpsPulse 1.2s infinite ease-in-out;
+    }
+    .gps-pulse-dot.located { background: #2E7D32; animation: none; }
+    .gps-pulse-dot.error { background: #C94C4C; animation: none; }
+    @keyframes gpsPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
     }
 
     /* Sleek Map Center Target Pin */
@@ -1398,6 +1433,11 @@
               <div class="center-target-pin" id="center-target-pin">
                 <div class="pin-head">🛵</div>
                 <div class="pin-shadow"></div>
+              </div>
+              <!-- GPS Status Overlay -->
+              <div class="map-gps-status" id="map-gps-status">
+                <div class="gps-pulse-dot" id="gps-pulse-dot"></div>
+                <span id="gps-status-text">Detecting your location…</span>
               </div>
               <button type="button" class="btn-map-recenter" id="btn-map-recenter" onclick="detectGPSLocation(event)" title="Center on my location">
                 <i class="ph ph-crosshair-simple"></i>
@@ -2109,13 +2149,19 @@
       
       if (currentOrderType === 'delivery') {
         setTimeout(() => initOrUpdateDeliveryMap(), 100);
-        setTimeout(() => { if (leafletMap) leafletMap.invalidateSize(true); }, 250);
+        setTimeout(() => { if (leafletMap) leafletMap.invalidateSize(true); }, 300);
+        setTimeout(() => { if (leafletMap) leafletMap.invalidateSize(true); }, 600);
       }
     }
 
     function closeCheckoutModal() {
       document.getElementById('checkout-modal').classList.remove('active');
       document.body.style.overflow = 'auto';
+      // Stop GPS watch to save battery
+      if (gpsWatchId !== null) {
+        navigator.geolocation.clearWatch(gpsWatchId);
+        gpsWatchId = null;
+      }
     }
 
     function renderCheckoutModalContent() {
@@ -2174,17 +2220,35 @@
     }
 
     let userAccuracyCircle = null;
+    let userDotMarker = null;
+    let gpsWatchId = null;
+    let gpsHasLocked = false;
+
+    function setGpsStatusUI(state, text) {
+      const bar = document.getElementById('map-gps-status');
+      const dot = document.getElementById('gps-pulse-dot');
+      const lbl = document.getElementById('gps-status-text');
+      if (!bar) return;
+      bar.className = 'map-gps-status active ' + state;
+      if (dot) dot.className = 'gps-pulse-dot ' + state;
+      if (lbl) lbl.textContent = text;
+      if (state === 'located') {
+        setTimeout(() => { bar.classList.remove('active'); }, 3000);
+      }
+    }
 
     function initOrUpdateDeliveryMap() {
       const mapContainer = document.getElementById('delivery-live-map');
       if (!mapContainer) return;
 
-      const centerCoord = userLocation ? [userLocation.lat, userLocation.lng] : [BAKERY_COORDS.lat, BAKERY_COORDS.lng];
+      const centerCoord = (gpsHasLocked && userLocation) 
+        ? [userLocation.lat, userLocation.lng] 
+        : [BAKERY_COORDS.lat, BAKERY_COORDS.lng];
 
       if (!leafletMap) {
         leafletMap = L.map('delivery-live-map', {
           center: centerCoord,
-          zoom: 16,
+          zoom: 15,
           zoomControl: false,
           attributionControl: false
         });
@@ -2196,9 +2260,9 @@
         // Santhi Ganesh Bakery Store Icon
         const bakeryIcon = L.divIcon({
           className: 'bakery-hub-marker',
-          html: `<div style="background:#8B4513; color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:2px solid #fff; font-size:14px; box-shadow:0 3px 8px rgba(0,0,0,0.3);">🏢</div>`,
-          iconSize: [28, 28],
-          iconAnchor: [14, 14]
+          html: `<div style="background:#8B4513; color:#fff; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border:2.5px solid #fff; font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,0.35);">🏢</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
         });
         L.marker([BAKERY_COORDS.lat, BAKERY_COORDS.lng], { icon: bakeryIcon }).addTo(leafletMap);
 
@@ -2206,10 +2270,10 @@
         radiusCircle = L.circle([BAKERY_COORDS.lat, BAKERY_COORDS.lng], {
           color: '#2E7D32',
           fillColor: '#4CAF50',
-          fillOpacity: 0.2,
+          fillOpacity: 0.12,
           radius: 2000,
           weight: 2,
-          dashArray: '5, 5'
+          dashArray: '6, 4'
         }).addTo(leafletMap);
 
         // Precision Drag-to-Pin Behavior
@@ -2225,10 +2289,18 @@
           leafletMap.panTo(e.latlng, { animate: true });
           updateLocationCoords(e.latlng.lat, e.latlng.lng, true);
         });
+
+        // Fit the map to show both store and delivery circle 
+        const bounds = radiusCircle.getBounds();
+        leafletMap.fitBounds(bounds.pad(0.1));
       }
 
       leafletMap.invalidateSize(true);
-      if (userLocation) {
+
+      // Auto-detect GPS when map is first shown
+      if (!gpsHasLocked) {
+        setTimeout(() => autoDetectGPS(), 300);
+      } else if (userLocation) {
         updateLocationCoords(userLocation.lat, userLocation.lng, false);
       }
     }
@@ -2349,50 +2421,209 @@
       }
     }
 
-    function detectGPSLocation(e) {
-      if (e) e.preventDefault();
-      const btn = document.getElementById('btn-detect-gps');
-      const origText = btn ? btn.innerHTML : '';
-      if (btn) btn.innerHTML = `<i class="ph ph-spinner ph-spin"></i> <span>...</span>`;
+    function placeUserDot(lat, lng, accuracy) {
+      if (!leafletMap) return;
 
-      if (!navigator.geolocation) {
-        if (btn) btn.innerHTML = origText;
-        alert(currentMenuLang === 'ta' ? "உங்கள் பிரவுசரில் GPS இருப்பிட வசதி இல்லை. வரைபடத்தில் நேரடியாக தொட்டு இடத்தை தேர்வு செய்யவும்." : "GPS Geolocation is not supported by your browser. Please tap directly on the map.");
-        return;
+      // Accuracy circle
+      if (userAccuracyCircle) leafletMap.removeLayer(userAccuracyCircle);
+      userAccuracyCircle = L.circle([lat, lng], {
+        radius: Math.min(accuracy, 500),
+        color: '#2196F3',
+        fillColor: '#64B5F6',
+        fillOpacity: 0.12,
+        weight: 1.5,
+        dashArray: '4, 4'
+      }).addTo(leafletMap);
+
+      // Blue dot marker for user position
+      if (userDotMarker) leafletMap.removeLayer(userDotMarker);
+      const dotIcon = L.divIcon({
+        className: 'user-gps-dot',
+        html: `<div style="width:16px; height:16px; background:#2196F3; border:3px solid #fff; border-radius:50%; box-shadow:0 0 8px rgba(33,150,243,0.6), 0 2px 6px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+      userDotMarker = L.marker([lat, lng], { icon: dotIcon, zIndexOffset: 1000 }).addTo(leafletMap);
+    }
+
+    function autoDetectGPS() {
+      if (!navigator.geolocation) return;
+
+      setGpsStatusUI('', currentMenuLang === 'ta' ? 'உங்கள் இருப்பிடம் கண்டறியப்படுகிறது…' : 'Detecting your location…');
+
+      // Stop any existing watch
+      if (gpsWatchId !== null) {
+        navigator.geolocation.clearWatch(gpsWatchId);
+        gpsWatchId = null;
       }
 
-      navigator.geolocation.getCurrentPosition(
+      let bestAccuracy = Infinity;
+      let settled = false;
+
+      gpsWatchId = navigator.geolocation.watchPosition(
         (pos) => {
           const lat = pos.coords.latitude;
           const lng = pos.coords.longitude;
-          const accuracy = Math.round(pos.coords.accuracy || 20);
+          const accuracy = pos.coords.accuracy || 50;
 
-          if (leafletMap) {
-            leafletMap.setView([lat, lng], 17.5, { animate: true });
+          // Only update if this reading is more accurate
+          if (accuracy < bestAccuracy) {
+            bestAccuracy = accuracy;
+            gpsHasLocked = true;
 
-            if (userAccuracyCircle) {
-              leafletMap.removeLayer(userAccuracyCircle);
+            placeUserDot(lat, lng, accuracy);
+            updateLocationCoords(lat, lng, true, `±${Math.round(accuracy)}m`);
+
+            if (leafletMap) {
+              const zoom = accuracy < 30 ? 17 : accuracy < 100 ? 16 : 15;
+              leafletMap.setView([lat, lng], zoom, { animate: true });
             }
-            userAccuracyCircle = L.circle([lat, lng], {
-              radius: accuracy,
-              color: '#2196F3',
-              fillColor: '#64B5F6',
-              fillOpacity: 0.15,
-              weight: 1.5,
-              dashArray: '3, 3'
-            }).addTo(leafletMap);
+
+            const accText = Math.round(accuracy);
+            setGpsStatusUI('located', currentMenuLang === 'ta' 
+              ? `📍 இருப்பிடம் கண்டறியப்பட்டது (±${accText}m)` 
+              : `📍 Location found (±${accText}m accuracy)`);
           }
 
-          updateLocationCoords(lat, lng, true, `±${accuracy}m`);
-          if (btn) btn.innerHTML = `<i class="ph ph-check"></i> <span>${currentMenuLang === 'ta' ? 'கண்டறியப்பட்டது' : 'Located'}</span>`;
-          setTimeout(() => { if (btn) btn.innerHTML = origText; }, 2000);
+          // Once we get < 30m accuracy, stop watching (save battery)
+          if (accuracy < 30 && !settled) {
+            settled = true;
+            setTimeout(() => {
+              if (gpsWatchId !== null) {
+                navigator.geolocation.clearWatch(gpsWatchId);
+                gpsWatchId = null;
+              }
+            }, 1000);
+          }
         },
         (err) => {
-          console.warn("GPS Device lock error:", err.message);
-          if (btn) btn.innerHTML = origText;
-          alert(currentMenuLang === 'ta' ? "GPS இருப்பிடத்தை பெற முடியவில்லை. வரைபடத்தில் உங்கள் வீட்டின் இடத்தை தொட்டு தேர்வு செய்யவும்." : "Could not get your precise GPS location. Please tap directly on the map to set your location.");
+          console.warn('Auto GPS detection failed:', err.code, err.message);
+          // Don't show alert for auto-detect, just update status bar
+          setGpsStatusUI('error', currentMenuLang === 'ta' 
+            ? '📍 இடம் கண்டறிய இயலவில்லை - வரைபடத்தைத் தொடவும்' 
+            : '📍 Couldn\'t detect — tap map to set location');
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      );
+
+      // Safety timeout: if watchPosition doesn't fire in 20s, try once with low accuracy
+      setTimeout(() => {
+        if (!gpsHasLocked) {
+          // Fallback: try without high accuracy
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              if (!gpsHasLocked) {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                const accuracy = pos.coords.accuracy || 100;
+                gpsHasLocked = true;
+
+                placeUserDot(lat, lng, accuracy);
+                updateLocationCoords(lat, lng, true, `±${Math.round(accuracy)}m`);
+
+                if (leafletMap) {
+                  leafletMap.setView([lat, lng], 15, { animate: true });
+                }
+
+                setGpsStatusUI('located', currentMenuLang === 'ta' 
+                  ? `📍 தோராயமான இருப்பிடம் (±${Math.round(accuracy)}m)` 
+                  : `📍 Approximate location (±${Math.round(accuracy)}m)`);
+              }
+            },
+            () => {
+              if (!gpsHasLocked) {
+                setGpsStatusUI('error', currentMenuLang === 'ta' 
+                  ? '📍 GPS கிடைக்கவில்லை - வரைபடத்தைத் தொடவும்' 
+                  : '📍 GPS unavailable — tap map to set location');
+              }
+            },
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+          );
+        }
+      }, 20000);
+    }
+
+    function detectGPSLocation(e) {
+      if (e) e.preventDefault();
+      const btn = document.getElementById('btn-detect-gps');
+      const origHTML = btn ? btn.innerHTML : '';
+      if (btn) btn.innerHTML = `<i class="ph ph-spinner ph-spin"></i> <span>${currentMenuLang === 'ta' ? '...' : '...'}</span>`;
+
+      if (!navigator.geolocation) {
+        if (btn) btn.innerHTML = origHTML;
+        setGpsStatusUI('error', currentMenuLang === 'ta' ? 'GPS வசதி இல்லை' : 'GPS not supported');
+        return;
+      }
+
+      setGpsStatusUI('', currentMenuLang === 'ta' ? 'GPS இருப்பிடம் பெறப்படுகிறது…' : 'Getting GPS fix…');
+
+      // Stop existing watch and restart fresh
+      if (gpsWatchId !== null) {
+        navigator.geolocation.clearWatch(gpsWatchId);
+        gpsWatchId = null;
+      }
+      gpsHasLocked = false;
+      let bestAccuracy = Infinity;
+
+      gpsWatchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const accuracy = pos.coords.accuracy || 50;
+
+          if (accuracy < bestAccuracy) {
+            bestAccuracy = accuracy;
+            gpsHasLocked = true;
+
+            placeUserDot(lat, lng, accuracy);
+            updateLocationCoords(lat, lng, true, `±${Math.round(accuracy)}m`);
+
+            if (leafletMap) {
+              const zoom = accuracy < 30 ? 17 : accuracy < 100 ? 16 : 15;
+              leafletMap.setView([lat, lng], zoom, { animate: true });
+            }
+
+            const accText = Math.round(accuracy);
+            if (btn) btn.innerHTML = `<i class="ph ph-check"></i> <span>${currentMenuLang === 'ta' ? 'கண்டறியப்பட்டது' : 'Located'}</span>`;
+            setTimeout(() => { if (btn) btn.innerHTML = origHTML; }, 2500);
+
+            setGpsStatusUI('located', currentMenuLang === 'ta' 
+              ? `📍 துல்லிய இருப்பிடம் (±${accText}m)` 
+              : `📍 Precise location (±${accText}m)`);
+          }
+
+          // Stop once we get good accuracy
+          if (accuracy < 30) {
+            setTimeout(() => {
+              if (gpsWatchId !== null) {
+                navigator.geolocation.clearWatch(gpsWatchId);
+                gpsWatchId = null;
+              }
+            }, 500);
+          }
+        },
+        (err) => {
+          console.warn('GPS manual detect error:', err.code, err.message);
+          if (btn) btn.innerHTML = origHTML;
+          
+          let errMsg;
+          if (err.code === 1) {
+            errMsg = currentMenuLang === 'ta' 
+              ? 'GPS அனுமதி மறுக்கப்பட்டது. பிரவுசர் செட்டிங்ஸில் இருப்பிட அனுமதியை இயக்கவும்.'
+              : 'Location permission denied. Please enable location access in your browser settings, then try again.';
+          } else if (err.code === 2) {
+            errMsg = currentMenuLang === 'ta'
+              ? 'GPS சிக்னல் கிடைக்கவில்லை. வெளிப்புற இடத்தில் முயற்சிக்கவும் அல்லது வரைபடத்தில் உங்கள் இடத்தைத் தொடவும்.'
+              : 'GPS signal unavailable. Try in an open area, or tap your location on the map.';
+          } else {
+            errMsg = currentMenuLang === 'ta'
+              ? 'GPS நேரம் முடிந்தது. வரைபடத்தில் உங்கள் வீட்டின் இடத்தைத் தொட்டு தேர்வு செய்யவும்.'
+              : 'GPS timed out. Please tap your location directly on the map.';
+          }
+          setGpsStatusUI('error', currentMenuLang === 'ta' ? 'GPS பிழை — வரைபடத்தைத் தொடவும்' : 'GPS error — tap map instead');
+          alert(errMsg);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
       );
     }
 
