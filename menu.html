@@ -1296,6 +1296,31 @@
       line-height: 1.3;
     }
 
+    
+    /* Direct 1-Tap UPI Payment Button */
+    .btn-direct-upi-pay {
+      width: 100%;
+      background: linear-gradient(135deg, #A6601B 0%, #8B4513 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(139, 69, 19, 0.25);
+      transition: all 0.15s ease;
+    }
+
+    .btn-direct-upi-pay:active {
+      transform: scale(0.97);
+    }
+
     .btn-send-whatsapp-order {
       width: 100%;
       background: #25D366;
@@ -1720,26 +1745,14 @@
             <div class="embedded-upi-box" id="box-embedded-upi">
               <div class="upi-qr-wrapper">
                 <div id="checkout-upi-qrcode"></div>
-                <span style="font-size: 0.66rem; color: #777; font-weight: 700; margin-top: 5px;" id="lbl-scan-qr-hint">Scan with GPay / PhonePe / Paytm</span>
+                <span style="font-size: 0.68rem; color: #777; font-weight: 700; margin-top: 6px;" id="lbl-scan-qr-hint">Scan with GPay / PhonePe / Paytm</span>
               </div>
 
-              <!-- Quick 1-Tap App Buttons for Mobile -->
-              <div class="upi-apps-grid">
-                <a id="link-gpay-btn" href="#" class="btn-upi-app">
-                  <i class="ph ph-lightning"></i> <span id="lbl-btn-gpay">Pay via GPay / UPI</span>
-                </a>
-                <a id="link-phonepe-btn" href="#" class="btn-upi-app">
-                  <i class="ph ph-device-mobile"></i> <span id="lbl-btn-phonepe">Pay via PhonePe</span>
-                </a>
-              </div>
-
-              <!-- Copy UPI ID -->
-              <div class="upi-id-pill-row">
-                <span style="font-size: 0.70rem; color: #555;">UPI ID: <strong id="lbl-upi-id-val" style="color:#8B4513;">7339073844@okbizaxis</strong></span>
-                <button type="button" class="btn-copy-upi" id="btn-copy-upi" onclick="copyBakeryUPI()">
-                  <i class="ph ph-copy"></i> <span id="lbl-copy-text">Copy</span>
-                </button>
-              </div>
+              <!-- Direct 1-Tap UPI Button -->
+              <a id="link-direct-upi-btn" href="#" class="btn-direct-upi-pay">
+                <i class="ph ph-lightning" style="font-size: 1.15rem;"></i>
+                <span id="lbl-btn-direct-upi">Pay via UPI (GPay / PhonePe / Paytm)</span>
+              </a>
             </div>
           </div>
 
@@ -1880,10 +1893,7 @@
         card_payment_title: "Instant UPI Payment",
         badge_payment: "QR & 1-Tap UPI",
         scan_qr_hint: "Scan with GPay / PhonePe / Paytm",
-        btn_gpay: "Pay via GPay / UPI",
-        btn_phonepe: "Pay via PhonePe",
-        copy_upi: "Copy",
-        copied: "Copied!",
+        btn_direct_upi: "Pay via UPI (GPay / PhonePe / Paytm)",
         cod_desc: "💵 Pay exact amount in cash upon doorstep delivery or at store pickup counter.",
         
         btn_whatsapp_delivery: "Place Order on WhatsApp",
@@ -1961,10 +1971,7 @@
         card_payment_title: "உடனடி UPI பணம் செலுத்த",
         badge_payment: "QR & 1-டேப் UPI",
         scan_qr_hint: "GPay / PhonePe / Paytm மூலம் ஸ்கேன் செய்க",
-        btn_gpay: "GPay மூலம் செலுத்துக",
-        btn_phonepe: "PhonePe மூலம் செலுத்துக",
-        copy_upi: "நகலெடு",
-        copied: "நகலெடுக்கப்பட்டது!",
+        btn_direct_upi: "UPI மூலம் செலுத்துக (GPay / PhonePe)",
         cod_desc: "💵 டெலிவரி வரும் போது அல்லது கடையில் பிக்கப் செய்யும் போது ரொக்கமாக செலுத்தவும்.",
         
         btn_whatsapp_delivery: "வாட்ஸ்அப்பில் ஆர்டர் செய்க",
@@ -2110,12 +2117,8 @@
       if (badgePayment) badgePayment.textContent = t.badge_payment;
             const scanQrHint = document.getElementById('lbl-scan-qr-hint');
       if (scanQrHint) scanQrHint.textContent = t.scan_qr_hint;
-      const btnGpayLbl = document.getElementById('lbl-btn-gpay');
-      if (btnGpayLbl) btnGpayLbl.textContent = t.btn_gpay;
-      const btnPhonepeLbl = document.getElementById('lbl-btn-phonepe');
-      if (btnPhonepeLbl) btnPhonepeLbl.textContent = t.btn_phonepe;
-      const copyTextLbl = document.getElementById('lbl-copy-text');
-      if (copyTextLbl) copyTextLbl.textContent = t.copy_upi;
+      const btnDirectUpiLbl = document.getElementById('lbl-btn-direct-upi');
+      if (btnDirectUpiLbl) btnDirectUpiLbl.textContent = t.btn_direct_upi || "Pay via UPI";
       
       setOrderType(currentOrderType);
       renderCategoryTabs();
@@ -2381,7 +2384,8 @@
 
     
     function loadSavedCustomerProfile() {
-      const savedName = localStorage.getItem('sg_customer_name');
+      let savedName = localStorage.getItem('sg_customer_name') || '';
+      if (savedName.toLowerCase().includes('ramesh')) { localStorage.removeItem('sg_customer_name'); savedName = ''; }
       const savedPhone = localStorage.getItem('sg_customer_phone');
       const savedAddress = localStorage.getItem('sg_customer_address');
 
@@ -2496,8 +2500,7 @@
     function updateEmbeddedUPI() {
       const { grandTotal } = calculateCartTotals();
       const qrBox = document.getElementById('checkout-upi-qrcode');
-      const linkGpay = document.getElementById('link-gpay-btn');
-      const linkPhonePe = document.getElementById('link-phonepe-btn');
+      const linkDirectUpi = document.getElementById('link-direct-upi-btn');
 
       if (grandTotal <= 0) return;
 
@@ -2505,16 +2508,15 @@
       const orderTag = (currentOrderType === 'takeaway' ? 'SG-PICKUP-' : 'SG-CAFE-') + refId;
       const upiDeepLink = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=${encodeURIComponent('Santhi Ganesh Bakery')}&am=${grandTotal}&tn=${encodeURIComponent(orderTag)}&cu=INR`;
 
-      if (linkGpay) linkGpay.href = upiDeepLink;
-      if (linkPhonePe) linkPhonePe.href = upiDeepLink;
+      if (linkDirectUpi) linkDirectUpi.href = upiDeepLink;
 
       if (qrBox && typeof QRCode !== 'undefined') {
         qrBox.innerHTML = '';
         try {
           new QRCode(qrBox, {
             text: upiDeepLink,
-            width: 120,
-            height: 120,
+            width: 130,
+            height: 130,
             colorDark: "#1A120B",
             colorLight: "#FFFFFF",
             correctLevel: QRCode.CorrectLevel.M
