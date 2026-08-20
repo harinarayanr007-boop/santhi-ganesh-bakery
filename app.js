@@ -237,7 +237,8 @@ function saveStoredJobs(jobs) {
   jobs.forEach(j => saveJobToSupabase(j));
 }
 
-// Dynamic Products Reference (initialized at top)
+// Dynamic Products Reference
+// PRODUCTS_DATA initialized at top
 
 // 2. SHOPPING CART STATE
 let cartItems = (typeof window !== 'undefined' && window.localStorage)
@@ -248,6 +249,12 @@ let activeSearchQuery = '';
 
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', async () => {
+  // Sync active category from DOM if present
+  const initialActiveTab = document.querySelector('.category-tab.active');
+  if (initialActiveTab && initialActiveTab.dataset.category) {
+    activeCategoryFilter = initialActiveTab.dataset.category;
+  }
+
   // Load from Supabase first, then render
   await Promise.all([
     loadProductsFromSupabase(),
@@ -296,7 +303,7 @@ function renderFullProductsGrid() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 64px 20px;">
-        <p style="font-size: 3rem; margin-bottom: 12px;">ðŸ”</p>
+        <p style="font-size: 3rem; margin-bottom: 12px;">🔍</p>
         <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 8px;">No cakes found</h3>
         <p style="color: var(--color-text-muted);">Try searching for another flavor or category!</p>
       </div>
@@ -331,7 +338,7 @@ function createProductCardHTML(product) {
         </div>
       </div>
       <div class="product-footer">
-        <span class="product-price">â‚¹${safePrice}</span>
+        <span class="product-price">₹${safePrice}</span>
         <button class="btn-add-cart" onclick="addToCart('${safeId}', null, null, this)" title="Add to order cart">
           + Add
         </button>
@@ -465,7 +472,7 @@ function addToCart(productId, customWeight = null, customPrice = null, btnElemen
   // Button micro-interaction feedback
   if (btnElement) {
     const origHTML = btnElement.innerHTML;
-    btnElement.innerHTML = 'âœ“ Added!';
+    btnElement.innerHTML = '✓ Added!';
     btnElement.style.backgroundColor = '#2e7d32';
     btnElement.style.borderColor = '#2e7d32';
     btnElement.style.color = '#FFFFFF';
@@ -541,7 +548,7 @@ function updateCartUI() {
         <p class="text-small" style="margin-top: 4px; color: var(--color-text-muted);">Add your favorite celebration cakes to begin!</p>
       </div>
     `;
-    if (cartTotalEl) cartTotalEl.textContent = 'â‚¹0';
+    if (cartTotalEl) cartTotalEl.textContent = '₹0';
     return;
   }
 
@@ -560,7 +567,7 @@ function updateCartUI() {
         <div class="cart-item-details">
           <div class="cart-item-title">${safeTitle}</div>
           <div style="font-size: 0.78rem; color: var(--color-desert); font-weight: 600; margin-bottom: 2px;">Weight: ${safeWeight}</div>
-          <div class="cart-item-price">â‚¹${item.price} Ã— ${item.quantity} = â‚¹${itemTotal}</div>
+          <div class="cart-item-price">₹${item.price} × ${item.quantity} = ₹${itemTotal}</div>
           <div class="cart-item-qty">
             <button class="qty-btn" onclick="updateQuantity('${safeKey}', -1)" aria-label="Decrease quantity">-</button>
             <span style="font-weight: 700; min-width: 20px; text-align: center;">${item.quantity}</span>
@@ -572,7 +579,7 @@ function updateCartUI() {
     `;
   }).join('');
 
-  if (cartTotalEl) cartTotalEl.textContent = `â‚¹${totalAmount}`;
+  if (cartTotalEl) cartTotalEl.textContent = `₹${totalAmount}`;
 }
 
 // 7. DIRECT WHATSAPP ORDER GENERATOR WITH ABUSE PREVENTION & NAME MODAL
@@ -582,12 +589,12 @@ function promptWhatsAppCustomerName(onComplete) {
   const activeLang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : (localStorage.getItem('sg_bakery_lang') || 'en');
   const isTa = (activeLang === 'ta');
 
-  const titleText = isTa ? "à®‰à®™à¯à®•à®³à¯ à®ªà¯†à®¯à®°à¯ (à®µà®¿à®°à¯à®ªà¯à®ªà®¤à¯à®¤à®¿à®±à¯à®•à¯à®°à®¿à®¯à®¤à¯)" : "Your Name (Optional)";
-  const subText = isTa ? "à®†à®°à¯à®Ÿà®°à¯ à®šà¯†à®¯à¯à®ªà®µà®°à¯ à®¯à®¾à®°à¯ à®Žà®©à¯à®±à¯ à®šà®¾à®¨à¯à®¤à®¿ à®•à®£à¯‡à®·à¯ à®ªà¯‡à®•à¯à®•à®°à®¿ à®•à¯à®´à¯à®µà®¿à®±à¯à®•à¯ à®¤à¯†à®°à®¿à®¯ à®‰à®™à¯à®•à®³à¯ à®ªà¯†à®¯à®°à¯ˆ à®‰à®³à¯à®³à®¿à®Ÿà®µà¯à®®à¯." : "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.";
-  const labelText = isTa ? "à®µà®¾à®Ÿà®¿à®•à¯à®•à¯ˆà®¯à®¾à®³à®°à¯ à®ªà¯†à®¯à®°à¯:" : "Customer Name:";
-  const placeholderText = isTa ? "à®‰à®™à¯à®•à®³à¯ à®ªà¯†à®¯à®°à¯" : "Your Full Name";
-  const skipLabel = isTa ? "à®¤à®µà®¿à®°à¯" : "Skip";
-  const continueText = isTa ? "à®¤à¯Šà®Ÿà®°à®µà¯à®®à¯ âž”" : "Continue âž”";
+  const titleText = isTa ? "உங்கள் பெயர் (விருப்பத்திற்குரியது)" : "Your Name (Optional)";
+  const subText = isTa ? "ஆர்டர் செய்பவர் யார் என்று சாந்தி கணேஷ் பேக்கரி குழுவிற்கு தெரிய உங்கள் பெயரை உள்ளிடவும்." : "Enter your name so Santhi Ganesh Bakery team knows who is placing the order.";
+  const labelText = isTa ? "வாடிக்கையாளர் பெயர்:" : "Customer Name:";
+  const placeholderText = isTa ? "உங்கள் பெயர்" : "Your Full Name";
+  const skipLabel = isTa ? "தவிர்" : "Skip";
+  const continueText = isTa ? "தொடரவும் ➔" : "Continue ➔";
 
   let modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
   
@@ -671,7 +678,7 @@ function submitWhatsAppNameModal() {
   // Honeypot Anti-Bot Verification
   const honeypot = document.getElementById('sg-honeypot-trap');
   if (honeypot && honeypot.value.trim() !== '') {
-    console.warn('âš ï¸ Spam bot submission detected via Honeypot trap. Silently dropping request.');
+    console.warn('⚠️ Spam bot submission detected via Honeypot trap. Silently dropping request.');
     if (window._autoSkipInterval) clearInterval(window._autoSkipInterval);
     const modalOverlay = document.getElementById('whatsapp-name-modal-overlay');
     if (modalOverlay) modalOverlay.classList.remove('active');
@@ -720,7 +727,7 @@ function sendWhatsAppOrder() {
   const cooldownMs = 15000;
   if (now - lastWhatsAppOrderTime < cooldownMs) {
     const remainingSecs = Math.ceil((cooldownMs - (now - lastWhatsAppOrderTime)) / 1000);
-    alert(`â³ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
+    alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
     return;
   }
 
@@ -734,9 +741,9 @@ function sendWhatsAppOrder() {
 
     const activeLang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : (localStorage.getItem('sg_bakery_lang') || 'en');
     const isTa = (activeLang === 'ta');
-    const nameHeader = isTa ? "*à®µà®¾à®Ÿà®¿à®•à¯à®•à¯ˆà®¯à®¾à®³à®°à¯ à®ªà¯†à®¯à®°à¯:*" : "*Customer Name:*";
+    const nameHeader = isTa ? "*வாடிக்கையாளர் பெயர்:*" : "*Customer Name:*";
 
-    let text = `Hello Santhi Ganesh Bakery! ðŸ§\n*Order Ref:* #${orderRef}\n`;
+    let text = `Hello Santhi Ganesh Bakery! 🧁\n*Order Ref:* #${orderRef}\n`;
     if (customerName) {
       text += `${nameHeader} ${customerName}\n`;
     }
@@ -746,10 +753,10 @@ function sendWhatsAppOrder() {
     cartItems.forEach((item, idx) => {
       const sub = item.price * item.quantity;
       total += sub;
-      text += `${idx + 1}. *${item.title}* (${item.weight}) x ${item.quantity} = â‚¹${sub}\n`;
+      text += `${idx + 1}. *${item.title}* (${item.weight}) x ${item.quantity} = ₹${sub}\n`;
     });
 
-    text += `\n*Total Amount:* â‚¹${total}`;
+    text += `\n*Total Amount:* ₹${total}`;
     text += `\n\nPlease confirm availability and delivery time. Thank you!`;
 
     trackEvent('whatsapp_order', { 
@@ -773,7 +780,7 @@ function sendWhatsAppB2BInquiry(isSampleRequest = false) {
   // Honeypot Bot Check
   const honeypot = document.getElementById('b2b-honeypot-trap');
   if (honeypot && honeypot.value.trim() !== '') {
-    console.warn('âš ï¸ Spam bot submission detected via B2B Honeypot trap. Dropping request.');
+    console.warn('⚠️ Spam bot submission detected via B2B Honeypot trap. Dropping request.');
     return;
   }
 
@@ -782,7 +789,7 @@ function sendWhatsAppB2BInquiry(isSampleRequest = false) {
   const cooldownMs = 15000;
   if (now - lastB2BInquiryTime < cooldownMs) {
     const remainingSecs = Math.ceil((cooldownMs - (now - lastB2BInquiryTime)) / 1000);
-    alert(`â³ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another B2B inquiry!`);
+    alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another B2B inquiry!`);
     return;
   }
 
@@ -801,12 +808,12 @@ function sendWhatsAppB2BInquiry(isSampleRequest = false) {
   const refId = 'B2B-' + Math.floor(100000 + Math.random() * 900000);
   const bakeryPhone = '917339073844';
 
-  let text = `Hello Santhi Ganesh Bakery Wholesale Team! ðŸ¢\n`;
+  let text = `Hello Santhi Ganesh Bakery Wholesale Team! 🏢\n`;
   text += `*B2B Ref:* #${refId}\n`;
   if (isSampleRequest) {
-    text += `*Type:* ðŸ“¦ FREE B2B SAMPLE BOX REQUEST\n\n`;
+    text += `*Type:* 📦 FREE B2B SAMPLE BOX REQUEST\n\n`;
   } else {
-    text += `*Type:* ðŸ’¼ WHOLESALE BAKERY INQUIRY\n\n`;
+    text += `*Type:* 💼 WHOLESALE BAKERY INQUIRY\n\n`;
   }
 
   text += `*Business Name:* ${bizName}\n`;
@@ -842,49 +849,49 @@ function requestB2BSampleBox() {
 // 9. FIGMA INTERACTIVE B2B PROTOTYPE STATE ENGINE
 const FIGMA_PROTO_SPECS = {
   kirana: {
-    title: "ðŸª Kirana & Local Grocery Shops",
+    title: "🏪 Kirana & Local Grocery Shops",
     subtitle: "High-Margin Daily Bread & Bun Distribution",
     volume: "15 to 30 Bread Packets Daily",
     products: ["Milk Bread (350g)", "Sandwich Bread (400g)", "Wheat Loaf", "Butter Rusks", "Tea Buns"],
     dispatch: "5:30 AM Morning Dispatch (Doorstep before shop opens)",
     margin: "High Profit Margin per Packet for Retailers",
-    cta: "Request Kirana Free Sample Box ðŸ“¦"
+    cta: "Request Kirana Free Sample Box 📦"
   },
   supermarket: {
-    title: "ðŸ›’ Supermarkets & Retail Outlets",
+    title: "🛒 Supermarkets & Retail Outlets",
     subtitle: "Premium Barcoded Packaged Breads & Savories",
     volume: "50+ Packets Daily (Multiple Varieties)",
     products: ["Soft Sandwich Loaf", "Multigrain Wheat Bread", "Almond Cookies", "Packaged Savories"],
     dispatch: "6:00 AM Direct Shelf Stocking",
     margin: "Tiered Volume Discount Rates",
-    cta: "Request Supermarket Price List ðŸ“¦"
+    cta: "Request Supermarket Price List 📦"
   },
   university: {
-    title: "ðŸ« University & College Canteens",
+    title: "🏫 University & College Canteens",
     subtitle: "Bulk Hot Snacks & Break-Time Tea Buns",
     volume: "100+ Daily Puffs & Snacks",
     products: ["Crispy Veg Puffs", "Egg Puffs", "Chicken Puffs", "Samosas & Cutlets", "Dry Cake Slices"],
     dispatch: "Dual Dispatch: 7:30 AM & 1:00 PM Break Times",
     margin: "Institutional Bulk Canteen Margins",
-    cta: "Request University Sample Box ðŸ“¦"
+    cta: "Request University Sample Box 📦"
   },
   hotel: {
-    title: "ðŸ¨ Hotels, Restaurants & Cafes",
+    title: "🏨 Hotels, Restaurants & Cafes",
     subtitle: "Fresh Burger Buns, Pav & Gourmet Slices",
     volume: "Daily Custom Order Batches",
     products: ["Soft Burger Buns", "Hot Dog Rolls", "Pav Buns", "Red Velvet Slices", "Black Forest Slices"],
     dispatch: "Daily 6:00 AM & 3:00 PM Kitchen Delivery",
     margin: "Chef Custom Size & Bulk Rates",
-    cta: "Request Cafe Sample Box ðŸ“¦"
+    cta: "Request Cafe Sample Box 📦"
   },
   caterer: {
-    title: "ðŸ± Event Caterers & Convention Halls",
+    title: "🍱 Event Caterers & Convention Halls",
     subtitle: "Large Scale Event Snack Boxes & Desserts",
     volume: "Bulk Event Orders (500+ Snack Boxes)",
     products: ["Mini Puffs", "Cupcakes", "Savory Trays", "Individual Packed Snack Boxes"],
     dispatch: "Timed Venue Site Delivery",
     margin: "Special Event Volume Pricing",
-    cta: "Request Event Catering Quote ðŸ“¦"
+    cta: "Request Event Catering Quote 📦"
   }
 };
 
@@ -911,23 +918,23 @@ function switchProtoTab(key, btnElem) {
           <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; color: #555; margin: 0;">${spec.subtitle}</p>
         </div>
         <span style="background: #E8F5E9; color: #2E7D32; border: 1px solid rgba(46,125,50,0.2); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
-          âš¡ ${spec.volume}
+          ⚡ ${spec.volume}
         </span>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px;">
         <div style="background: #F8F9FA; padding: 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);">
-          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">ðŸ“¦ Core Products Supplied:</strong>
+          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">📦 Core Products Supplied:</strong>
           <ul style="margin: 0; padding-left: 18px; font-size: 0.9rem; color: #000; line-height: 1.6;">
             ${spec.products.map(p => `<li>${p}</li>`).join('')}
           </ul>
         </div>
 
         <div style="background: #F8F9FA; padding: 16px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);">
-          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">ðŸšš Dispatch & Delivery:</strong>
+          <strong style="display: block; font-size: 0.85rem; color: #777; text-transform: uppercase; margin-bottom: 8px;">🚚 Dispatch & Delivery:</strong>
           <p style="font-size: 0.9rem; color: #000; margin: 0; font-weight: 600; line-height: 1.5;">${spec.dispatch}</p>
           <div style="margin-top: 12px; font-size: 0.85rem; color: var(--color-desert); font-weight: 600;">
-            ðŸ’° ${spec.margin}
+            💰 ${spec.margin}
           </div>
         </div>
       </div>
@@ -958,6 +965,3 @@ if (typeof document !== 'undefined') {
   });
 }
 
-
-
-console.log('APP JS FINISHED');
