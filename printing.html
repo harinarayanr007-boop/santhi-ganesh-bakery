@@ -523,6 +523,30 @@
       font-weight: 800;
     }
 
+    .btn-item-edit {
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      border-radius: 6px;
+      width: 26px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .btn-item-edit:hover {
+      background: #A6601B;
+      color: #FFFFFF;
+      border-color: #A6601B;
+      transform: scale(1.05);
+    }
+
     /* ====================================================
        RIGHT PANEL: PRESET WORKSPACE & LIVE SHEET PREVIEW
        ==================================================== */
@@ -736,25 +760,59 @@
 
     .frame-gold {
       border: 2px solid #A6601B;
-      outline: 1px solid #7D450F;
-      outline-offset: -3px;
+      outline: 1.5px solid #D4A373;
+      outline-offset: -3.5px;
+      background: #FFFDF9;
+      border-radius: 2px;
       padding: 4mm 3mm;
     }
 
     .frame-modern {
-      border: 1.5px solid #1A120B;
-      border-radius: 4px;
+      border: 2px solid #1A120B;
+      border-radius: 6px;
+      background: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
       padding: 4mm 3mm;
     }
 
     .frame-dashed {
-      border: 1.5px dashed #777777;
+      border: 2px dashed #555555;
+      border-radius: 3px;
+      background: #FFFFFF;
       padding: 4mm 3mm;
     }
 
     .frame-minimal {
-      border: 1px solid #DDDDDD;
+      border: 1px solid #CCCCCC;
+      border-radius: 0;
+      background: #FFFFFF;
       padding: 4mm 3mm;
+    }
+
+    /* Thermal Card Frame Variants */
+    .thermal-card.frame-gold {
+      border: 2.5px solid #000000;
+      outline: 1.2px solid #000000;
+      outline-offset: -3px;
+      background: #FFFFFF;
+    }
+
+    .thermal-card.frame-modern {
+      border: 2.5px solid #000000;
+      border-radius: 6px;
+      background: #FFFFFF;
+    }
+
+    .thermal-card.frame-dashed {
+      border: 2px dashed #000000;
+      border-radius: 2px;
+      background: #FFFFFF;
+    }
+
+    .thermal-card.frame-minimal {
+      border: 1px solid #666666;
+      border-radius: 0;
+      background: #FFFFFF;
     }
 
     .tag-brand-title {
@@ -1083,15 +1141,15 @@
             <!-- Options Toggles -->
             <div class="options-toggles-row">
               <label class="opt-label">
-                <input type="checkbox" id="opt-category" checked onchange="updateOption('showCategory', this.checked)">
+                <input type="checkbox" id="opt-category" onchange="updateOption('showCategory', this.checked)">
                 <span>Category Tag</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-tamil" checked onchange="updateOption('showTamil', this.checked)">
+                <input type="checkbox" id="opt-tamil" onchange="updateOption('showTamil', this.checked)">
                 <span>Tamil Name</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-diet" checked onchange="updateOption('showDiet', this.checked)">
+                <input type="checkbox" id="opt-diet" onchange="updateOption('showDiet', this.checked)">
                 <span>Veg/Non-Veg Dot</span>
               </label>
               <label class="opt-label">
@@ -1099,23 +1157,23 @@
                 <span>Bakery Header</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-date" checked onchange="updateOption('showDate', this.checked)">
+                <input type="checkbox" id="opt-date" onchange="updateOption('showDate', this.checked)">
                 <span>Packed Date</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-qr" checked onchange="updateOption('showQR', this.checked)">
+                <input type="checkbox" id="opt-qr" onchange="updateOption('showQR', this.checked)">
                 <span>QR Code</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-cutlines" checked onchange="updateOption('showCutLines', this.checked)">
+                <input type="checkbox" id="opt-cutlines" onchange="updateOption('showCutLines', this.checked)">
                 <span>Cut Lines</span>
               </label>
 
               <select class="frame-style-select" id="opt-frame-select" onchange="updateOption('frameStyle', this.value)">
                 <option value="gold">⚜️ Royal Gold Frame</option>
-                <option value="modern">◼️ Modern Border</option>
+                <option value="modern">⬛ Modern Border</option>
                 <option value="dashed">✂️ Dashed Cutout</option>
-                <option value="minimal">▫️ Minimal Line</option>
+                <option value="minimal">⬝ Minimal Line</option>
               </select>
             </div>
           </div>
@@ -1167,15 +1225,15 @@
         <div class="form-group">
           <label class="form-label">Diet Type</label>
           <select id="cust-diet" class="form-control">
-            <option value="veg">🟢 Pure Veg</option>
-            <option value="nonveg">🔴 Non-Veg</option>
+            <option value="veg">Pure Veg</option>
+            <option value="nonveg">Non-Veg</option>
           </select>
         </div>
       </div>
 
       <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
         <button type="button" class="btn-micro" style="padding: 8px 14px;" onclick="closeCustomTagModal()">Cancel</button>
-        <button type="button" class="btn-micro" style="padding: 8px 14px; background: var(--color-primary-dark); color: #FFF;" onclick="saveCustomTag()">Add Tag</button>
+        <button type="button" id="btn-save-cust-tag" class="btn-micro" style="padding: 8px 14px; background: var(--color-primary-dark); color: #FFF;" onclick="saveCustomTag()">Add Tag</button>
       </div>
     </div>
   </div>
@@ -1205,13 +1263,13 @@
     let currentZoom = 1;
 
     let options = {
-      showCategory: true,
-      showTamil: true,
-      showDiet: true,
+      showCategory: false,
+      showTamil: false,
+      showDiet: false,
       showBrand: true,
-      showDate: true,
-      showQR: true,
-      showCutLines: true,
+      showDate: false,
+      showQR: false,
+      showCutLines: false,
       frameStyle: 'gold'
     };
 
@@ -1267,7 +1325,7 @@
           price: Number(item.price) || 0,
           unit: item.price_display || '',
           is_veg: item.is_veg !== false,
-          icon: item.icon || '🍽️',
+          icon: '<i class="ph ph-coffee"></i>',
           is_custom: false
         });
       });
@@ -1298,7 +1356,7 @@
           price: Number(p.price) || 0,
           unit: p.weight || '1 Kg',
           is_veg: p.is_veg !== false,
-          icon: '🎂',
+          icon: '<i class="ph ph-cake"></i>',
           is_custom: false
         });
       });
@@ -1306,6 +1364,20 @@
       // 3. Load Custom Tags
       customTags.forEach(c => {
         list.push({ ...c, is_custom: true });
+      });
+
+      // 4. Apply Any Stored Item Edits / Overrides
+      const catalogEdits = JSON.parse(localStorage.getItem('sg_studio_catalog_edits') || '{}');
+      list.forEach(item => {
+        if (catalogEdits[item.id]) {
+          const ed = catalogEdits[item.id];
+          if (ed.name_en !== undefined) item.name_en = ed.name_en;
+          if (ed.name_ta !== undefined) item.name_ta = ed.name_ta;
+          if (ed.price !== undefined) item.price = ed.price;
+          if (ed.unit !== undefined) item.unit = ed.unit;
+          if (ed.category_label !== undefined) item.category_label = ed.category_label;
+          if (ed.is_veg !== undefined) item.is_veg = ed.is_veg;
+        }
       });
 
       allCatalogItems = list;
@@ -1330,19 +1402,19 @@
       if (!bar) return;
 
       const popularCategories = [
-        { id: 'all', label: 'All', icon: '✨' },
-        { id: 'cakes', label: 'Cakes', icon: '🎂' },
-        { id: 'sweets', label: 'Sweets', icon: '🍬' },
-        { id: 'juices', label: 'Juices', icon: '🧃' },
-        { id: 'shakes', label: 'Shakes', icon: '🥤' },
-        { id: 'falooda', label: 'Falooda', icon: '🍨' },
-        { id: 'brownie', label: 'Brownies', icon: '🍫' },
-        { id: 'chat', label: 'Chaat', icon: '🫓' },
-        { id: 'pavbhaji', label: 'Pav Bhaji', icon: '🍲' },
-        { id: 'burger', label: 'Burgers', icon: '🍔' },
-        { id: 'pizza', label: 'Pizzas', icon: '🍕' },
-        { id: 'sandwich', label: 'Sandwiches', icon: '🥪' },
-        { id: 'custom', label: 'Custom', icon: '⭐' }
+        { id: 'all', label: 'All', icon: '<i class="ph ph-sparkle"></i>' },
+        { id: 'cakes', label: 'Cakes', icon: '<i class="ph ph-cake"></i>' },
+        { id: 'sweets', label: 'Sweets', icon: '<i class="ph ph-cookie"></i>' },
+        { id: 'juices', label: 'Juices', icon: '<i class="ph ph-brand-water"></i>' },
+        { id: 'shakes', label: 'Shakes', icon: '<i class="ph ph-brand-water"></i>' },
+        { id: 'falooda', label: 'Falooda', icon: '<i class="ph ph-ice-cream"></i>' },
+        { id: 'brownie', label: 'Brownies', icon: '<i class="ph ph-cookie"></i>' },
+        { id: 'chat', label: 'Chaat', icon: '<i class="ph ph-fork-knife"></i>' },
+        { id: 'pavbhaji', label: 'Pav Bhaji', icon: '<i class="ph ph-bowl-food"></i>' },
+        { id: 'burger', label: 'Burgers', icon: '<i class="ph ph-hamburger"></i>' },
+        { id: 'pizza', label: 'Pizzas', icon: '<i class="ph ph-pizza"></i>' },
+        { id: 'sandwich', label: 'Sandwiches', icon: '<i class="ph ph-sandwich"></i>' },
+        { id: 'custom', label: 'Custom', icon: '<i class="ph ph-star"></i>' }
       ];
 
       bar.innerHTML = popularCategories.map(cat => `
@@ -1428,6 +1500,10 @@
               <span>${qty}</span>
               <button onclick="changeQty('${safeId}', 1)">+</button>
             </div>
+
+            <button class="btn-item-edit" onclick="event.stopPropagation(); openEditItemModal('${safeId}')" title="Edit item name, price & details">
+              <i class="ph ph-pencil-simple"></i>
+            </button>
           </div>
         `;
       }).join('');
@@ -1607,8 +1683,9 @@
 
     function createThermalCardHTML(item, is58, idx, total) {
       const unitText = item.unit ? `/${item.unit}` : '';
+      const frameClass = `frame-${options.frameStyle || 'gold'}`;
       return `
-        <div class="thermal-card">
+        <div class="thermal-card ${frameClass}">
           ${options.showBrand ? `<div style="font-size: 7.5pt; font-weight: 900; letter-spacing: 0.5px; border-bottom: 1px solid #000; padding-bottom: 1mm; margin-bottom: 1.5mm;">SANTHI GANESH BAKERY</div>` : ''}
           ${options.showDiet ? `<div style="font-size: 6.5pt; font-weight: 800; margin-bottom: 1mm;">${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}</div>` : ''}
           <div style="font-size: 18pt; font-weight: 900; line-height: 1.15; margin: 1.5mm 0 1.5mm; text-transform: capitalize; word-break: break-word;">${item.name_en}</div>
@@ -1752,22 +1829,51 @@
                 }
                 .frame-gold {
                   border: 2px solid #A6601B;
-                  outline: 1px solid #7D450F;
-                  outline-offset: -3px;
+                  outline: 1.5px solid #D4A373;
+                  outline-offset: -3.5px;
+                  background: #FFFDF9;
+                  border-radius: 2px;
                   padding: 4mm 3mm;
                 }
                 .frame-modern {
-                  border: 1.5px solid #1A120B;
-                  border-radius: 4px;
+                  border: 2px solid #1A120B;
+                  border-radius: 6px;
+                  background: #FFFFFF;
+                  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
                   padding: 4mm 3mm;
                 }
                 .frame-dashed {
-                  border: 1.5px dashed #777777;
+                  border: 2px dashed #555555;
+                  border-radius: 3px;
+                  background: #FFFFFF;
                   padding: 4mm 3mm;
                 }
                 .frame-minimal {
-                  border: 1px solid #DDDDDD;
+                  border: 1px solid #CCCCCC;
+                  border-radius: 0;
+                  background: #FFFFFF;
                   padding: 4mm 3mm;
+                }
+                .thermal-card.frame-gold {
+                  border: 2.5px solid #000000;
+                  outline: 1.2px solid #000000;
+                  outline-offset: -3px;
+                  background: #FFFFFF;
+                }
+                .thermal-card.frame-modern {
+                  border: 2.5px solid #000000;
+                  border-radius: 6px;
+                  background: #FFFFFF;
+                }
+                .thermal-card.frame-dashed {
+                  border: 2px dashed #000000;
+                  border-radius: 2px;
+                  background: #FFFFFF;
+                }
+                .thermal-card.frame-minimal {
+                  border: 1px solid #666666;
+                  border-radius: 0;
+                  background: #FFFFFF;
                 }
                 .tag-brand-title {
                   font-size: 6.5pt;
@@ -1857,13 +1963,52 @@
       }
     }
 
-    // 8. CUSTOM TAG MODAL
+    // 8. CUSTOM & EDIT TAG MODAL
+    let editingItemId = null;
+
+    function openEditItemModal(id) {
+      const item = allCatalogItems.find(i => i.id === id);
+      if (!item) return;
+
+      editingItemId = id;
+      const modalTitle = document.querySelector('#custom-tag-modal .modal-title');
+      if (modalTitle) modalTitle.textContent = 'Edit Price Tag Details';
+
+      const saveBtn = document.getElementById('btn-save-cust-tag');
+      if (saveBtn) saveBtn.textContent = 'Save Changes';
+
+      document.getElementById('cust-name-en').value = item.name_en || '';
+      document.getElementById('cust-name-ta').value = item.name_ta || '';
+      const currentPrice = priceOverrides[id] !== undefined ? priceOverrides[id] : item.price;
+      document.getElementById('cust-price').value = (currentPrice !== undefined && !isNaN(currentPrice)) ? currentPrice : '';
+      document.getElementById('cust-unit').value = item.unit || '';
+      document.getElementById('cust-category').value = item.category_label || '';
+      document.getElementById('cust-diet').value = item.is_veg ? 'veg' : 'nonveg';
+
+      document.getElementById('custom-tag-modal').classList.add('active');
+    }
+
     function openCustomTagModal() {
+      editingItemId = null;
+      const modalTitle = document.querySelector('#custom-tag-modal .modal-title');
+      if (modalTitle) modalTitle.textContent = 'Create Custom Price Tag';
+
+      const saveBtn = document.getElementById('btn-save-cust-tag');
+      if (saveBtn) saveBtn.textContent = 'Add Tag';
+
+      document.getElementById('cust-name-en').value = '';
+      document.getElementById('cust-name-ta').value = '';
+      document.getElementById('cust-price').value = '';
+      document.getElementById('cust-unit').value = '';
+      document.getElementById('cust-category').value = '';
+      document.getElementById('cust-diet').value = 'veg';
+
       document.getElementById('custom-tag-modal').classList.add('active');
     }
 
     function closeCustomTagModal() {
       document.getElementById('custom-tag-modal').classList.remove('active');
+      editingItemId = null;
     }
 
     function saveCustomTag() {
@@ -1879,32 +2024,63 @@
         return;
       }
 
-      const newId = 'custom-' + Date.now();
-      const newTag = {
-        id: newId,
-        raw_id: newId,
-        name_en: nameEn,
-        name_ta: nameTa,
-        category: 'custom',
-        category_label: category,
-        price: price,
-        unit: unit,
-        is_veg: diet === 'veg',
-        icon: '⭐',
-        is_custom: true
-      };
+      if (editingItemId) {
+        const item = allCatalogItems.find(i => i.id === editingItemId);
+        if (item) {
+          item.name_en = nameEn;
+          item.name_ta = nameTa;
+          item.price = price;
+          item.unit = unit;
+          item.category_label = category;
+          item.is_veg = (diet === 'veg');
+          priceOverrides[editingItemId] = price;
 
-      customTags.unshift(newTag);
-      localStorage.setItem('sg_studio_custom_tags', JSON.stringify(customTags));
-      
-      selectedIds.add(newId);
-      quantities[newId] = 1;
+          const customIdx = customTags.findIndex(c => c.id === editingItemId);
+          if (customIdx >= 0) {
+            customTags[customIdx] = { ...item };
+            localStorage.setItem('sg_studio_custom_tags', JSON.stringify(customTags));
+          } else {
+            const catalogEdits = JSON.parse(localStorage.getItem('sg_studio_catalog_edits') || '{}');
+            catalogEdits[editingItemId] = {
+              name_en: nameEn,
+              name_ta: nameTa,
+              price: price,
+              unit: unit,
+              category_label: category,
+              is_veg: (diet === 'veg')
+            };
+            localStorage.setItem('sg_studio_catalog_edits', JSON.stringify(catalogEdits));
+          }
+        }
+      } else {
+        const newId = 'custom-' + Date.now();
+        const newTag = {
+          id: newId,
+          raw_id: newId,
+          name_en: nameEn,
+          name_ta: nameTa,
+          category: 'custom',
+          category_label: category,
+          price: price,
+          unit: unit,
+          is_veg: diet === 'veg',
+          icon: '<i class="ph ph-star"></i>',
+          is_custom: true
+        };
+
+        customTags.unshift(newTag);
+        localStorage.setItem('sg_studio_custom_tags', JSON.stringify(customTags));
+        
+        selectedIds.add(newId);
+        quantities[newId] = 1;
+      }
 
       closeCustomTagModal();
       document.getElementById('cust-name-en').value = '';
       document.getElementById('cust-name-ta').value = '';
       document.getElementById('cust-price').value = '';
       document.getElementById('cust-unit').value = '';
+      document.getElementById('cust-category').value = '';
 
       loadMasterDatabase();
     }
