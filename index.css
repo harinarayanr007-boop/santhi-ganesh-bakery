@@ -1914,3 +1914,17 @@ html[lang="ta"] .hero-title {
     font-size: 1.6rem;
   }
 }
+
+
+/* ==========================================================================
+   ULTRA BOLD DISPLAY TYPOGRAPHY ENGINE (ABORETO & HERO HEADLINES)
+   ========================================================================== */
+h1, h2, .text-h1, .text-h2, .font-heading, .b2b-main-headline, .b2b-notion-headline, [style*="Aboreto"] {
+  font-weight: 900 !important;
+  -webkit-text-stroke: 1.1px currentColor;
+  letter-spacing: 1.2px !important;
+}
+
+h3, .text-h3 {
+  font-weight: 800 !important;
+}
