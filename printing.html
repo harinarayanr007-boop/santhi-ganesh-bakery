@@ -547,6 +547,52 @@
       transform: scale(1.05);
     }
 
+    .btn-create-tag-panel {
+      width: 100%;
+      background: linear-gradient(135deg, #A6601B 0%, #7D450F 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(166, 96, 27, 0.25);
+    }
+
+    .btn-create-tag-panel:hover {
+      background: linear-gradient(135deg, #B86E24 0%, #8E4E11 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(166, 96, 27, 0.35);
+    }
+
+    .btn-create-tag-prominent {
+      background: var(--color-primary-dark);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.84rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(166, 96, 27, 0.25);
+    }
+
+    .btn-create-tag-prominent:hover {
+      background: #8A4F16;
+      transform: translateY(-1px);
+    }
+
     /* ====================================================
        RIGHT PANEL: PRESET WORKSPACE & LIVE SHEET PREVIEW
        ==================================================== */
@@ -1118,34 +1164,20 @@
       <!-- 2-COLUMN MAIN WORKSPACE -->
       <div class="studio-layout">
         
-        <!-- LEFT PANEL: ITEM SELECTOR -->
+        <!-- LEFT PANEL: CUSTOM ITEM SELECTOR -->
         <aside class="left-panel">
           
-          <!-- Category Filter Section (Dropdown & Quick Tags) -->
-          <div class="category-filter-box">
-            <select class="category-dropdown" id="category-select-dropdown" onchange="selectCategoryFilter(this.value)">
-              <option value="all">✨ All Items (Full Catalog)</option>
-              <option value="cakes">🎂 Cakes & Bakery Special</option>
-              <option value="sweets">🍬 Sweets, Halwa & Savouries</option>
-              <option value="juices">🧃 Fresh Juices</option>
-              <option value="shakes">🥤 Milkshakes</option>
-              <option value="falooda">🍨 Falooda & Desserts</option>
-              <option value="mojito">🍹 Mojitos</option>
-              <option value="brownie">🍫 Brownies & Pastries</option>
-              <option value="icecream">🍦 Scoop Ice Cream</option>
-              <option value="hotdrinks">☕ Tea & Hot Drinks</option>
-              <option value="chat">🫓 Chaat & Snacks</option>
-              <option value="pavbhaji">🍲 Pav Bhaji</option>
-              <option value="toast">🍞 Toasts</option>
-              <option value="burger">🍔 Burgers</option>
-              <option value="pizza">🍕 Pizzas</option>
-              <option value="sandwich">🥪 Sandwiches</option>
-              <option value="momos">🥟 Momos & Crispy</option>
-              <option value="custom">⭐ Custom Created Tags</option>
-            </select>
+          <!-- Create Tag Button -->
+          <div style="padding: 12px 14px 4px;">
+            <button type="button" class="btn-create-tag-panel" onclick="openCustomTagModal()">
+              <i class="ph ph-plus-circle" style="font-size: 1.1rem;"></i> + Create New Price Tag
+            </button>
+          </div>
 
+          <!-- Dynamic Category Chips Bar (Shown when multiple categories exist) -->
+          <div class="category-filter-box" id="category-filter-container" style="padding: 4px 14px 8px; border-bottom: 1px solid var(--color-border); display: none;">
             <div class="category-chips-wrap" id="category-chips-bar">
-              <!-- Injected by JS -->
+              <!-- Injected dynamically by JS -->
             </div>
           </div>
 
@@ -1153,7 +1185,7 @@
           <div class="left-panel-controls">
             <div class="search-input-box">
               <i class="ph ph-magnifying-glass"></i>
-              <input type="text" id="panel-search-input" placeholder="Search dish or cake name..." oninput="handleSearch(this.value)">
+              <input type="text" id="panel-search-input" placeholder="Search custom price tags..." oninput="handleSearch(this.value)">
               <button id="panel-search-clear" class="btn-search-clear" onclick="clearSearch()"><i class="ph ph-x"></i></button>
             </div>
 
@@ -1322,8 +1354,6 @@
 
   <!-- Data Scripts -->
   <script src="./js/utils.js"></script>
-  <script src="./data/cafe-menu-data.js"></script>
-  <script src="./data/products-data.js"></script>
 
   <script>
     'use strict';
@@ -1339,8 +1369,6 @@
     let selectedIds = new Set();
     let quantities = {};
     let priceOverrides = {};
-    let liveProductsList = [];
-    let liveCafeList = [];
 
     let activeCategory = 'all';
     let searchQuery = '';
@@ -1363,7 +1391,7 @@
       const badge = document.getElementById('cloud-sync-badge');
       if (!badge) return;
       if (status === 'syncing') {
-        badge.innerHTML = `<i class="ph ph-arrows-clockwise" style="color: #FFC107; font-size: 1rem;"></i> <span>${text}</span>`;
+        badge.innerHTML = `<i class="ph ph-arrows-clockwise" style="color: #FFC107; font-size: 1rem; animation: spin 1s linear infinite;"></i> <span>${text}</span>`;
       } else if (status === 'synced') {
         badge.innerHTML = `<i class="ph ph-cloud-check" style="color: #4CAF50; font-size: 1rem;"></i> <span>${text}</span>`;
       } else {
@@ -1371,11 +1399,11 @@
       }
     }
 
-    // Fetch live custom tags and item overrides from Supabase cloud database
+    // Fetch live custom tags from Supabase cloud database
     async function fetchStudioCloudData() {
       setSyncStatus('syncing', 'Syncing Cloud Data...');
       try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings?key=in.(studio_custom_tags,studio_catalog_edits,admin_pin)`, {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings?key=in.(studio_custom_tags,admin_pin)`, {
           headers: {
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -1393,12 +1421,6 @@
                 }
               } catch (e) {}
             }
-            if (r.key === 'studio_catalog_edits' && r.value) {
-              try {
-                const cloudEdits = JSON.parse(r.value);
-                localStorage.setItem('sg_studio_catalog_edits', JSON.stringify(cloudEdits));
-              } catch (e) {}
-            }
             if (r.key === 'admin_pin' && r.value) {
               window.CLOUD_ADMIN_PIN = r.value;
             }
@@ -1411,7 +1433,7 @@
       }
     }
 
-    // Push local custom tags and item edits to Supabase cloud database
+    // Push local custom tags to Supabase cloud database
     async function syncStudioToSupabase() {
       setSyncStatus('syncing', 'Syncing to Cloud...');
       try {
@@ -1419,11 +1441,6 @@
           {
             key: 'studio_custom_tags',
             value: JSON.stringify(customTags),
-            updated_at: new Date().toISOString()
-          },
-          {
-            key: 'studio_catalog_edits',
-            value: localStorage.getItem('sg_studio_catalog_edits') || '{}',
             updated_at: new Date().toISOString()
           }
         ];
@@ -1449,31 +1466,6 @@
       }
     }
 
-    // Fetch live products & cafe items from Supabase so all devices have identical catalog
-    async function fetchLiveCatalogFromSupabase() {
-      try {
-        const [prodRes, cafeRes] = await Promise.all([
-          fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.asc`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
-          }),
-          fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?select=*&order=display_order.asc,created_at.asc`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
-          })
-        ]);
-
-        if (prodRes.ok) {
-          const prods = await prodRes.json();
-          if (Array.isArray(prods) && prods.length > 0) liveProductsList = prods;
-        }
-        if (cafeRes.ok) {
-          const cafe = await cafeRes.json();
-          if (Array.isArray(cafe) && cafe.length > 0) liveCafeList = cafe;
-        }
-      } catch (e) {
-        console.log('Live catalog fetch fallback to local defaults:', e.message);
-      }
-    }
-
     async function initAuth() {
       if (sessionStorage.getItem('sg_printing_authed') === 'true') {
         document.getElementById('auth-screen').style.display = 'none';
@@ -1481,10 +1473,7 @@
         main.style.display = 'flex';
         loadMasterDatabase();
         // Background sync and live refresh
-        await Promise.all([
-          fetchStudioCloudData(),
-          fetchLiveCatalogFromSupabase()
-        ]);
+        await fetchStudioCloudData();
         loadMasterDatabase();
       } else {
         document.getElementById('auth-screen').style.display = 'block';
@@ -1501,10 +1490,7 @@
         const main = document.getElementById('studio-main');
         main.style.display = 'flex';
         loadMasterDatabase();
-        await Promise.all([
-          fetchStudioCloudData(),
-          fetchLiveCatalogFromSupabase()
-        ]);
+        await fetchStudioCloudData();
         loadMasterDatabase();
       } else {
         alert('Incorrect PIN code!');
@@ -1518,90 +1504,28 @@
       window.location.reload();
     }
 
-    // 2. LOAD MASTER DATABASE (CAFE + BAKERY PRODUCTS + CUSTOM)
+    // 2. LOAD CUSTOM TAGS ONLY
     function loadMasterDatabase() {
-      const list = [];
-
-      // 1. Load Cafe Items (liveCafeList or IN_STORE_MENU)
-      const cafeSource = (liveCafeList && liveCafeList.length > 0)
-        ? liveCafeList
-        : ((typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) 
-            ? IN_STORE_MENU 
-            : ((typeof window !== 'undefined' && window.IN_STORE_MENU) || []));
-
-      cafeSource.forEach(item => {
-        list.push({
-          id: 'cafe-' + item.id,
-          raw_id: item.id,
-          name_en: item.name || '',
-          name_ta: item.name_ta || '',
-          category: item.category || 'cafe',
-          category_label: item.category_name || item.category || 'Cafe',
-          price: Number(item.price) || 0,
-          unit: item.price_display || '',
-          is_veg: item.is_veg !== false,
-          icon: '<i class="ph ph-coffee"></i>',
-          is_custom: false
-        });
-      });
-
-      // 2. Load Bakery Cakes & Sweets (liveProductsList or DEFAULT_PRODUCTS_DATA)
-      const productsSource = (liveProductsList && liveProductsList.length > 0)
-        ? liveProductsList
-        : ((typeof DEFAULT_PRODUCTS_DATA !== 'undefined' && Array.isArray(DEFAULT_PRODUCTS_DATA)) 
-            ? DEFAULT_PRODUCTS_DATA 
-            : ((typeof window !== 'undefined' && window.DEFAULT_PRODUCTS_DATA) || []));
-
-      productsSource.forEach(p => {
-        let catLabel = 'Bakery Cakes';
-        if (p.category) {
-          if (p.category.includes('birthday')) catLabel = 'Birthday Cake';
-          else if (p.category.includes('wedding')) catLabel = 'Wedding Cake';
-          else if (p.category.includes('kids')) catLabel = 'Kids Cake';
-          else if (p.category.includes('photo')) catLabel = 'Photo Cake';
-          else if (p.category.includes('sweet') || p.category.includes('halwa')) catLabel = 'Traditional Sweets';
-          else catLabel = p.category.toUpperCase().replace('-', ' ');
-        }
-
-        list.push({
-          id: 'bakery-' + p.id,
-          raw_id: p.id,
-          name_en: p.title || p.name || '',
-          name_ta: p.title_ta || '',
-          category: p.category || 'bakery',
-          category_label: catLabel,
-          price: Number(p.price) || 0,
-          unit: p.weight || '1 Kg',
-          is_veg: p.is_veg !== false,
-          icon: '<i class="ph ph-cake"></i>',
-          is_custom: false
-        });
-      });
-
-      // 3. Load Custom Tags
-      customTags.forEach(c => {
-        list.push({ ...c, is_custom: true });
-      });
-
-      // 4. Apply Any Stored Item Edits / Overrides
-      const catalogEdits = JSON.parse(localStorage.getItem('sg_studio_catalog_edits') || '{}');
-      list.forEach(item => {
-        if (catalogEdits[item.id]) {
-          const ed = catalogEdits[item.id];
-          if (ed.name_en !== undefined) item.name_en = ed.name_en;
-          if (ed.name_ta !== undefined) item.name_ta = ed.name_ta;
-          if (ed.price !== undefined) item.price = ed.price;
-          if (ed.unit !== undefined) item.unit = ed.unit;
-          if (ed.category_label !== undefined) item.category_label = ed.category_label;
-          if (ed.is_veg !== undefined) item.is_veg = ed.is_veg;
-        }
-      });
+      const list = customTags.map(c => ({
+        ...c,
+        id: c.id,
+        raw_id: c.raw_id || c.id,
+        name_en: c.name_en || '',
+        name_ta: c.name_ta || '',
+        category: c.category || 'custom',
+        category_label: c.category_label || c.category || 'Custom Tag',
+        price: Number(c.price) || 0,
+        unit: c.unit || '',
+        is_veg: c.is_veg !== false,
+        icon: c.icon || '<i class="ph ph-tag"></i>',
+        is_custom: true
+      }));
 
       allCatalogItems = list;
 
-      // Select first 8 items by default if empty
+      // Select all custom tags by default if none selected
       if (selectedIds.size === 0 && allCatalogItems.length > 0) {
-        allCatalogItems.slice(0, 8).forEach(item => {
+        allCatalogItems.forEach(item => {
           selectedIds.add(item.id);
           quantities[item.id] = 1;
         });
@@ -1612,35 +1536,35 @@
       renderActiveLayoutPreview();
     }
 
-    // 3. RENDER CATEGORY CHIPS & DROPDOWN SYNC
+    // 3. DYNAMIC CATEGORY CHIPS (Shown only when user created multiple categories)
     function renderCategoryChips() {
       const bar = document.getElementById('category-chips-bar');
-      const dropdown = document.getElementById('category-select-dropdown');
-      if (!bar) return;
+      const container = document.getElementById('category-filter-container');
+      if (!bar || !container) return;
 
-      const popularCategories = [
-        { id: 'all', label: 'All', icon: '<i class="ph ph-sparkle"></i>' },
-        { id: 'cakes', label: 'Cakes', icon: '<i class="ph ph-cake"></i>' },
-        { id: 'sweets', label: 'Sweets', icon: '<i class="ph ph-cookie"></i>' },
-        { id: 'juices', label: 'Juices', icon: '<i class="ph ph-brand-water"></i>' },
-        { id: 'shakes', label: 'Shakes', icon: '<i class="ph ph-brand-water"></i>' },
-        { id: 'falooda', label: 'Falooda', icon: '<i class="ph ph-ice-cream"></i>' },
-        { id: 'brownie', label: 'Brownies', icon: '<i class="ph ph-cookie"></i>' },
-        { id: 'chat', label: 'Chaat', icon: '<i class="ph ph-fork-knife"></i>' },
-        { id: 'pavbhaji', label: 'Pav Bhaji', icon: '<i class="ph ph-bowl-food"></i>' },
-        { id: 'burger', label: 'Burgers', icon: '<i class="ph ph-hamburger"></i>' },
-        { id: 'pizza', label: 'Pizzas', icon: '<i class="ph ph-pizza"></i>' },
-        { id: 'sandwich', label: 'Sandwiches', icon: '<i class="ph ph-sandwich"></i>' },
-        { id: 'custom', label: 'Custom', icon: '<i class="ph ph-star"></i>' }
-      ];
+      const categoriesSet = new Set();
+      allCatalogItems.forEach(i => {
+        if (i.category_label && i.category_label.trim()) {
+          categoriesSet.add(i.category_label.trim());
+        }
+      });
 
-      bar.innerHTML = popularCategories.map(cat => `
+      if (categoriesSet.size <= 1) {
+        container.style.display = 'none';
+        return;
+      }
+
+      container.style.display = 'block';
+      const catList = [{ id: 'all', label: 'All Tags', icon: '<i class="ph ph-sparkle"></i>' }];
+      categoriesSet.forEach(c => {
+        catList.push({ id: c.toLowerCase(), label: c, icon: '<i class="ph ph-tag"></i>' });
+      });
+
+      bar.innerHTML = catList.map(cat => `
         <button class="cat-chip-btn ${cat.id === activeCategory ? 'active' : ''}" onclick="selectCategoryFilter('${cat.id}')">
           ${cat.icon} ${cat.label}
         </button>
       `).join('');
-
-      if (dropdown) dropdown.value = activeCategory;
     }
 
     function selectCategoryFilter(catId) {
@@ -1649,7 +1573,7 @@
       renderItemsList();
     }
 
-    // 4. RENDER ITEMS LIST
+    // 4. RENDER CUSTOM ITEMS LIST
     function renderItemsList() {
       const container = document.getElementById('printable-items-list');
       const countLabel = document.getElementById('lbl-selected-count');
@@ -1657,14 +1581,11 @@
 
       let filtered = allCatalogItems;
 
-      if (activeCategory === 'custom') {
-        filtered = filtered.filter(i => i.is_custom);
-      } else if (activeCategory === 'cakes') {
-        filtered = filtered.filter(i => i.category.includes('birthday') || i.category.includes('wedding') || i.category.includes('kids') || i.category.includes('photo') || i.category === 'bakery' || i.category === 'pastries');
-      } else if (activeCategory === 'sweets') {
-        filtered = filtered.filter(i => i.category.includes('sweet') || i.category.includes('halwa') || i.category.includes('savouries') || i.category.includes('traditional'));
-      } else if (activeCategory !== 'all') {
-        filtered = filtered.filter(i => i.category === activeCategory);
+      if (activeCategory !== 'all') {
+        filtered = filtered.filter(i => 
+          (i.category_label && i.category_label.toLowerCase() === activeCategory.toLowerCase()) ||
+          (i.category && i.category.toLowerCase() === activeCategory.toLowerCase())
+        );
       }
 
       if (searchQuery.trim()) {
@@ -1680,8 +1601,24 @@
         countLabel.textContent = `${selectedIds.size} of ${allCatalogItems.length} Selected`;
       }
 
+      if (allCatalogItems.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px 16px; color: #888;">
+            <div style="width: 52px; height: 52px; border-radius: 50%; background: #F5EDE4; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.6rem; color: #A6601B;">
+              <i class="ph ph-tag"></i>
+            </div>
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #24140B; margin-bottom: 4px;">No Price Tags Created Yet</h4>
+            <p style="font-size: 0.78rem; color: #777; margin-bottom: 16px; line-height: 1.4;">Create your custom price tags with custom names, prices and units.</p>
+            <button type="button" class="btn-create-tag-prominent" onclick="openCustomTagModal()">
+              <i class="ph ph-plus-circle"></i> + Create Price Tag
+            </button>
+          </div>
+        `;
+        return;
+      }
+
       if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align: center; padding: 30px; color: #888; font-size: 0.82rem;">No items found in this category.</div>`;
+        container.innerHTML = `<div style="text-align: center; padding: 30px; color: #888; font-size: 0.82rem;">No matching tags found.</div>`;
         return;
       }
 
@@ -1697,7 +1634,7 @@
           <div class="studio-item-card ${isChecked ? 'selected' : ''}" onclick="toggleItem('${safeId}', event)">
             <input type="checkbox" class="item-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleItem('${safeId}', event)">
             
-            <div class="item-icon-bubble">${item.icon || '🏷️'}</div>
+            <div class="item-icon-bubble">${item.icon || '<i class="ph ph-tag"></i>'}</div>
 
             <div class="item-text-info">
               <div class="item-title-en">${safeName}</div>
@@ -1718,7 +1655,7 @@
               <button onclick="changeQty('${safeId}', 1)">+</button>
             </div>
 
-            <button class="btn-item-edit" onclick="event.stopPropagation(); openEditItemModal('${safeId}')" title="Edit item name, price & details">
+            <button class="btn-item-edit" onclick="event.stopPropagation(); openEditItemModal('${safeId}')" title="Edit tag details">
               <i class="ph ph-pencil-simple"></i>
             </button>
           </div>
