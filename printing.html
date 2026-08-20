@@ -1639,8 +1639,6 @@
         return `
           <div class="studio-item-card ${isChecked ? 'selected' : ''}" onclick="toggleItem('${safeId}', event)" ondblclick="openEditItemModal('${safeId}')" title="Click to select/deselect, Double-click to edit">
             <input type="checkbox" class="item-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation(); toggleItem('${safeId}', event)">
-            
-            <div class="item-icon-bubble">${item.icon || '<i class="ph ph-tag"></i>'}</div>
 
             <div class="item-text-info">
               <div class="item-title-en">${safeName}</div>
