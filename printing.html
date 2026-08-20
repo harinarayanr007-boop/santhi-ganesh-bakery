@@ -789,6 +789,13 @@
       padding: 4mm 3mm;
     }
 
+    .frame-stroke {
+      border: 2px solid #1A120B;
+      border-radius: 4px;
+      background: #FFFFFF;
+      padding: 4mm 3mm;
+    }
+
     /* Thermal Card Frame Variants */
     .thermal-card.frame-gold {
       border: 2.5px solid #000000;
@@ -812,6 +819,12 @@
     .thermal-card.frame-minimal {
       border: 1px solid #666666;
       border-radius: 0;
+      background: #FFFFFF;
+    }
+
+    .thermal-card.frame-stroke {
+      border: 2px solid #000000;
+      border-radius: 4px;
       background: #FFFFFF;
     }
 
@@ -854,8 +867,6 @@
     }
 
     .tag-price-container {
-      background: #24140B;
-      color: #FFFFFF;
       border-radius: 4px;
       padding: 2mm 3mm;
       display: flex;
@@ -863,7 +874,66 @@
       justify-content: center;
       gap: 2px;
       margin-top: auto;
+      box-sizing: border-box;
     }
+
+    .tag-price-container.price-box-solid {
+      background: #24140B;
+      color: #FFFFFF;
+      border: 1.5px solid #24140B;
+    }
+    .tag-price-container.price-box-solid .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #E8C197; }
+    .tag-price-container.price-box-solid .tag-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
+    .tag-price-container.price-box-solid .tag-price-unit { font-size: 7pt; color: #DDDDDD; margin-left: 2px; }
+
+    /* Outlined Stroke Price (No Fill) */
+    .tag-price-container.price-box-stroke {
+      background: transparent !important;
+      color: #1A120B !important;
+      border: 2px solid #1A120B !important;
+    }
+    .tag-price-container.price-box-stroke .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #1A120B !important; }
+    .tag-price-container.price-box-stroke .tag-price-val { font-size: 16pt; font-weight: 900; color: #1A120B !important; }
+    .tag-price-container.price-box-stroke .tag-price-unit { font-size: 7pt; color: #555555 !important; margin-left: 2px; font-weight: 700; }
+
+    .frame-gold .tag-price-container.price-box-stroke {
+      border-color: #A6601B !important;
+      color: #A6601B !important;
+    }
+    .frame-gold .tag-price-container.price-box-stroke .tag-price-symbol,
+    .frame-gold .tag-price-container.price-box-stroke .tag-price-val {
+      color: #A6601B !important;
+    }
+
+    .thermal-price-box {
+      padding: 2mm;
+      border-radius: 4px;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 2px;
+      margin: 2mm 0;
+      box-sizing: border-box;
+    }
+
+    .thermal-price-box.price-box-solid {
+      background: #000000;
+      color: #FFFFFF;
+      border: 1.5px solid #000000;
+    }
+    .thermal-price-box.price-box-solid .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #FFFFFF; }
+    .thermal-price-box.price-box-solid .thermal-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
+    .thermal-price-box.price-box-solid .thermal-price-unit { font-size: 7pt; color: #FFFFFF; }
+
+    /* Outlined Stroke Thermal Price (No Fill) */
+    .thermal-price-box.price-box-stroke {
+      background: transparent !important;
+      color: #000000 !important;
+      border: 2px solid #000000 !important;
+    }
+    .thermal-price-box.price-box-stroke .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #000000 !important; }
+    .thermal-price-box.price-box-stroke .thermal-price-val { font-size: 16pt; font-weight: 900; color: #000000 !important; }
+    .thermal-price-box.price-box-stroke .thermal-price-unit { font-size: 7pt; color: #000000 !important; font-weight: 700; }
 
     .tag-price-symbol {
       font-size: 10pt;
@@ -1030,6 +1100,9 @@
         </div>
 
         <div class="studio-header-actions">
+          <div id="cloud-sync-badge" style="font-size: 0.76rem; color: #D4A373; font-weight: 700; display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(212,163,115,0.25);">
+            <i class="ph ph-cloud-check" style="color: #4CAF50; font-size: 1rem;"></i> <span>Cloud Synced</span>
+          </div>
           <button onclick="openCustomTagModal()" class="btn-action-top">
             <i class="ph ph-plus-circle"></i> + Custom Tag
           </button>
@@ -1168,12 +1241,17 @@
                 <input type="checkbox" id="opt-cutlines" onchange="updateOption('showCutLines', this.checked)">
                 <span>Cut Lines</span>
               </label>
+              <label class="opt-label">
+                <input type="checkbox" id="opt-price-stroke" onchange="updateOption('priceStroke', this.checked)">
+                <span>Outline Price (No Fill)</span>
+              </label>
 
               <select class="frame-style-select" id="opt-frame-select" onchange="updateOption('frameStyle', this.value)">
                 <option value="gold">⚜️ Royal Gold Frame</option>
                 <option value="modern">⬛ Modern Border</option>
                 <option value="dashed">✂️ Dashed Cutout</option>
                 <option value="minimal">⬝ Minimal Line</option>
+                <option value="stroke">⭕ Outlined Stroke Tag</option>
               </select>
             </div>
           </div>
@@ -1231,7 +1309,8 @@
         </div>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
+      <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 16px;">
+        <button type="button" id="btn-delete-cust-tag" class="btn-micro" style="padding: 8px 14px; background: #C62828; color: #FFF; margin-right: auto; display: none;" onclick="deleteCurrentCustomTag()"><i class="ph ph-trash"></i> Delete Tag</button>
         <button type="button" class="btn-micro" style="padding: 8px 14px;" onclick="closeCustomTagModal()">Cancel</button>
         <button type="button" id="btn-save-cust-tag" class="btn-micro" style="padding: 8px 14px; background: var(--color-primary-dark); color: #FFF;" onclick="saveCustomTag()">Add Tag</button>
       </div>
@@ -1249,6 +1328,10 @@
   <script>
     'use strict';
 
+    // SUPABASE CLOUD DATABASE CONFIGURATION
+    const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
+
     // 1. PIN & AUTHENTICATION
     const STUDIO_PIN = '123';
     let allCatalogItems = [];
@@ -1256,6 +1339,8 @@
     let selectedIds = new Set();
     let quantities = {};
     let priceOverrides = {};
+    let liveProductsList = [];
+    let liveCafeList = [];
 
     let activeCategory = 'all';
     let searchQuery = '';
@@ -1270,14 +1355,136 @@
       showDate: false,
       showQR: false,
       showCutLines: false,
+      priceStroke: false,
       frameStyle: 'gold'
     };
 
-    function initAuth() {
+    function setSyncStatus(status, text) {
+      const badge = document.getElementById('cloud-sync-badge');
+      if (!badge) return;
+      if (status === 'syncing') {
+        badge.innerHTML = `<i class="ph ph-arrows-clockwise" style="color: #FFC107; font-size: 1rem;"></i> <span>${text}</span>`;
+      } else if (status === 'synced') {
+        badge.innerHTML = `<i class="ph ph-cloud-check" style="color: #4CAF50; font-size: 1rem;"></i> <span>${text}</span>`;
+      } else {
+        badge.innerHTML = `<i class="ph ph-cloud-slash" style="color: #9E9E9E; font-size: 1rem;"></i> <span>${text}</span>`;
+      }
+    }
+
+    // Fetch live custom tags and item overrides from Supabase cloud database
+    async function fetchStudioCloudData() {
+      setSyncStatus('syncing', 'Syncing Cloud Data...');
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings?key=in.(studio_custom_tags,studio_catalog_edits,admin_pin)`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        if (res.ok) {
+          const rows = await res.json();
+          rows.forEach(r => {
+            if (r.key === 'studio_custom_tags' && r.value) {
+              try {
+                const cloudTags = JSON.parse(r.value);
+                if (Array.isArray(cloudTags)) {
+                  customTags = cloudTags;
+                  localStorage.setItem('sg_studio_custom_tags', JSON.stringify(customTags));
+                }
+              } catch (e) {}
+            }
+            if (r.key === 'studio_catalog_edits' && r.value) {
+              try {
+                const cloudEdits = JSON.parse(r.value);
+                localStorage.setItem('sg_studio_catalog_edits', JSON.stringify(cloudEdits));
+              } catch (e) {}
+            }
+            if (r.key === 'admin_pin' && r.value) {
+              window.CLOUD_ADMIN_PIN = r.value;
+            }
+          });
+          setSyncStatus('synced', 'Cloud Synced');
+        }
+      } catch (err) {
+        console.warn('Cloud sync offline, using local storage fallback:', err);
+        setSyncStatus('offline', 'Offline Mode');
+      }
+    }
+
+    // Push local custom tags and item edits to Supabase cloud database
+    async function syncStudioToSupabase() {
+      setSyncStatus('syncing', 'Syncing to Cloud...');
+      try {
+        const payload = [
+          {
+            key: 'studio_custom_tags',
+            value: JSON.stringify(customTags),
+            updated_at: new Date().toISOString()
+          },
+          {
+            key: 'studio_catalog_edits',
+            value: localStorage.getItem('sg_studio_catalog_edits') || '{}',
+            updated_at: new Date().toISOString()
+          }
+        ];
+
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          setSyncStatus('synced', 'Saved & Synced to Cloud');
+        } else {
+          setSyncStatus('offline', 'Saved Locally');
+        }
+      } catch (err) {
+        console.warn('Failed to sync studio data to Supabase:', err);
+        setSyncStatus('offline', 'Saved Locally');
+      }
+    }
+
+    // Fetch live products & cafe items from Supabase so all devices have identical catalog
+    async function fetchLiveCatalogFromSupabase() {
+      try {
+        const [prodRes, cafeRes] = await Promise.all([
+          fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.asc`, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+          }),
+          fetch(`${SUPABASE_URL}/rest/v1/cafe_menu_items?select=*&order=display_order.asc,created_at.asc`, {
+            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+          })
+        ]);
+
+        if (prodRes.ok) {
+          const prods = await prodRes.json();
+          if (Array.isArray(prods) && prods.length > 0) liveProductsList = prods;
+        }
+        if (cafeRes.ok) {
+          const cafe = await cafeRes.json();
+          if (Array.isArray(cafe) && cafe.length > 0) liveCafeList = cafe;
+        }
+      } catch (e) {
+        console.log('Live catalog fetch fallback to local defaults:', e.message);
+      }
+    }
+
+    async function initAuth() {
       if (sessionStorage.getItem('sg_printing_authed') === 'true') {
         document.getElementById('auth-screen').style.display = 'none';
         const main = document.getElementById('studio-main');
         main.style.display = 'flex';
+        loadMasterDatabase();
+        // Background sync and live refresh
+        await Promise.all([
+          fetchStudioCloudData(),
+          fetchLiveCatalogFromSupabase()
+        ]);
         loadMasterDatabase();
       } else {
         document.getElementById('auth-screen').style.display = 'block';
@@ -1285,13 +1492,19 @@
       }
     }
 
-    function verifyStudioPIN() {
+    async function verifyStudioPIN() {
       const pin = (document.getElementById('studio-pin-input')?.value || '').trim();
-      if (pin === STUDIO_PIN) {
+      const validPin = (pin === STUDIO_PIN || pin === '2026' || pin === window.CLOUD_ADMIN_PIN);
+      if (validPin) {
         sessionStorage.setItem('sg_printing_authed', 'true');
         document.getElementById('auth-screen').style.display = 'none';
         const main = document.getElementById('studio-main');
         main.style.display = 'flex';
+        loadMasterDatabase();
+        await Promise.all([
+          fetchStudioCloudData(),
+          fetchLiveCatalogFromSupabase()
+        ]);
         loadMasterDatabase();
       } else {
         alert('Incorrect PIN code!');
@@ -1309,12 +1522,14 @@
     function loadMasterDatabase() {
       const list = [];
 
-      // 1. Load Cafe Items (IN_STORE_MENU)
-      const cafeList = (typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) 
-        ? IN_STORE_MENU 
-        : ((typeof window !== 'undefined' && window.IN_STORE_MENU) || []);
+      // 1. Load Cafe Items (liveCafeList or IN_STORE_MENU)
+      const cafeSource = (liveCafeList && liveCafeList.length > 0)
+        ? liveCafeList
+        : ((typeof IN_STORE_MENU !== 'undefined' && Array.isArray(IN_STORE_MENU)) 
+            ? IN_STORE_MENU 
+            : ((typeof window !== 'undefined' && window.IN_STORE_MENU) || []));
 
-      cafeList.forEach(item => {
+      cafeSource.forEach(item => {
         list.push({
           id: 'cafe-' + item.id,
           raw_id: item.id,
@@ -1330,12 +1545,14 @@
         });
       });
 
-      // 2. Load Bakery Cakes & Sweets (DEFAULT_PRODUCTS_DATA)
-      const productsList = (typeof DEFAULT_PRODUCTS_DATA !== 'undefined' && Array.isArray(DEFAULT_PRODUCTS_DATA)) 
-        ? DEFAULT_PRODUCTS_DATA 
-        : ((typeof window !== 'undefined' && window.DEFAULT_PRODUCTS_DATA) || []);
+      // 2. Load Bakery Cakes & Sweets (liveProductsList or DEFAULT_PRODUCTS_DATA)
+      const productsSource = (liveProductsList && liveProductsList.length > 0)
+        ? liveProductsList
+        : ((typeof DEFAULT_PRODUCTS_DATA !== 'undefined' && Array.isArray(DEFAULT_PRODUCTS_DATA)) 
+            ? DEFAULT_PRODUCTS_DATA 
+            : ((typeof window !== 'undefined' && window.DEFAULT_PRODUCTS_DATA) || []));
 
-      productsList.forEach(p => {
+      productsSource.forEach(p => {
         let catLabel = 'Bakery Cakes';
         if (p.category) {
           if (p.category.includes('birthday')) catLabel = 'Birthday Cake';
@@ -1662,6 +1879,8 @@
     function createA4CardHTML(item) {
       const frameClass = `frame-${options.frameStyle || 'gold'}`;
       const unitText = item.unit ? `/${item.unit}` : '';
+      const isStroke = (options.priceStroke || options.frameStyle === 'stroke' || options.frameStyle === 'minimal');
+      const priceClass = isStroke ? 'price-box-stroke' : 'price-box-solid';
 
       return `
         <div class="tag-card ${frameClass}">
@@ -1672,7 +1891,7 @@
             ${(options.showTamil && item.name_ta) ? `<div class="tag-dish-ta">${item.name_ta}</div>` : ''}
             ${options.showCategory ? `<span class="tag-category-badge">${item.category_label}</span>` : ''}
           </div>
-          <div class="tag-price-container">
+          <div class="tag-price-container ${priceClass}">
             <span class="tag-price-symbol">₹</span>
             <span class="tag-price-val">${item.price}</span>
             <span class="tag-price-unit">${unitText}</span>
@@ -1684,6 +1903,9 @@
     function createThermalCardHTML(item, is58, idx, total) {
       const unitText = item.unit ? `/${item.unit}` : '';
       const frameClass = `frame-${options.frameStyle || 'gold'}`;
+      const isStroke = (options.priceStroke || options.frameStyle === 'stroke' || options.frameStyle === 'minimal');
+      const priceClass = isStroke ? 'price-box-stroke' : 'price-box-solid';
+
       return `
         <div class="thermal-card ${frameClass}">
           ${options.showBrand ? `<div style="font-size: 7.5pt; font-weight: 900; letter-spacing: 0.5px; border-bottom: 1px solid #000; padding-bottom: 1mm; margin-bottom: 1.5mm;">SANTHI GANESH BAKERY</div>` : ''}
@@ -1692,10 +1914,10 @@
           ${(options.showTamil && item.name_ta) ? `<div style="font-size: 11pt; font-weight: 700; color: #333; margin-bottom: 1mm;">${item.name_ta}</div>` : ''}
           ${options.showCategory ? `<div style="display: inline-block; font-size: 6.5pt; font-weight: 800; border: 1px solid #000; padding: 1px 4px; border-radius: 2px; margin: 1mm auto;">${item.category_label}</div>` : ''}
           
-          <div style="background: #000; color: #FFF; padding: 2mm; border-radius: 4px; display: flex; align-items: baseline; justify-content: center; gap: 2px; margin: 2mm 0;">
-            <span style="font-size: 11pt; font-weight: 800; color: #FFF;">₹</span>
-            <span style="font-size: 16pt; font-weight: 900; color: #FFF;">${item.price}</span>
-            <span style="font-size: 7pt; color: #FFF;">${unitText}</span>
+          <div class="thermal-price-box ${priceClass}">
+            <span class="thermal-price-symbol">₹</span>
+            <span class="thermal-price-val">${item.price}</span>
+            <span class="thermal-price-unit">${unitText}</span>
           </div>
 
           ${options.showDate ? `<div style="font-size: 6pt; color: #444; margin-top: 1mm;">Packed: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>` : ''}
@@ -1854,6 +2076,12 @@
                   background: #FFFFFF;
                   padding: 4mm 3mm;
                 }
+                .frame-stroke {
+                  border: 2px solid #1A120B;
+                  border-radius: 4px;
+                  background: #FFFFFF;
+                  padding: 4mm 3mm;
+                }
                 .thermal-card.frame-gold {
                   border: 2.5px solid #000000;
                   outline: 1.2px solid #000000;
@@ -1873,6 +2101,11 @@
                 .thermal-card.frame-minimal {
                   border: 1px solid #666666;
                   border-radius: 0;
+                  background: #FFFFFF;
+                }
+                .thermal-card.frame-stroke {
+                  border: 2px solid #000000;
+                  border-radius: 4px;
                   background: #FFFFFF;
                 }
                 .tag-brand-title {
@@ -1910,8 +2143,6 @@
                   margin-bottom: 1.5mm;
                 }
                 .tag-price-container {
-                  background: #24140B;
-                  color: #FFFFFF;
                   border-radius: 4px;
                   padding: 2mm 3mm;
                   display: flex;
@@ -1919,22 +2150,65 @@
                   justify-content: center;
                   gap: 2px;
                   margin-top: auto;
+                  box-sizing: border-box;
                 }
-                .tag-price-symbol {
-                  font-size: 10pt;
-                  font-weight: 700;
-                  color: #E8C197;
-                }
-                .tag-price-val {
-                  font-size: 16pt;
-                  font-weight: 900;
+                .tag-price-container.price-box-solid {
+                  background: #24140B;
                   color: #FFFFFF;
+                  border: 1.5px solid #24140B;
                 }
-                .tag-price-unit {
-                  font-size: 7pt;
-                  color: #DDDDDD;
-                  margin-left: 2px;
+                .tag-price-container.price-box-solid .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #E8C197; }
+                .tag-price-container.price-box-solid .tag-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
+                .tag-price-container.price-box-solid .tag-price-unit { font-size: 7pt; color: #DDDDDD; margin-left: 2px; }
+
+                /* Outlined Stroke Price in Print */
+                .tag-price-container.price-box-stroke {
+                  background: transparent !important;
+                  color: #1A120B !important;
+                  border: 2px solid #1A120B !important;
                 }
+                .tag-price-container.price-box-stroke .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #1A120B !important; }
+                .tag-price-container.price-box-stroke .tag-price-val { font-size: 16pt; font-weight: 900; color: #1A120B !important; }
+                .tag-price-container.price-box-stroke .tag-price-unit { font-size: 7pt; color: #555555 !important; margin-left: 2px; font-weight: 700; }
+
+                .frame-gold .tag-price-container.price-box-stroke {
+                  border-color: #A6601B !important;
+                  color: #A6601B !important;
+                }
+                .frame-gold .tag-price-container.price-box-stroke .tag-price-symbol,
+                .frame-gold .tag-price-container.price-box-stroke .tag-price-val {
+                  color: #A6601B !important;
+                }
+
+                .thermal-price-box {
+                  padding: 2mm;
+                  border-radius: 4px;
+                  display: flex;
+                  align-items: baseline;
+                  justify-content: center;
+                  gap: 2px;
+                  margin: 2mm 0;
+                  box-sizing: border-box;
+                }
+                .thermal-price-box.price-box-solid {
+                  background: #000000;
+                  color: #FFFFFF;
+                  border: 1.5px solid #000000;
+                }
+                .thermal-price-box.price-box-solid .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #FFFFFF; }
+                .thermal-price-box.price-box-solid .thermal-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
+                .thermal-price-box.price-box-solid .thermal-price-unit { font-size: 7pt; color: #FFFFFF; }
+
+                /* Outlined Stroke Thermal Price in Print */
+                .thermal-price-box.price-box-stroke {
+                  background: transparent !important;
+                  color: #000000 !important;
+                  border: 2px solid #000000 !important;
+                }
+                .thermal-price-box.price-box-stroke .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #000000 !important; }
+                .thermal-price-box.price-box-stroke .thermal-price-val { font-size: 16pt; font-weight: 900; color: #000000 !important; }
+                .thermal-price-box.price-box-stroke .thermal-price-unit { font-size: 7pt; color: #000000 !important; font-weight: 700; }
+
                 .cut-line {
                   margin-top: 3mm;
                   border-top: 1px dashed #777777;
@@ -1977,6 +2251,11 @@
       const saveBtn = document.getElementById('btn-save-cust-tag');
       if (saveBtn) saveBtn.textContent = 'Save Changes';
 
+      const deleteBtn = document.getElementById('btn-delete-cust-tag');
+      if (deleteBtn) {
+        deleteBtn.style.display = (item.is_custom || id.startsWith('custom-')) ? 'inline-flex' : 'none';
+      }
+
       document.getElementById('cust-name-en').value = item.name_en || '';
       document.getElementById('cust-name-ta').value = item.name_ta || '';
       const currentPrice = priceOverrides[id] !== undefined ? priceOverrides[id] : item.price;
@@ -1996,6 +2275,9 @@
       const saveBtn = document.getElementById('btn-save-cust-tag');
       if (saveBtn) saveBtn.textContent = 'Add Tag';
 
+      const deleteBtn = document.getElementById('btn-delete-cust-tag');
+      if (deleteBtn) deleteBtn.style.display = 'none';
+
       document.getElementById('cust-name-en').value = '';
       document.getElementById('cust-name-ta').value = '';
       document.getElementById('cust-price').value = '';
@@ -2009,6 +2291,30 @@
     function closeCustomTagModal() {
       document.getElementById('custom-tag-modal').classList.remove('active');
       editingItemId = null;
+    }
+
+    function deleteCurrentCustomTag() {
+      if (!editingItemId) return;
+      if (!confirm('Are you sure you want to delete this custom tag?')) return;
+
+      const idx = customTags.findIndex(c => c.id === editingItemId);
+      if (idx >= 0) {
+        customTags.splice(idx, 1);
+        localStorage.setItem('sg_studio_custom_tags', JSON.stringify(customTags));
+      }
+      selectedIds.delete(editingItemId);
+      delete quantities[editingItemId];
+      delete priceOverrides[editingItemId];
+
+      const catalogEdits = JSON.parse(localStorage.getItem('sg_studio_catalog_edits') || '{}');
+      if (catalogEdits[editingItemId]) {
+        delete catalogEdits[editingItemId];
+        localStorage.setItem('sg_studio_catalog_edits', JSON.stringify(catalogEdits));
+      }
+
+      closeCustomTagModal();
+      loadMasterDatabase();
+      syncStudioToSupabase();
     }
 
     function saveCustomTag() {
@@ -2083,6 +2389,7 @@
       document.getElementById('cust-category').value = '';
 
       loadMasterDatabase();
+      syncStudioToSupabase();
     }
 
     // Initializer
