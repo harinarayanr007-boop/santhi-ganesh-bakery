@@ -323,7 +323,7 @@
         else if (icon === 'warning') iconHTML = '⚠️';
         else if (icon === 'error') iconHTML = '❌';
         else if (icon === 'success') iconHTML = '✅';
-        else if (icon === 'gps') iconHTML = '📍';
+        else if (icon === 'gps') iconHTML = '';
         else if (icon === 'clock') iconHTML = '⏳';
         else if (icon === 'cake') iconHTML = '🎂';
         else if (icon === 'lock') iconHTML = '🔒';
@@ -382,11 +382,11 @@
         icon = '⚠️';
       } else if (typeof message === 'string' && (message.includes('GPS') || message.includes('Location') || message.includes('இருப்பிடம்'))) {
         type = 'warning';
-        icon = '📍';
+        icon = '';
       } else if (typeof message === 'string' && (message.includes('PIN') || message.includes('password') || message.includes('Incorrect'))) {
         type = 'error';
         icon = '🔒';
-      } else if (typeof message === 'string' && (message.includes('🎉') || message.includes('successfully') || message.includes('saved') || message.includes('restored'))) {
+      } else if (typeof message === 'string' && (message.includes('') || message.includes('successfully') || message.includes('saved') || message.includes('restored'))) {
         type = 'success';
         icon = '✅';
       }
