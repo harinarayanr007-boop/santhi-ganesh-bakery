@@ -770,7 +770,7 @@
 
     .tag-dish-name {
       font-family: var(--font-serif);
-      font-size: 12pt;
+      font-size: 15pt;
       font-weight: 800;
       color: #1A120B;
       line-height: 1.15;
@@ -1611,8 +1611,8 @@
         <div class="thermal-card">
           ${options.showBrand ? `<div style="font-size: 7.5pt; font-weight: 900; letter-spacing: 0.5px; border-bottom: 1px solid #000; padding-bottom: 1mm; margin-bottom: 1.5mm;">SANTHI GANESH BAKERY</div>` : ''}
           ${options.showDiet ? `<div style="font-size: 6.5pt; font-weight: 800; margin-bottom: 1mm;">${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}</div>` : ''}
-          <div style="font-size: 12pt; font-weight: 900; line-height: 1.15; margin-bottom: 1mm;">${item.name_en}</div>
-          ${(options.showTamil && item.name_ta) ? `<div style="font-size: 9pt; font-weight: 700; color: #333; margin-bottom: 1mm;">${item.name_ta}</div>` : ''}
+          <div style="font-size: 18pt; font-weight: 900; line-height: 1.15; margin: 1.5mm 0 1.5mm; text-transform: capitalize; word-break: break-word;">${item.name_en}</div>
+          ${(options.showTamil && item.name_ta) ? `<div style="font-size: 11pt; font-weight: 700; color: #333; margin-bottom: 1mm;">${item.name_ta}</div>` : ''}
           ${options.showCategory ? `<div style="display: inline-block; font-size: 6.5pt; font-weight: 800; border: 1px solid #000; padding: 1px 4px; border-radius: 2px; margin: 1mm auto;">${item.category_label}</div>` : ''}
           
           <div style="background: #000; color: #FFF; padding: 2mm; border-radius: 4px; display: flex; align-items: baseline; justify-content: center; gap: 2px; margin: 2mm 0;">
