@@ -789,19 +789,37 @@
       height: 100%;
     }
 
-    /* Tag Cards */
-    .tag-card {
+    /* Clean Fixed Height Tag Cards (Exact Compact Proportions) */
+    .tag-card, .thermal-card {
       background: #FFFFFF;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       position: relative;
+      width: 72mm;
+      height: 42mm;
+      min-height: 42mm;
+      max-height: 42mm;
+      padding: 3mm 4mm 2.5mm;
+      margin: 0 auto;
       page-break-inside: avoid;
       break-inside: avoid;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
+      overflow: hidden;
+    }
+
+    /* Grid Layouts for A4 */
+    .grid-shelf12 .tag-card,
+    .grid-medium8 .tag-card,
+    .grid-tent4 .tag-card {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      max-height: none;
     }
 
     .frame-gold {
@@ -810,7 +828,6 @@
       outline-offset: -3.5px;
       background: #FFFDF9;
       border-radius: 2px;
-      padding: 4mm 3mm;
     }
 
     .frame-modern {
@@ -818,28 +835,24 @@
       border-radius: 6px;
       background: #FFFFFF;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      padding: 4mm 3mm;
     }
 
     .frame-dashed {
       border: 2px dashed #555555;
       border-radius: 3px;
       background: #FFFFFF;
-      padding: 4mm 3mm;
     }
 
     .frame-minimal {
       border: 1px solid #CCCCCC;
       border-radius: 0;
       background: #FFFFFF;
-      padding: 4mm 3mm;
     }
 
     .frame-stroke {
-      border: 2px solid #1A120B;
+      border: 2px solid #000000;
       border-radius: 4px;
       background: #FFFFFF;
-      padding: 4mm 3mm;
     }
 
     /* Thermal Card Frame Variants */
@@ -874,150 +887,136 @@
       background: #FFFFFF;
     }
 
-    .tag-brand-title {
-      font-size: 6.5pt;
-      font-weight: 800;
-      color: #A6601B;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 1mm;
-      border-bottom: 0.5px solid rgba(166, 96, 27, 0.4);
-      padding-bottom: 0.8mm;
-    }
-
-    .tag-dish-name {
-      font-family: var(--font-serif);
-      font-size: 15pt;
-      font-weight: 800;
-      color: #1A120B;
-      line-height: 1.15;
-      margin-bottom: 1mm;
-    }
-
-    .tag-dish-ta {
-      font-size: 8.5pt;
-      font-weight: 700;
-      color: #555555;
-      margin-bottom: 1mm;
-    }
-
-    .tag-category-badge {
-      font-size: 6.5pt;
-      font-weight: 700;
-      background: #F4EBE1;
-      color: #7D450F;
-      padding: 1px 5px;
-      border-radius: 3px;
-      display: inline-block;
+    /* Header Brand with Solid Divider */
+    .tag-header-brand-wrap {
+      width: 100%;
       margin-bottom: 1.5mm;
     }
 
-    .tag-price-container {
+    .tag-brand-title {
+      font-family: var(--font-main);
+      font-size: 7.5pt;
+      font-weight: 900;
+      color: #000000;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin: 0 0 1mm;
+      line-height: 1;
+    }
+
+    .tag-header-divider {
+      width: 100%;
+      height: 1.5px;
+      background: #000000;
+      margin: 0 auto;
+    }
+
+    /* Main Dish Name */
+    .tag-main-title {
+      font-family: var(--font-main);
+      font-size: 16pt;
+      font-weight: 900;
+      color: #000000;
+      line-height: 1.15;
+      margin: 1mm 0 2mm;
+      text-transform: capitalize;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Middle Price Box (Stroke by default or Solid) */
+    .tag-price-box {
       border-radius: 4px;
-      padding: 2mm 3mm;
+      padding: 1.5mm 6mm;
       display: flex;
       align-items: baseline;
       justify-content: center;
       gap: 2px;
-      margin-top: auto;
+      width: fit-content;
+      min-width: 65%;
+      margin: 0 auto;
       box-sizing: border-box;
     }
 
-    .tag-price-container.price-box-solid {
-      background: #24140B;
-      color: #FFFFFF;
-      border: 1.5px solid #24140B;
-    }
-    .tag-price-container.price-box-solid .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #E8C197; }
-    .tag-price-container.price-box-solid .tag-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
-    .tag-price-container.price-box-solid .tag-price-unit { font-size: 7pt; color: #DDDDDD; margin-left: 2px; }
-
-    /* Outlined Stroke Price (No Fill) */
-    .tag-price-container.price-box-stroke {
-      background: transparent !important;
-      color: #1A120B !important;
-      border: 2px solid #1A120B !important;
-    }
-    .tag-price-container.price-box-stroke .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #1A120B !important; }
-    .tag-price-container.price-box-stroke .tag-price-val { font-size: 16pt; font-weight: 900; color: #1A120B !important; }
-    .tag-price-container.price-box-stroke .tag-price-unit { font-size: 7pt; color: #555555 !important; margin-left: 2px; font-weight: 700; }
-
-    .frame-gold .tag-price-container.price-box-stroke {
-      border-color: #A6601B !important;
-      color: #A6601B !important;
-    }
-    .frame-gold .tag-price-container.price-box-stroke .tag-price-symbol,
-    .frame-gold .tag-price-container.price-box-stroke .tag-price-val {
-      color: #A6601B !important;
-    }
-
-    .thermal-price-box {
-      padding: 2mm;
-      border-radius: 4px;
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 2px;
-      margin: 2mm 0;
-      box-sizing: border-box;
-    }
-
-    .thermal-price-box.price-box-solid {
+    .tag-price-box.price-box-solid {
       background: #000000;
       color: #FFFFFF;
-      border: 1.5px solid #000000;
+      border: 1.8px solid #000000;
     }
-    .thermal-price-box.price-box-solid .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #FFFFFF; }
-    .thermal-price-box.price-box-solid .thermal-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
-    .thermal-price-box.price-box-solid .thermal-price-unit { font-size: 7pt; color: #FFFFFF; }
+    .tag-price-box.price-box-solid * {
+      color: #FFFFFF !important;
+    }
 
-    /* Outlined Stroke Thermal Price (No Fill) */
-    .thermal-price-box.price-box-stroke {
+    .tag-price-box.price-box-stroke {
       background: transparent !important;
       color: #000000 !important;
       border: 2px solid #000000 !important;
     }
-    .thermal-price-box.price-box-stroke .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #000000 !important; }
-    .thermal-price-box.price-box-stroke .thermal-price-val { font-size: 16pt; font-weight: 900; color: #000000 !important; }
-    .thermal-price-box.price-box-stroke .thermal-price-unit { font-size: 7pt; color: #000000 !important; font-weight: 700; }
+    .tag-price-box.price-box-stroke * {
+      color: #000000 !important;
+    }
 
     .tag-price-symbol {
-      font-size: 10pt;
-      font-weight: 700;
-      color: #E8C197;
+      font-size: 11pt;
+      font-weight: 800;
+      line-height: 1;
     }
 
     .tag-price-val {
-      font-size: 16pt;
+      font-size: 17pt;
       font-weight: 900;
-      color: #FFFFFF;
+      line-height: 1;
     }
 
     .tag-price-unit {
-      font-size: 7pt;
-      color: #DDDDDD;
+      font-size: 8.5pt;
+      font-weight: 700;
+      line-height: 1;
       margin-left: 2px;
     }
 
-    .thermal-card {
-      border: 1.5px solid #000000;
-      padding: 3.5mm 3mm;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
+    /* Side / Corner Badges (Zero Impact on Card Height) */
+    .tag-corner-diet {
+      position: absolute;
+      top: 1.5mm;
+      left: 2.5mm;
+      font-size: 5.5pt;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      line-height: 1;
     }
 
+    .tag-corner-category {
+      position: absolute;
+      top: 1.5mm;
+      right: 2.5mm;
+      font-size: 5.5pt;
+      font-weight: 800;
+      border: 1px solid #000000;
+      border-radius: 2px;
+      padding: 0.5px 3px;
+      line-height: 1;
+      background: #FFFFFF;
+    }
+
+    .tag-corner-date {
+      position: absolute;
+      bottom: 1.2mm;
+      right: 2.5mm;
+      font-size: 5pt;
+      color: #444444;
+      font-weight: 600;
+      line-height: 1;
     .cut-line {
-      margin-top: 3mm;
+      margin-top: 2mm;
       border-top: 1px dashed #777777;
       padding-top: 1mm;
       font-size: 6pt;
       color: #666666;
+      width: 100%;
     }
 
     /* ====================================================
@@ -1215,23 +1214,23 @@
           <div class="preset-toolbar">
             <div class="preset-row-top">
               <div class="preset-pills-group">
-                <button class="preset-pill-btn active" data-preset="thermal80" onclick="switchPreset('thermal80', this)">
-                  🧾 80mm Thermal Roll (Main)
+                <button class="preset-pill-btn active" data-preset="singleTag" onclick="switchPreset('singleTag', this)">
+                  🏷️ Single Sticker / Tag (Zero Waste)
+                </button>
+                <button class="preset-pill-btn" data-preset="thermal80" onclick="switchPreset('thermal80', this)">
+                  🧾 80mm Thermal Roll
                 </button>
                 <button class="preset-pill-btn" data-preset="thermal58" onclick="switchPreset('thermal58', this)">
                   🧾 58mm Mini Roll
                 </button>
                 <button class="preset-pill-btn" data-preset="shelf12" onclick="switchPreset('shelf12', this)">
-                  🏷️ A4 Shelf Tags (12/sheet)
+                  📑 A4 Sheet (12/sheet)
                 </button>
                 <button class="preset-pill-btn" data-preset="medium8" onclick="switchPreset('medium8', this)">
-                  🏷️ A4 Medium Cards (8/sheet)
+                  📑 A4 Sheet (8/sheet)
                 </button>
                 <button class="preset-pill-btn" data-preset="tent4" onclick="switchPreset('tent4', this)">
                   🎪 A4 Tent Cards (4/sheet)
-                </button>
-                <button class="preset-pill-btn" data-preset="menu1" onclick="switchPreset('menu1', this)">
-                  📋 A4 Menu Board (1/sheet)
                 </button>
               </div>
 
@@ -1245,45 +1244,43 @@
 
             <!-- Options Toggles -->
             <div class="options-toggles-row">
+              <select class="frame-style-select" id="opt-lang-select" onchange="updateOption('langMode', this.value)" style="margin-left: 0; font-weight: 700;">
+                <option value="en">🔤 Name: English</option>
+                <option value="ta">🔤 Name: தமிழ் (Tamil)</option>
+                <option value="both">🔤 Name: Both (EN + தமிழ்)</option>
+              </select>
+
+              <label class="opt-label">
+                <input type="checkbox" id="opt-brand" checked onchange="updateOption('showBrand', this.checked)">
+                <span>Bakery Header</span>
+              </label>
+              <label class="opt-label">
+                <input type="checkbox" id="opt-price-stroke" checked onchange="updateOption('priceStroke', this.checked)">
+                <span>Outline Price (No Fill)</span>
+              </label>
               <label class="opt-label">
                 <input type="checkbox" id="opt-category" onchange="updateOption('showCategory', this.checked)">
                 <span>Category Tag</span>
-              </label>
-              <label class="opt-label">
-                <input type="checkbox" id="opt-tamil" onchange="updateOption('showTamil', this.checked)">
-                <span>Tamil Name</span>
               </label>
               <label class="opt-label">
                 <input type="checkbox" id="opt-diet" onchange="updateOption('showDiet', this.checked)">
                 <span>Veg/Non-Veg Dot</span>
               </label>
               <label class="opt-label">
-                <input type="checkbox" id="opt-brand" checked onchange="updateOption('showBrand', this.checked)">
-                <span>Bakery Header</span>
-              </label>
-              <label class="opt-label">
                 <input type="checkbox" id="opt-date" onchange="updateOption('showDate', this.checked)">
                 <span>Packed Date</span>
-              </label>
-              <label class="opt-label">
-                <input type="checkbox" id="opt-qr" onchange="updateOption('showQR', this.checked)">
-                <span>QR Code</span>
               </label>
               <label class="opt-label">
                 <input type="checkbox" id="opt-cutlines" onchange="updateOption('showCutLines', this.checked)">
                 <span>Cut Lines</span>
               </label>
-              <label class="opt-label">
-                <input type="checkbox" id="opt-price-stroke" onchange="updateOption('priceStroke', this.checked)">
-                <span>Outline Price (No Fill)</span>
-              </label>
 
               <select class="frame-style-select" id="opt-frame-select" onchange="updateOption('frameStyle', this.value)">
+                <option value="stroke" selected>⭕ Outlined Stroke Tag</option>
                 <option value="gold">⚜️ Royal Gold Frame</option>
                 <option value="modern">⬛ Modern Border</option>
                 <option value="dashed">✂️ Dashed Cutout</option>
                 <option value="minimal">⬝ Minimal Line</option>
-                <option value="stroke">⭕ Outlined Stroke Tag</option>
               </select>
             </div>
           </div>
@@ -1372,19 +1369,18 @@
 
     let activeCategory = 'all';
     let searchQuery = '';
-    let activePreset = 'thermal80';
+    let activePreset = 'singleTag';
     let currentZoom = 1;
 
     let options = {
+      langMode: 'en',
       showCategory: false,
-      showTamil: false,
       showDiet: false,
       showBrand: true,
       showDate: false,
-      showQR: false,
       showCutLines: false,
-      priceStroke: false,
-      frameStyle: 'gold'
+      priceStroke: true,
+      frameStyle: 'stroke'
     };
 
     function setSyncStatus(status, text) {
@@ -1771,7 +1767,8 @@
       if (!container) return;
 
       const queue = getSelectedQueue();
-      const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58');
+      const isSingle = (activePreset === 'singleTag');
+      const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58' || isSingle);
       const is58 = (activePreset === 'thermal58');
 
       if (queue.length === 0) {
@@ -1785,10 +1782,16 @@
         return;
       }
 
-      if (isThermal) {
+      if (isSingle) {
         container.innerHTML = `
-          <div class="print-thermal-roll-container ${is58 ? 'print-thermal-roll-58' : ''}" style="transform: scale(${currentZoom});">
-            ${queue.map((item, idx) => createThermalCardHTML(item, is58, idx, queue.length)).join('')}
+          <div class="print-single-tag-container" style="transform: scale(${currentZoom}); transform-origin: top center; margin: 20px auto; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+            ${queue.map((item, idx) => createTagCardHTML(item, idx, queue.length)).join('')}
+          </div>
+        `;
+      } else if (isThermal) {
+        container.innerHTML = `
+          <div class="print-thermal-roll-container ${is58 ? 'print-thermal-roll-58' : ''}" style="transform: scale(${currentZoom}); transform-origin: top center; margin: 20px auto;">
+            ${queue.map((item, idx) => createTagCardHTML(item, idx, queue.length)).join('')}
           </div>
         `;
       } else {
@@ -1796,7 +1799,6 @@
         let gridClass = 'grid-shelf12';
         if (activePreset === 'medium8') { perPage = 8; gridClass = 'grid-medium8'; }
         else if (activePreset === 'tent4') { perPage = 4; gridClass = 'grid-tent4'; }
-        else if (activePreset === 'menu1') { perPage = 16; gridClass = 'grid-menu1'; }
 
         const pages = [];
         for (let i = 0; i < queue.length; i += perPage) {
@@ -1804,60 +1806,54 @@
         }
 
         container.innerHTML = pages.map((pageItems, pageIdx) => `
-          <div class="print-a4-sheet" style="transform: scale(${currentZoom}); margin-bottom: 20px;">
+          <div class="print-a4-sheet" style="transform: scale(${currentZoom}); transform-origin: top center; margin: 0 auto 20px;">
             <div class="${gridClass}">
-              ${pageItems.map(item => createA4CardHTML(item)).join('')}
+              ${pageItems.map((item, idx) => createTagCardHTML(item, idx, pageItems.length)).join('')}
             </div>
           </div>
         `).join('');
       }
     }
 
-    function createA4CardHTML(item) {
-      const frameClass = `frame-${options.frameStyle || 'gold'}`;
+    function createTagCardHTML(item, idx, total) {
+      const frameClass = `frame-${options.frameStyle || 'stroke'}`;
       const unitText = item.unit ? `/${item.unit}` : '';
       const isStroke = (options.priceStroke || options.frameStyle === 'stroke' || options.frameStyle === 'minimal');
       const priceClass = isStroke ? 'price-box-stroke' : 'price-box-solid';
+
+      // Language mode
+      let displayName = item.name_en || '';
+      if (options.langMode === 'ta') {
+        displayName = item.name_ta || item.name_en || '';
+      } else if (options.langMode === 'both') {
+        if (item.name_ta && item.name_ta.trim() && item.name_ta.trim() !== item.name_en.trim()) {
+          displayName = `${item.name_en} <span style="font-size: 0.72em; font-weight: 700; color: #555555; display: inline-block;">(${item.name_ta})</span>`;
+        } else {
+          displayName = item.name_en || '';
+        }
+      }
 
       return `
         <div class="tag-card ${frameClass}">
-          ${options.showBrand ? `<div class="tag-brand-title">SANTHI GANESH BAKERY • PALAYAMKOTTAI</div>` : ''}
-          <div>
-            ${options.showDiet ? `<div style="font-size: 7pt; font-weight: 800; color: ${item.is_veg ? '#2E7D32' : '#C62828'}; margin-bottom: 1mm;">${item.is_veg ? '🟢 PURE VEG' : '🔴 NON-VEG'}</div>` : ''}
-            <div class="tag-dish-name">${item.name_en}</div>
-            ${(options.showTamil && item.name_ta) ? `<div class="tag-dish-ta">${item.name_ta}</div>` : ''}
-            ${options.showCategory ? `<span class="tag-category-badge">${item.category_label}</span>` : ''}
-          </div>
-          <div class="tag-price-container ${priceClass}">
+          ${options.showDiet ? `<div class="tag-corner-diet">${item.is_veg ? '🟢 VEG' : '🔴 NON-VEG'}</div>` : ''}
+          ${options.showCategory ? `<div class="tag-corner-category">${item.category_label || 'TAG'}</div>` : ''}
+
+          ${options.showBrand ? `
+            <div class="tag-header-brand-wrap">
+              <div class="tag-brand-title">SANTHI GANESH BAKERY</div>
+              <div class="tag-header-divider"></div>
+            </div>
+          ` : ''}
+
+          <div class="tag-main-title">${displayName}</div>
+
+          <div class="tag-price-box ${priceClass}">
             <span class="tag-price-symbol">₹</span>
             <span class="tag-price-val">${item.price}</span>
-            <span class="tag-price-unit">${unitText}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    function createThermalCardHTML(item, is58, idx, total) {
-      const unitText = item.unit ? `/${item.unit}` : '';
-      const frameClass = `frame-${options.frameStyle || 'gold'}`;
-      const isStroke = (options.priceStroke || options.frameStyle === 'stroke' || options.frameStyle === 'minimal');
-      const priceClass = isStroke ? 'price-box-stroke' : 'price-box-solid';
-
-      return `
-        <div class="thermal-card ${frameClass}">
-          ${options.showBrand ? `<div style="font-size: 7.5pt; font-weight: 900; letter-spacing: 0.5px; border-bottom: 1px solid #000; padding-bottom: 1mm; margin-bottom: 1.5mm;">SANTHI GANESH BAKERY</div>` : ''}
-          ${options.showDiet ? `<div style="font-size: 6.5pt; font-weight: 800; margin-bottom: 1mm;">${item.is_veg ? '[ 🟢 100% PURE VEG ]' : '[ 🔴 NON-VEG ]'}</div>` : ''}
-          <div style="font-size: 18pt; font-weight: 900; line-height: 1.15; margin: 1.5mm 0 1.5mm; text-transform: capitalize; word-break: break-word;">${item.name_en}</div>
-          ${(options.showTamil && item.name_ta) ? `<div style="font-size: 11pt; font-weight: 700; color: #333; margin-bottom: 1mm;">${item.name_ta}</div>` : ''}
-          ${options.showCategory ? `<div style="display: inline-block; font-size: 6.5pt; font-weight: 800; border: 1px solid #000; padding: 1px 4px; border-radius: 2px; margin: 1mm auto;">${item.category_label}</div>` : ''}
-          
-          <div class="thermal-price-box ${priceClass}">
-            <span class="thermal-price-symbol">₹</span>
-            <span class="thermal-price-val">${item.price}</span>
-            <span class="thermal-price-unit">${unitText}</span>
+            ${unitText ? `<span class="tag-price-unit">${unitText}</span>` : ''}
           </div>
 
-          ${options.showDate ? `<div style="font-size: 6pt; color: #444; margin-top: 1mm;">Packed: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>` : ''}
+          ${options.showDate ? `<div class="tag-corner-date">PKD: ${new Date().toLocaleDateString('en-GB')}</div>` : ''}
           ${options.showCutLines ? `<div class="cut-line">✂ - - - - - - - - - - - - - - - - - - - ✂</div>` : ''}
         </div>
       `;
@@ -1871,14 +1867,21 @@
         return;
       }
 
-      const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58');
+      const isSingle = (activePreset === 'singleTag');
+      const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58' || isSingle);
       const is58 = (activePreset === 'thermal58');
 
       let printBodyHTML = '';
-      if (isThermal) {
+      if (isSingle) {
+        printBodyHTML = `
+          <div class="print-single-tag-container">
+            ${queue.map((item, idx) => createTagCardHTML(item, idx, queue.length)).join('')}
+          </div>
+        `;
+      } else if (isThermal) {
         printBodyHTML = `
           <div class="print-thermal-roll-container ${is58 ? 'print-thermal-roll-58' : ''}">
-            ${queue.map((item, idx) => createThermalCardHTML(item, is58, idx, queue.length)).join('')}
+            ${queue.map((item, idx) => createTagCardHTML(item, idx, queue.length)).join('')}
           </div>
         `;
       } else {
@@ -1886,7 +1889,6 @@
         let gridClass = 'grid-shelf12';
         if (activePreset === 'medium8') { perPage = 8; gridClass = 'grid-medium8'; }
         else if (activePreset === 'tent4') { perPage = 4; gridClass = 'grid-tent4'; }
-        else if (activePreset === 'menu1') { perPage = 16; gridClass = 'grid-menu1'; }
 
         const pages = [];
         for (let i = 0; i < queue.length; i += perPage) {
@@ -1896,7 +1898,7 @@
         printBodyHTML = pages.map(pageItems => `
           <div class="print-a4-sheet">
             <div class="${gridClass}">
-              ${pageItems.map(item => createA4CardHTML(item)).join('')}
+              ${pageItems.map((item, idx) => createTagCardHTML(item, idx, pageItems.length)).join('')}
             </div>
           </div>
         `).join('');
@@ -1913,7 +1915,7 @@
               <title>Santhi Ganesh Bakery - Price Tags</title>
               <link rel="preconnect" href="https://fonts.googleapis.com">
               <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-              <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+              <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
               <style>
                 @page {
                   size: ${isThermal ? 'auto' : 'A4 portrait'};
@@ -1924,8 +1926,28 @@
                   background: #FFFFFF !important;
                   margin: 0 !important;
                   padding: 0 !important;
-                  width: 100% !important;
+                  width: ${isThermal ? 'auto' : '100%'} !important;
+                  height: auto !important;
+                  min-height: 0 !important;
                   font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+                }
+                .print-single-tag-container {
+                  width: 72mm;
+                  margin: 0 auto;
+                  padding: 2mm 0;
+                  background: #FFFFFF;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 3mm;
+                }
+                .print-thermal-roll-container {
+                  width: ${is58 ? '58mm' : '80mm'};
+                  margin: 0 auto;
+                  padding: 2mm 0;
+                  background: #FFFFFF;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 3mm;
                 }
                 .print-a4-sheet {
                   width: 210mm;
@@ -1937,15 +1959,6 @@
                   break-after: page;
                   display: flex;
                   flex-direction: column;
-                }
-                .print-thermal-roll-container {
-                  width: ${is58 ? '58mm' : '80mm'};
-                  margin: 0 auto;
-                  padding: 2mm 0;
-                  background: #FFFFFF;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 3.5mm;
                 }
                 .grid-shelf12 {
                   display: grid;
@@ -1968,23 +1981,34 @@
                   gap: 6mm;
                   height: 100%;
                 }
-                .grid-menu1 {
-                  display: flex;
-                  flex-direction: column;
-                  height: 100%;
-                }
-                .tag-card, .thermal-card {
+                .tag-card {
                   background: #FFFFFF;
                   box-sizing: border-box;
                   display: flex;
                   flex-direction: column;
-                  justify-content: space-between;
+                  align-items: center;
+                  justify-content: center;
                   text-align: center;
                   position: relative;
+                  width: 72mm;
+                  height: 42mm;
+                  min-height: 42mm;
+                  max-height: 42mm;
+                  padding: 3mm 4mm 2.5mm;
+                  margin: 0 auto;
                   page-break-inside: avoid;
                   break-inside: avoid;
                   -webkit-print-color-adjust: exact !important;
                   print-color-adjust: exact !important;
+                  overflow: hidden;
+                }
+                .grid-shelf12 .tag-card,
+                .grid-medium8 .tag-card,
+                .grid-tent4 .tag-card {
+                  width: 100%;
+                  height: 100%;
+                  min-height: 0;
+                  max-height: none;
                 }
                 .frame-gold {
                   border: 2px solid #A6601B;
@@ -1992,166 +2016,142 @@
                   outline-offset: -3.5px;
                   background: #FFFDF9;
                   border-radius: 2px;
-                  padding: 4mm 3mm;
                 }
                 .frame-modern {
                   border: 2px solid #1A120B;
                   border-radius: 6px;
                   background: #FFFFFF;
-                  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-                  padding: 4mm 3mm;
                 }
                 .frame-dashed {
                   border: 2px dashed #555555;
                   border-radius: 3px;
                   background: #FFFFFF;
-                  padding: 4mm 3mm;
                 }
                 .frame-minimal {
                   border: 1px solid #CCCCCC;
                   border-radius: 0;
                   background: #FFFFFF;
-                  padding: 4mm 3mm;
                 }
                 .frame-stroke {
-                  border: 2px solid #1A120B;
-                  border-radius: 4px;
-                  background: #FFFFFF;
-                  padding: 4mm 3mm;
-                }
-                .thermal-card.frame-gold {
-                  border: 2.5px solid #000000;
-                  outline: 1.2px solid #000000;
-                  outline-offset: -3px;
-                  background: #FFFFFF;
-                }
-                .thermal-card.frame-modern {
-                  border: 2.5px solid #000000;
-                  border-radius: 6px;
-                  background: #FFFFFF;
-                }
-                .thermal-card.frame-dashed {
-                  border: 2px dashed #000000;
-                  border-radius: 2px;
-                  background: #FFFFFF;
-                }
-                .thermal-card.frame-minimal {
-                  border: 1px solid #666666;
-                  border-radius: 0;
-                  background: #FFFFFF;
-                }
-                .thermal-card.frame-stroke {
                   border: 2px solid #000000;
                   border-radius: 4px;
                   background: #FFFFFF;
                 }
-                .tag-brand-title {
-                  font-size: 6.5pt;
-                  font-weight: 800;
-                  color: #A6601B;
-                  letter-spacing: 0.5px;
-                  text-transform: uppercase;
-                  margin-bottom: 1mm;
-                  border-bottom: 0.5px solid rgba(166, 96, 27, 0.4);
-                  padding-bottom: 0.8mm;
-                }
-                .tag-dish-name {
-                  font-family: 'Playfair Display', Georgia, serif;
-                  font-size: 12pt;
-                  font-weight: 800;
-                  color: #1A120B;
-                  line-height: 1.15;
-                  margin-bottom: 1mm;
-                }
-                .tag-dish-ta {
-                  font-size: 8.5pt;
-                  font-weight: 700;
-                  color: #555555;
-                  margin-bottom: 1mm;
-                }
-                .tag-category-badge {
-                  font-size: 6.5pt;
-                  font-weight: 700;
-                  background: #F4EBE1;
-                  color: #7D450F;
-                  padding: 1px 5px;
-                  border-radius: 3px;
-                  display: inline-block;
+                .tag-header-brand-wrap {
+                  width: 100%;
                   margin-bottom: 1.5mm;
                 }
-                .tag-price-container {
+                .tag-brand-title {
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-size: 7.5pt;
+                  font-weight: 900;
+                  color: #000000;
+                  letter-spacing: 0.8px;
+                  text-transform: uppercase;
+                  margin: 0 0 1mm;
+                  line-height: 1;
+                }
+                .tag-header-divider {
+                  width: 100%;
+                  height: 1.5px;
+                  background: #000000;
+                  margin: 0 auto;
+                }
+                .tag-main-title {
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-size: 16pt;
+                  font-weight: 900;
+                  color: #000000;
+                  line-height: 1.15;
+                  margin: 1mm 0 2mm;
+                  text-transform: capitalize;
+                  word-break: break-word;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                }
+                .tag-price-box {
                   border-radius: 4px;
-                  padding: 2mm 3mm;
+                  padding: 1.5mm 6mm;
                   display: flex;
                   align-items: baseline;
                   justify-content: center;
                   gap: 2px;
-                  margin-top: auto;
+                  width: fit-content;
+                  min-width: 65%;
+                  margin: 0 auto;
                   box-sizing: border-box;
                 }
-                .tag-price-container.price-box-solid {
-                  background: #24140B;
-                  color: #FFFFFF;
-                  border: 1.5px solid #24140B;
-                }
-                .tag-price-container.price-box-solid .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #E8C197; }
-                .tag-price-container.price-box-solid .tag-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
-                .tag-price-container.price-box-solid .tag-price-unit { font-size: 7pt; color: #DDDDDD; margin-left: 2px; }
-
-                /* Outlined Stroke Price in Print */
-                .tag-price-container.price-box-stroke {
-                  background: transparent !important;
-                  color: #1A120B !important;
-                  border: 2px solid #1A120B !important;
-                }
-                .tag-price-container.price-box-stroke .tag-price-symbol { font-size: 10pt; font-weight: 700; color: #1A120B !important; }
-                .tag-price-container.price-box-stroke .tag-price-val { font-size: 16pt; font-weight: 900; color: #1A120B !important; }
-                .tag-price-container.price-box-stroke .tag-price-unit { font-size: 7pt; color: #555555 !important; margin-left: 2px; font-weight: 700; }
-
-                .frame-gold .tag-price-container.price-box-stroke {
-                  border-color: #A6601B !important;
-                  color: #A6601B !important;
-                }
-                .frame-gold .tag-price-container.price-box-stroke .tag-price-symbol,
-                .frame-gold .tag-price-container.price-box-stroke .tag-price-val {
-                  color: #A6601B !important;
-                }
-
-                .thermal-price-box {
-                  padding: 2mm;
-                  border-radius: 4px;
-                  display: flex;
-                  align-items: baseline;
-                  justify-content: center;
-                  gap: 2px;
-                  margin: 2mm 0;
-                  box-sizing: border-box;
-                }
-                .thermal-price-box.price-box-solid {
+                .tag-price-box.price-box-solid {
                   background: #000000;
                   color: #FFFFFF;
-                  border: 1.5px solid #000000;
+                  border: 1.8px solid #000000;
                 }
-                .thermal-price-box.price-box-solid .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #FFFFFF; }
-                .thermal-price-box.price-box-solid .thermal-price-val { font-size: 16pt; font-weight: 900; color: #FFFFFF; }
-                .thermal-price-box.price-box-solid .thermal-price-unit { font-size: 7pt; color: #FFFFFF; }
-
-                /* Outlined Stroke Thermal Price in Print */
-                .thermal-price-box.price-box-stroke {
+                .tag-price-box.price-box-solid * {
+                  color: #FFFFFF !important;
+                }
+                .tag-price-box.price-box-stroke {
                   background: transparent !important;
                   color: #000000 !important;
                   border: 2px solid #000000 !important;
                 }
-                .thermal-price-box.price-box-stroke .thermal-price-symbol { font-size: 11pt; font-weight: 800; color: #000000 !important; }
-                .thermal-price-box.price-box-stroke .thermal-price-val { font-size: 16pt; font-weight: 900; color: #000000 !important; }
-                .thermal-price-box.price-box-stroke .thermal-price-unit { font-size: 7pt; color: #000000 !important; font-weight: 700; }
-
+                .tag-price-box.price-box-stroke * {
+                  color: #000000 !important;
+                }
+                .tag-price-symbol {
+                  font-size: 11pt;
+                  font-weight: 800;
+                  line-height: 1;
+                }
+                .tag-price-val {
+                  font-size: 17pt;
+                  font-weight: 900;
+                  line-height: 1;
+                }
+                .tag-price-unit {
+                  font-size: 8.5pt;
+                  font-weight: 700;
+                  line-height: 1;
+                  margin-left: 2px;
+                }
+                .tag-corner-diet {
+                  position: absolute;
+                  top: 1.5mm;
+                  left: 2.5mm;
+                  font-size: 5.5pt;
+                  font-weight: 800;
+                  letter-spacing: 0.3px;
+                  line-height: 1;
+                }
+                .tag-corner-category {
+                  position: absolute;
+                  top: 1.5mm;
+                  right: 2.5mm;
+                  font-size: 5.5pt;
+                  font-weight: 800;
+                  border: 1px solid #000000;
+                  border-radius: 2px;
+                  padding: 0.5px 3px;
+                  line-height: 1;
+                  background: #FFFFFF;
+                }
+                .tag-corner-date {
+                  position: absolute;
+                  bottom: 1.2mm;
+                  right: 2.5mm;
+                  font-size: 5pt;
+                  color: #444444;
+                  font-weight: 600;
+                  line-height: 1;
+                }
                 .cut-line {
-                  margin-top: 3mm;
+                  margin-top: 2mm;
                   border-top: 1px dashed #777777;
                   padding-top: 1mm;
                   font-size: 6pt;
                   color: #666666;
+                  width: 100%;
                 }
               </style>
             </head>
