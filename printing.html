@@ -1888,6 +1888,14 @@
       const isSingle = (activePreset === 'singleTag');
       const isThermal = (activePreset === 'thermal80' || activePreset === 'thermal58' || isSingle);
       const is58 = (activePreset === 'thermal58');
+      const rollWidth = is58 ? '58mm' : '80mm';
+      const cardWidth = is58 ? '56mm' : '76mm';
+
+      // Lock exact page size for zero paper waste
+      let pageSizeCSS = 'A4 portrait';
+      if (isSingle || isThermal) {
+        pageSizeCSS = `${rollWidth} 44mm`;
+      }
 
       let printBodyHTML = '';
       if (isSingle) {
@@ -1936,36 +1944,29 @@
               <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
               <style>
                 @page {
-                  size: ${isThermal ? 'auto' : 'A4 portrait'};
-                  margin: 0mm;
+                  size: ${pageSizeCSS};
+                  margin: 0mm !important;
                 }
                 * { box-sizing: border-box; margin: 0; padding: 0; }
                 html, body {
                   background: #FFFFFF !important;
                   margin: 0 !important;
                   padding: 0 !important;
-                  width: ${isThermal ? 'auto' : '100%'} !important;
+                  width: ${isThermal ? rollWidth : '100%'} !important;
                   height: auto !important;
-                  min-height: 0 !important;
+                  max-height: max-content !important;
+                  overflow: hidden !important;
                   font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
                 }
-                .print-single-tag-container {
-                  width: 72mm;
-                  margin: 0 auto;
-                  padding: 2mm 0;
-                  background: #FFFFFF;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 3mm;
-                }
+                .print-single-tag-container,
                 .print-thermal-roll-container {
-                  width: ${is58 ? '58mm' : '80mm'};
-                  margin: 0 auto;
-                  padding: 2mm 0;
-                  background: #FFFFFF;
+                  width: ${rollWidth} !important;
+                  margin: 0 auto !important;
+                  padding: 0 !important;
+                  background: #FFFFFF !important;
                   display: flex;
                   flex-direction: column;
-                  gap: 3mm;
+                  gap: 0;
                 }
                 .print-a4-sheet {
                   width: 210mm;
@@ -2008,14 +2009,16 @@
                   justify-content: center;
                   text-align: center;
                   position: relative;
-                  width: 72mm;
-                  height: 42mm;
-                  min-height: 42mm;
-                  max-height: 42mm;
+                  width: ${isThermal ? cardWidth : '72mm'};
+                  height: 44mm;
+                  min-height: 44mm;
+                  max-height: 44mm;
                   padding: 3mm 4mm 2.5mm;
                   margin: 0 auto;
                   page-break-inside: avoid;
                   break-inside: avoid;
+                  page-break-after: ${isThermal ? 'always' : 'auto'};
+                  break-after: ${isThermal ? 'page' : 'auto'};
                   -webkit-print-color-adjust: exact !important;
                   print-color-adjust: exact !important;
                   overflow: hidden;
@@ -2027,6 +2030,8 @@
                   height: 100%;
                   min-height: 0;
                   max-height: none;
+                  page-break-after: auto;
+                  break-after: auto;
                 }
                 .frame-gold {
                   border: 2px solid #A6601B;
