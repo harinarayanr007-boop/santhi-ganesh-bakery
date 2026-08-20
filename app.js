@@ -241,17 +241,11 @@ let PRODUCTS_DATA = DEFAULT_PRODUCTS_DATA;
 let cartItems = (typeof window !== 'undefined' && window.localStorage)
   ? JSON.parse(localStorage.getItem('sg_bakery_cart') || '[]')
   : [];
-let activeCategoryFilter = 'kids';
+let activeCategoryFilter = 'all';
 let activeSearchQuery = '';
 
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', async () => {
-  // Sync active category from DOM if present
-  const initialActiveTab = document.querySelector('.category-tab.active');
-  if (initialActiveTab && initialActiveTab.dataset.category) {
-    activeCategoryFilter = initialActiveTab.dataset.category;
-  }
-
   // Load from Supabase first, then render
   await Promise.all([
     loadProductsFromSupabase(),
