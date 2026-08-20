@@ -950,11 +950,12 @@
     .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 220px;
+      height: 180px;
       border-radius: 12px;
       overflow: hidden;
       border: 1.5px solid rgba(166, 96, 27, 0.2);
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin: 4px 0;
     }
 
     #delivery-live-map {
@@ -1091,9 +1092,10 @@
     /* Quick Area Chips Minimal */
     .clean-area-chips {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      width: 100%;
+      margin-top: 2px;
     }
     .clean-area-chips::-webkit-scrollbar { display: none; }
 
@@ -1698,7 +1700,7 @@
             </div>
 
             <!-- Delivery Address (Delivery Only) -->
-            <div id="block-delivery-location" style="margin-top: 14px;">
+            <div id="block-delivery-location" style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 14px;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                 <label style="font-size: 0.82rem; font-weight: 700;" id="lbl-title-location">Delivery Address *</label>
                 <span class="card-header-badge badge-green" id="lbl-badge-coverage" style="font-size: 0.65rem;">2 km Zone</span>
