@@ -801,15 +801,15 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
       text-align: center;
       position: relative;
-      width: 72mm;
-      height: 42mm;
-      min-height: 42mm;
-      max-height: 42mm;
-      padding: 3mm 4mm 2.5mm;
+      width: 76mm;
+      height: 44mm;
+      min-height: 44mm;
+      max-height: 44mm;
+      padding: 2.2mm 3.5mm 2.2mm;
       margin: 0 auto;
       page-break-inside: avoid;
       break-inside: avoid;
@@ -893,57 +893,78 @@
       background: #FFFFFF;
     }
 
-    /* Header Brand with Solid Divider */
+    /* Header Brand with Solid Divider & Logo */
     .tag-header-brand-wrap {
       width: 100%;
-      margin-bottom: 1.5mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    .tag-brand-logo {
+      height: 4.8mm;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 0.5mm;
+      display: block;
     }
 
     .tag-brand-title {
       font-family: var(--font-main);
-      font-size: 7.5pt;
+      font-size: 6.8pt;
       font-weight: 900;
       color: #000000;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
-      margin: 0 0 1mm;
+      margin: 0 0 0.8mm;
       line-height: 1;
     }
 
     .tag-header-divider {
       width: 100%;
-      height: 1.5px;
+      height: 1.4px;
       background: #000000;
       margin: 0 auto;
     }
 
-    /* Main Dish Name */
+    /* Flexible Middle Dish Name Area */
+    .tag-main-title-wrap {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5mm 0;
+      min-height: 0;
+    }
+
     .tag-main-title {
       font-family: var(--font-main);
-      font-size: 16pt;
+      font-size: 15.5pt;
       font-weight: 900;
       color: #000000;
-      line-height: 1.15;
-      margin: 1mm 0 2mm;
+      line-height: 1.12;
       text-transform: capitalize;
       word-break: break-word;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      margin: 0;
     }
 
-    /* Middle Price Box (Stroke by default or Solid) */
+    /* Bottom-Anchored Middle Price Box */
     .tag-price-box {
       border-radius: 4px;
-      padding: 1.5mm 6mm;
+      padding: 1.2mm 6mm;
       display: flex;
       align-items: baseline;
       justify-content: center;
       gap: 2px;
       width: fit-content;
-      min-width: 65%;
-      margin: 0 auto;
+      min-width: 62%;
+      margin: 0 auto 0.2mm;
       box-sizing: border-box;
     }
 
@@ -1858,12 +1879,15 @@
 
           ${options.showBrand ? `
             <div class="tag-header-brand-wrap">
+              <img src="./sg-bakery-logo.png" class="tag-brand-logo" alt="Logo">
               <div class="tag-brand-title">SANTHI GANESH BAKERY</div>
               <div class="tag-header-divider"></div>
             </div>
           ` : ''}
 
-          <div class="tag-main-title">${displayName}</div>
+          <div class="tag-main-title-wrap">
+            <div class="tag-main-title">${displayName}</div>
+          </div>
 
           <div class="tag-price-box ${priceClass}">
             <span class="tag-price-symbol">₹</span>
@@ -2005,15 +2029,15 @@
                   box-sizing: border-box;
                   display: flex;
                   flex-direction: column;
+                  justify-content: space-between;
                   align-items: center;
-                  justify-content: center;
                   text-align: center;
                   position: relative;
-                  width: ${isThermal ? cardWidth : '72mm'};
+                  width: ${isThermal ? cardWidth : '76mm'};
                   height: 44mm;
                   min-height: 44mm;
                   max-height: 44mm;
-                  padding: 3mm 4mm 2.5mm;
+                  padding: 2.2mm 3.5mm 2.2mm;
                   margin: 0 auto;
                   page-break-inside: avoid;
                   break-inside: avoid;
@@ -2062,48 +2086,67 @@
                 }
                 .tag-header-brand-wrap {
                   width: 100%;
-                  margin-bottom: 1.5mm;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  margin-bottom: 0;
+                }
+                .tag-brand-logo {
+                  height: 4.8mm;
+                  width: auto;
+                  object-fit: contain;
+                  margin-bottom: 0.5mm;
+                  display: block;
                 }
                 .tag-brand-title {
                   font-family: 'Plus Jakarta Sans', sans-serif;
-                  font-size: 7.5pt;
+                  font-size: 6.8pt;
                   font-weight: 900;
                   color: #000000;
-                  letter-spacing: 0.8px;
+                  letter-spacing: 0.7px;
                   text-transform: uppercase;
-                  margin: 0 0 1mm;
+                  margin: 0 0 0.8mm;
                   line-height: 1;
                 }
                 .tag-header-divider {
                   width: 100%;
-                  height: 1.5px;
+                  height: 1.4px;
                   background: #000000;
                   margin: 0 auto;
                 }
+                .tag-main-title-wrap {
+                  flex: 1;
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 0.5mm 0;
+                  min-height: 0;
+                }
                 .tag-main-title {
                   font-family: 'Plus Jakarta Sans', sans-serif;
-                  font-size: 16pt;
+                  font-size: 15.5pt;
                   font-weight: 900;
                   color: #000000;
-                  line-height: 1.15;
-                  margin: 1mm 0 2mm;
+                  line-height: 1.12;
                   text-transform: capitalize;
                   word-break: break-word;
                   display: -webkit-box;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
                   overflow: hidden;
+                  margin: 0;
                 }
                 .tag-price-box {
                   border-radius: 4px;
-                  padding: 1.5mm 6mm;
+                  padding: 1.2mm 6mm;
                   display: flex;
                   align-items: baseline;
                   justify-content: center;
                   gap: 2px;
                   width: fit-content;
-                  min-width: 65%;
-                  margin: 0 auto;
+                  min-width: 62%;
+                  margin: 0 auto 0.2mm;
                   box-sizing: border-box;
                 }
                 .tag-price-box.price-box-solid {
