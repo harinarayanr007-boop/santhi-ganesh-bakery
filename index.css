@@ -342,14 +342,14 @@ h3, .text-h3 {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.6vw, 22px);
+  gap: clamp(14px, 2vw, 32px);
   list-style: none;
   flex-wrap: nowrap;
 }
 
 .nav-link {
-  font-size: clamp(0.82rem, 0.95vw, 0.95rem);
-  font-weight: 700;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
   color: var(--color-text-main);
   transition: color var(--transition-fast);
   white-space: nowrap;
