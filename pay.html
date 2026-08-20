@@ -1,7 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>Pay via UPI | Santhi Ganesh Bakery</title> <meta name="description" content="Instant 1-tap UPI payment for Santhi Ganesh Bakery orders in Tirunelveli."> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"> <script src="https://unpkg.com/@phosphor-icons/web"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> <link rel="icon" type="image/png" href="./sg-bakery-logo.png"> <link rel="apple-touch-icon" href="./sg-bakery-logo.png"> <style> :root { --bg: #F6EFE8; --primary: #8B4513; --gold: #A6601B; --dark: #1A120B; --green: #2E7D32; } * { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--dark); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 16px; text-align: center; } .pay-card { background: #FFFFFF; width: 100%; max-width: 400px; border-radius: 24px; padding: 28px 20px; box-shadow: 0 12px 36px rgba(26, 18, 11, 0.1); border: 1.5px solid rgba(166, 96, 27, 0.18); position: relative; } .brand-logo-wrap { width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; border: 3px solid var(--primary); padding: 3px; background: #FFF; box-shadow: 0 4px 14px rgba(139, 69, 19, 0.2); } .brand-logo-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; } .brand-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--primary); margin-bottom: 2px; } .order-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; background: #FAF6F0; color: var(--gold); padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(166, 96, 27, 0.2); margin-bottom: 16px; } .amount-box { background: #FAF8F5; border: 1.5px dashed rgba(166, 96, 27, 0.35); border-radius: 16px; padding: 16px; margin-bottom: 18px; } .amount-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #777; letter-spacing: 0.5px; margin-bottom: 4px; } .amount-val { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.1; } .btn-pay-action { width: 100%; background: linear-gradient(135deg, #A6601B 0%, #8B4513 100%); color: #FFFFFF; border: none; padding: 14px 18px; border-radius: 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(139, 69, 19, 0.3); margin-bottom: 12px; cursor: pointer; } .btn-pay-action:active { transform: scale(0.97); } .qr-toggle-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid #EEE; } #qrcode { display: inline-block; margin: 8px auto; padding: 8px; background: #FFF; border-radius: 12px; border: 1px solid #DDD; } .upi-id-pill { font-size: 0.72rem; color: #666; background: #FAF6F0; padding: 6px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; } .btn-copy { background: var(--primary); color: #FFF; border: none; border-radius: 4px; padding: 2px 6px; font-size: 0.65rem; font-weight: 700; cursor: pointer; } .back-link { display: inline-block; margin-top: 16px; font-size: 0.8rem; color: var(--primary); font-weight: 700; text-decoration: none; } </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pay via UPI | Santhi Ganesh Bakery</title>
+  <meta name="description" content="Instant 1-tap UPI payment for Santhi Ganesh Bakery orders in Tirunelveli.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
+  <link rel="apple-touch-icon" href="./sg-bakery-logo.png">
+
+  <style>
+    :root {
+      --bg: #F6EFE8;
+      --primary: #8B4513;
+      --gold: #A6601B;
+      --dark: #1A120B;
+      --green: #2E7D32;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .pay-card {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 24px;
+      padding: 28px 20px;
+      box-shadow: 0 12px 36px rgba(26, 18, 11, 0.1);
+      border: 1.5px solid rgba(166, 96, 27, 0.18);
+      position: relative;
+    }
+    .brand-logo-wrap {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      padding: 3px;
+      background: #FFF;
+      box-shadow: 0 4px 14px rgba(139, 69, 19, 0.2);
+    }
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .brand-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+    .order-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #FAF6F0;
+      color: var(--gold);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(166, 96, 27, 0.2);
+      margin-bottom: 16px;
+    }
+    .amount-box {
+      background: #FAF8F5;
+      border: 1.5px dashed rgba(166, 96, 27, 0.35);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .amount-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #777;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .amount-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+    .btn-pay-action {
+      width: 100%;
+      background: linear-gradient(135deg, #A6601B 0%, #8B4513 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(139, 69, 19, 0.3);
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .btn-pay-action:active {
+      transform: scale(0.97);
+    }
+    .qr-toggle-section {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #EEE;
+    }
+    #qrcode {
+      display: inline-block;
+      margin: 8px auto;
+      padding: 8px;
+      background: #FFF;
+      border-radius: 12px;
+      border: 1px solid #DDD;
+    }
+    .upi-id-pill {
+      font-size: 0.72rem;
+      color: #666;
+      background: #FAF6F0;
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .btn-copy {
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body> <div class="pay-card"> <div class="brand-logo-wrap"> <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery"> </div> <h1 class="brand-title">Santhi Ganesh Bakery</h1> <div class="order-tag" id="display-order-ref">Order Payment</div> <div class="amount-box"> <div class="amount-label">Total Amount to Pay</div> <div class="amount-val" id="display-amount">₹0</div> </div> <!-- 1-Tap Mobile Button --> <a href="#" id="btn-upi-deep" class="btn-pay-action"> <i class="ph ph-lightning" style="font-size: 1.2rem;"></i> <span>Pay with GPay / PhonePe / Any UPI</span> </a> <!-- QR Code Container for Desktop / Alternate Scanner --> <div class="qr-toggle-section"> <span style="font-size: 0.72rem; font-weight: 700; color: #888;">OR SCAN QR CODE TO PAY</span> <div id="qrcode"></div> <div class="upi-id-pill"> <span>UPI ID: <strong id="upi-id-text">7339073844@okbizaxis</strong></span> <button type="button" class="btn-copy" onclick="copyUPI()">Copy</button> </div> </div> <a href="./menu.html" class="back-link">← Return to Bakery Menu</a> </div> <script> const BAKERY_UPI_ID = "7339073844@okbizaxis"; const params = new URLSearchParams(window.location.search); const amount = params.get('am') || '0'; const ref = params.get('ref') || 'SG-CAFE-' + Math.floor(100000 + Math.random() * 900000); document.getElementById('display-amount').textContent = '₹' + amount; document.getElementById('display-order-ref').textContent = '#' + ref; const upiUri = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=Santhi+Ganesh+Bakery&am=${encodeURIComponent(amount)}&tn=${encodeURIComponent(ref)}&cu=INR`; const btnDeep = document.getElementById('btn-upi-deep'); if (btnDeep) btnDeep.href = upiUri; // Generate QR Code if (typeof QRCode !== 'undefined') { new QRCode(document.getElementById('qrcode'), { text: upiUri, width: 130, height: 130, colorDark: "#1A120B", colorLight: "#FFFFFF", correctLevel: QRCode.CorrectLevel.M }); } // Auto-launch on mobile device after 400ms const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent); if (isMobile && Number(amount) > 0) { setTimeout(() => { window.location.href = upiUri; }, 400); } function copyUPI() { navigator.clipboard.writeText(BAKERY_UPI_ID).then(() => { if (window.showBrandToast) showBrandToast("UPI ID Copied: " + BAKERY_UPI_ID, "success"); else alert("UPI ID copied: " + BAKERY_UPI_ID); }); } </script> <script src="./js/utils.js"></script>
+<body>
+
+  <div class="pay-card">
+    <div class="brand-logo-wrap">
+      <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery">
+    </div>
+
+    <h1 class="brand-title">Santhi Ganesh Bakery</h1>
+    <div class="order-tag" id="display-order-ref">Order Payment</div>
+
+    <div class="amount-box">
+      <div class="amount-label">Total Amount to Pay</div>
+      <div class="amount-val" id="display-amount">₹0</div>
+    </div>
+
+    <!-- 1-Tap Mobile Button -->
+    <a href="#" id="btn-upi-deep" class="btn-pay-action">
+      <i class="ph ph-lightning" style="font-size: 1.2rem;"></i>
+      <span>Pay with GPay / PhonePe / Any UPI</span>
+    </a>
+
+    <!-- QR Code Container for Desktop / Alternate Scanner -->
+    <div class="qr-toggle-section">
+      <span style="font-size: 0.72rem; font-weight: 700; color: #888;">OR SCAN QR CODE TO PAY</span>
+      <div id="qrcode"></div>
+      
+      <div class="upi-id-pill">
+        <span>UPI ID: <strong id="upi-id-text">7339073844@okbizaxis</strong></span>
+        <button type="button" class="btn-copy" onclick="copyUPI()">Copy</button>
+      </div>
+    </div>
+
+    <a href="./menu.html" class="back-link">← Return to Bakery Menu</a>
+  </div>
+
+  <script>
+    const BAKERY_UPI_ID = "7339073844@okbizaxis";
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get('am') || '0';
+    const ref = params.get('ref') || 'SG-CAFE-' + Math.floor(100000 + Math.random() * 900000);
+
+    document.getElementById('display-amount').textContent = '₹' + amount;
+    document.getElementById('display-order-ref').textContent = '#' + ref;
+
+    const upiUri = `upi://pay?pa=${encodeURIComponent(BAKERY_UPI_ID)}&pn=Santhi+Ganesh+Bakery&am=${encodeURIComponent(amount)}&tn=${encodeURIComponent(ref)}&cu=INR`;
+
+    const btnDeep = document.getElementById('btn-upi-deep');
+    if (btnDeep) btnDeep.href = upiUri;
+
+    // Generate QR Code
+    if (typeof QRCode !== 'undefined') {
+      new QRCode(document.getElementById('qrcode'), {
+        text: upiUri,
+        width: 130,
+        height: 130,
+        colorDark: "#1A120B",
+        colorLight: "#FFFFFF",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+
+    // Auto-launch on mobile device after 400ms
+    const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (isMobile && Number(amount) > 0) {
+      setTimeout(() => {
+        window.location.href = upiUri;
+      }, 400);
+    }
+
+    function copyUPI() {
+      navigator.clipboard.writeText(BAKERY_UPI_ID).then(() => {
+        if (window.showBrandToast) showBrandToast("UPI ID Copied: " + BAKERY_UPI_ID, "success"); else alert("UPI ID copied: " + BAKERY_UPI_ID);
+      });
+    }
+  </script>
+  <script src="./js/utils.js"></script>
 </body>
 </html>

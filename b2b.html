@@ -22,6 +22,48 @@
 
   <style>
     /* Hero Styling */
+
+    /* Notion Product Style Hero Headline & Pill */
+    .b2b-notion-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: clamp(2.2rem, 5.2vw, 4.2rem) !important;
+      font-weight: 800 !important;
+      line-height: 1.15 !important;
+      letter-spacing: -2px !important;
+      color: #0A0404 !important;
+      margin-bottom: 20px !important;
+    }
+
+    .b2b-notion-pill {
+      background: linear-gradient(135deg, #FAF8F5 0%, #F5EFE6 100%);
+      border: 1.5px solid #A6601B;
+      color: #8B4513;
+      border-radius: 100px;
+      padding: 4px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      vertical-align: middle;
+      line-height: 1.2;
+      box-shadow: 0 4px 14px rgba(166, 96, 27, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .b2b-green-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #2E7D32;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(46, 125, 50, 0.6);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.85; }
+    }
+
     .b2b-top-eyebrow {
       font-size: 0.9rem;
       font-weight: 800;
@@ -32,13 +74,14 @@
     }
 
     .b2b-main-headline {
-      font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
-      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
-      font-weight: 800;
-      color: #0A0404;
-      line-height: 1.15;
-      letter-spacing: -1.5px;
-      margin-bottom: 16px;
+      font-family: 'Aboreto', var(--font-heading), serif !important;
+      font-size: clamp(2rem, 4.5vw, 3.4rem) !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1.2px !important;
+      color: #0A0404 !important;
+      line-height: 1.25 !important;
+      margin-bottom: 18px !important;
     }
 
     .b2b-main-subtext {
@@ -49,7 +92,7 @@
       line-height: 1.5;
     }
 
-    /* Asymmetric 6-Card Grid Matching User Mockup */
+    /* Asymmetric 6-Card Grid with Rich Bakery Background Images */
     .asymmetric-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -65,77 +108,106 @@
     }
 
     .b2b-style-card {
-      background: linear-gradient(145deg, #1A120B 0%, #2C1F17 100%);
-      border: 1px solid rgba(166, 96, 27, 0.25);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
       border-radius: 24px;
       padding: 36px 32px;
       color: #FFFFFF;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 8px 28px rgba(10, 4, 4, 0.1);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(10, 4, 4, 0.14);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(166, 96, 27, 0.35);
+    }
+
+    /* Dark Luxury Overlay for Readable Contrast */
+    .b2b-style-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 9, 5, 0.75) 0%, rgba(24, 14, 8, 0.94) 100%);
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    .b2b-style-card:hover::before {
+      background: linear-gradient(180deg, rgba(15, 9, 5, 0.65) 0%, rgba(24, 14, 8, 0.88) 100%);
+    }
+
+    .b2b-style-card > * {
       position: relative;
-      overflow: hidden;
+      z-index: 2;
     }
 
     .b2b-style-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: #F5A623;
-      box-shadow: 0 16px 36px rgba(245, 166, 35, 0.25);
+      box-shadow: 0 18px 40px rgba(245, 166, 35, 0.28);
     }
 
     .b2b-card-tall {
-      min-height: 380px;
+      min-height: 390px;
     }
 
     .b2b-card-med {
-      min-height: 250px;
+      min-height: 260px;
     }
 
     .card-eyebrow {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 1.5px;
+      color: #F5A623;
       margin-bottom: 14px;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
     }
 
     .card-icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(245, 166, 35, 0.15);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(245, 166, 35, 0.2);
+      border: 1px solid rgba(245, 166, 35, 0.4);
       color: #F5A623;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
       margin-bottom: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .card-headline {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
       font-weight: 800;
       line-height: 1.25;
       color: #FFFFFF;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .card-body-text {
       font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.85);
       line-height: 1.55;
       margin-bottom: 24px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
     .card-link {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
       color: #F5A623;
       display: inline-flex;
       align-items: center;
@@ -143,6 +215,7 @@
       text-decoration: none;
       transition: gap 0.2s ease;
       margin-top: auto;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     }
 
     .card-link:hover {
@@ -196,7 +269,109 @@
       background: #2E7D32;
     }
 
+    /* Visual Pillars Section */
+    .pillar-visual-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid var(--color-border-subtle);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .pillar-visual-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.1);
+    }
+
+    .pillar-img-box {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .pillar-content {
+      padding: 24px;
+    }
+
     /* Form Card & FAQ Styling */
+
+    /* Expandable Accordion FAQ Styling */
+    .b2b-faq-accordion {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .b2b-faq-item {
+      background: var(--color-bg-secondary);
+      border-radius: 18px;
+      border: 1px solid var(--color-border-subtle);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(10, 4, 4, 0.03);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .b2b-faq-item:hover {
+      border-color: rgba(166, 96, 27, 0.35);
+      box-shadow: 0 8px 24px rgba(139, 69, 19, 0.08);
+    }
+
+    .faq-question-row {
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .faq-question-row h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .faq-chevron {
+      font-size: 1.3rem;
+      color: #8B4513;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    .faq-answer-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+      padding: 0 28px;
+    }
+
+    .b2b-faq-item.active {
+      border-color: rgba(166, 96, 27, 0.4);
+      background: #FFFFFF;
+    }
+
+    .b2b-faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: #A6601B;
+    }
+
+    .b2b-faq-item.active .faq-answer-content {
+      max-height: 300px;
+      padding: 0 28px 24px 28px;
+    }
+
+    .faq-answer-content p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+
     .b2b-form-card {
       background: var(--color-bg-secondary);
       border-radius: 28px;
@@ -220,8 +395,8 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
       }
-      .b2b-card-tall { min-height: 320px; }
-      .b2b-card-med { min-height: 240px; }
+      .b2b-card-tall { min-height: 330px; }
+      .b2b-card-med { min-height: 250px; }
       .b2b-form-card { padding: 36px 28px; }
     }
 
@@ -267,11 +442,7 @@
         </button>
 
         <button id="cart-btn" class="btn-icon-pill" title="View Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
+          <i class="ph ph-shopping-bag" style="font-size: 1.3rem;"></i>
           <span class="cart-badge cart-badge-count">0</span>
         </button>
         <a href="#b2b-form" class="btn btn-primary" data-i18n="b2b_btn_quote">Get Wholesale Quote</a>
@@ -309,12 +480,12 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. HERO SECTION (Matching User Mockup Header Style) -->
+    <!-- 2. HERO SECTION -->
     <section class="section-padding" style="padding-top: 48px; padding-bottom: 32px;">
       <div class="container" style="text-align: center;">
         
         <div class="b2b-top-eyebrow">Wholesale</div>
-        <h1 class="b2b-main-headline">Supply for every shop</h1>
+        <h1 class="b2b-main-headline">Supply For Every Shop</h1>
         <p class="b2b-main-subtext">Fresh bread and bakes for businesses across Tirunelveli.</p>
 
         <!-- Single Primary Top CTA -->
@@ -327,7 +498,7 @@
       </div>
     </section>
 
-    <!-- 3. ASYMMETRIC 6-CARD GRID (Exact Structure Matching Mockup) -->
+    <!-- 3. ASYMMETRIC 6-CARD GRID WITH BAKERY IMAGERY -->
     <section class="section-padding" style="padding-top: 24px; padding-bottom: 0;">
       <div class="container">
         
@@ -335,8 +506,8 @@
           
           <!-- COLUMN 1: Tall Card 1 + Medium Card 5 -->
           <div class="grid-col">
-            <!-- Card 1: Kirana (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 1: Kirana (Tall - Fresh Loaves & Buns Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Kirana</div>
                 <h3 class="card-headline">Daily bread for the corner store</h3>
@@ -345,8 +516,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 5: Canteen (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 5: Canteen (Medium - Puffs & Samosas Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Canteen snacks on a tight schedule</h3>
@@ -358,8 +529,8 @@
 
           <!-- COLUMN 2: Medium Card 2 + Tall Card 3 -->
           <div class="grid-col">
-            <!-- Card 2: Supermarket (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 2: Supermarket (Medium - Cookies & Rusks Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Supermarket shelves stocked and labeled</h3>
@@ -368,8 +539,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 3: Hotels (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 3: Hotels (Tall - Commercial Buns & Kitchen Bakes Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Hotels</div>
                 <h3 class="card-headline">Commercial bakes for the professional kitchen</h3>
@@ -381,8 +552,8 @@
 
           <!-- COLUMN 3: Tall Card 4 + Medium Card 6 -->
           <div class="grid-col">
-            <!-- Card 4: Events (Tall) -->
-            <div class="b2b-style-card b2b-card-tall">
+            <!-- Card 4: Events (Tall - Event Pastries & Party Boxes Background) -->
+            <div class="b2b-style-card b2b-card-tall" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-eyebrow">Events</div>
                 <h3 class="card-headline">Sealed boxes for the big day</h3>
@@ -391,8 +562,8 @@
               <a href="#b2b-form" class="card-link">Enquire <span>›</span></a>
             </div>
 
-            <!-- Card 6: Dealer Margins (Medium) -->
-            <div class="b2b-style-card b2b-card-med">
+            <!-- Card 6: Dealer Margins (Medium - Golden Bakery Biscuits Background) -->
+            <div class="b2b-style-card b2b-card-med" style="background-image: url('https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=800&q=80');">
               <div>
                 <div class="card-icon-box"><i class="ph ph-package"></i></div>
                 <h3 class="card-headline">Margins that keep the till ringing</h3>
@@ -434,7 +605,7 @@
       </div>
     </section>
 
-    <!-- 4. PILLARS OF COMMERCIAL CONVENIENCE -->
+    <!-- 4. VISUAL PILLARS OF COMMERCIAL CONVENIENCE -->
     <section class="heritage-section section-padding">
       <div class="container">
         <div class="catalog-header" style="margin-bottom: 40px; text-align: center;">
@@ -442,36 +613,56 @@
           <h2 class="text-h2">Built For Commercial Convenience</h2>
         </div>
 
-        <div class="heritage-grid">
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-clock" style="font-size: 2rem;"></i>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          
+          <!-- Visual Pillar 1 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-clock"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar1_title">On-Time 5:30 AM Doorstep Dispatch</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar1_desc">
+                Baked overnight and delivered to your shop or canteen before morning trade starts.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar1_title">On-Time 5:30 AM Doorstep Dispatch</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar1_desc">
-              Baked overnight and delivered to your shop or canteen before morning trade starts.
-            </p>
           </div>
 
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-trend-up" style="font-size: 2rem;"></i>
+          <!-- Visual Pillar 2 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-trend-up"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar2_title">Competitive Wholesale Margins</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar2_desc">
+                Tiered pricing designed to maximize profit margins for local retailers & hotels.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar2_title">Competitive Wholesale Margins</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar2_desc">
-              Tiered pricing designed to maximize profit margins for local retailers & hotels.
-            </p>
           </div>
 
-          <div class="heritage-card">
-            <div class="heritage-icon" style="background: rgba(166,96,27,0.1); color: var(--color-desert);">
-              <i class="ph ph-shield-check" style="font-size: 2rem;"></i>
+          <!-- Visual Pillar 3 -->
+          <div class="pillar-visual-card">
+            <div class="pillar-img-box" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="pillar-content">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(166,96,27,0.1); color: var(--color-desert); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                  <i class="ph ph-shield-check"></i>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main);" data-i18n="b2b_pillar3_title">100% FSSAI Certified Quality</h3>
+              </div>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar3_desc">
+                Hygienic automated baking using pure butter and fresh ingredients with zero harmful preservatives.
+              </p>
             </div>
-            <h3 class="heritage-title" data-i18n="b2b_pillar3_title">100% FSSAI Certified Quality</h3>
-            <p class="text-small" style="color: var(--color-text-muted);" data-i18n="b2b_pillar3_desc">
-              Hygienic automated baking using pure butter and fresh ingredients with zero harmful preservatives.
-            </p>
           </div>
+
         </div>
       </div>
     </section>
@@ -541,78 +732,144 @@
       </div>
     </section>
 
-    <!-- 6. B2B FAQS -->
+        <!-- 6. B2B INTERACTIVE FAQS -->
     <section class="section-padding" style="padding-top: 0;">
-      <div class="container" style="max-width: 800px;">
-        <div class="catalog-header" style="margin-bottom: 32px; text-align: center;">
+      <div class="container" style="max-width: 840px;">
+        <div class="catalog-header" style="margin-bottom: 36px; text-align: center;">
           <p class="text-tagline" style="margin-bottom: 8px;">Frequently Asked Questions</p>
-          <h2 class="text-h2">Wholesale Supply Information</h2>
+          <h2 class="text-h2" style="font-family: 'Aboreto', serif; text-transform: uppercase;">Wholesale Supply Information</h2>
         </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            We offer low MOQs for local Kirana shops (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, tiered volume discounts apply.
-          </p>
-        </div>
+        <div class="b2b-faq-accordion">
+          <!-- Item 1 (Active by default) -->
+          <div class="b2b-faq-item active" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What is the minimum order quantity (MOQ) for daily delivery?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>We offer low MOQs for local Kirana shops (starting from just 15-20 bread packets or buns daily). For universities, canteens, and supermarkets, tiered volume discounts apply based on daily requirement.</p>
+            </div>
+          </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: How do I get a Free Sample Box for my shop or canteen?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Fill out the form above or tap "Request Free Sample Box <i class="ph ph-package"></i>". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.
-          </p>
-        </div>
+          <!-- Item 2 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: How do I get a Free Sample Box for my shop or canteen?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Fill out the form above or tap "Request Free Sample Box <i class="ph ph-package"></i>". Our logistics team will deliver a freshly baked sample box containing our best-selling breads, buns, and rusks directly to your business premises in Tirunelveli.</p>
+            </div>
+          </div>
 
-        <div class="b2b-faq-item">
-          <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text-main);">Q: What areas across Tirunelveli do you deliver to?</h4>
-          <p class="text-regular" style="color: var(--color-text-muted); font-size: 0.92rem; margin: 0;">
-            Our morning dispatch vehicles cover Palayamkottai, Vannarpettai, Town, Junction, Perumalpuram, High Ground, Maharajanagar, and surrounding college/university hubs daily before 6 AM.
-          </p>
+          <!-- Item 3 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What areas across Tirunelveli do you deliver to?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Our morning dispatch vehicles cover Palayamkottai, Vannarpettai, Town, Junction, Perumalpuram, High Ground, Maharajanagar, and surrounding college/university hubs daily before 6 AM.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: What is your replacement policy for unsold daily bread?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>We offer a hassle-free replacement guarantee on unsold fresh bread packets for verified daily Kirana retail partners to ensure zero wastage and risk-free retail margins.</p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: Can we request custom weight, size, or packaging for canteen snack boxes?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>Yes! We manufacture custom-sized veg puffs, egg puffs, tea buns, and branded party boxes tailored to your canteen or event catering specifications.</p>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="b2b-faq-item" onclick="toggleB2BFaq(this)">
+            <div class="faq-question-row">
+              <h4>Q: How do credit terms and weekly billing work?</h4>
+              <i class="ph ph-caret-down faq-chevron"></i>
+            </div>
+            <div class="faq-answer-content">
+              <p>After an initial verification period, established repeat commercial partners are eligible for consolidated weekly or monthly invoice billing.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- 7. FOOTER SECTION -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div>
-        <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px; margin-bottom: 16px;">
-        <p class="text-small" style="color: rgba(255,255,255,0.7); max-width: 320px; line-height: 1.6;">
-          Handcrafted cakes, fresh daily bakes, and wholesale bakery supply across Tirunelveli.
-        </p>
-      </div>
+    <!-- 7. SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div>
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 64px; margin-bottom: 18px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <p style="color: rgba(246, 239, 232, 0.8); max-width: 320px; font-size: 0.95rem; line-height: 1.6;">
+            Handcrafted cakes, fresh daily bakes, and commercial wholesale bakery supply across Tirunelveli since day one.
+          </p>
+        </div>
 
-      <div>
-        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_explore">Explore</h4>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <a href="./index.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_home">Home</a>
-          <a href="./products.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_cakes">Celebration Cakes</a>
-          <a href="./b2b.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_b2b">Wholesale Partner</a>
-          <a href="./careers.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_careers">Careers</a>
-          <a href="./contact.html" class="nav-link" style="color: rgba(255,255,255,0.8);" data-i18n="nav_contact">Contact</a>
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_explore">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="./index.html" data-i18n="nav_home">Home</a></li>
+            <li><a href="./index.html#about" data-i18n="nav_about">About Us</a></li>
+            <li><a href="./products.html" data-i18n="nav_cakes">Celebration Cakes</a></li>
+            <li><a href="./menu.html">Order Online Menu</a></li>
+            <li><a href="./b2b.html" data-i18n="nav_b2b">Wholesale Partner</a></li>
+            <li><a href="./careers.html" data-i18n="nav_careers">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Commercial Services -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="./b2b.html">Kirana Wholesale Supply</a></li>
+            <li><a href="./b2b.html">Supermarket Retail Supply</a></li>
+            <li><a href="./b2b.html">University Canteen Supply</a></li>
+            <li><a href="./b2b.html">Hotel & Restaurant Bakes</a></li>
+            <li><a href="./b2b.html">Event Party Boxes</a></li>
+            <li><a href="./admin.html">Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_contact">Contact Us</h4>
+          <ul class="footer-links" style="font-size: 0.92rem;">
+            <li style="display: flex; gap: 8px; color: rgba(246, 239, 232, 0.85);">
+              <span><i class="ph ph-map-pin"></i></span> <span>92, Cheranmahadevi Rd, Thirunagar, Tirunelveli</span>
+            </li>
+            <li style="display: flex; gap: 8px;">
+              <span><i class="ph ph-phone"></i></span> <a href="tel:917339073844" style="color: #F5A623; font-weight: 700;">+91 733 907 3844</a>
+            </li>
+            <li style="display: flex; gap: 8px;">
+              <span><i class="ph ph-envelope"></i></span> <a href="mailto:Orders@santhiganesh.com" style="color: rgba(246, 239, 232, 0.85);">Orders@santhiganesh.com</a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div>
-        <h4 style="font-family: var(--font-heading); color: #FFF; margin-bottom: 16px; font-size: 1.1rem;" data-i18n="footer_contact">Contact Us</h4>
-        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
-          <i class="ph ph-map-pin"></i> 92, Cheranmahadevi Rd, Thirunagar, Nellai Nagaram, Tirunelveli
-        </p>
-        <p class="text-small" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">
-          <i class="ph ph-phone"></i> +91 733 907 3844
-        </p>
-        <p class="text-small" style="color: rgba(255,255,255,0.8);">
-          <i class="ph ph-envelope"></i> Orders@santhiganesh.com
-        </p>
+      <div class="footer-bottom">
+        <p>© 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.</p>
       </div>
-    </div>
-
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 48px; text-align: center;">
-      <p class="text-small" style="color: rgba(255,255,255,0.5);">
-        © 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.
-      </p>
     </div>
   </footer>
 
@@ -646,6 +903,29 @@
   <script src="./app.js"></script>
   
   <script>
+    // Notion-style Hero Word Rotator
+    const rotKeywords = ["Your Business", "Kirana Stores", "Supermarkets", "Canteens", "Hotels & Cafes", "Event Caterers"];
+    let rotIdx = 0;
+    setInterval(() => {
+      const el = document.getElementById('rotator-word');
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        rotIdx = (rotIdx + 1) % rotKeywords.length;
+        el.textContent = rotKeywords[rotIdx];
+        el.style.opacity = '1';
+      }, 250);
+    }, 2500);
+
+    function toggleB2BFaq(itemEl) {
+      if (!itemEl) return;
+      const isActive = itemEl.classList.contains('active');
+      document.querySelectorAll('.b2b-faq-item').forEach(el => el.classList.remove('active'));
+      if (!isActive) {
+        itemEl.classList.add('active');
+      }
+    }
+
     function requestB2BSampleBox() {
       const bizName = (document.getElementById('b2b-biz-name')?.value || '').trim();
       const contactPerson = (document.getElementById('b2b-contact-person')?.value || '').trim();

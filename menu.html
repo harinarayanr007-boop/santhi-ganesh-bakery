@@ -950,11 +950,12 @@
     .compact-map-wrapper {
       position: relative;
       width: 100%;
-      height: 220px;
+      height: 180px;
       border-radius: 12px;
       overflow: hidden;
       border: 1.5px solid rgba(166, 96, 27, 0.2);
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin: 4px 0;
     }
 
     #delivery-live-map {
@@ -1091,9 +1092,10 @@
     /* Quick Area Chips Minimal */
     .clean-area-chips {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      width: 100%;
+      margin-top: 2px;
     }
     .clean-area-chips::-webkit-scrollbar { display: none; }
 
@@ -1319,6 +1321,37 @@
 
     .btn-direct-upi-pay:active {
       transform: scale(0.97);
+    }
+
+    
+    /* Strongly Highlighted Total Payable Banner */
+    .total-payable-banner {
+      background: linear-gradient(135deg, #FAF8F5 0%, #F5EFE6 100%);
+      border: 1.5px solid #A6601B;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(166, 96, 27, 0.12);
+    }
+
+    .total-payable-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #8B4513;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .total-payable-amount {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #8B4513;
     }
 
     .btn-send-whatsapp-order {
@@ -1595,98 +1628,58 @@
 
         <div class="modal-body-clean">
           
-          <!-- 1. ORDER TYPE SELECTOR -->
+          <!-- 1. ORDER TYPE SELECTOR (DELIVERY vs TAKEAWAY) -->
           <div class="order-segmented-control">
             <button type="button" class="order-seg-btn active" id="btn-type-delivery" onclick="setOrderType('delivery')">
               <i class="ph ph-moped"></i> <span id="lbl-seg-delivery">Doorstep Delivery</span>
             </button>
             <button type="button" class="order-seg-btn" id="btn-type-takeaway" onclick="setOrderType('takeaway')">
-              <i class="ph ph-tote"></i> <span id="lbl-seg-takeaway">Store Takeaway</span>
+              <i class="ph ph-storefront"></i> <span id="lbl-seg-takeaway">Store Takeaway</span>
             </button>
           </div>
 
-          <!-- 2. CARD: DELIVERY LOCATION (DELIVERY ONLY) -->
-          <div class="checkout-card-box" id="block-delivery-location">
+          <!-- CARD 1: ORDER ITEMS & BILL SUMMARY (FIRST CARD) -->
+          <div class="checkout-card-box">
             <div class="card-header-row">
               <div class="card-header-left">
-                <div class="card-icon-pill icon-location"><i class="ph ph-map-pin"></i></div>
-                <span class="card-header-title" id="lbl-title-location">Delivery Location</span>
+                <div class="card-icon-pill icon-order"><i class="ph ph-receipt"></i></div>
+                <span class="card-header-title" id="lbl-title-summary">Order & Bill Summary</span>
               </div>
-              <span class="card-header-badge badge-green" id="lbl-badge-coverage">2 km Zone</span>
-            </div>
-
-            <!-- Address Input with 1-Tap Auto-Locate Button -->
-            <div class="address-input-wrapper">
-              <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="saveCustomerProfile(); onAddressInput(this.value);">
-              <button type="button" class="btn-locate-inside-input" id="btn-detect-gps" onclick="detectGPSLocation(event)">
-                <i class="ph ph-crosshair"></i> <span id="lbl-btn-locate">Locate</span>
-              </button>
-            </div>
-
-            <!-- Sleek Compact Interactive Map -->
-            <div class="compact-map-wrapper">
-              <div id="delivery-live-map"></div>
-              <div class="center-target-pin" id="center-target-pin">
-                <div class="pin-head"><i class="ph ph-moped"></i></div>
-                <div class="pin-shadow"></div>
-              </div>
-              <!-- GPS Status Overlay -->
-              <div class="map-gps-status" id="map-gps-status">
-                <div class="gps-pulse-dot" id="gps-pulse-dot"></div>
-                <span id="gps-status-text">Detecting your location…</span>
-              </div>
-              <button type="button" class="btn-map-recenter" id="btn-map-recenter" onclick="detectGPSLocation(event)" title="Center on my location">
-                <i class="ph ph-crosshair-simple"></i>
-              </button>
-            </div>
-
-            <!-- 1-Tap Quick Area Pills -->
-            <div class="clean-area-chips">
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7261, 77.6769, 'Thirunagar')"><i class="ph ph-map-pin"></i> Thirunagar</button>
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7290, 77.6840, 'Pettai')"><i class="ph ph-map-pin"></i> Pettai</button>
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7225, 77.6690, 'Kallur')"><i class="ph ph-map-pin"></i> Kallur</button>
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7210, 77.6860, 'Kurichi')"><i class="ph ph-map-pin"></i> Kurichi</button>
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7300, 77.7010, 'Town')"><i class="ph ph-map-pin"></i> Town</button>
-              <button type="button" class="mini-area-chip" onclick="setQuickArea(8.7280, 77.7120, 'Vannarpettai')"><i class="ph ph-map-pin"></i> Vannarpettai</button>
-            </div>
-
-            <!-- Zone Status -->
-            <div class="location-status-badge status-in" id="map-distance-status">
-              <span id="lbl-map-zone-status"><i class="ph ph-check-circle"></i> Within 2 km Delivery Zone</span>
-              <span id="lbl-map-distance-text" style="font-weight: 700;">0.2 km</span>
-            </div>
-          </div>
-
-          <!-- 2B. CARD: STORE PICKUP INFO (TAKEAWAY ONLY) -->
-          <div class="checkout-card-box" id="block-takeaway-info" style="display: none;">
-            <div class="card-header-row">
-              <div class="card-header-left">
-                <div class="card-icon-pill icon-store"><i class="ph ph-storefront"></i></div>
-                <span class="card-header-title" id="lbl-title-takeaway">Store Pickup Point</span>
-              </div>
-              <span class="card-header-badge badge-green" id="lbl-badge-pickup">FREE Pickup</span>
+              <span class="card-header-badge badge-amber" id="modal-item-badge">0 Items</span>
             </div>
             
-            <div style="font-weight: 800; font-size: 0.88rem; color: var(--color-primary-dark);" id="lbl-store-name">
-              <i class="ph ph-storefront"></i> Santhi Ganesh Bakery
+            <!-- Items list with inline [ − ] qty [ + ] controls -->
+            <div class="clean-items-box" id="modal-cart-items-list">
+              <!-- Rendered items -->
             </div>
-            <div style="font-size: 0.76rem; color: var(--color-text-muted); line-height: 1.3;" id="lbl-store-addr">
-              92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
-            </div>
-            <div style="display: flex; gap: 6px; font-size: 0.72rem; font-weight: 700;">
-              <span style="background: #FFF3E0; color: #E65100; padding: 3px 8px; border-radius: 6px;" id="lbl-takeaway-ready"><i class="ph ph-clock"></i> Ready in 15–20 Mins</span>
-              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 3px;" id="lbl-takeaway-dir">
-                <i class="ph ph-navigation-arrow"></i> Directions ↗
-              </a>
+
+            <div class="clean-bill-breakdown">
+              <div class="clean-bill-line">
+                <span id="lbl-bill-subtotal">Items Subtotal</span>
+                <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
+              </div>
+              <div class="clean-bill-line" id="row-delivery-fee">
+                <span id="lbl-fee-type">Delivery Fee (under ₹300)</span>
+                <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
+              </div>
+
+              <!-- STRONGLY HIGHLIGHTED TOTAL PAYABLE BANNER -->
+              <div class="total-payable-banner">
+                <div class="total-payable-label">
+                  <i class="ph ph-receipt" style="font-size: 1.25rem; color: #A6601B;"></i>
+                  <span id="lbl-bill-total">Total Payable</span>
+                </div>
+                <div class="total-payable-amount" id="bill-grand-total">₹0</div>
+              </div>
             </div>
           </div>
 
-          <!-- 3. CARD: CUSTOMER CONTACT DETAILS -->
+          <!-- CARD 2: CUSTOMER CONTACT & DELIVERY ADDRESS (SECOND CARD) -->
           <div class="checkout-card-box">
             <div class="card-header-row">
               <div class="card-header-left">
                 <div class="card-icon-pill icon-contact"><i class="ph ph-user"></i></div>
-                <span class="card-header-title" id="lbl-title-contact">Customer Contact</span>
+                <span class="card-header-title" id="lbl-title-contact">Customer Details</span>
               </div>
               <span class="card-header-badge badge-gray" id="lbl-badge-required">Required</span>
             </div>
@@ -1705,54 +1698,81 @@
             <div id="lbl-saved-profile-hint" style="font-size: 0.68rem; color: #2E7D32; font-weight: 700; display: none; align-items: center; gap: 4px; margin-top: 2px;">
               <i class="ph ph-floppy-disk"></i> <span id="lbl-saved-hint-text">Details saved automatically for 1-tap re-ordering</span>
             </div>
+
+            <!-- Delivery Address (Delivery Only) -->
+            <div id="block-delivery-location" style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 14px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <label style="font-size: 0.82rem; font-weight: 700;" id="lbl-title-location">Delivery Address *</label>
+                <span class="card-header-badge badge-green" id="lbl-badge-coverage" style="font-size: 0.65rem;">2 km Zone</span>
+              </div>
+              <div class="address-input-wrapper">
+                <input type="text" id="cust-address" class="clean-input-box" style="padding-right: 96px;" placeholder="Door no, Street, Area" oninput="saveCustomerProfile(); onAddressInput(this.value);">
+                <button type="button" class="btn-locate-inside-input" id="btn-detect-gps" onclick="detectGPSLocation(event)">
+                  <i class="ph ph-crosshair"></i> <span id="lbl-btn-locate">Locate</span>
+                </button>
+              </div>
+
+              <!-- Sleek Compact Interactive Map -->
+              <div class="compact-map-wrapper">
+                <div id="delivery-live-map"></div>
+                <div class="center-target-pin" id="center-target-pin">
+                  <div class="pin-head"><i class="ph ph-moped" style="font-size: 1.1rem; color: #FFF;"></i></div>
+                  <div class="pin-shadow"></div>
+                </div>
+                <div class="map-gps-status" id="map-gps-status">
+                  <div class="gps-pulse-dot" id="gps-pulse-dot"></div>
+                  <span id="gps-status-text">Detecting location…</span>
+                </div>
+                <button type="button" class="btn-map-recenter" id="btn-map-recenter" onclick="detectGPSLocation(event)" title="Center on my location">
+                  <i class="ph ph-crosshair-simple"></i>
+                </button>
+              </div>
+
+              
+
+              <!-- Zone Status -->
+              <div class="location-status-badge status-in" id="map-distance-status">
+                <span id="lbl-map-zone-status"><i class="ph ph-check-circle"></i> Within 2 km Delivery Zone</span>
+                <span id="lbl-map-distance-text" style="font-weight: 700;">0.2 km</span>
+              </div>
+            </div>
+
+            <!-- Store Pickup Info (Takeaway Only) -->
+            <div id="block-takeaway-info" style="display: none; flex-direction: column; gap: 8px; width: 100%; margin-top: 14px; background: rgba(166, 96, 27, 0.06); padding: 14px; border-radius: 12px; border: 1px solid rgba(166, 96, 27, 0.15);">
+              <div style="font-weight: 800; font-size: 0.95rem; color: #8B4513; display: flex; align-items: center; gap: 6px;" id="lbl-store-name">
+                <i class="ph ph-storefront" style="font-size: 1.15rem;"></i> Santhi Ganesh Bakery
+              </div>
+              <div style="font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.4;" id="lbl-store-addr">
+                <i class="ph ph-map-pin"></i> 92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;">
+                <span style="background: #FFF3E0; color: #E65100; padding: 5px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;" id="lbl-takeaway-ready">
+                  <i class="ph ph-clock"></i> Ready in 15–20 Mins
+                </span>
+                <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" style="color: #8B4513; font-size: 0.8rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: #FFF; padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(166, 96, 27, 0.2);" id="lbl-takeaway-dir">
+                  <i class="ph ph-navigation-arrow"></i> Directions ↗
+                </a>
+              </div>
+            </div>
+
             <!-- Optional Takeaway Pickup Timing -->
-            <div class="field-wrap" id="field-pickup-time" style="display: none;">
+            <div class="field-wrap" id="field-pickup-time" style="display: none; margin-top: 14px;">
               <label id="lbl-label-pickup-time">Estimated Pickup Time</label>
               <select id="cust-pickup-time" class="clean-input-box">
-                <option value="Ready in 15–20 Mins" id="opt-pickup-asap"><i class="ph ph-lightning"></i> As soon as ready (~15–20 Mins)</option>
-                <option value="In 30 Mins" id="opt-pickup-30"><i class="ph ph-clock"></i> In 30 Mins</option>
-                <option value="In 45 Mins" id="opt-pickup-45"><i class="ph ph-clock"></i> In 45 Mins</option>
-                <option value="In 1 Hour" id="opt-pickup-60"><i class="ph ph-clock"></i> In 1 Hour</option>
+                <option value="Ready in 15–20 Mins" id="opt-pickup-asap">As soon as ready (~15–20 Mins)</option>
+                <option value="In 30 Mins" id="opt-pickup-30">In 30 Mins</option>
+                <option value="In 45 Mins" id="opt-pickup-45">In 45 Mins</option>
+                <option value="In 1 Hour" id="opt-pickup-60">In 1 Hour</option>
               </select>
             </div>
 
-            <!-- Optional Cooking / Landmark Note -->
-            <div class="field-wrap">
+            <!-- Optional Landmark Note -->
+            <div class="field-wrap" style="margin-top: 14px;">
               <input type="text" id="cust-instructions" class="clean-input-box" placeholder="Landmark or special instructions (optional)">
             </div>
           </div>
 
-          <!-- 4. CARD: ORDER ITEMS & BILL BREAKDOWN -->
-          <div class="checkout-card-box">
-            <div class="card-header-row">
-              <div class="card-header-left">
-                <div class="card-icon-pill icon-order"><i class="ph ph-receipt"></i></div>
-                <span class="card-header-title" id="lbl-title-summary">Order & Bill Summary</span>
-              </div>
-              <span class="card-header-badge badge-amber" id="modal-item-badge">0 Items</span>
-            </div>
-            
-            <div class="clean-items-box" id="modal-cart-items-list">
-              <!-- Rendered items -->
-            </div>
-
-            <div class="clean-bill-breakdown">
-              <div class="clean-bill-line">
-                <span id="lbl-bill-subtotal">Items Subtotal</span>
-                <span id="bill-subtotal" style="font-weight: 700; color: var(--color-text-main);">₹0</span>
-              </div>
-              <div class="clean-bill-line" id="row-delivery-fee">
-                <span id="lbl-fee-type">Delivery Fee (under ₹300)</span>
-                <span id="bill-delivery-fee" style="font-weight: 700;">₹30</span>
-              </div>
-              <div class="clean-bill-line total-line">
-                <span id="lbl-bill-total">Total Payable</span>
-                <span id="bill-grand-total" style="color: var(--color-primary-dark);">₹0</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5. CARD: INSTANT UPI PAYMENT & QR CODE -->
+          <!-- CARD 3: INSTANT UPI PAYMENT (THIRD CARD) -->
           <div class="checkout-card-box" id="block-payment-method">
             <div class="card-header-row">
               <div class="card-header-left">
@@ -1762,14 +1782,12 @@
               <span class="card-header-badge badge-green" id="lbl-badge-payment">QR & 1-Tap UPI</span>
             </div>
 
-            <!-- EMBEDDED UPI PAYMENT WIDGET -->
             <div class="embedded-upi-box" id="box-embedded-upi">
               <div class="upi-qr-wrapper">
                 <div id="checkout-upi-qrcode"></div>
                 <span style="font-size: 0.68rem; color: #777; font-weight: 700; margin-top: 6px;" id="lbl-scan-qr-hint">Scan with GPay / PhonePe / Paytm</span>
               </div>
 
-              <!-- Direct 1-Tap UPI Button -->
               <a id="link-direct-upi-btn" href="#" class="btn-direct-upi-pay">
                 <i class="ph ph-lightning" style="font-size: 1.15rem;"></i>
                 <span id="lbl-btn-direct-upi">Pay via UPI (GPay / PhonePe / Paytm)</span>
@@ -1779,7 +1797,7 @@
 
           <!-- WHATSAPP CTA -->
           <button class="btn-send-whatsapp-order" id="btn-place-whatsapp-order" onclick="sendOrderWhatsApp()">
-            <i class="ph ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
+            <i class="ph ph-whatsapp-logo" style="font-size: 1.4rem;"></i>
             <span id="lbl-btn-whatsapp">Place Order on WhatsApp</span>
           </button>
 
@@ -2017,6 +2035,7 @@
         btnTake.classList.add('active');
         blockDel.style.display = 'none';
         blockTake.style.display = 'flex';
+        blockTake.style.flexDirection = 'column';
         fieldPickup.style.display = 'block';
         if (titleEl) titleEl.textContent = t.modal_title_takeaway;
         if (orderBtnLbl) orderBtnLbl.textContent = t.btn_whatsapp_takeaway;
@@ -2024,6 +2043,7 @@
         btnDel.classList.add('active');
         btnTake.classList.remove('active');
         blockDel.style.display = 'flex';
+        blockDel.style.flexDirection = 'column';
         blockTake.style.display = 'none';
         fieldPickup.style.display = 'none';
         if (titleEl) titleEl.textContent = t.modal_title_delivery;
@@ -2472,6 +2492,19 @@
       if (gpsWatchId !== null) {
         navigator.geolocation.clearWatch(gpsWatchId);
         gpsWatchId = null;
+      }
+    }
+
+    function updateCartItemQtyModal(itemId, delta) {
+      const idx = deliveryCart.findIndex(i => String(i.id) === String(itemId));
+      if (idx !== -1) {
+        deliveryCart[idx].qty += delta;
+        if (deliveryCart[idx].qty <= 0) {
+          deliveryCart.splice(idx, 1);
+        }
+        localStorage.setItem('sg_delivery_cart', JSON.stringify(deliveryCart));
+        updateCartUI();
+        renderCheckoutModalContent();
       }
     }
 
