@@ -342,15 +342,18 @@ h3, .text-h3 {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: clamp(10px, 1.6vw, 22px);
   list-style: none;
+  flex-wrap: nowrap;
 }
 
 .nav-link {
-  font-size: 1.1rem;
+  font-size: clamp(0.82rem, 0.95vw, 0.95rem);
+  font-weight: 700;
   color: var(--color-text-main);
   transition: color var(--transition-fast);
-  display: flex;
+  white-space: nowrap;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
 }
@@ -400,7 +403,7 @@ h3, .text-h3 {
   padding: 8px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1080px) {
   .nav-links {
     display: none;
   }
