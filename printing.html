@@ -954,6 +954,12 @@
       margin: 0;
     }
 
+    .tag-main-title.tag-title-single {
+      font-size: 19.5pt;
+      line-height: 1.08;
+      -webkit-line-clamp: 1;
+    }
+
     /* Bottom-Anchored Middle Price Box */
     .tag-price-box {
       border-radius: 4px;
@@ -1872,6 +1878,11 @@
         }
       }
 
+      // Single-line vs Double-line title detection
+      const cleanName = displayName.replace(/<[^>]*>/g, '').trim();
+      const isSingleLine = (cleanName.length <= 18 && !cleanName.includes('\n'));
+      const titleClass = isSingleLine ? 'tag-main-title tag-title-single' : 'tag-main-title';
+
       return `
         <div class="tag-card ${frameClass}">
           ${options.showDiet ? `<div class="tag-corner-diet">${item.is_veg ? '🟢 VEG' : '🔴 NON-VEG'}</div>` : ''}
@@ -1886,7 +1897,7 @@
           ` : ''}
 
           <div class="tag-main-title-wrap">
-            <div class="tag-main-title">${displayName}</div>
+            <div class="${titleClass}">${displayName}</div>
           </div>
 
           <div class="tag-price-box ${priceClass}">
@@ -2136,6 +2147,11 @@
                   -webkit-box-orient: vertical;
                   overflow: hidden;
                   margin: 0;
+                }
+                .tag-main-title.tag-title-single {
+                  font-size: 19.5pt;
+                  line-height: 1.08;
+                  -webkit-line-clamp: 1;
                 }
                 .tag-price-box {
                   border-radius: 4px;
