@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    SANTHI GANESH BAKERY - APP INTERACTIVITY & STATE MANAGEMENT
    ========================================================================== */
 
@@ -6,16 +6,19 @@
 const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
 
-// DEFAULT CATALOG DATA
-// Default datasets loaded from data/products-data.js or window scope fallback
+if (typeof window !== 'undefined') {
+  window.SUPABASE_URL = SUPABASE_URL;
+  window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
+}
 
+// Global products & jobs references (safely fallback to empty array if data script not loaded)
+let PRODUCTS_DATA = (typeof DEFAULT_PRODUCTS_DATA !== 'undefined') ? DEFAULT_PRODUCTS_DATA : ((typeof window !== 'undefined' && window.DEFAULT_PRODUCTS_DATA) ? window.DEFAULT_PRODUCTS_DATA : []);
+let JOBS_DATA = (typeof DEFAULT_JOBS_DATA !== 'undefined') ? DEFAULT_JOBS_DATA : ((typeof window !== 'undefined' && window.DEFAULT_JOBS_DATA) ? window.DEFAULT_JOBS_DATA : []);
 
-
-
-// SUPABASE CLOUD DATABASE CONFIGURATION (Declared at top)
-
-// Global jobs reference
-let JOBS_DATA = DEFAULT_JOBS_DATA;
+if (typeof window !== 'undefined') {
+  window.PRODUCTS_DATA = PRODUCTS_DATA;
+  window.JOBS_DATA = JOBS_DATA;
+}
 
 // Get stored products or defaults
 function getStoredProducts() {
@@ -234,8 +237,7 @@ function saveStoredJobs(jobs) {
   jobs.forEach(j => saveJobToSupabase(j));
 }
 
-// Dynamic Products Reference
-let PRODUCTS_DATA = DEFAULT_PRODUCTS_DATA;
+// Dynamic Products Reference (initialized at top)
 
 // 2. SHOPPING CART STATE
 let cartItems = (typeof window !== 'undefined' && window.localStorage)

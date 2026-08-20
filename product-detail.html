@@ -513,7 +513,7 @@
             addToCartBtn.disabled = true;
             addToCartBtn.style.backgroundColor = '#888888';
             addToCartBtn.style.cursor = 'not-allowed';
-            addToCartBtn.innerHTML = '<i class="ph ph-x-circle"></i> Currently Out of Stock';
+            addToCartBtn.innerHTML = '🔴 Currently Out of Stock';
           }
         } else {
           const detailCartBtn = document.getElementById('add-to-cart-detail-btn');
@@ -579,7 +579,7 @@
       const cooldownMs = 15000;
       if (now - lastDetailWhatsAppTime < cooldownMs) {
         const remainingSecs = Math.ceil((cooldownMs - (now - lastDetailWhatsAppTime)) / 1000);
-        alert(`<i class="ph ph-hourglass"></i> Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
+        alert(`⏳ Please wait ${remainingSecs} second${remainingSecs > 1 ? 's' : ''} before launching another WhatsApp order!`);
         return;
       }
 

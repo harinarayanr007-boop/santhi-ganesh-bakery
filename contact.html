@@ -336,7 +336,7 @@
       const now = Date.now();
       if (now - lastContactWhatsAppTime < 15000) {
         const remainingSecs = Math.ceil((15000 - (now - lastContactWhatsAppTime)) / 1000);
-        alert(`<i class="ph ph-hourglass"></i> Please wait ${remainingSecs}s before launching another inquiry!`);
+        alert(`⏳ Please wait ${remainingSecs}s before launching another inquiry!`);
         return;
       }
       lastContactWhatsAppTime = now;

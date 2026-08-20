@@ -1571,7 +1571,7 @@
         </div>
 
         <div class="delivery-rule-badge" id="hero-delivery-rule">
-          <span><i class="ph ph-moped"></i> <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>
+          <span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>
         </div>
       </div>
     </section>
@@ -1743,7 +1743,7 @@
                 <i class="ph ph-storefront" style="font-size: 1.15rem;"></i> Santhi Ganesh Bakery
               </div>
               <div style="font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.4;" id="lbl-store-addr">
-                <i class="ph ph-map-pin"></i> 92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
+                📍 92, Cheranmahadevi Rd, Thirunagar, Tirunelveli
               </div>
               <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;">
                 <span style="background: #FFF3E0; color: #E65100; padding: 5px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;" id="lbl-takeaway-ready">
@@ -1813,17 +1813,13 @@
   <script src="./app.js"></script>
 
   <script>
-    'use strict';
-
-    if (typeof IN_STORE_MENU === 'undefined') {
-      var IN_STORE_MENU = (typeof window !== 'undefined' && window.IN_STORE_MENU) ? window.IN_STORE_MENU : [];
-    }
+    let menuSource = (typeof IN_STORE_MENU !== 'undefined') ? IN_STORE_MENU : ((typeof window !== 'undefined' && window.IN_STORE_MENU) ? window.IN_STORE_MENU : []);
 
     let currentOrderType = 'delivery';
     let activeCategory = 'juices';
     let searchQuery = '';
     let deliveryCart = JSON.parse(localStorage.getItem('sg_delivery_cart') || '[]');
-    let liveMenuItems = [...IN_STORE_MENU];
+    let liveMenuItems = [...menuSource];
     let currentMenuLang = localStorage.getItem('sg_lang') || 'en';
 
     // Bakery Hub at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli
@@ -1869,7 +1865,7 @@
         hero_time: '<i class="ph ph-clock"></i> 20–35 Mins',
         hero_title: "Santhi Ganesh Bakery Delivery",
         hero_sub: "Fresh Juices • Milkshakes • Chaat • Pav Bhaji • Burgers • Pizzas",
-        hero_rule: '<span><i class="ph ph-moped"></i> <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>',
+        hero_rule: '<span>🛵 <strong>FREE Delivery</strong> on orders above <strong>₹300</strong>! (Under ₹300: ₹30 fee)</span>',
         search_placeholder: "Search juices, burgers, chat, shakes, tea...",
         dishes_suffix: "Dishes",
         add_btn: "+ Add",
@@ -1883,7 +1879,7 @@
         cart_pickup_badge: "FREE Pickup",
         cart_pickup_hint: "Ready for store pickup in 15–20 mins",
         cart_free_delivery_badge: "FREE Delivery",
-        cart_free_delivery_hint: "<i class="ph ph-sparkle"></i> Unlocked FREE Delivery!",
+        cart_free_delivery_hint: "🎉 Unlocked FREE Delivery!",
         cart_paid_delivery_badge: "+ ₹30 Delivery",
 
         // Checkout Modal & Takeaway Strings
@@ -1900,9 +1896,9 @@
         
         card_takeaway_title: "Store Pickup Point",
         badge_free_pickup: "FREE Pickup",
-        store_name: "<i class="ph ph-storefront"></i> Santhi Ganesh Bakery",
+        store_name: "🏢 Santhi Ganesh Bakery",
         store_address: "92, Cheranmahadevi Rd, Thirunagar, Tirunelveli",
-        takeaway_ready: "<i class="ph ph-clock"></i> Ready in 15–20 Mins",
+        takeaway_ready: "⏱️ Ready in 15–20 Mins",
         takeaway_directions: "Directions ↗",
         
         card_contact_title: "Customer Contact",
@@ -1912,10 +1908,10 @@
         label_phone: "Mobile Number *",
         ph_phone: "10 digits",
         label_pickup_time: "Estimated Pickup Time",
-        opt_pickup_asap: "<i class="ph ph-lightning"></i> As soon as ready (~15–20 Mins)",
-        opt_pickup_30: "<i class="ph ph-clock"></i> In 30 Mins",
-        opt_pickup_45: "<i class="ph ph-clock"></i> In 45 Mins",
-        opt_pickup_60: "<i class="ph ph-clock"></i> In 1 Hour",
+        opt_pickup_asap: "⚡ As soon as ready (~15–20 Mins)",
+        opt_pickup_30: "🕐 In 30 Mins",
+        opt_pickup_45: "🕐 In 45 Mins",
+        opt_pickup_60: "🕐 In 1 Hour",
         ph_instructions: "Landmark or special instructions (optional)",
         
         card_summary_title: "Order & Bill Summary",
@@ -1947,7 +1943,7 @@
         hero_time: '<i class="ph ph-clock"></i> 20–35 நிமிடங்கள்',
         hero_title: "சாந்தி கணேஷ் பேக்கரி டெலிவரி",
         hero_sub: "புதிய பழச்சாறுகள் • மில்க் ஷேக்ஸ் • சாட் • பாவ் பாஜி • பர்கர் • பீட்சா",
-        hero_rule: '<span><i class="ph ph-moped"></i> <strong>₹300க்கு மேல் இலவச டெலிவரி</strong>! (₹300க்கு கீழ்: ₹30 கட்டணம்)</span>',
+        hero_rule: '<span>🛵 <strong>₹300க்கு மேல் இலவச டெலிவரி</strong>! (₹300க்கு கீழ்: ₹30 கட்டணம்)</span>',
         search_placeholder: "ஜூஸ், பர்கர், சாட், ஷேக்ஸ், டீ தேடுங்கள்...",
         dishes_suffix: "வகைகள்",
         add_btn: "+ சேர்",
@@ -1961,7 +1957,7 @@
         cart_pickup_badge: "இலவச பிக்கப்",
         cart_pickup_hint: "15–20 நிமிடங்களில் கடையில் தயார்",
         cart_free_delivery_badge: "இலவச டெலிவரி",
-        cart_free_delivery_hint: "<i class="ph ph-sparkle"></i> இலவச டெலிவரி கிடைத்துவிட்டது!",
+        cart_free_delivery_hint: "🎉 இலவச டெலிவரி கிடைத்துவிட்டது!",
         cart_paid_delivery_badge: "+ ₹30 டெலிவரி",
 
         // Checkout Modal & Takeaway Strings
@@ -1978,9 +1974,9 @@
         
         card_takeaway_title: "நேரடி வாங்கும் இடம்",
         badge_free_pickup: "இலவச டேக்அவே",
-        store_name: "<i class="ph ph-storefront"></i> சாந்தி கணேஷ் பேக்கரி",
+        store_name: "🏢 சாந்தி கணேஷ் பேக்கரி",
         store_address: "92, சேரன்மகாதேவி ரோடு, திருநகர், திருநெல்வேலி",
-        takeaway_ready: "<i class="ph ph-clock"></i> 15–20 நிமிடங்களில் தயார்",
+        takeaway_ready: "⏱️ 15–20 நிமிடங்களில் தயார்",
         takeaway_directions: "வழித்தடம் ↗",
         
         card_contact_title: "வாடிக்கையாளர் விவரம்",
@@ -1990,10 +1986,10 @@
         label_phone: "மொபைல் எண் *",
         ph_phone: "10 இலக்கங்கள்",
         label_pickup_time: "எடுத்துச்செல்லும் நேரம்",
-        opt_pickup_asap: "<i class="ph ph-lightning"></i> உடனடியாக தயாரானதும் (~15–20 நிமி)",
-        opt_pickup_30: "<i class="ph ph-clock"></i> 30 நிமிடங்களில்",
-        opt_pickup_45: "<i class="ph ph-clock"></i> 45 நிமிடங்களில்",
-        opt_pickup_60: "<i class="ph ph-clock"></i> 1 மணிநேரத்தில்",
+        opt_pickup_asap: "⚡ உடனடியாக தயாரானதும் (~15–20 நிமி)",
+        opt_pickup_30: "🕐 30 நிமிடங்களில்",
+        opt_pickup_45: "🕐 45 நிமிடங்களில்",
+        opt_pickup_60: "🕐 1 மணிநேரத்தில்",
         ph_instructions: "அடையாளம் அல்லது குறிப்புகள் (விருப்பத்தேர்வு)",
         
         card_summary_title: "ஆர்டர் & பில் சுருக்கம்",
@@ -2211,7 +2207,7 @@
       if (filteredItems.length === 0) {
         container.innerHTML = `
           <div style="text-align: center; padding: 36px 16px; background: #FFF; border-radius: 12px; border: 1px solid var(--color-border);">
-            <p style="font-size: 2.2rem; margin-bottom: 6px;"><i class="ph ph-magnifying-glass"></i></p>
+            <p style="font-size: 2.2rem; margin-bottom: 6px;">🔍</p>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 2px;">${t.empty_title}</h3>
             <p style="color: var(--color-text-muted); font-size: 0.8rem;">${t.empty_sub}</p>
             <button onclick="clearMenuSearch()" style="margin-top: 10px; background: var(--color-primary-dark); color: #FFF; border: none; padding: 6px 14px; border-radius: 16px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">${t.clear_btn}</button>
@@ -2294,7 +2290,7 @@
       return `
         <article class="item-card" style="${item.is_available === false ? 'opacity: 0.65;' : ''}">
           <div class="item-thumb-box">
-            <span style="font-size: 1.25rem;">${item.icon || '<i class="ph ph-coffee"></i>'}</span>
+            <span style="font-size: 1.25rem;">${item.icon || '🍽️'}</span>
           </div>
           <div class="item-info">
             <div class="item-header-row">
@@ -2410,7 +2406,7 @@
         } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
           statusPill.className = 'cart-delivery-badge delivery-free';
           statusPill.textContent = t.cart_free_delivery_badge || 'FREE Delivery';
-          progressText.innerHTML = `<i class="ph ph-sparkle"></i> ${t.cart_free_delivery_hint || '<i class="ph ph-sparkle"></i> Unlocked <strong>FREE Delivery</strong>!'}`;
+          progressText.innerHTML = `<i class="ph ph-sparkle"></i> ${t.cart_free_delivery_hint || '🎉 Unlocked <strong>FREE Delivery</strong>!'}`;
         } else {
           statusPill.className = 'cart-delivery-badge delivery-paid';
           statusPill.textContent = currentMenuLang === 'ta' ? `+ ₹${STANDARD_DELIVERY_FEE} டெலிவரி` : `+ ₹${STANDARD_DELIVERY_FEE} Delivery`;
@@ -2594,7 +2590,7 @@
         });
       } else {
         if (window.showBrandAlert) {
-          showBrandAlert(`UPI ID: ${BAKERY_UPI_ID}`, 'Bakery UPI ID', 'brand', '<i class="ph ph-credit-card"></i>');
+          showBrandAlert(`UPI ID: ${BAKERY_UPI_ID}`, 'Bakery UPI ID', 'brand', '💳');
         } else {
           showBrandToast(`UPI ID: ${BAKERY_UPI_ID}`, "success");
         }
@@ -2655,7 +2651,7 @@
         // Santhi Ganesh Bakery Store Icon
         const bakeryIcon = L.divIcon({
           className: 'bakery-hub-marker',
-          html: `<div style="background:#8B4513; color:#fff; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border:2.5px solid #fff; font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,0.35);"><i class="ph ph-storefront"></i></div>`,
+          html: `<div style="background:#8B4513; color:#fff; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border:2.5px solid #fff; font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,0.35);">🏢</div>`,
           iconSize: [30, 30],
           iconAnchor: [15, 15]
         });
@@ -2876,8 +2872,8 @@
 
             const accText = Math.round(accuracy);
             setGpsStatusUI('located', currentMenuLang === 'ta' 
-              ? `<i class="ph ph-map-pin"></i> இருப்பிடம் கண்டறியப்பட்டது (±${accText}m)` 
-              : `<i class="ph ph-map-pin"></i> Location found (±${accText}m accuracy)`);
+              ? `📍 இருப்பிடம் கண்டறியப்பட்டது (±${accText}m)` 
+              : `📍 Location found (±${accText}m accuracy)`);
           }
 
           // Once we get < 30m accuracy, stop watching (save battery)
@@ -2895,8 +2891,8 @@
           console.warn('Auto GPS detection failed:', err.code, err.message);
           // Don't show alert for auto-detect, just update status bar
           setGpsStatusUI('error', currentMenuLang === 'ta' 
-            ? '<i class="ph ph-map-pin"></i> இடம் கண்டறிய இயலவில்லை - வரைபடத்தைத் தொடவும்' 
-            : '<i class="ph ph-map-pin"></i> Couldn\'t detect — tap map to set location');
+            ? '📍 இடம் கண்டறிய இயலவில்லை - வரைபடத்தைத் தொடவும்' 
+            : '📍 Couldn\'t detect — tap map to set location');
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
       );
@@ -2921,15 +2917,15 @@
                 }
 
                 setGpsStatusUI('located', currentMenuLang === 'ta' 
-                  ? `<i class="ph ph-map-pin"></i> தோராயமான இருப்பிடம் (±${Math.round(accuracy)}m)` 
-                  : `<i class="ph ph-map-pin"></i> Approximate location (±${Math.round(accuracy)}m)`);
+                  ? `📍 தோராயமான இருப்பிடம் (±${Math.round(accuracy)}m)` 
+                  : `📍 Approximate location (±${Math.round(accuracy)}m)`);
               }
             },
             () => {
               if (!gpsHasLocked) {
                 setGpsStatusUI('error', currentMenuLang === 'ta' 
-                  ? '<i class="ph ph-map-pin"></i> GPS கிடைக்கவில்லை - வரைபடத்தைத் தொடவும்' 
-                  : '<i class="ph ph-map-pin"></i> GPS unavailable — tap map to set location');
+                  ? '📍 GPS கிடைக்கவில்லை - வரைபடத்தைத் தொடவும்' 
+                  : '📍 GPS unavailable — tap map to set location');
               }
             },
             { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
@@ -2983,8 +2979,8 @@
             setTimeout(() => { if (btn) btn.innerHTML = origHTML; }, 2500);
 
             setGpsStatusUI('located', currentMenuLang === 'ta' 
-              ? `<i class="ph ph-map-pin"></i> துல்லிய இருப்பிடம் (±${accText}m)` 
-              : `<i class="ph ph-map-pin"></i> Precise location (±${accText}m)`);
+              ? `📍 துல்லிய இருப்பிடம் (±${accText}m)` 
+              : `📍 Precise location (±${accText}m)`);
           }
 
           // Stop once we get good accuracy
@@ -3020,7 +3016,7 @@
             showBrandModal({
               title: currentMenuLang === 'ta' ? 'GPS இருப்பிட அறிவிப்பு' : 'GPS Location Notice',
               message: errMsg,
-              icon: '<i class="ph ph-map-pin"></i>',
+              icon: '📍',
               type: 'warning',
               confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Got it'
             });
@@ -3092,7 +3088,7 @@
           text += `------------------------------------\n`;
           text += `👤 *வாடிக்கையாளர்:* ${name}\n`;
           text += `📱 *மொபைல்:* ${phoneClean}\n`;
-          text += `<i class="ph ph-clock"></i> *எடுத்துச்செல்லும் நேரம்:* ${pickupTime}\n`;
+          text += `⏱️ *எடுத்துச்செல்லும் நேரம்:* ${pickupTime}\n`;
           text += `------------------------------------\n`;
           text += `*ஆர்டர் செய்யப்பட்டவை:*\n`;
           deliveryCart.forEach((item, index) => {
@@ -3102,7 +3098,7 @@
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
           text += `💰 *கவுண்டரில் செலுத்த வேண்டிய தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `<i class="ph ph-credit-card"></i> *பணம் செலுத்தும் முறை:* <i class="ph ph-lightning"></i> உடனடி UPI (GPay / PhonePe)\n`;
+          text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
           text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
           text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
@@ -3115,7 +3111,7 @@
           text += `------------------------------------\n`;
           text += `👤 *Customer:* ${name}\n`;
           text += `📱 *Phone:* ${phoneClean}\n`;
-          text += `<i class="ph ph-clock"></i> *Pickup Timing:* ${pickupTime}\n`;
+          text += `⏱️ *Pickup Timing:* ${pickupTime}\n`;
           text += `------------------------------------\n`;
           text += `*ITEMS TO PREPARE:*\n`;
           deliveryCart.forEach((item, index) => {
@@ -3125,7 +3121,7 @@
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
           text += `💰 *TOTAL TO PAY AT COUNTER:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `<i class="ph ph-credit-card"></i> *Payment Method:* <i class="ph ph-lightning"></i> Instant UPI (GPay / PhonePe / Paytm)\n`;
+          text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
           text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
           text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
@@ -3150,7 +3146,7 @@
           text += `📱 *மொபைல்:* ${phoneClean}\n`;
           text += `🏠 *டெலிவரி முகவரி:* ${address}\n`;
           text += `🗺️ *நேரடி GPS இருப்பிடம்:* ${mapsLink}\n`;
-          text += `<i class="ph ph-moped"></i> *தொலைவு:* ${userDistanceKm.toFixed(1)} கி.மீ ${isOutRange ? '(2 கி.மீ எல்லைக்கு வெளியே)' : '(2 கி.மீ எல்லைக்குள் <i class="ph ph-check-circle"></i>)'}\n`;
+          text += `🛵 *தொலைவு:* ${userDistanceKm.toFixed(1)} கி.மீ ${isOutRange ? '(2 கி.மீ எல்லைக்கு வெளியே)' : '(2 கி.மீ எல்லைக்குள் ✅)'}\n`;
           text += `------------------------------------\n`;
           text += `*ஆர்டர் செய்யப்பட்டவை:*\n`;
           deliveryCart.forEach((item, index) => {
@@ -3158,10 +3154,10 @@
           });
           text += `------------------------------------\n`;
           text += `🍲 *பொருட்கள் மொத்தம்:* ₹${subtotal}\n`;
-          text += `<i class="ph ph-moped"></i> *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் <i class="ph ph-check-circle"></i>)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
+          text += `🛵 *டெலிவரி கட்டணம்:* ${isFreeDelivery ? 'இலவசம் (₹300க்கு மேல் ✅)' : `₹${deliveryFee} (₹300க்கு கீழ்)`}\n`;
           text += `💰 *மொத்த தொகை:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `<i class="ph ph-credit-card"></i> *பணம் செலுத்தும் முறை:* <i class="ph ph-lightning"></i> உடனடி UPI (GPay / PhonePe)\n`;
+          text += `💳 *பணம் செலுத்தும் முறை:* ⚡ உடனடி UPI (GPay / PhonePe)\n`;
           text += `👉 *செலுத்த தொடவும்:* ${httpsPayLink}\n`;
           text += `(GPay எண்: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *குறிப்பு:* ${instructions}\n`;
@@ -3178,7 +3174,7 @@
           text += `📱 *Phone:* ${phoneClean}\n`;
           text += `🏠 *Delivery Address:* ${address}\n`;
           text += `🗺️ *Live GPS Pin:* ${mapsLink}\n`;
-          text += `<i class="ph ph-moped"></i> *Distance:* ${userDistanceKm.toFixed(1)} km ${isOutRange ? '(Outside 2 km)' : '(Within 2 km <i class="ph ph-check-circle"></i>)'}\n`;
+          text += `🛵 *Distance:* ${userDistanceKm.toFixed(1)} km ${isOutRange ? '(Outside 2 km)' : '(Within 2 km ✅)'}\n`;
           text += `------------------------------------\n`;
           text += `*ITEMS ORDERED:*\n`;
           deliveryCart.forEach((item, index) => {
@@ -3186,10 +3182,10 @@
           });
           text += `------------------------------------\n`;
           text += `🍲 *Item Total:* ₹${subtotal}\n`;
-          text += `<i class="ph ph-moped"></i> *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 <i class="ph ph-check-circle"></i>)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
+          text += `🛵 *Delivery Fee:* ${isFreeDelivery ? 'FREE (Order ≥ ₹300 ✅)' : `₹${deliveryFee} (Order Under ₹300)`}\n`;
           text += `💰 *GRAND TOTAL TO PAY:* ₹${grandTotal}\n`;
           text += `------------------------------------\n`;
-          text += `<i class="ph ph-credit-card"></i> *Payment Method:* <i class="ph ph-lightning"></i> Instant UPI (GPay / PhonePe / Paytm)\n`;
+          text += `💳 *Payment Method:* ⚡ Instant UPI (GPay / PhonePe / Paytm)\n`;
           text += `👉 *Tap to Pay:* ${httpsPayLink}\n`;
           text += `(GPay No: *7339073844* | UPI ID: *${BAKERY_UPI_ID}*)\n`;
           if (instructions) text += `------------------------------------\n📝 *Note:* ${instructions}\n`;
@@ -3219,9 +3215,9 @@
           showBrandModal({
             title: currentMenuLang === 'ta' ? 'ஆர்டர் சமர்ப்பிக்கப்பட்டது!' : 'Order Dispatched!',
             message: currentMenuLang === 'ta' 
-              ? '<i class="ph ph-sparkle"></i> உங்கள் ஆர்டர் விவரங்கள் வாட்ஸ்அப்பில் அனுப்பப்பட்டுள்ளன. நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்!' 
-              : "<i class="ph ph-sparkle"></i> Your order details have been dispatched to WhatsApp. We'll start preparing your order right away!",
-            icon: '<i class="ph ph-sparkle"></i>',
+              ? '🎉 உங்கள் ஆர்டர் விவரங்கள் வாட்ஸ்அப்பில் அனுப்பப்பட்டுள்ளன. நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்!' 
+              : "🎉 Your order details have been dispatched to WhatsApp. We'll start preparing your order right away!",
+            icon: '🎉',
             type: 'success',
             confirmText: currentMenuLang === 'ta' ? 'அருமை' : 'Awesome'
           });
@@ -3251,7 +3247,7 @@
               price_display: it.price_display || '',
               is_veg: it.is_veg !== false,
               badge: it.badge || '',
-              icon: it.icon || '<i class="ph ph-coffee"></i>',
+              icon: it.icon || '🍽️',
               image: it.image || '',
               is_available: it.is_available !== false
             }));
