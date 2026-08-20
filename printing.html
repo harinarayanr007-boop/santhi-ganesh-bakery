@@ -1115,6 +1115,34 @@
       border-color: var(--color-primary);
     }
 
+    .quick-unit-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .unit-chip {
+      background: #FDF8F3;
+      border: 1px solid #D4A373;
+      color: #A6601B;
+      font-family: var(--font-main);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+
+    .unit-chip:hover {
+      background: #A6601B;
+      color: #FFFFFF;
+      border-color: #A6601B;
+      transform: translateY(-1px);
+    }
+
     /* STRICT PRINT MEDIA QUERY */
     @media print {
       @page {
@@ -1358,6 +1386,15 @@
         <div class="form-group">
           <label class="form-label">Unit / Subtitle (Optional)</label>
           <input type="text" id="cust-unit" class="form-control" placeholder="e.g. 250g or /pc" onkeydown="if(event.key==='Enter') saveCustomTag()">
+          <div class="quick-unit-chips">
+            <button type="button" class="unit-chip" onclick="setQuickUnit('250g')">250g</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('500g')">500g</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('1kg')">1kg</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('100g')">100g</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('/pc')">/pc</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('/pkt')">/pkt</button>
+            <button type="button" class="unit-chip" onclick="setQuickUnit('/box')">/box</button>
+          </div>
         </div>
       </div>
 
@@ -2313,6 +2350,14 @@
       setTimeout(() => {
         document.getElementById('cust-name-en')?.focus();
       }, 100);
+    }
+
+    function setQuickUnit(u) {
+      const input = document.getElementById('cust-unit');
+      if (input) {
+        input.value = u;
+        input.focus();
+      }
     }
 
     function closeCustomTagModal() {
