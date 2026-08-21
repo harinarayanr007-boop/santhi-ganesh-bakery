@@ -105,15 +105,32 @@ export default async function handler(req, res) {
         }
       };
 
-      // Candidate model identifiers for Google AI Studio
-      const candidateModels = [
-        'gemini-2.0-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-flash-002',
-        'gemini-1.5-flash-001',
+      // Discover models enabled for this specific Google AI Studio project
+      let candidateModels = [
         'gemini-1.5-flash',
-        'gemini-pro'
+        'gemini-1.5-flash-latest',
+        'gemini-2.0-flash',
+        'gemini-2.0-flash-exp',
+        'gemini-1.5-flash-8b',
+        'gemini-1.5-pro'
       ];
+
+      try {
+        const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`);
+        if (listRes.ok) {
+          const listJson = await listRes.json();
+          const discovered = (listJson.models || [])
+            .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
+            .map(m => m.name.replace(/^models\//, ''));
+          if (discovered.length > 0) {
+            candidateModels = discovered;
+          }
+        } else {
+          lastError = `ListModels error: ${listRes.status} ${await listRes.text()}`;
+        }
+      } catch (listErr) {
+        lastError = `ListModels fetch error: ${listErr.message}`;
+      }
 
       for (const model of candidateModels) {
         try {
@@ -139,10 +156,9 @@ export default async function handler(req, res) {
           } else {
             const errText = await response.text();
             lastError = `[${model}: ${response.status}] ${errText}`;
-            console.warn(`Model ${model} failed with ${response.status}, trying next...`);
           }
         } catch (mErr) {
-          lastError = mErr.message;
+          lastError = `[${model} catch] ${mErr.message}`;
         }
       }
 
