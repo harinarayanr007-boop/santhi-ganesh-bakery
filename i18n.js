@@ -117,6 +117,12 @@ const TRANSLATIONS = {
     cat_baby: "Baby Shower Cakes",
     cat_cookies: "Almond Cookies & Bakes",
 
+    // Custom Cake Studio Banner
+    custom_banner_tag: "Custom Cake Studio • 100% Precision",
+    custom_banner_title: "Got a Cake Photo from Instagram or Pinterest? 📸",
+    custom_banner_desc: "Have a dream design in mind? Send us your reference image, required weight & flavor on WhatsApp. Our master pastry chefs will craft it fresh with pure ingredients!",
+    custom_banner_btn: "Send Your Cake Design",
+
     // Product Detail Page
     shop_all: "Shop all",
     select_weight: "Select Weight / Variant:",
@@ -291,6 +297,12 @@ const TRANSLATIONS = {
     cat_wedding_tier: "திருமண கேக்குகள்",
     cat_baby: "வளைகாப்பு கேக்குகள்",
     cat_cookies: "பிஸ்கட் & பேக்கரி சுவைகள்",
+
+    // Custom Cake Studio Banner
+    custom_banner_tag: "விருப்பமான கேக் தயாரிப்பு • 100% நேர்த்தி",
+    custom_banner_title: "இன்ஸ்டாகிராம் அல்லது இணையத்தில் பார்த்த கேக் படம் உள்ளதா? 📸",
+    custom_banner_desc: "உங்கள் மனதில் உள்ள எந்தவொரு கேக் புகைப்படத்தையும் வாட்ஸ்அப்பில் அனுப்புங்கள். எங்களது நிபுணத்துவ மாஸ்டர் செஃப்கள் அதேபோல் சுடச்சுட தயாரித்து தருகிறார்கள்!",
+    custom_banner_btn: "உங்கள் கேக் படத்தை அனுப்பவும்",
 
     // Product Detail Page
     shop_all: "அனைத்தும்",

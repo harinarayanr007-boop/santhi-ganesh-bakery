@@ -2408,3 +2408,145 @@ body.chat-modal-open {
     padding: 6px 12px;
   }
 }
+
+/* ==========================================================================
+   CUSTOM CAKE DESIGN / SEND REFERENCE PHOTO BANNER & STUDIO
+   ========================================================================== */
+.custom-cake-banner {
+  background: linear-gradient(135deg, #26160F 0%, #3D2216 50%, #2A170F 100%);
+  border: 1.5px solid rgba(201, 138, 76, 0.4);
+  border-radius: 20px;
+  padding: 28px 32px;
+  color: #FFFFFF;
+  margin-bottom: 28px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-cake-banner::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(201, 138, 76, 0.25) 0%, rgba(201, 138, 76, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.custom-cake-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.custom-cake-banner-content {
+  max-width: 620px;
+}
+
+.custom-cake-tag {
+  background: rgba(201, 138, 76, 0.2);
+  color: #F8B878;
+  border: 1px solid rgba(201, 138, 76, 0.4);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.custom-cake-title {
+  font-family: var(--font-heading, 'Lora', serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.custom-cake-desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.custom-cake-steps-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.custom-cake-step-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-cake-step-pill strong {
+  color: var(--color-desert, #C98A4C);
+}
+
+.btn-custom-whatsapp {
+  background: #25D366;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 24px;
+  border-radius: 30px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-custom-whatsapp:hover {
+  background: #20BA56;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+  color: #FFFFFF;
+}
+
+@media (max-width: 640px) {
+  .custom-cake-banner {
+    padding: 20px 18px;
+    border-radius: 16px;
+  }
+  .custom-cake-banner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .btn-custom-whatsapp {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+  .custom-cake-steps-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
