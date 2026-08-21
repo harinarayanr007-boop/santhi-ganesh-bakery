@@ -211,108 +211,95 @@ export default async function handler(req, res) {
 function processRuleEngine(msg) {
   const lower = msg.toLowerCase().trim();
 
-  // Delivery / Location queries
-  if (lower.includes('delivery') || lower.includes('2km') || lower.includes('area') || lower.includes('location') || lower.includes('distance') || lower.includes('deliv')) {
+  // Delivery queries
+  if (lower.includes('delivery') || lower.includes('2km') || lower.includes('distance') || lower.includes('area')) {
     return {
-      reply: "⚡ We offer 30-min Express Delivery within 2KM (High Ground, Palayamkottai, Samathanapuram). We also deliver celebration cakes across all of Tirunelveli! Free delivery for orders above ₹300.",
+      reply: "⚡ We offer 30-min express delivery within 2KM in Tirunelveli (FREE delivery above ₹300, ₹30 fee below ₹300). For custom celebration cakes, we deliver citywide!",
       actions: [
-        { label: '⚡ Order 2KM Delivery', query: 'I want to place an urgent 2KM delivery order' },
-        { label: '🎂 Custom Cake Delivery', query: 'I need a birthday cake delivered' }
+        { label: '🛵 In-Store Quick Menu', query: 'Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)' },
+        { label: '🎂 Celebration Cakes', query: 'Tell me about Celebration & Custom Birthday Cakes' }
       ]
     };
   }
 
-  // Black Forest
+  // Juices / Shakes / Beverages
+  if (lower.includes('juice') || lower.includes('elaneer') || lower.includes('shake') || lower.includes('coffee') || lower.includes('tea') || lower.includes('falooda') || lower.includes('mojito')) {
+    return {
+      reply: "🥤 In-Store Beverages & Desserts:\n• Elaneer Payasam: ₹80 | Orange / Pomegranate: ₹80 | Watermelon: ₹50\n• Cold Coffee / Oreo / Kitkat Shake: ₹90 | Royal Falooda: ₹140\n• Filter Coffee: ₹25 | Ginger Tea: ₹20 | Mojitos: ₹70",
+      actions: [
+        { label: '🛵 Order on WhatsApp', query: 'Order in-store beverages for 2KM delivery' }
+      ]
+    };
+  }
+
+  // Chaat / Pav Bhaji / Burger / Pizza / Snacks
+  if (lower.includes('chaat') || lower.includes('chat') || lower.includes('pani puri') || lower.includes('puri') || lower.includes('pav bhaji') || lower.includes('burger') || lower.includes('pizza') || lower.includes('sandwich') || lower.includes('momo') || lower.includes('toast') || lower.includes('brownie')) {
+    return {
+      reply: "🍔 In-Store Quick Bites:\n• Pani Puri (6 pcs): ₹40 | Dahi Puri: ₹60 | Sev Puri: ₹50\n• Butter Pav Bhaji: ₹60 | Paneer / Cheese Pav Bhaji: ₹90\n• Crispy Veg Burger: ₹80 | Chicken Burger: ₹120 | Pizzas: ₹110–₹150\n• Sizzling Brownie with Ice Cream: ₹140 | Choco Lava: ₹50",
+      actions: [
+        { label: '🛵 Order on WhatsApp', query: 'Order in-store snacks for 2KM delivery' }
+      ]
+    };
+  }
+
+  // Specific Celebration Cakes
+  if (lower.includes('barbie')) {
+    return {
+      reply: "🎂 Barbie Pink Cake is priced at ₹1,300 (1.5 kg / 2 kg). Crafted fresh in both Regular & 100% Pure Veg (Eggless). 24h pre-order recommended!",
+      actions: [{ label: '🟢 Order Barbie Cake', query: 'Book Barbie Pink Cake for birthday' }]
+    };
+  }
+
+  if (lower.includes('crown')) {
+    return {
+      reply: "👑 The Crown Cake is priced at ₹650 (1 kg) / ₹943 (1.5 kg) / ₹1,203 (2 kg). Available in 100% Pure Veg (Eggless)!",
+      actions: [{ label: '🟢 Order Crown Cake', query: 'Book The Crown Cake' }]
+    };
+  }
+
+  if (lower.includes('lamborghini') || lower.includes('astronaut') || lower.includes('football') || lower.includes('xbox')) {
+    return {
+      reply: "🎂 Birthday Cakes for Him (₹750 for 1 kg):\n• The Lamborghini Cake: ₹750\n• Rocketing Astronaut Cake: ₹750\n• Manchester United / Football Jersey: ₹750\n• Gamers X-Box Cake: ₹750",
+      actions: [{ label: '🟢 Order Cake for Him', query: 'Book Birthday Cake for Him' }]
+    };
+  }
+
+  if (lower.includes('spiderman') || lower.includes('kids')) {
+    return {
+      reply: "🧒 Kids Theme Cakes (from ₹650–₹750 for 1 kg):\n• Spiderman Web Cake, Lion King, Cricket Fanatic, Unicorn Dream, Chhota Bheem. Pure Veg/Eggless available!",
+      actions: [{ label: '🟢 Order Kids Theme Cake', query: 'Book Kids Theme Cake' }]
+    };
+  }
+
   if (lower.includes('black forest') || lower.includes('blackforest')) {
     return {
-      reply: "🎂 Our Classic Black Forest Cake is layered with fresh whipped cream and imported cherries. Available in Regular and 100% Eggless: ₹450 (0.5kg) / ₹750 (1kg).",
-      actions: [
-        { label: '🟢 Order 1kg Black Forest (₹750)', query: 'Order 1kg Eggless Black Forest Cake' },
-        { label: '🟢 Order 0.5kg (₹450)', query: 'Order 0.5kg Black Forest Cake' }
-      ]
+      reply: "🎂 Signature Black Forest Cake is ₹550 (1 kg). Pure fresh cream and imported cherries. Available in Eggless too!",
+      actions: [{ label: '🟢 Order 1kg Black Forest (₹550)', query: 'Order 1kg Black Forest Cake' }]
     };
   }
 
-  // Red Velvet
   if (lower.includes('red velvet') || lower.includes('redvelvet')) {
     return {
-      reply: "❤️ Our Signature Red Velvet Cake features rich crimson sponge with real cream cheese frosting. ₹550 (0.5kg) / ₹950 (1kg). Available in Eggless too!",
-      actions: [
-        { label: '🟢 Order 1kg Red Velvet (₹950)', query: 'Order 1kg Red Velvet Cake' }
-      ]
+      reply: "❤️ Royal Red Velvet with Cream Cheese: ₹550 (0.5 kg) / ₹950 (1 kg) / ₹1,550 (2 kg). Pure Veg / Eggless available!",
+      actions: [{ label: '🟢 Order 1kg Red Velvet (₹950)', query: 'Order 1kg Red Velvet Cake' }]
     };
   }
 
-  // Rasamalai
-  if (lower.includes('rasamalai') || lower.includes('ras malai')) {
+  if (lower.includes('wedding') || lower.includes('anniversary') || lower.includes('tier')) {
     return {
-      reply: "👑 Our Royal Rasamalai Fusion Cake is soaked in aromatic saffron-cardamom milk and crowned with juicy rasamalai patties! ₹600 (0.5kg) / ₹1,050 (1kg).",
-      actions: [
-        { label: '🟢 Order Rasamalai Cake', query: 'Order 1kg Royal Rasamalai Cake' }
-      ]
+      reply: "💍 Wedding & Anniversary Tiers (₹1,450 for 1 kg):\n• Wedding Bells Macaron Cake, Roses Anniversary Cake, Rose Garden 2-Tier / 3-Tier.",
+      actions: [{ label: '🟢 Order Wedding Tier', query: 'Inquire Wedding Tier Cake' }]
     };
   }
 
-  // Butterscotch / Chocolate / Truffle
-  if (lower.includes('butterscotch') || lower.includes('truffle') || lower.includes('chocolate') || lower.includes('choco')) {
-    return {
-      reply: "🍫 We have Dutch Chocolate Truffle (₹550/0.5kg, ₹900/1kg) and Butterscotch Crunch (₹420/0.5kg, ₹700/1kg). Both baked fresh daily!",
-      actions: [
-        { label: '🟢 Order Chocolate Truffle', query: 'Order 1kg Chocolate Truffle Cake' },
-        { label: '🟢 Order Butterscotch', query: 'Order 1kg Butterscotch Crunch' }
-      ]
-    };
-  }
-
-  // Sweets / Mysore Pak / Snacks / Puffs
-  if (lower.includes('sweet') || lower.includes('mysore pak') || lower.includes('ghee') || lower.includes('snack') || lower.includes('puff') || lower.includes('peda')) {
-    return {
-      reply: "🧈 We have melt-in-mouth Special Ghee Mysore Pak (₹180/250g), Kaju Katli (₹260/250g), Milk Peda, hot Veg/Paneer/Chicken Puffs, and crunchy Murukku!",
-      actions: [
-        { label: '🟢 Order Ghee Mysore Pak', query: 'Order 500g Special Ghee Mysore Pak' },
-        { label: '🥟 Order Hot Puffs & Snacks', query: 'Order fresh hot puffs for delivery' }
-      ]
-    };
-  }
-
-  // Timing / Hours
-  if (lower.includes('timing') || lower.includes('time') || lower.includes('open') || lower.includes('close')) {
-    return {
-      reply: "🕒 Santhi Ganesh Bakery is open every day from 8:00 AM to 10:30 PM. Fresh batches of puffs, cakes, and sweets are baked through the day!",
-      actions: []
-    };
-  }
-
-  // Price / Menu general
-  if (lower.includes('price') || lower.includes('menu') || lower.includes('rate') || lower.includes('cost') || lower.includes('list')) {
-    return {
-      reply: "📋 Fresh cakes start from ₹420 (0.5kg) / ₹700 (1kg). Snacks & puffs start at ₹25. Traditional ghee sweets start at ₹140 (250g). Eggless options available for all cakes!",
-      actions: [
-        { label: '🍰 See Full Cake Menu', query: 'Show me cake flavors and prices' },
-        { label: '⚡ 2KM Delivery Menu', query: 'What snacks can I get in 30 mins?' }
-      ]
-    };
-  }
-
-  // Tamil greeting / queries
-  if (lower.includes('vanakkam') || lower.includes('enna') || lower.includes('iruka') || lower.includes('cake') || lower.includes('sweet')) {
-    return {
-      reply: "வணக்கம்! சாந்தி கணேஷ் பேக்கரியில் பிறந்தநாள் கேக்குகள், நெய் மைசூர் பாக், பஃப்ஸ் மற்றும் ஸ்வீட்ஸ் புதிதாக தயாராக உள்ளன. வாட்ஸ்அப் மூலம் உடனடியாக ஆர்டர் செய்யலாம்!",
-      actions: [
-        { label: '🎂 கேக் ஆர்டர் செய்ய', query: '1kg Birthday Cake order panren' },
-        { label: '⚡ 2KM டெலிவரி', query: 'Urgent 2KM delivery venum' }
-      ]
-    };
-  }
-
-  // General default greeting
+  // General default: Ask to divide into Celebration Cakes vs In-Store Menu
   return {
-    reply: "Vanakkam! Welcome to Santhi Ganesh Bakery. Looking for fresh birthday cakes, hot oven puffs, traditional ghee sweets, or our 30-min 2KM express delivery?",
+    reply: "Vanakkam! Welcome to Santhi Ganesh Bakery 🙏\n\nWe have two main sections for you:\n1. 🎂 **Celebration Cakes** (Custom Birthday, Kids Theme, Baby Shower & Wedding Cakes)\n2. 🛵 **In-Store Quick Menu** (Fresh Juices, Chaat, Pav Bhaji, Burgers, Pizzas, Shakes with 30-min 2KM delivery)\n\nWhich one would you like to explore?",
     actions: [
-      { label: '⚡ 2KM Fast Delivery', query: 'What items are available for 2KM Fast Delivery?' },
-      { label: '🎂 Custom Cake Inquiry', query: 'Tell me about birthday and wedding cakes' },
-      { label: '📍 Delivery Locations', query: 'Where do you deliver in Tirunelveli?' },
-      { label: '💳 Pay via UPI', query: 'How can I pay via UPI?' }
+      { label: '🎂 Celebration Cakes', query: 'Tell me about Celebration & Custom Birthday Cakes' },
+      { label: '🛵 In-Store Quick Menu', query: 'Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)' },
+      { label: '⚡ 2KM Delivery Info', query: 'What are the rules for 2KM Express Delivery?' },
+      { label: '📍 Store Location & Hours', query: 'Where is your store located and what are the timings?' }
     ]
   };
 }
