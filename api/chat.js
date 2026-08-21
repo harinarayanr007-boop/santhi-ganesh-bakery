@@ -149,12 +149,17 @@ export default async function handler(req, res) {
 
       for (const model of fastModels) {
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+
           const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
           const response = await fetch(geminiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
           });
+          clearTimeout(timeoutId);
 
           if (response.ok) {
             const data = await response.json();
@@ -175,7 +180,7 @@ export default async function handler(req, res) {
             }
           }
         } catch (mErr) {
-          // try next model immediately
+          // move to next candidate immediately without waiting
         }
       }
     } catch (err) {
