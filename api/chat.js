@@ -147,6 +147,9 @@ export default async function handler(req, res) {
       }
 
       console.warn('All Gemini models failed, last error:', lastError);
+    } catch (err) {
+      console.warn('Gemini outer execution error:', err);
+    }
   } else {
     console.warn('No GEMINI_API_KEY found in process.env. Keys available:', Object.keys(process.env).filter(k => !k.includes('SECRET')));
   }
