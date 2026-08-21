@@ -72,6 +72,7 @@ export default async function handler(req, res) {
   }
 
   // 1. Try Gemini API if API Key is configured
+  let lastError = '';
   if (GEMINI_API_KEY) {
     try {
       const formattedContents = [];
@@ -114,7 +115,6 @@ export default async function handler(req, res) {
         'gemini-pro'
       ];
 
-      let lastError = '';
       for (const model of candidateModels) {
         try {
           const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
@@ -165,7 +165,8 @@ export default async function handler(req, res) {
     source: 'rule_engine',
     debug: {
       hasKey: !!GEMINI_API_KEY,
-      envKeyLength: GEMINI_API_KEY.length
+      envKeyLength: GEMINI_API_KEY.length,
+      lastError: lastError
     }
   });
 }
