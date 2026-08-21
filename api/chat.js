@@ -104,41 +104,49 @@ export default async function handler(req, res) {
         }
       };
 
-      // Try primary Gemini 1.5 Flash endpoint
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-      const response = await fetch(geminiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      // Candidate model identifiers for Google AI Studio
+      const candidateModels = [
+        'gemini-2.0-flash',
+        'gemini-1.5-flash-latest',
+        'gemini-1.5-flash-002',
+        'gemini-1.5-flash-001',
+        'gemini-1.5-flash',
+        'gemini-pro'
+      ];
 
-      if (response.ok) {
-        const data = await response.json();
-        const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        if (replyText.trim()) {
-          const cleanReply = replyText.replace(/[*_#`]/g, '').trim();
-          const whatsappUrl = generateWhatsAppLink(message, cleanReply);
-          return res.status(200).json({
-            reply: cleanReply,
-            whatsappUrl,
-            source: 'gemini_flash'
+      let lastError = '';
+      for (const model of candidateModels) {
+        try {
+          const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+          const response = await fetch(geminiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
           });
+
+          if (response.ok) {
+            const data = await response.json();
+            const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            if (replyText.trim()) {
+              const cleanReply = replyText.replace(/[*_#`]/g, '').trim();
+              const whatsappUrl = generateWhatsAppLink(message, cleanReply);
+              return res.status(200).json({
+                reply: cleanReply,
+                whatsappUrl,
+                source: `gemini (${model})`
+              });
+            }
+          } else {
+            const errText = await response.text();
+            lastError = `[${model}: ${response.status}] ${errText}`;
+            console.warn(`Model ${model} failed with ${response.status}, trying next...`);
+          }
+        } catch (mErr) {
+          lastError = mErr.message;
         }
-      } else {
-        const errorText = await response.text();
-        console.warn('Gemini API status:', response.status, 'body:', errorText);
-        return res.status(200).json({
-          reply: `[Gemini API Error: ${response.status}] ${errorText}`,
-          source: 'gemini_api_error'
-        });
       }
-    } catch (err) {
-      console.warn('Gemini API error, falling back to smart rules:', err);
-      return res.status(200).json({
-        reply: `[Gemini Exception: ${err.message}]`,
-        source: 'gemini_exception'
-      });
-    }
+
+      console.warn('All Gemini models failed, last error:', lastError);
   } else {
     console.warn('No GEMINI_API_KEY found in process.env. Keys available:', Object.keys(process.env).filter(k => !k.includes('SECRET')));
   }
