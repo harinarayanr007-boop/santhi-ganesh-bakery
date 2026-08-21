@@ -51,6 +51,7 @@ YOUR BEHAVIOR & STYLE:
 3. Keep responses concise (2 to 4 sentences maximum) so they are fast and easy to read on mobile.
 4. When mentioning cakes or ordering, always ask if they'd like to place an order or customize it via WhatsApp.
 5. If the user wants to order, suggest WhatsApp button with the formatted inquiry.
+6. CRITICAL: Output ONLY the final customer-facing response. Do NOT output any internal thoughts, reasoning steps, drafts, or planning text.
 `;
 
 export default async function handler(req, res) {
@@ -100,18 +101,17 @@ export default async function handler(req, res) {
         contents: formattedContents,
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 350,
+          maxOutputTokens: 300,
           topP: 0.95
         }
       };
 
       // Discover models enabled for this specific Google AI Studio project
       let candidateModels = [
-        'gemini-1.5-flash',
-        'gemini-1.5-flash-latest',
         'gemini-2.0-flash',
-        'gemini-2.0-flash-exp',
+        'gemini-1.5-flash',
         'gemini-1.5-flash-8b',
+        'gemini-2.0-flash-lite',
         'gemini-1.5-pro'
       ];
 
@@ -122,11 +122,19 @@ export default async function handler(req, res) {
           const discovered = (listJson.models || [])
             .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
             .map(m => m.name.replace(/^models\//, ''));
+          
           if (discovered.length > 0) {
+            const priorityList = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b', 'gemini-2.0-flash-lite', 'gemini-1.5-pro'];
+            discovered.sort((a, b) => {
+              const idxA = priorityList.findIndex(p => a.includes(p));
+              const idxB = priorityList.findIndex(p => b.includes(p));
+              if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+              if (idxA !== -1) return -1;
+              if (idxB !== -1) return 1;
+              return 0;
+            });
             candidateModels = discovered;
           }
-        } else {
-          lastError = `ListModels error: ${listRes.status} ${await listRes.text()}`;
         }
       } catch (listErr) {
         lastError = `ListModels fetch error: ${listErr.message}`;
@@ -143,9 +151,14 @@ export default async function handler(req, res) {
 
           if (response.ok) {
             const data = await response.json();
-            const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-            if (replyText.trim()) {
-              const cleanReply = replyText.replace(/[*_#`]/g, '').trim();
+            const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            if (rawText.trim()) {
+              let cleanReply = rawText.replace(/<thought>[\s\S]*?<\/thought>/gi, '');
+              cleanReply = cleanReply.replace(/(?:^|\n)(?:User Input|Meaning|Goal|Constraint|Draft \d|Thought|Reasoning):[\s\S]*?\n\n/gi, '');
+              cleanReply = cleanReply.replace(/[*_#`]/g, '').trim();
+              
+              if (!cleanReply) cleanReply = rawText.replace(/[*_#`]/g, '').trim();
+              
               const whatsappUrl = generateWhatsAppLink(message, cleanReply);
               return res.status(200).json({
                 reply: cleanReply,
