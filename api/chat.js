@@ -1,5 +1,14 @@
-﻿// api/chat.js - Vercel Serverless Function with Gemini 1.5 Flash
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+// api/chat.js - Vercel Serverless Function with Gemini 1.5 Flash
+const GEMINI_API_KEY = (
+  process.env.GEMINI_API_KEY ||
+  process.env.GEMINI_KEY ||
+  process.env['Gemini key'] ||
+  process.env['gemini key'] ||
+  process.env.gemini_api_key ||
+  process.env.GOOGLE_API_KEY ||
+  ''
+).trim();
+
 const BAKERY_PHONE = '917339073844';
 
 const BAKERY_SYSTEM_PROMPT = `
@@ -62,47 +71,45 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message is required' });
   }
 
-  // 1. Try Gemini 1.5 Flash if API Key is configured
+  // 1. Try Gemini API if API Key is configured
   if (GEMINI_API_KEY) {
     try {
-      const contents = [
-        {
-          role: 'user',
-          parts: [{ text: `SYSTEM INSTRUCTIONS:\n${BAKERY_SYSTEM_PROMPT}` }]
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'Understood! I am ready to serve as the Santhi Ganesh Bakery assistant with warm hospitality and accurate bakery info.' }]
-        }
-      ];
+      const formattedContents = [];
+      const safeHistory = Array.isArray(history) ? history.slice(-6) : [];
 
-      const safeHistory = Array.isArray(history) ? history.slice(-4) : [];
       for (const h of safeHistory) {
-        if (h.role && h.text) {
-          contents.push({
-            role: h.role === 'user' ? 'user' : 'model',
+        if (h.text && typeof h.text === 'string') {
+          formattedContents.push({
+            role: h.role === 'model' ? 'model' : 'user',
             parts: [{ text: h.text }]
           });
         }
       }
 
-      contents.push({
+      // Ensure last entry is the current user message
+      formattedContents.push({
         role: 'user',
         parts: [{ text: message }]
       });
 
+      const payload = {
+        systemInstruction: {
+          parts: [{ text: BAKERY_SYSTEM_PROMPT }]
+        },
+        contents: formattedContents,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 350,
+          topP: 0.95
+        }
+      };
+
+      // Try primary Gemini 1.5 Flash endpoint
       const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
       const response = await fetch(geminiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 300,
-            topP: 0.95
-          }
-        })
+        body: JSON.stringify(payload)
       });
 
       if (response.ok) {
@@ -114,14 +121,14 @@ export default async function handler(req, res) {
           return res.status(200).json({
             reply: cleanReply,
             whatsappUrl,
-            source: 'gemini'
+            source: 'gemini_flash'
           });
         }
       } else {
-        console.warn('Gemini API returned error status:', response.status);
+        console.warn('Gemini API status:', response.status);
       }
     } catch (err) {
-      console.warn('Gemini API invocation failed, falling back to smart rules:', err);
+      console.warn('Gemini API error, falling back to smart rules:', err);
     }
   }
 

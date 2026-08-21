@@ -856,12 +856,21 @@
       }
 
       div.innerHTML = `
-        <div class="chat-bubble">${escapeHTML(replyText)}</div>
+        <div class="chat-bubble">${formatChatMarkdown(replyText)}</div>
         ${waHTML}
         ${actionsHTML}
       `;
 
       body.insertBefore(div, typing);
+    }
+
+    function formatChatMarkdown(text) {
+      if (!text) return '';
+      let formatted = escapeHTML(text);
+      formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      formatted = formatted.replace(/(?:^|\n)[•\-\*]\s+(.*)/g, '<div style="display:flex;gap:6px;margin:2px 0;"><span>•</span><span>$1</span></div>');
+      formatted = formatted.replace(/\n/g, '<br>');
+      return formatted;
     }
 
     function scrollChatToBottom() {
