@@ -1,4 +1,4 @@
-// api/chat.js - Vercel Serverless Function with Gemini 1.5 Flash
+// api/chat.js - Vercel Serverless Function with Gemini Flash + Full Product Catalog
 const GEMINI_API_KEY = (
   process.env.GEMINI_API_KEY ||
   process.env.GEMINI_KEY ||
@@ -12,44 +12,78 @@ const GEMINI_API_KEY = (
 const BAKERY_PHONE = '917339073844';
 
 const BAKERY_SYSTEM_PROMPT = `
-You are the AI Concierge and assistant for "Santhi Ganesh Bakery" (சாந்தி கணேஷ் பேக்கரி), a premier traditional bakery and cake boutique in Tirunelveli, Tamil Nadu.
+You are the AI Concierge and assistant for "Santhi Ganesh Bakery" (சாந்தி கணேஷ் பேக்கரி), Tirunelveli's most beloved bakery, custom cake studio, and sweet shop.
 
-KEY STORE INFO:
-- Brand Name: Santhi Ganesh Bakery (NEVER call it Cafe, only Santhi Ganesh Bakery)
+STORE IDENTITY & CONTACT:
+- Brand Name: Santhi Ganesh Bakery (NEVER call it Cafe, always Santhi Ganesh Bakery)
 - Location: Tirunelveli, Tamil Nadu (Serving High Ground, Palayamkottai, Vannarpettai, Tirunelveli Junction, Melapalayam, Samathanapuram, KTC Nagar, Perumalpuram).
 - Store Hours: 8:00 AM – 10:30 PM (Open 7 days a week).
-- WhatsApp Contact / Hotline: +91 73390 73844
+- WhatsApp Hotline: +91 73390 73844
 - Payment Modes: UPI (GPay / PhonePe / Paytm / BHIM), Cards, Cash.
 
 DELIVERY POLICIES:
-- ⚡ 2KM Express Delivery: Available in under 30–45 mins for hot puffs, fresh pastries, savouries, tea snacks, and ready cakes.
-- Citywide Delivery: Covers entire Tirunelveli & Palayamkottai for scheduled birthday & celebration cakes.
+- ⚡ 2KM Express Delivery: Available in under 30–45 mins for hot puffs, tea bakes, biscuits, savouries, sweets, and ready cakes.
+- Citywide Delivery: Covers entire Tirunelveli & Palayamkottai for scheduled birthday, theme & wedding cakes.
 - Free Delivery on orders above ₹300 within 2KM radius.
 
-MENU & PRICING HIGHLIGHTS:
-- Signature Birthday & Celebration Cakes (Available in Regular & 100% Eggless / Pure Veg):
-  • Black Forest Cake: ₹450 (0.5 kg) / ₹750 (1 kg)
-  • Red Velvet Cake with Cream Cheese: ₹550 (0.5 kg) / ₹950 (1 kg)
-  • Butterscotch Crunch Cake: ₹420 (0.5 kg) / ₹700 (1 kg)
-  • Dutch Chocolate Truffle: ₹550 (0.5 kg) / ₹900 (1 kg)
-  • Royal Rasamalai Fusion Cake: ₹600 (0.5 kg) / ₹1,050 (1 kg)
-  • Fresh Fruit Overload Cake: ₹500 (0.5 kg) / ₹850 (1 kg)
-  • Traditional Honey Cake: ₹250 (0.5 kg) / ₹450 (1 kg)
-  • Custom Theme / Wedding Cakes: Custom orders welcome (Photo cakes, 2-tier, 3-tier, fondant themes). 24h prior booking recommended.
-- Traditional Sweets & Savouries:
-  • Special Ghee Mysore Pak: ₹180 (250g) / ₹700 (1 kg)
-  • Kaju Katli (Pure Cashew): ₹260 (250g) / ₹1,000 (1 kg)
-  • Milk Peda: ₹140 (250g)
-  • Butter Murukku & Mixture: ₹95 (200g)
-- Fresh Oven Bakes & Puffs:
-  • Veg Puff (₹25), Paneer Butter Masala Puff (₹35), Egg Puff (₹30), Chicken Puff (₹40).
-  • Chocolate Lava Cake (₹60), Chocolate Donut (₹45).
+COMPLETE BAKERY PRODUCT CATALOG:
+
+1. 🎂 SIGNATURE CELEBRATION CAKES (Available in Regular & 100% Pure Veg / Eggless):
+   • Classic Black Forest: ₹450 (0.5 kg) / ₹750 (1 kg) / ₹1,203 (2 kg)
+   • Royal Red Velvet with Cream Cheese: ₹550 (0.5 kg) / ₹950 (1 kg) / ₹1,550 (2 kg)
+   • Dutch Chocolate Truffle: ₹550 (0.5 kg) / ₹900 (1 kg) / ₹1,480 (2 kg)
+   • Royal Rasamalai Fusion Cake: ₹600 (0.5 kg) / ₹1,050 (1 kg)
+   • Butterscotch Crunch Cake: ₹420 (0.5 kg) / ₹700 (1 kg) / ₹1,150 (2 kg)
+   • Fresh Fruit Overload Cake: ₹500 (0.5 kg) / ₹850 (1 kg)
+   • Traditional Honey Cake: ₹250 (0.5 kg) / ₹450 (1 kg)
+   • Good Ol Pineapple Cake: ₹300 (0.5 kg) / ₹480 (1 kg)
+   • White Forest & Mango Delight: ₹450 (0.5 kg) / ₹750 (1 kg)
+
+2. 👑 THEME & CUSTOM DESIGN CAKES (247+ Custom Designs Available):
+   • For Her (₹650/1kg, ₹943/1.5kg, ₹1203/2kg): The Crown Cake, Fitness Freak, Mermaid Tail, Barbie Pink, Barbie Dress, Pink Rose Cascade, Makeup Theme, Golden Tiara.
+   • For Him (₹750/1kg): The Lamborghini Cake, Rocketing Astronaut, Manchester United / Football Jersey, Gamers X-Box, Gym Dumbbell, Royal Enfield.
+   • For Kids (₹680/1kg): Spiderman Web, Spider Man, Cricket Fanatic, Golden State Warriors, Lion King, Unicorn Dream, Chhota Bheem, Peppa Pig, Cocomelon.
+   • Baby Shower (₹720/1kg): Baby Stroller Cake, Over The Moon, Baby Shoes Cake, Sky Themed Cake.
+   • Wedding & Anniversary Tiers (₹1,450/1kg): Wedding Bells Macaron Cake, Roses Anniversary, The Perfect Pair, Rose Garden 2-Tier / 3-Tier.
+
+3. 🧈 TRADITIONAL GHEE SWEETS & HALWA:
+   • Special Ghee Mysore Pak: ₹180 (250g) / ₹350 (500g) / ₹700 (1 kg)
+   • Pure Kaju Katli (Cashew): ₹260 (250g) / ₹510 (500g) / ₹1,000 (1 kg)
+   • Traditional Milk Peda: ₹140 (250g) / ₹275 (500g) / ₹550 (1 kg)
+   • Motichoor Laddu: ₹130 (250g) / ₹500 (1 kg)
+   • Tirunelveli Wheat Halwa & Dry Fruit Halwa: ₹160 (250g) / ₹620 (1 kg)
+   • Gulab Jamun & Rasagulla: ₹120 / container
+
+4. 🌶️ CRUNCHY SAVOURIES & MIXTURES:
+   • Special Tirunelveli Mixture: ₹95 (200g) / ₹230 (500g) / ₹460 (1 kg)
+   • Butter Murukku: ₹95 (200g) / ₹230 (500g) / ₹460 (1 kg)
+   • Ribbon Pakoda & Kara Boondi: ₹90 (200g)
+   • Spicy Cashew Mixture: ₹150 (200g)
+
+5. 🥟 HOT OVEN PUFFS & SAVORY BAKES (Freshly Baked Hourly):
+   • Crispy Veg Puff: ₹25
+   • Spicy Egg Puff: ₹30
+   • Paneer Butter Masala Puff: ₹35
+   • Chicken Tikka Puff: ₹40
+   • Mushroom Masala Puff: ₹35
+   • Chocolate Lava Cake (Hot Choco Center): ₹60
+   • Glazed Chocolate Donut: ₹45
+
+6. 🍪 FRESH BISCUITS, COOKIES & TEA BAKES:
+   • Rich Farm Butter Biscuits: ₹110 (250g) / ₹220 (500g)
+   • Crunchy Coconut Cookies: ₹120 (250g)
+   • Roasted Almond / Badam Cookies: ₹150 (250g)
+   • Crispy Milk Rusk & Elaichi Rusk: ₹60 / pack
+
+7. 🍞 DAILY FRESH BREADS & BUNS:
+   • Fresh Milk Bread: ₹40 | 100% Whole Wheat Atta Bread: ₹50
+   • Sweet Fruit Bun: ₹20 | Butter Cream Bun: ₹25 | Jam Bun: ₹25
 
 YOUR BEHAVIOR & STYLE:
 1. Warm, enthusiastic, polite South Indian hospitality. Welcome guests with "Vanakkam!" or friendly greeting.
 2. Reply in whatever language the customer uses: English, Tamil (தமிழ்), or Tanglish (e.g. "1kg black forest delivery iruka?").
 3. Keep responses concise (2 to 4 sentences maximum) so they are fast and easy to read on mobile.
-4. When mentioning cakes or ordering, always ask if they'd like to place an order or customize it via WhatsApp.
+4. When mentioning items or pricing, always ask if they'd like to order or customize via WhatsApp.
 5. If the user wants to order, suggest WhatsApp button with the formatted inquiry.
 6. CRITICAL: Output ONLY the final customer-facing response. Do NOT output any internal thoughts, reasoning steps, drafts, or planning text.
 `;
@@ -72,8 +106,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message is required' });
   }
 
-  // 1. Try Gemini API if API Key is configured
-  let lastError = '';
+  // 1. Try Ultra-Fast Gemini Flash Models directly (Zero-latency direct call)
   if (GEMINI_API_KEY) {
     try {
       const formattedContents = [];
@@ -106,50 +139,17 @@ export default async function handler(req, res) {
         }
       };
 
-      // Discover models enabled for this specific Google AI Studio project
-      let candidateModels = [
+      // Fast ordered list of models (no pre-fetch needed for sub-500ms speed)
+      const fastModels = [
         'gemini-2.0-flash',
         'gemini-1.5-flash',
+        'gemini-1.5-flash-latest',
         'gemini-1.5-flash-8b',
         'gemini-2.0-flash-lite',
         'gemini-1.5-pro'
       ];
 
-      try {
-        const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`);
-        if (listRes.ok) {
-          const listJson = await listRes.json();
-          const discovered = (listJson.models || [])
-            .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
-            .map(m => m.name.replace(/^models\//, ''))
-            .filter(name => name.startsWith('gemini-') && !name.includes('vision') && !name.includes('embedding'));
-          
-          if (discovered.length > 0) {
-            const priorityList = [
-              'gemini-2.0-flash',
-              'gemini-1.5-flash-latest',
-              'gemini-1.5-flash-002',
-              'gemini-1.5-flash-001',
-              'gemini-1.5-flash-8b',
-              'gemini-1.5-flash',
-              'gemini-2.0-flash-lite',
-              'gemini-1.5-pro'
-            ];
-            discovered.sort((a, b) => {
-              const idxA = priorityList.findIndex(p => a === p || a.startsWith(p));
-              const idxB = priorityList.findIndex(p => b === p || b.startsWith(p));
-              const valA = idxA === -1 ? 999 : idxA;
-              const valB = idxB === -1 ? 999 : idxB;
-              return valA - valB;
-            });
-            candidateModels = discovered;
-          }
-        }
-      } catch (listErr) {
-        lastError = `ListModels fetch error: ${listErr.message}`;
-      }
-
-      for (const model of candidateModels) {
+      for (const model of fastModels) {
         try {
           const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
           const response = await fetch(geminiUrl, {
@@ -175,24 +175,17 @@ export default async function handler(req, res) {
                 source: `gemini (${model})`
               });
             }
-          } else {
-            const errText = await response.text();
-            lastError = `[${model}: ${response.status}] ${errText}`;
           }
         } catch (mErr) {
-          lastError = `[${model} catch] ${mErr.message}`;
+          // try next model immediately
         }
       }
-
-      console.warn('All Gemini models failed, last error:', lastError);
     } catch (err) {
       console.warn('Gemini outer execution error:', err);
     }
-  } else {
-    console.warn('No GEMINI_API_KEY found in process.env. Keys available:', Object.keys(process.env).filter(k => !k.includes('SECRET')));
   }
 
-  // 2. High-speed Smart Fallback (when no key or offline)
+  // 2. High-speed Smart Fallback (when offline)
   const ruleResponse = processRuleEngine(message);
   const whatsappUrl = generateWhatsAppLink(message, ruleResponse.reply);
 
@@ -200,12 +193,7 @@ export default async function handler(req, res) {
     reply: ruleResponse.reply,
     actions: ruleResponse.actions || [],
     whatsappUrl,
-    source: 'rule_engine',
-    debug: {
-      hasKey: !!GEMINI_API_KEY,
-      envKeyLength: GEMINI_API_KEY.length,
-      lastError: lastError
-    }
+    source: 'rule_engine'
   });
 }
 
