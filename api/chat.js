@@ -121,17 +121,26 @@ export default async function handler(req, res) {
           const listJson = await listRes.json();
           const discovered = (listJson.models || [])
             .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
-            .map(m => m.name.replace(/^models\//, ''));
+            .map(m => m.name.replace(/^models\//, ''))
+            .filter(name => name.startsWith('gemini-') && !name.includes('vision') && !name.includes('embedding'));
           
           if (discovered.length > 0) {
-            const priorityList = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b', 'gemini-2.0-flash-lite', 'gemini-1.5-pro'];
+            const priorityList = [
+              'gemini-2.0-flash',
+              'gemini-1.5-flash-latest',
+              'gemini-1.5-flash-002',
+              'gemini-1.5-flash-001',
+              'gemini-1.5-flash-8b',
+              'gemini-1.5-flash',
+              'gemini-2.0-flash-lite',
+              'gemini-1.5-pro'
+            ];
             discovered.sort((a, b) => {
-              const idxA = priorityList.findIndex(p => a.includes(p));
-              const idxB = priorityList.findIndex(p => b.includes(p));
-              if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-              if (idxA !== -1) return -1;
-              if (idxB !== -1) return 1;
-              return 0;
+              const idxA = priorityList.findIndex(p => a === p || a.startsWith(p));
+              const idxB = priorityList.findIndex(p => b === p || b.startsWith(p));
+              const valA = idxA === -1 ? 999 : idxA;
+              const valB = idxB === -1 ? 999 : idxB;
+              return valA - valB;
             });
             candidateModels = discovered;
           }
