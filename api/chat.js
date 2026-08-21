@@ -15,16 +15,22 @@ const BAKERY_PHONE = '917339073844';
 const BAKERY_SYSTEM_PROMPT = `
 You are the helpful AI Concierge for Santhi Ganesh Bakery (சாந்தி கணேஷ் பேக்கரி) at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
 
+STORE LOCATION, ADDRESS & HOURS:
+• Address: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli, Tamil Nadu 627006.
+• Timings: Open Daily from 8:00 AM to 10:00 PM (Monday to Sunday).
+• Hotline: +91 73390 73844
+• When asked about store location, address, map, timings, or hours:
+  State directly: "Santhi Ganesh Bakery is located at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli. We are open daily from 8:00 AM to 10:00 PM. You can visit us in person or order online!"
+
 STRICT BEHAVIOR & LENGTH CONSTRAINTS:
-1. LOCATION & DELIVERY QUERIES: Whenever ANY location or area is asked (e.g., "do you deliver to Maharaja Nagar / Palayamkottai / Junction / any area?"):
+1. DELIVERY AREA QUERIES: If asked whether we deliver to a specific distant area (e.g. Maharaja Nagar, Palayamkottai, etc.):
    - NEVER say "Yes" or "No".
    - State strictly: "We deliver within a 2 km radius around Santhi Ganesh Bakery (92 Cheranmahadevi Rd, Thirunagar). For deliveries beyond 2 km or custom cake orders, please check with us directly on WhatsApp (+91 73390 73844)."
-2. NO "YES" OR "NO" FOR UNLISTED ITEMS: If an item or query is not explicitly listed in the catalog below, DO NOT say "Yes" or "No". State what is available or direct to WhatsApp (+91 73390 73844).
-3. STRICT LENGTH: Maximum 3 to 4 short sentences. Keep it clean, direct, and helpful.
-4. Reply in the customer's language (Tamil தமிழ், English, or Tanglish).
+2. NO "YES" OR "NO" FOR UNLISTED ITEMS: If an item is not in the catalog, do not say Yes or No; suggest available alternatives or WhatsApp.
+3. STRICT LENGTH: Maximum 3 to 4 short sentences. Keep it direct and helpful.
+4. Reply in customer's language (Tamil தமிழ், English, or Tanglish).
 
-STORE LOCATION & ACTIVE CATALOG (100% ACCURATE REAL PRICES):
-• Store Address: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
+ACTIVE CATALOG & REAL PRICES:
 • Jobs Hiring (careers.html): Cleaner (₹350/day) | Delivery Partner / Server (₹350–₹450/day) | Social Media Manager (₹5K–₹7K/mo).
 
 1. 🎂 CELEBRATION CAKES (products.html - Regular & 100% Pure Veg / Eggless):
@@ -160,7 +166,18 @@ export default async function handler(req, res) {
 function processRuleEngine(msg) {
   const lower = msg.toLowerCase().trim();
 
-  // Delivery / Location queries
+  // 1. Store Location, Address, Hours & Timings
+  if (lower.includes('timing') || lower.includes('hours') || lower.includes('located') || lower.includes('address') || lower.includes('where is') || lower.includes('location') || lower.includes('map') || lower.includes('open') || lower.includes('close') || lower.includes('thirunagar') || lower.includes('cheranmahadevi')) {
+    return {
+      reply: "📍 Santhi Ganesh Bakery is located at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.\n🕒 Store Timings: Open Daily 8:00 AM – 10:00 PM (Monday to Sunday).\n📞 Phone: +91 73390 73844",
+      actions: [
+        { label: '🎂 Celebration Cakes', query: 'Tell me about Celebration & Custom Birthday Cakes' },
+        { label: '🛵 In-Store Quick Menu', query: 'Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)' }
+      ]
+    };
+  }
+
+  // 2. Delivery queries
   if (lower.includes('delivery') || lower.includes('2km') || lower.includes('distance') || lower.includes('area') || lower.includes('maharaja') || lower.includes('palayamkottai') || lower.includes('junction')) {
     return {
       reply: "We deliver within a 2 km radius around Santhi Ganesh Bakery (92 Cheranmahadevi Rd, Thirunagar). For deliveries beyond 2 km or custom cake orders, please check with us directly on WhatsApp (+91 73390 73844).",
@@ -250,7 +267,26 @@ function generateWhatsAppLink(userMsg, botReply) {
 function getRelevantWebLink(userMsg = '', botReply = '') {
   const combined = (userMsg + ' ' + botReply).toLowerCase();
 
-  // 1. Jobs & Careers
+  // 1. Store Location, Address, Map & Hours
+  if (
+    combined.includes('where is') ||
+    combined.includes('located') ||
+    combined.includes('location') ||
+    combined.includes('address') ||
+    combined.includes('timing') ||
+    combined.includes('hours') ||
+    combined.includes('open daily') ||
+    combined.includes('thirunagar') ||
+    combined.includes('cheranmahadevi') ||
+    combined.includes('map')
+  ) {
+    return {
+      label: '📍 Open Store in Google Maps',
+      url: 'https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8'
+    };
+  }
+
+  // 2. Jobs & Careers
   if (
     combined.includes('job') ||
     combined.includes('career') ||
