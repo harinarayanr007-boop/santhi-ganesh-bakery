@@ -802,13 +802,13 @@
         }
 
         if (typing) typing.classList.remove('active');
-        appendBotMessage(data.reply, data.actions, data.whatsappUrl);
+        appendBotMessage(data.reply, data.actions, data.whatsappUrl, data.webLink);
         chatHistory.push({ role: 'model', text: data.reply });
       } catch (err) {
         console.warn('Chat API error, falling back locally:', err);
         if (typing) typing.classList.remove('active');
         const fallback = getLocalFallback(text);
-        appendBotMessage(fallback.reply, fallback.actions, fallback.whatsappUrl);
+        appendBotMessage(fallback.reply, fallback.actions, fallback.whatsappUrl, fallback.webLink);
         chatHistory.push({ role: 'model', text: fallback.reply });
       }
 
@@ -824,7 +824,7 @@
       body.insertBefore(div, typing);
     }
 
-    function appendBotMessage(replyText, actions, whatsappUrl) {
+    function appendBotMessage(replyText, actions, whatsappUrl, webLink) {
       const body = document.getElementById('chat-body-messages');
       const typing = document.getElementById('chat-typing-indicator');
       const div = document.createElement('div');
@@ -843,20 +843,37 @@
         `;
       }
 
+      let webLinkHTML = '';
+      if (webLink && webLink.url && webLink.label) {
+        webLinkHTML = `
+          <a href="${escapeHTML(webLink.url)}" class="chat-action-btn" style="background: #A6601B; color: #FFFFFF; border-color: #A6601B; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ph ph-arrow-square-out" style="font-size: 1rem;"></i> ${escapeHTML(webLink.label)}
+          </a>
+        `;
+      }
+
       let waHTML = '';
       if (whatsappUrl) {
         waHTML = `
-          <div style="margin-top: 8px;">
-            <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: #25D366; color: #FFFFFF; border-color: #25D366; font-weight: 800;">
-              <i class="ph ph-whatsapp-logo" style="font-size: 1rem;"></i> Order on WhatsApp
-            </a>
+          <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: #25D366; color: #FFFFFF; border-color: #25D366; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ph ph-whatsapp-logo" style="font-size: 1rem;"></i> Order on WhatsApp
+          </a>
+        `;
+      }
+
+      let buttonsRow = '';
+      if (webLinkHTML || waHTML) {
+        buttonsRow = `
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+            ${webLinkHTML}
+            ${waHTML}
           </div>
         `;
       }
 
       div.innerHTML = `
         <div class="chat-bubble">${formatChatMarkdown(replyText)}</div>
-        ${waHTML}
+        ${buttonsRow}
         ${actionsHTML}
       `;
 

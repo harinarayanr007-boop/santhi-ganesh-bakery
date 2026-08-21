@@ -1,4 +1,4 @@
-// api/chat.js - Vercel Serverless Function with Real Bakery Data (Celebration Cakes & In-Store Menu)
+// api/chat.js - Ultra-Lean Zero-Hallucination AI Concierge with Web Links
 const GEMINI_API_KEY = (
   process.env.GEMINI_API_KEY ||
   process.env.GEMINI_KEY ||
@@ -11,90 +11,29 @@ const GEMINI_API_KEY = (
 
 const BAKERY_PHONE = '917339073844';
 
+// Ultra-compressed prompt (~250 tokens) to minimize token consumption
 const BAKERY_SYSTEM_PROMPT = `
-You are the AI Concierge for "Santhi Ganesh Bakery" (சாந்தி கணேஷ் பேக்கரி) at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
+You are the AI Concierge for Santhi Ganesh Bakery (சாந்தி கணேஷ் பேக்கரி), 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
 
-CORE STRUCTURE — TWO CLEAR PILLARS ONLY:
-We divide our offerings into TWO distinct sections. If the customer has not specified which one they want, ask them whether they are looking for "Celebration Cakes" or our "In-Store Quick Menu".
+CORE CATALOG & PRICES:
+1. 🎂 CELEBRATION CAKES (products.html - Regular & 100% Eggless):
+   - Her: Pineapple ₹480/1kg | Black Forest ₹550/1kg | The Crown Cake ₹650/1kg | Mermaid Tail ₹650/1kg | Fitness Freak ₹650/1kg | Royal Crown Princess ₹850/1.5kg | Dancing Doll ₹950/1kg | Unicorn ₹1000/1kg | Barbie Pink ₹1300/1.5kg | Tiara ₹1800/2kg | Candyland ₹2000/2kg | 0015 Pink Roses ₹2200/2kg | Frozen Enchantment ₹2600/3kg
+   - Him (₹750/1kg): Lamborghini | Astronaut | Manchester United | Gamers X-Box
+   - Kids (₹650-750/1kg): Spiderman Web | Lion King | Cricket | Unicorn
+   - Tiers & Baby Shower: Baby Stroller ₹720/1kg | Wedding Bells Macaron ₹1450/1kg
+2. 🛵 IN-STORE QUICK MENU (menu.html - 30-min 2KM delivery, free above ₹300):
+   - Juices: Elaneer Payasam ₹80 | Orange/Pom/Apple/Sathukudi ₹80 | Watermelon ₹50 | Pineapple/Kirni ₹60
+   - Shakes: Cold Coffee/Oreo/Kitkat ₹90 | Red Banana/Strawberry/Choco ₹80
+   - Chaat: Pani Puri (6pcs) ₹40 | Dahi Puri ₹60 | Sev/Bhel Puri ₹50 | Masala Puri ₹60
+   - Pav Bhaji: Butter Pav Bhaji ₹60 | Paneer/Cheese Pav Bhaji ₹90
+   - Burgers & Pizza: Veg Burger ₹80 | Chicken Burger ₹120 | Veg Pizza ₹110 | Margherita ₹140 | Chicken Pizza ₹140
+   - Desserts & Hot: Royal Falooda ₹140 | Sizzling Brownie ₹140 | Choco Lava ₹50 | Filter Coffee ₹25 | Ginger Tea ₹20 | Veg Puff ₹25 | Egg Puff ₹30
 
-==================================================
-PILLAR 1: 🎂 CELEBRATION CAKES CATALOG (Pre-order / Special Occasions)
-==================================================
-Custom birthday, milestone, theme, and wedding cakes. Available in Regular & 100% Pure Veg (Eggless).
-(24 hours advance booking recommended for custom tier designs).
-
-Real Catalog Items & Pricing:
-- Birthday Cakes for Her:
-  • Good Ol Pineapple Cake: ₹480 (1 kg)
-  • Signature Black Forest Cake: ₹550 (1 kg)
-  • The Crown Cake: ₹650 (1 kg) / ₹943 (1.5 kg) / ₹1,203 (2 kg)
-  • Mermaid Tail Cake: ₹650 (1 kg) / ₹943 (1.5 kg) / ₹1,203 (2 kg)
-  • Fitness Freak Cake: ₹650 (1 kg) / ₹943 (1.5 kg)
-  • Royal Crown Princess Cake: ₹850 (1.5 kg)
-  • Dancing Doll Cake: ₹950 (1 kg)
-  • Yellow Unicorn Cake: ₹1,000 (1 kg)
-  • Barbie Pink Cake: ₹1,300 (1.5 kg / 2 kg)
-  • Tiara Cake: ₹1,800 (2 kg)
-  • Candyland Cake: ₹2,000 (2 kg)
-  • 0015 Pink Roses Cake: ₹2,200 (2 kg)
-  • Frozen Enchantment Cake: ₹2,600 (3 kg)
-
-- Birthday Cakes for Him (1 kg starts ₹750):
-  • The Lamborghini Cake: ₹750 (1 kg)
-  • Rocketing Astronaut Cake: ₹750 (1 kg)
-  • Manchester United / Football Jersey Cake: ₹750 (1 kg)
-  • Gamers X-Box Cake: ₹750 (1 kg)
-
-- Kids Theme Cakes:
-  • Spiderman Web Cake: ₹650–₹750 (1 kg)
-  • Lion King / Jungle Cake, Cricket Fanatic, Unicorn Dream (1 kg onwards)
-
-- Baby Shower & Wedding Tiers:
-  • Baby Stroller / Over The Moon / Baby Shoes Cake: ₹720 (1 kg)
-  • Wedding Bells Macaron Cake / Roses Anniversary Cake / The Perfect Pair: ₹1,450 (1 kg)
-
-==================================================
-PILLAR 2: 🛵 IN-STORE LIVE MENU (30-min 2KM Delivery & Quick Takeaway)
-==================================================
-Fresh items prepared live for express doorstep delivery within 2 KM (FREE delivery above ₹300, ₹30 fee below ₹300) or store takeaway in 15–20 mins.
-
-Real Menu Items & Pricing:
-- Fresh Juices:
-  • Elaneer Payasam: ₹80 | Fresh Orange: ₹80 | Sathukudi (Sweet Lime): ₹80 | Pomegranate: ₹80 | Pomegranate Pure (No water): ₹120 | Fresh Apple: ₹80 | Pineapple: ₹60 | Watermelon: ₹50 | Muskmelon (Kirni): ₹60
-- Milkshakes:
-  • Cold Coffee Shake: ₹90 | Oreo Shake: ₹90 | Kitkat Shake: ₹90 | Red Banana Shake: ₹80 | Strawberry Shake: ₹80 | Chocolate Shake: ₹80 | Butterscotch Shake: ₹80 | Vanilla Milkshake: ₹70
-- Falooda & Desserts:
-  • Royal Falooda: ₹140 | Classic Falooda: ₹100 | Fruit Salad with Ice Cream: ₹90 | Fresh Fruit Salad: ₹60 | Hot Gulab Jamun with Ice Cream: ₹60 | Royal Rasamalai: ₹40
-- Mojitos (₹70 each):
-  • Lime Mint | Green Mint | Blue Curacao | Strawberry | Black Currant | Kiwi Fruit | Mango Sunshine
-- Brownies & Pastries:
-  • Sizzling Chocolate Brownie: ₹140 | Brownie with Ice Cream: ₹100 | Red Velvet Cake Slice: ₹80 | Black Forest Pastry Slice: ₹55 | White Forest Pastry Slice: ₹55 | Choco Lava Cake: ₹50 | Chocolate Mousse Cake: ₹65 | Gourmet Jar Cake: ₹65
-- Chaat & Street Bites:
-  • Pani Puri (6 pcs): ₹40 | Dahi Puri: ₹60 | Bhel Puri: ₹50 | Sev Puri: ₹50 | Masala Puri: ₹60 | Aloo Puri: ₹55 | Cheese Pani Puri: ₹70
-- Pav Bhaji:
-  • Classic Butter Pav Bhaji: ₹60 | Paneer Pav Bhaji: ₹90 | Cheese Pav Bhaji: ₹90 | Mushroom Pav Bhaji: ₹90 | Paneer Cheese Pav Bhaji: ₹120
-- Burgers:
-  • Crispy Veg Burger: ₹80 | Crispy Chicken Burger: ₹120 | Grilled Paneer Burger: ₹110 | Mushroom Patty Burger: ₹110 | Double Chicken Burger: ₹160 | Double Veg Burger: ₹120
-- Pizzas:
-  • Classic Veg Pizza: ₹110 | Double Cheese Margherita: ₹140 | Chicken Delight Pizza: ₹140 | Smoky BBQ Chicken Pizza: ₹150 | Paneer Tikka Pizza: ₹140 | Sweet Corn & Cheese: ₹140
-- Sandwiches & Toasts:
-  • Classic Veg Sandwich: ₹80 | Bombay Masala Sandwich: ₹80 | Egg Mayo Sandwich: ₹80 | Grilled Paneer Sandwich: ₹100 | Grilled Cheese Sandwich: ₹100 | Butter Bread Toast: ₹30 | Classic Bun Butter Jam: ₹35 | Garlic Butter Toast: ₹40
-- Hot Drinks:
-  • Filter Coffee: ₹25 | Ginger Tea (Inji Tea): ₹20 | Naatu Sarkarai Tea: ₹30 | Naatu Sarkarai Coffee: ₹30 | Karupatti Coffee: ₹35 | Fresh Hot Milk: ₹25 | Hot Boost / Horlicks: ₹30
-- Momos:
-  • Steamed Veg Momos (5 pcs): ₹80 | Steamed Chicken Momos (5 pcs): ₹100 | Paneer Momos: ₹100 | Peri-Peri Chicken Momos: ₹120 | Crunchy Fried Chicken: ₹110
-- Scoop Ice Cream:
-  • Vanilla: ₹40 | Chocolate: ₹50 | Butterscotch: ₹50 | Pista: ₹50 | Mango: ₹50
-
-BEHAVIOR & ZERO-HALLUCINATION RULES:
-1. STRICT ZERO-HALLUCINATION POLICY: You are an official store assistant. You must ONLY mention items and exact prices listed in the catalog above. NEVER invent, guess, or fabricate products, flavors, or numbers.
-2. If a customer asks for an item not on our menu (e.g. sushi, matcha, cheesecake), politely say: "We don't have [item] on our menu, but we have [closest available item]!"
-3. If the user's intent is broad or unspecified, always ask:
-   "Vanakkam! Welcome to Santhi Ganesh Bakery 🙏 Are you looking for our 🎂 Celebration & Birthday Cakes or our 🛵 In-Store Quick Menu (Juices, Chaat, Burgers, Pizzas, Shakes)?"
-4. Reply in the user's language (English, Tamil தமிழ், or everyday Tanglish).
-5. Keep answers short (2 to 4 sentences maximum) so they read fast and clean on mobile.
-6. Provide WhatsApp order button link when assisting with orders.
-7. CRITICAL: Output ONLY the final customer-facing response. No thoughts or drafts.
+STRICT RULES:
+1. MAX LENGTH: Exactly 1 to 2 short sentences. Never exceed 2 sentences.
+2. ZERO HALLUCINATION: Only state real items and exact prices listed above.
+3. If broad query, ask: "Are you looking for our 🎂 Celebration Cakes or our 🛵 In-Store Quick Menu?"
+4. Reply in customer's language (English, Tamil, or Tanglish).
 `;
 
 export default async function handler(req, res) {
@@ -115,11 +54,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message is required' });
   }
 
-  // 1. Try Ultra-Fast Gemini Flash Models directly (Zero-latency direct call)
+  const webLink = getRelevantWebLink(message);
+
+  // 1. Try Cheapest & Fastest Flash-Lite Models directly
   if (GEMINI_API_KEY) {
     try {
       const formattedContents = [];
-      const safeHistory = Array.isArray(history) ? history.slice(-6) : [];
+      // Keep only last 2 messages to save 60%+ input tokens
+      const safeHistory = Array.isArray(history) ? history.slice(-2) : [];
 
       for (const h of safeHistory) {
         if (h.text && typeof h.text === 'string') {
@@ -130,7 +72,6 @@ export default async function handler(req, res) {
         }
       }
 
-      // Ensure last entry is the current user message
       formattedContents.push({
         role: 'user',
         parts: [{ text: message }]
@@ -142,24 +83,24 @@ export default async function handler(req, res) {
         },
         contents: formattedContents,
         generationConfig: {
-          temperature: 0.2, // Strict factual adherence to prevent hallucination
-          maxOutputTokens: 600,
-          topP: 0.9
+          temperature: 0.2,
+          maxOutputTokens: 150, // Strict 2-sentence token cap
+          topP: 0.85
         }
       };
 
-      // Fast ordered list of models (working models first for instant sub-500ms response)
+      // Cheapest and lightest models first
       const fastModels = [
-        'gemini-flash-latest',
         'gemini-flash-lite-latest',
-        'gemini-2.0-flash',
-        'gemini-1.5-flash-latest'
+        'gemini-3.5-flash-lite',
+        'gemini-flash-latest',
+        'gemini-2.0-flash'
       ];
 
       for (const model of fastModels) {
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const timeoutId = setTimeout(() => controller.abort(), 2500);
 
           const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
           const response = await fetch(geminiUrl, {
@@ -181,30 +122,35 @@ export default async function handler(req, res) {
               if (!cleanReply) cleanReply = rawText.replace(/[*_#`]/g, '').trim();
               
               const whatsappUrl = generateWhatsAppLink(message, cleanReply);
+              const dynamicWebLink = getRelevantWebLink(message, cleanReply);
+
               return res.status(200).json({
                 reply: cleanReply,
                 whatsappUrl,
+                webLink: dynamicWebLink,
                 source: `gemini (${model})`
               });
             }
           }
         } catch (mErr) {
-          // move to next candidate immediately without waiting
+          // move to next candidate immediately
         }
       }
     } catch (err) {
-      console.warn('Gemini outer execution error:', err);
+      console.warn('Gemini execution error:', err);
     }
   }
 
-  // 2. High-speed Smart Fallback (when offline)
+  // 2. High-speed Offline Rule Engine
   const ruleResponse = processRuleEngine(message);
   const whatsappUrl = generateWhatsAppLink(message, ruleResponse.reply);
+  const dynamicWebLink = getRelevantWebLink(message, ruleResponse.reply);
 
   return res.status(200).json({
     reply: ruleResponse.reply,
     actions: ruleResponse.actions || [],
     whatsappUrl,
+    webLink: dynamicWebLink,
     source: 'rule_engine'
   });
 }
@@ -308,4 +254,64 @@ function processRuleEngine(msg) {
 function generateWhatsAppLink(userMsg, botReply) {
   const text = `Hi Santhi Ganesh Bakery! 👋\nI am inquiring from your website:\n"${userMsg.trim()}"\n\nPlease assist me with my order.`;
   return `https://wa.me/${BAKERY_PHONE}?text=${encodeURIComponent(text)}`;
+}
+
+function getRelevantWebLink(userMsg = '', botReply = '') {
+  const combined = (userMsg + ' ' + botReply).toLowerCase();
+
+  // Celebration Cakes
+  if (
+    combined.includes('cake') ||
+    combined.includes('birthday') ||
+    combined.includes('barbie') ||
+    combined.includes('crown') ||
+    combined.includes('spiderman') ||
+    combined.includes('celebration') ||
+    combined.includes('wedding') ||
+    combined.includes('anniversary') ||
+    combined.includes('lamborghini') ||
+    combined.includes('astronaut') ||
+    combined.includes('black forest') ||
+    combined.includes('red velvet')
+  ) {
+    return {
+      label: '🎂 View Celebration Cakes Catalog',
+      url: './products.html'
+    };
+  }
+
+  // In-Store Live Menu
+  if (
+    combined.includes('juice') ||
+    combined.includes('elaneer') ||
+    combined.includes('shake') ||
+    combined.includes('chaat') ||
+    combined.includes('chat') ||
+    combined.includes('pani puri') ||
+    combined.includes('puri') ||
+    combined.includes('pav bhaji') ||
+    combined.includes('burger') ||
+    combined.includes('pizza') ||
+    combined.includes('sandwich') ||
+    combined.includes('toast') ||
+    combined.includes('coffee') ||
+    combined.includes('tea') ||
+    combined.includes('falooda') ||
+    combined.includes('brownie') ||
+    combined.includes('momo') ||
+    combined.includes('puff') ||
+    combined.includes('biscuit') ||
+    combined.includes('sweet') ||
+    combined.includes('mysore pak') ||
+    combined.includes('2km') ||
+    combined.includes('in-store') ||
+    combined.includes('quick menu')
+  ) {
+    return {
+      label: '🛵 View In-Store Live Menu',
+      url: './menu.html'
+    };
+  }
+
+  return null;
 }
