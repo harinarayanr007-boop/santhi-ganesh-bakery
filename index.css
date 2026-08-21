@@ -1416,6 +1416,16 @@ html[lang="ta"] .hero-title {
   margin-bottom: 20px;
 }
 
+.author-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-desert);
+  flex-shrink: 0;
+  display: block;
+}
+
 
 /* ==========================================================================
    SOCIAL PROOF LOGO BAR (FIGMA NODE 10314:68830)
