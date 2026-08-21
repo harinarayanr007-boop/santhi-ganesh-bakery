@@ -975,10 +975,247 @@ if (typeof document !== 'undefined') {
       switchProtoTab('kirana', document.querySelector('.figma-proto-tab'));
     }
 
+    // Initialize Responsive AI Chatbot on all public pages
+    initBakeryChatWidget();
+
     // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Registration:', err));
     }
   });
+}
+
+/* ==========================================================================
+   AI CONCIERGE CHATBOT WIDGET - UNIVERSAL & FULLY RESPONSIVE
+   ========================================================================== */
+const bakeryChatHistory = [];
+let isBakeryChatOpen = false;
+
+function initBakeryChatWidget() {
+  if (typeof document === 'undefined') return;
+
+  let widget = document.getElementById('bakery-chat-widget');
+  if (!widget) {
+    widget = document.createElement('div');
+    widget.className = 'bakery-chat-widget';
+    widget.id = 'bakery-chat-widget';
+    widget.innerHTML = `
+      <!-- Floating Trigger Pill -->
+      <button class="chat-trigger-btn" id="chat-trigger-btn" onclick="toggleBakeryChat()" aria-label="Open Bakery Assistant">
+        <div class="chat-trigger-badge"></div>
+        <i class="ph ph-chat-centered-dots chat-trigger-icon"></i>
+        <span>Bakery Assistant</span>
+      </button>
+
+      <!-- Chat Modal Window -->
+      <div class="chat-modal-window" id="chat-modal-window">
+        <!-- Header -->
+        <div class="chat-modal-header">
+          <div class="chat-header-info">
+            <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="chat-header-logo">
+            <div>
+              <div class="chat-header-title">Santhi Ganesh Bakery</div>
+              <div class="chat-header-sub">
+                <span style="width:6px;height:6px;background:#22C55E;border-radius:50%;display:inline-block;"></span>
+                <span>Online • Tirunelveli</span>
+              </div>
+            </div>
+          </div>
+          <button class="chat-close-btn" onclick="toggleBakeryChat()" aria-label="Close Assistant"><i class="ph ph-x"></i></button>
+        </div>
+
+        <!-- Messages Body -->
+        <div class="chat-body-messages" id="chat-body-messages">
+          <!-- Initial Welcome Message -->
+          <div class="chat-msg chat-msg-bot">
+            <div class="chat-bubble">
+              <strong>Vanakkam! 🙏</strong> Welcome to Santhi Ganesh Bakery.<br><br>How can we assist you today? Please let us know if you'd like to explore:
+            </div>
+            <div class="chat-quick-chips">
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Tell me about Celebration & Custom Birthday Cakes')">🎂 Celebration Cakes</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)')">🛵 In-Store Quick Menu</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('What are the rules for 2KM Express Delivery?')">⚡ 2KM Express Delivery</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Where is your store located and what are the timings?')">📍 Store Location & Hours</button>
+            </div>
+          </div>
+
+          <!-- Typing Indicator -->
+          <div class="chat-typing-indicator" id="chat-typing-indicator">
+            <i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i>
+            <span>Assistant is thinking...</span>
+          </div>
+        </div>
+
+        <!-- Footer Input -->
+        <form class="chat-footer-input" onsubmit="event.preventDefault(); sendChatMessage();">
+          <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
+          <button type="submit" class="chat-send-btn" aria-label="Send Message"><i class="ph ph-paper-plane-right"></i></button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(widget);
+  }
+}
+
+window.toggleBakeryChat = function() {
+  isBakeryChatOpen = !isBakeryChatOpen;
+  const modal = document.getElementById('chat-modal-window');
+  if (modal) {
+    modal.classList.toggle('active', isBakeryChatOpen);
+    document.body.classList.toggle('chat-modal-open', isBakeryChatOpen);
+    if (isBakeryChatOpen) {
+      setTimeout(() => {
+        document.getElementById('chat-user-input')?.focus();
+      }, 180);
+    }
+  }
+};
+
+window.handleQuickChip = function(queryText) {
+  const input = document.getElementById('chat-user-input');
+  if (input) {
+    input.value = queryText;
+    sendChatMessage();
+  }
+};
+
+window.sendChatMessage = async function() {
+  const input = document.getElementById('chat-user-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+
+  input.value = '';
+  appendUserChatMessage(text);
+  bakeryChatHistory.push({ role: 'user', text });
+
+  const typing = document.getElementById('chat-typing-indicator');
+  if (typing) typing.classList.add('active');
+  scrollChatMessagesToBottom();
+
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: bakeryChatHistory })
+    });
+
+    let data = null;
+    if (response.ok) {
+      data = await response.json();
+    }
+
+    if (!data || !data.reply) {
+      data = getLocalChatFallback(text);
+    }
+
+    if (typing) typing.classList.remove('active');
+    appendBotChatMessage(data.reply, data.actions, data.whatsappUrl, data.webLink);
+    bakeryChatHistory.push({ role: 'model', text: data.reply });
+  } catch (err) {
+    if (typing) typing.classList.remove('active');
+    const fallback = getLocalChatFallback(text);
+    appendBotChatMessage(fallback.reply, fallback.actions, fallback.whatsappUrl, fallback.webLink);
+    bakeryChatHistory.push({ role: 'model', text: fallback.reply });
+  }
+
+  scrollChatMessagesToBottom();
+};
+
+function appendUserChatMessage(text) {
+  const body = document.getElementById('chat-body-messages');
+  const typing = document.getElementById('chat-typing-indicator');
+  if (!body) return;
+  const div = document.createElement('div');
+  div.className = 'chat-msg chat-msg-user';
+  div.innerHTML = `<div class="chat-bubble">${escapeChatHTML(text)}</div>`;
+  body.insertBefore(div, typing);
+}
+
+function appendBotChatMessage(replyText, actions, whatsappUrl, webLink) {
+  const body = document.getElementById('chat-body-messages');
+  const typing = document.getElementById('chat-typing-indicator');
+  if (!body) return;
+  const div = document.createElement('div');
+  div.className = 'chat-msg chat-msg-bot';
+
+  let actionsHTML = '';
+  if (Array.isArray(actions) && actions.length > 0) {
+    actionsHTML = `
+      <div class="chat-actions-container">
+        ${actions.map(act => `
+          <button type="button" class="chat-action-btn" onclick="handleQuickChip('${escapeChatHTML(act.query || act.label)}')">
+            <i class="ph ph-arrow-circle-right"></i> ${escapeChatHTML(act.label)}
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  let webLinkHTML = '';
+  if (webLink && webLink.url && webLink.label) {
+    webLinkHTML = `
+      <a href="${escapeChatHTML(webLink.url)}" class="chat-action-btn" style="background: #A6601B; color: #FFFFFF; border-color: #A6601B; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="ph ph-arrow-square-out" style="font-size: 1rem;"></i> ${escapeChatHTML(webLink.label)}
+      </a>
+    `;
+  }
+
+  let waHTML = '';
+  if (whatsappUrl) {
+    waHTML = `
+      <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: #25D366; color: #FFFFFF; border-color: #25D366; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="ph ph-whatsapp-logo" style="font-size: 1rem;"></i> Order on WhatsApp
+      </a>
+    `;
+  }
+
+  let buttonsRow = '';
+  if (webLinkHTML || waHTML) {
+    buttonsRow = `
+      <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px; width: 100%;">
+        ${webLinkHTML}
+        ${waHTML}
+      </div>
+    `;
+  }
+
+  div.innerHTML = `
+    <div class="chat-bubble">${formatChatMessageMarkdown(replyText)}</div>
+    ${buttonsRow}
+    ${actionsHTML}
+  `;
+
+  body.insertBefore(div, typing);
+}
+
+function formatChatMessageMarkdown(text) {
+  if (!text) return '';
+  let formatted = escapeChatHTML(text);
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  formatted = formatted.replace(/(?:^|\n)[•\-\*]\s+(.*)/g, '<div style="display:flex;gap:6px;margin:2px 0;"><span>•</span><span>$1</span></div>');
+  formatted = formatted.replace(/\n/g, '<br>');
+  return formatted;
+}
+
+function scrollChatMessagesToBottom() {
+  const body = document.getElementById('chat-body-messages');
+  if (body) {
+    body.scrollTop = body.scrollHeight;
+  }
+}
+
+function escapeChatHTML(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getLocalChatFallback(msg) {
+  return {
+    reply: "We deliver within a 2 km radius around Santhi Ganesh Bakery (92 Cheranmahadevi Rd, Thirunagar). For deliveries beyond 2 km or custom orders, please check with us on WhatsApp (+91 73390 73844).",
+    actions: [
+      { label: '🎂 Celebration Cakes', query: 'Tell me about Celebration & Custom Birthday Cakes' },
+      { label: '🛵 In-Store Quick Menu', query: 'Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)' }
+    ],
+    whatsappUrl: 'https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery!'
+  };
 }
 

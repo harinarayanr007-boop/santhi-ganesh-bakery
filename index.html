@@ -756,6 +756,7 @@
       const modal = document.getElementById('chat-modal-window');
       if (modal) {
         modal.classList.toggle('active', isChatOpen);
+        document.body.classList.toggle('chat-modal-open', isChatOpen);
         if (isChatOpen) {
           setTimeout(() => {
             document.getElementById('chat-user-input')?.focus();
