@@ -249,10 +249,27 @@ let activeSearchQuery = '';
 
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', async () => {
-  // Sync active category from DOM if present
-  const initialActiveTab = document.querySelector('.category-tab.active');
-  if (initialActiveTab && initialActiveTab.dataset.category) {
-    activeCategoryFilter = initialActiveTab.dataset.category;
+  // Sync active category from DOM or URL params
+  const urlParams = new URLSearchParams(window.location.search);
+  const catParam = urlParams.get('cat');
+  const qParam = urlParams.get('q');
+
+  if (catParam) {
+    activeCategoryFilter = catParam;
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.category === catParam);
+    });
+  } else {
+    const initialActiveTab = document.querySelector('.category-tab.active');
+    if (initialActiveTab && initialActiveTab.dataset.category) {
+      activeCategoryFilter = initialActiveTab.dataset.category;
+    }
+  }
+
+  if (qParam) {
+    activeSearchQuery = qParam;
+    const searchInput = document.getElementById('product-search-input');
+    if (searchInput) searchInput.value = qParam;
   }
 
   // Load from Supabase first, then render

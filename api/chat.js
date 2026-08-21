@@ -104,10 +104,11 @@ REAL SUPABASE DATABASE CATALOG (100% ACCURATE CURRENT PRICES):
      - Filter Coffee: ₹25 | Ginger Tea: ₹20 | Naatu Sarkarai Tea: ₹30 | Karupatti Coffee: ₹35
 
 CONVERSATIONAL RULES:
-1. When asked for the lowest price celebration cake, state accurately that **Dancing Doll Cake is ₹950 (1kg)**, followed by Blue Ripples / Yellow Unicorn (₹1,000) and Spiderman Web (₹1,050).
-2. When asked for puffs, list all 5 varieties (Veg ₹25, Egg ₹30, Paneer ₹35, Mushroom ₹35, Chicken ₹40).
-3. ZERO HALLUCINATION: Quote strictly from the exact real prices listed above.
-4. Reply in the customer's language (English, Tamil தமிழ், or Tanglish).
+1. STRICT BREVITY: Maximum 2 to 3 lines. NEVER write long greeting essays, intro paragraphs, or filler text. State the prices or list directly.
+2. When asked for lowest price cake, answer directly: Dancing Doll Cake is ₹950 (1kg), Blue Ripples / Yellow Unicorn ₹1,000 (1kg), and Spiderman Web ₹1,050 (1kg).
+3. When asked for puffs, list directly: Veg ₹25, Egg ₹30, Paneer ₹35, Mushroom ₹35, Chicken ₹40.
+4. ZERO HALLUCINATION: Only use the exact real prices listed above.
+5. Reply in customer's language (Tamil தமிழ், English, or Tanglish).
 `;
 
 export default async function handler(req, res) {
@@ -127,8 +128,6 @@ export default async function handler(req, res) {
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'Message is required' });
   }
-
-  const webLink = getRelevantWebLink(message);
 
   // 1. Try Cheapest & Fastest Flash-Lite Models directly
   if (GEMINI_API_KEY) {
@@ -158,8 +157,8 @@ export default async function handler(req, res) {
         contents: formattedContents,
         generationConfig: {
           temperature: 0.2,
-          maxOutputTokens: 450,
-          topP: 0.9
+          maxOutputTokens: 200, // Strict cap to prevent paragraph essays
+          topP: 0.85
         }
       };
 
@@ -322,20 +321,101 @@ function generateWhatsAppLink(userMsg, botReply) {
 function getRelevantWebLink(userMsg = '', botReply = '') {
   const combined = (userMsg + ' ' + botReply).toLowerCase();
 
-  // Celebration Cakes
+  // 1. Kids Theme Cakes
+  if (
+    combined.includes('kid') ||
+    combined.includes('spiderman') ||
+    combined.includes('hello kitty') ||
+    combined.includes('unicorn') ||
+    combined.includes('pokeball') ||
+    combined.includes('pinata') ||
+    combined.includes('boss baby') ||
+    combined.includes('chhota bheem') ||
+    combined.includes('lion king') ||
+    combined.includes('paw')
+  ) {
+    return {
+      label: '🎂 View Kids Cakes Catalog',
+      url: './products.html?cat=kids'
+    };
+  }
+
+  // 2. Birthday Cakes for Her
+  if (
+    combined.includes('her') ||
+    combined.includes('barbie') ||
+    combined.includes('tiara') ||
+    combined.includes('dancing doll') ||
+    combined.includes('candyland') ||
+    combined.includes('frozen') ||
+    combined.includes('blue ripples') ||
+    combined.includes('doll')
+  ) {
+    return {
+      label: '🎂 View Cakes for Her',
+      url: './products.html?cat=birthday-her'
+    };
+  }
+
+  // 3. Birthday Cakes for Him
+  if (
+    combined.includes('him') ||
+    combined.includes('fitness freak') ||
+    combined.includes('cricket craze') ||
+    combined.includes('lamborghini') ||
+    combined.includes('astronaut') ||
+    combined.includes('football') ||
+    combined.includes('xbox') ||
+    combined.includes('arsenal') ||
+    combined.includes('avengers') ||
+    combined.includes('mcqueen')
+  ) {
+    return {
+      label: '🎂 View Cakes for Him',
+      url: './products.html?cat=birthday-him'
+    };
+  }
+
+  // 4. Baby Shower Cakes
+  if (
+    combined.includes('baby') ||
+    combined.includes('stroller') ||
+    combined.includes('baby shower') ||
+    combined.includes('nesting love') ||
+    combined.includes('sky themed')
+  ) {
+    return {
+      label: '🎂 View Baby Shower Cakes',
+      url: './products.html?cat=baby-shower'
+    };
+  }
+
+  // 5. Wedding & Multi-Tier Cakes
+  if (
+    combined.includes('wedding') ||
+    combined.includes('anniversary') ||
+    combined.includes('tier') ||
+    combined.includes('bridal') ||
+    combined.includes('roses anniversary') ||
+    combined.includes('rose garden') ||
+    combined.includes('lavieenrose') ||
+    combined.includes('fondant') ||
+    combined.includes('expensive') ||
+    combined.includes('grand')
+  ) {
+    return {
+      label: '🎂 View Wedding Tier Cakes',
+      url: './products.html?cat=wedding'
+    };
+  }
+
+  // 6. General Celebration Cakes
   if (
     combined.includes('cake') ||
     combined.includes('birthday') ||
-    combined.includes('barbie') ||
-    combined.includes('crown') ||
-    combined.includes('spiderman') ||
     combined.includes('celebration') ||
-    combined.includes('wedding') ||
-    combined.includes('anniversary') ||
-    combined.includes('lamborghini') ||
-    combined.includes('astronaut') ||
-    combined.includes('black forest') ||
-    combined.includes('red velvet')
+    combined.includes('lowest price') ||
+    combined.includes('rate')
   ) {
     return {
       label: '🎂 View Celebration Cakes Catalog',
@@ -343,7 +423,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // In-Store Live Menu
+  // 7. In-Store Live Menu (Juices, Chaat, Burgers, Pizzas, Puffs, Sweets)
   if (
     combined.includes('juice') ||
     combined.includes('elaneer') ||
@@ -366,6 +446,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     combined.includes('biscuit') ||
     combined.includes('sweet') ||
     combined.includes('mysore pak') ||
+    combined.includes('kaju') ||
     combined.includes('2km') ||
     combined.includes('in-store') ||
     combined.includes('quick menu')
