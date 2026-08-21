@@ -687,9 +687,212 @@
     </div>
   </footer>
 
+  <!-- AI CONCIERGE CHATBOT WIDGET -->
+  <div class="bakery-chat-widget" id="bakery-chat-widget">
+    <!-- Floating Trigger Pill -->
+    <button class="chat-trigger-btn" id="chat-trigger-btn" onclick="toggleBakeryChat()" aria-label="Open Bakery Assistant">
+      <div class="chat-trigger-badge"></div>
+      <i class="ph ph-chat-centered-dots chat-trigger-icon"></i>
+      <span>Bakery Assistant</span>
+    </button>
+
+    <!-- Chat Modal Window -->
+    <div class="chat-modal-window" id="chat-modal-window">
+      <!-- Header -->
+      <div class="chat-modal-header">
+        <div class="chat-header-info">
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="chat-header-logo">
+          <div>
+            <div class="chat-header-title">Santhi Ganesh Bakery</div>
+            <div class="chat-header-sub">
+              <span style="width:6px;height:6px;background:#22C55E;border-radius:50%;display:inline-block;"></span>
+              <span>Online • Tirunelveli</span>
+            </div>
+          </div>
+        </div>
+        <button class="chat-close-btn" onclick="toggleBakeryChat()" aria-label="Close Assistant"><i class="ph ph-x"></i></button>
+      </div>
+
+      <!-- Messages Body -->
+      <div class="chat-body-messages" id="chat-body-messages">
+        <!-- Initial Welcome Message -->
+        <div class="chat-msg chat-msg-bot">
+          <div class="chat-bubble">
+            <strong>Vanakkam! 🙏</strong> Welcome to Santhi Ganesh Bakery. Looking for fresh birthday cakes, pure ghee sweets, hot puffs, or our 30-min 2KM express delivery?
+          </div>
+          <div class="chat-quick-chips">
+            <button type="button" class="chat-quick-chip" onclick="handleQuickChip('What items are available for 2KM Fast Delivery?')">⚡ 2KM Fast Delivery</button>
+            <button type="button" class="chat-quick-chip" onclick="handleQuickChip('What birthday and custom cakes do you have?')">🎂 Birthday Cakes</button>
+            <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Where do you deliver in Tirunelveli?')">📍 Delivery Areas</button>
+            <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Do you have eggless cakes?')">🟢 100% Eggless</button>
+            <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Special Ghee Mysore Pak price?')">🧈 Mysore Pak</button>
+          </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="chat-typing-indicator" id="chat-typing-indicator">
+          <i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i>
+          <span>Assistant is thinking...</span>
+        </div>
+      </div>
+
+      <!-- Footer Input -->
+      <form class="chat-footer-input" onsubmit="event.preventDefault(); sendChatMessage();">
+        <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
+        <button type="submit" class="chat-send-btn" aria-label="Send Message"><i class="ph ph-paper-plane-right"></i></button>
+      </form>
+    </div>
+  </div>
+
   <!-- Utility, Data & Interactivity Scripts -->
   <script src="./js/utils.js"></script>
   <script src="./data/products-data.js"></script>
   <script src="./app.js"></script>
+  <script>
+    const chatHistory = [];
+    let isChatOpen = false;
+
+    function toggleBakeryChat() {
+      isChatOpen = !isChatOpen;
+      const modal = document.getElementById('chat-modal-window');
+      if (modal) {
+        modal.classList.toggle('active', isChatOpen);
+        if (isChatOpen) {
+          setTimeout(() => {
+            document.getElementById('chat-user-input')?.focus();
+          }, 150);
+        }
+      }
+    }
+
+    function handleQuickChip(queryText) {
+      const input = document.getElementById('chat-user-input');
+      if (input) {
+        input.value = queryText;
+        sendChatMessage();
+      }
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-user-input');
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      input.value = '';
+      appendUserMessage(text);
+      chatHistory.push({ role: 'user', text });
+
+      const typing = document.getElementById('chat-typing-indicator');
+      if (typing) typing.classList.add('active');
+      scrollChatToBottom();
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, history: chatHistory })
+        });
+
+        let data = null;
+        if (response.ok) {
+          data = await response.json();
+        }
+
+        if (!data || !data.reply) {
+          data = getLocalFallback(text);
+        }
+
+        if (typing) typing.classList.remove('active');
+        appendBotMessage(data.reply, data.actions, data.whatsappUrl);
+        chatHistory.push({ role: 'model', text: data.reply });
+      } catch (err) {
+        console.warn('Chat API error, falling back locally:', err);
+        if (typing) typing.classList.remove('active');
+        const fallback = getLocalFallback(text);
+        appendBotMessage(fallback.reply, fallback.actions, fallback.whatsappUrl);
+        chatHistory.push({ role: 'model', text: fallback.reply });
+      }
+
+      scrollChatToBottom();
+    }
+
+    function appendUserMessage(text) {
+      const body = document.getElementById('chat-body-messages');
+      const typing = document.getElementById('chat-typing-indicator');
+      const div = document.createElement('div');
+      div.className = 'chat-msg chat-msg-user';
+      div.innerHTML = `<div class="chat-bubble">${escapeHTML(text)}</div>`;
+      body.insertBefore(div, typing);
+    }
+
+    function appendBotMessage(replyText, actions, whatsappUrl) {
+      const body = document.getElementById('chat-body-messages');
+      const typing = document.getElementById('chat-typing-indicator');
+      const div = document.createElement('div');
+      div.className = 'chat-msg chat-msg-bot';
+
+      let actionsHTML = '';
+      if (Array.isArray(actions) && actions.length > 0) {
+        actionsHTML = `
+          <div class="chat-actions-container">
+            ${actions.map(act => `
+              <button type="button" class="chat-action-btn" onclick="handleQuickChip('${escapeHTML(act.query || act.label)}')">
+                <i class="ph ph-arrow-circle-right"></i> ${escapeHTML(act.label)}
+              </button>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      let waHTML = '';
+      if (whatsappUrl) {
+        waHTML = `
+          <div style="margin-top: 8px;">
+            <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: #25D366; color: #FFFFFF; border-color: #25D366; font-weight: 800;">
+              <i class="ph ph-whatsapp-logo" style="font-size: 1rem;"></i> Order on WhatsApp
+            </a>
+          </div>
+        `;
+      }
+
+      div.innerHTML = `
+        <div class="chat-bubble">${escapeHTML(replyText)}</div>
+        ${waHTML}
+        ${actionsHTML}
+      `;
+
+      body.insertBefore(div, typing);
+    }
+
+    function scrollChatToBottom() {
+      const body = document.getElementById('chat-body-messages');
+      if (body) {
+        body.scrollTop = body.scrollHeight;
+      }
+    }
+
+    function escapeHTML(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function getLocalFallback(msg) {
+      const lower = msg.toLowerCase();
+      const phone = '917339073844';
+      const waLink = `https://wa.me/${phone}?text=${encodeURIComponent('Hi Santhi Ganesh Bakery! I am inquiring about: ' + msg)}`;
+      
+      if (lower.includes('delivery') || lower.includes('2km')) {
+        return {
+          reply: '⚡ We offer 30-min express delivery within 2KM in Tirunelveli, and celebration cake delivery across town! Free delivery for orders above ₹300.',
+          whatsappUrl: waLink,
+          actions: [{ label: '⚡ Order 2KM Delivery', query: 'I want to place an urgent 2KM delivery order' }]
+        };
+      }
+      return {
+        reply: 'Vanakkam! We have fresh celebration cakes (Black Forest, Red Velvet, Rasamalai, Truffle), pure ghee Mysore Pak, and hot puffs ready. Would you like to order via WhatsApp?',
+        whatsappUrl: waLink,
+        actions: [{ label: '🎂 View Cake Options', query: 'What cakes do you have?' }]
+      };
+    }
+  </script>
 </body>
 </html>
