@@ -15,73 +15,99 @@ const BAKERY_PHONE = '917339073844';
 const BAKERY_SYSTEM_PROMPT = `
 You are the helpful AI Concierge for Santhi Ganesh Bakery (சாந்தி கணேஷ் பேக்கரி) at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
 
-COMPLETE PRODUCT CATALOG & REAL PRICES:
+REAL SUPABASE DATABASE CATALOG (100% ACCURATE CURRENT PRICES):
 
-1. 🎂 CELEBRATION CAKES (products.html - Available in Regular & 100% Eggless / Pure Veg):
-   • Budget & Classic Cakes:
-     - Good Ol Pineapple Cake: ₹480 (1kg)
-     - Classic Black Forest: ₹550 (1kg) / ₹900 (2kg)
-     - Butterscotch Crunch: ₹700 (1kg)
-     - Dutch Chocolate Truffle: ₹900 (1kg)
-     - Royal Red Velvet with Cream Cheese: ₹950 (1kg)
-     - Royal Rasamalai Cake: ₹1,050 (1kg)
+1. 🎂 CELEBRATION & THEME CAKES (products.html - Regular & 100% Pure Veg / Eggless available):
    • Birthday Cakes for Her:
-     - The Crown Cake: ₹650 (1kg) / ₹943 (1.5kg) / ₹1,203 (2kg)
-     - Mermaid Tail Cake: ₹650 (1kg) / ₹943 (1.5kg)
-     - Fitness Freak Cake: ₹650 (1kg)
-     - Royal Crown Princess: ₹850 (1.5kg)
-     - Dancing Doll Cake: ₹950 (1kg)
-     - Yellow Unicorn Cake: ₹1,000 (1kg)
-     - Barbie Pink Cake: ₹1,300 (1.5kg / 2kg)
-     - Golden Tiara Cake: ₹1,800 (2kg)
-     - Candyland Cake: ₹2,000 (2kg)
-     - 0015 Pink Roses Cake: ₹2,200 (2kg)
-     - Frozen Enchantment Cake: ₹2,600 (3kg)
-   • Birthday Cakes for Him (₹750 for 1kg):
-     - The Lamborghini Cake: ₹750 | Rocketing Astronaut: ₹750 | Manchester United / Football Jersey: ₹750 | Gamers X-Box: ₹750 | Gym Dumbbell: ₹750
-   • Kids Theme Cakes (₹650–₹750 for 1kg):
-     - Spiderman Web Cake: ₹680 | Lion King | Cricket Fanatic | Unicorn Dream | Chhota Bheem
-   • Baby Shower & Wedding Tiers:
-     - Baby Stroller / Over The Moon / Baby Shoes Cake: ₹720 (1kg)
-     - Wedding Bells Macaron Cake / Roses Anniversary / The Perfect Pair: ₹1,450 (1kg)
+     - Dancing Doll Cake: ₹950 (1 kg, 2 kg) 👈 [Lowest price cake on the entire menu!]
+     - Blue Ripples Cake: ₹1,000 (1 kg, 2 kg)
+     - Yellow Unicorn Cake: ₹1,000 (1 kg)
+     - Floral Cake: ₹1,100 (1 kg, 2 kg)
+     - Unicorn Dreams Cake: ₹1,200 (1 kg, 2 kg)
+     - Barbie Pink Cake: ₹1,300 (1.5 kg, 2 kg)
+     - Golden Tiara Cake: ₹1,800 (2 kg)
+     - Candyland Cake: ₹2,000 (2 kg)
+     - 0015 Pink Roses Cake: ₹2,200 (2 kg)
+     - Frozen Enchantment Cake: ₹2,600 (3 kg)
+     - Elegant Floral Cake: ₹2,650 (3 kg) | 2-Tier Butterfly Cake: ₹2,750 (3 kg) | Teddy Rose Garden Cake: ₹3,100 (3 kg)
 
-2. 🛵 IN-STORE LIVE MENU & SNACKS (menu.html - 30-min 2KM delivery, FREE delivery above ₹300):
-   • Hot Oven Puffs & Bakery Bakes:
+   • Birthday Cakes for Him:
+     - The Fitness Freak Cake: ₹1,150 (1 kg, 2 kg) 👈 [Lowest price cake for him]
+     - Cricket Craze Cake: ₹1,200 (1 kg, 2 kg)
+     - Gamers X-Box Cake: ₹1,900 (2 kg)
+     - Football Jersey Cake: ₹1,900 (2 kg)
+     - Football Cake: ₹2,000 (2 kg)
+     - Avengers Cake: ₹2,000 (2 kg)
+     - Arsenal Cake: ₹2,200 (2 kg)
+     - Lightning Mc Queen Cake: ₹2,300 (2 kg)
+
+   • Kids Theme Cakes:
+     - Versatile Subtle Cake: ₹1,000 (1 kg, 2 kg)
+     - Spiderman Web Cake: ₹1,050 (1 kg, 2 kg) 👈 [Real Spiderman 1kg price]
+     - Instagram Lover Cake / Hello Kitty / Fruit Cake / Paw Some / Pokeball: ₹1,100 (1 kg, 2 kg)
+     - F.R.I.E.N.D.S / Blue Macaron / Floral Pastel / Boss Baby: ₹1,200 (1 kg, 2 kg)
+     - Celebration Pinata Cake: ₹1,200 (0.5 kg)
+     - Teal Ombre Ruffle Cake: ₹1,250 (1 kg, 2 kg)
+     - Chocolate Love Cake / Dog Paw: ₹1,400 (1 kg)
+     - Peas In A Pod Cake: ₹1,750 (1.5 kg, 3 kg)
+     - Oceanic Delight: ₹1,900 (1.5 kg)
+     - Spider Man 2-Tier / Candy Macaron: ₹2,000 (2 kg)
+     - Pink Unicorn Cake: ₹2,100 (2 kg) | Train Cake: ₹2,300 (2 kg) | Baby Elephant: ₹2,450 (2.5 kg)
+     - Elephant / Transportation / Animal Farm: ₹2,600 (2 kg)
+     - Tier Pink Theme / Tier Macaron: ₹2,800 (3 kg)
+     - Twinkling Star: ₹3,000 (3 kg) | The Cricket Fanatic: ₹3,100 (3 kg) | Animal Print: ₹3,100 (3 kg)
+     - Tier Unicorn Rainbow / Kit Kat Teddy: ₹3,200 (3 kg)
+     - Underwater Cake: ₹3,400 (3 kg) | Animal Party: ₹3,600 (3 kg) | Jungle Mania (5kg): ₹6,500
+
+   • Baby Shower Cakes:
+     - Sky Themed Cake / Nesting Love: ₹1,100 (1 kg, 2 kg) 👈 [Lowest price baby shower]
+     - Baby Shoes Cake: ₹1,150 (1 kg, 2 kg)
+     - Baby Shower Delight: ₹1,200 (1 kg, 2 kg)
+     - Baby Stroller Cake: ₹1,300 (1 kg, 2 kg, 3 kg)
+     - Over The Moon Cake: ₹1,300 (1 kg, 2 kg)
+     - Pastel Dream Cake: ₹1,600 (1 kg, 2 kg)
+
+   • Wedding & Milestone Tiers:
+     - Bridal Shower Cake: ₹1,200 (1 kg, 2 kg) 👈 [Lowest price wedding/bridal]
+     - The Perfect Pair Cake: ₹1,250 (1 kg, 2 kg)
+     - 0000 Wedding Flower Cake: ₹1,300 (1 kg, 2 kg)
+     - Pastel Cake: ₹2,100 (2 kg)
+     - 0001 Wedding Bells Macaron Cake: ₹2,200 (2 kg)
+     - 0003 Roses Anniversary Cake: ₹2,600 (3 kg)
+     - Pink Layered Cake: ₹2,700 (2 kg)
+     - Levels1 / Lavender Royale Cake: ₹2,900 (3 kg)
+     - Lavieenrose Cake: ₹2,950 (3 kg)
+     - 0013 Floral 2-Tier / 0004 Pastel Roses / Rose Garden / Golden White: ₹3,100 (3 kg)
+     - Wedding Vows / Flutter / Blooming / Anniversary: ₹3,200 (3 kg)
+     - 3-Tier Wedding Cake: ₹5,700 (6 kg)
+     - Blue Wedding Cake: ₹5,900 (6 kg)
+     - Crimson Cascade Cake: ₹6,100 (6 kg)
+     - Tier Fondant Wedding Cake: ₹7,800 (6 kg)
+
+2. 🛵 IN-STORE QUICK MENU (menu.html - 30-min 2KM delivery in Tirunelveli, FREE above ₹300):
+   • Hot Oven Puffs:
      - Crispy Veg Puff: ₹25
      - Spicy Egg Puff: ₹30
      - Paneer Butter Masala Puff: ₹35
-     - Chicken Tikka Puff: ₹40
      - Mushroom Masala Puff: ₹35
-     - Chocolate Lava Cake (Hot Choco Center): ₹50
-     - Glazed Chocolate Donut: ₹50
-     - Sizzling Chocolate Brownie: ₹140 | Brownie with Ice Cream: ₹100
-     - Fresh Pastry Slices (Black Forest / White Forest): ₹55 | Red Velvet Slice: ₹80
-   • Traditional Ghee Sweets & Savouries:
-     - Special Ghee Mysore Pak: ₹180 (250g) / ₹350 (500g) / ₹700 (1kg)
-     - Pure Kaju Katli: ₹260 (250g) / ₹1,000 (1kg)
-     - Traditional Milk Peda: ₹140 (250g) / ₹550 (1kg)
-     - Tirunelveli Halwa: ₹160 (250g)
-     - Butter Murukku & Special Mixture: ₹95 (200g)
-     - Farm Butter Biscuits: ₹110 (250g) | Coconut Cookies: ₹120 (250g)
+     - Chicken Tikka Puff: ₹40
    • Fresh Juices:
-     - Elaneer Payasam: ₹80 | Fresh Orange: ₹80 | Sathukudi (Sweet Lime): ₹80 | Pomegranate: ₹80 | Apple: ₹80 | Watermelon: ₹50 | Pineapple / Muskmelon (Kirni): ₹60 | Rose Milk: ₹40
-   • Milkshakes & Coolers:
-     - Cold Coffee Shake: ₹90 | Oreo Shake: ₹90 | Kitkat Shake: ₹90 | Red Banana / Strawberry / Chocolate: ₹80 | Royal Falooda: ₹140 | Mojitos (Lime Mint, Blue Curacao, Green Mint): ₹70
-   • Chaat & Street Bites:
-     - Pani Puri (6 pcs): ₹40 | Dahi Puri: ₹60 | Bhel Puri: ₹50 | Sev Puri: ₹50 | Masala Puri: ₹60 | Cheese Pani Puri: ₹70
-   • Pav Bhaji, Burgers, Pizzas & Sandwiches:
-     - Classic Butter Pav Bhaji: ₹60 | Paneer Pav Bhaji: ₹90 | Cheese Pav Bhaji: ₹90
-     - Crispy Veg Burger: ₹80 | Crispy Chicken Burger: ₹120 | Grilled Paneer Burger: ₹110
-     - Classic Veg Pizza: ₹110 | Double Cheese Margherita: ₹140 | Chicken Delight Pizza: ₹140 | Paneer Tikka Pizza: ₹140
-     - Classic Veg Sandwich: ₹80 | Grilled Paneer Sandwich: ₹100 | Bun Butter Jam: ₹35 | Butter Toast: ₹30
+     - Elaneer Payasam: ₹80 | Orange: ₹80 | Sweet Lime (Sathukudi): ₹80 | Pomegranate: ₹80 | Apple: ₹80 | Watermelon: ₹50 | Pineapple / Muskmelon (Kirni): ₹60
+   • Milkshakes & Desserts:
+     - Cold Coffee / Oreo / Kitkat Shake: ₹90 | Red Banana / Strawberry / Chocolate: ₹80 | Royal Falooda: ₹140 | Sizzling Brownie: ₹140 | Choco Lava: ₹50
+   • Chaat & Pav Bhaji:
+     - Pani Puri (6 pcs): ₹40 | Dahi Puri: ₹60 | Bhel Puri / Sev Puri: ₹50 | Masala Puri: ₹60
+     - Butter Pav Bhaji: ₹60 | Paneer / Cheese Pav Bhaji: ₹90
+   • Burgers & Pizzas:
+     - Crispy Veg Burger: ₹80 | Chicken Burger: ₹120 | Veg Pizza: ₹110 | Margherita / Chicken Pizza: ₹140
    • Hot Drinks:
-     - Filter Coffee: ₹25 | Ginger Tea (Inji Tea): ₹20 | Naatu Sarkarai Tea: ₹30 | Karupatti Coffee: ₹35
+     - Filter Coffee: ₹25 | Ginger Tea: ₹20 | Naatu Sarkarai Tea: ₹30 | Karupatti Coffee: ₹35
 
 CONVERSATIONAL RULES:
-1. Be warm, thorough, and informative. When a customer asks about a category (like puffs, sweets, or budget cakes), list ALL the available varieties and their prices clearly so they have complete information.
-2. ZERO HALLUCINATION: Only state the real items and exact prices listed above.
-3. If the user asks broadly what we sell, explain that we have 🎂 Celebration Cakes (Custom birthday, theme & wedding cakes) and 🛵 In-Store Quick Menu (Puffs, Juices, Chaat, Burgers, Pizzas, Shakes for 2KM express delivery).
-4. Reply in the customer's language (English, Tamil தமிழ், or everyday Tanglish).
+1. When asked for the lowest price celebration cake, state accurately that **Dancing Doll Cake is ₹950 (1kg)**, followed by Blue Ripples / Yellow Unicorn (₹1,000) and Spiderman Web (₹1,050).
+2. When asked for puffs, list all 5 varieties (Veg ₹25, Egg ₹30, Paneer ₹35, Mushroom ₹35, Chicken ₹40).
+3. ZERO HALLUCINATION: Quote strictly from the exact real prices listed above.
+4. Reply in the customer's language (English, Tamil தமிழ், or Tanglish).
 `;
 
 export default async function handler(req, res) {
@@ -240,49 +266,38 @@ function processRuleEngine(msg) {
   // Specific Celebration Cakes
   if (lower.includes('barbie')) {
     return {
-      reply: "🎂 Barbie Pink Cake is priced at ₹1,300 (1.5 kg / 2 kg). Crafted fresh in both Regular & 100% Pure Veg (Eggless). 24h pre-order recommended!",
+      reply: "🎂 Barbie Pink Cake is priced at ₹1,300 (1.5 kg, 2 kg). Crafted fresh in both Regular & 100% Pure Veg (Eggless).",
       actions: [{ label: '🟢 Order Barbie Cake', query: 'Book Barbie Pink Cake for birthday' }]
     };
   }
 
-  if (lower.includes('crown')) {
+  if (lower.includes('lowest') || lower.includes('cheap') || lower.includes('budget') || lower.includes('kammi')) {
     return {
-      reply: "👑 The Crown Cake is priced at ₹650 (1 kg) / ₹943 (1.5 kg) / ₹1,203 (2 kg). Available in 100% Pure Veg (Eggless)!",
-      actions: [{ label: '🟢 Order Crown Cake', query: 'Book The Crown Cake' }]
+      reply: "🎂 Our lowest price celebration cake in the catalog is the **Dancing Doll Cake at ₹950 (1 kg)**, followed by Blue Ripples Cake / Yellow Unicorn (₹1,000) and Spiderman Web Cake (₹1,050)!",
+      actions: [
+        { label: '🎂 Order Dancing Doll (₹950)', query: 'Book Dancing Doll Cake' },
+        { label: '🎂 Order Spiderman (₹1050)', query: 'Book Spiderman Web Cake' }
+      ]
     };
   }
 
-  if (lower.includes('lamborghini') || lower.includes('astronaut') || lower.includes('football') || lower.includes('xbox')) {
+  if (lower.includes('fitness freak') || lower.includes('cricket') || lower.includes('xbox') || lower.includes('him')) {
     return {
-      reply: "🎂 Birthday Cakes for Him (₹750 for 1 kg):\n• The Lamborghini Cake: ₹750\n• Rocketing Astronaut Cake: ₹750\n• Manchester United / Football Jersey: ₹750\n• Gamers X-Box Cake: ₹750",
+      reply: "🎂 Birthday Cakes for Him:\n• The Fitness Freak Cake: ₹1,150 (1 kg)\n• Cricket Craze Cake: ₹1,200 (1 kg)\n• Gamers X-Box Cake: ₹1,900 (2 kg)\n• Football Jersey Cake: ₹1,900 (2 kg)",
       actions: [{ label: '🟢 Order Cake for Him', query: 'Book Birthday Cake for Him' }]
     };
   }
 
   if (lower.includes('spiderman') || lower.includes('kids')) {
     return {
-      reply: "🧒 Kids Theme Cakes (from ₹650–₹750 for 1 kg):\n• Spiderman Web Cake, Lion King, Cricket Fanatic, Unicorn Dream, Chhota Bheem. Pure Veg/Eggless available!",
+      reply: "🧒 Kids Theme Cakes:\n• Spiderman Web Cake: ₹1,050 (1 kg)\n• Hello Kitty / Fruit / Pokeball Cake: ₹1,100 (1 kg)\n• F.R.I.E.N.D.S / Boss Baby: ₹1,200 (1 kg)\n• Spider Man 2-Tier: ₹2,000 (2 kg)",
       actions: [{ label: '🟢 Order Kids Theme Cake', query: 'Book Kids Theme Cake' }]
     };
   }
 
-  if (lower.includes('black forest') || lower.includes('blackforest')) {
+  if (lower.includes('wedding') || lower.includes('anniversary') || lower.includes('tier') || lower.includes('bridal')) {
     return {
-      reply: "🎂 Signature Black Forest Cake is ₹550 (1 kg). Pure fresh cream and imported cherries. Available in Eggless too!",
-      actions: [{ label: '🟢 Order 1kg Black Forest (₹550)', query: 'Order 1kg Black Forest Cake' }]
-    };
-  }
-
-  if (lower.includes('red velvet') || lower.includes('redvelvet')) {
-    return {
-      reply: "❤️ Royal Red Velvet with Cream Cheese: ₹550 (0.5 kg) / ₹950 (1 kg) / ₹1,550 (2 kg). Pure Veg / Eggless available!",
-      actions: [{ label: '🟢 Order 1kg Red Velvet (₹950)', query: 'Order 1kg Red Velvet Cake' }]
-    };
-  }
-
-  if (lower.includes('wedding') || lower.includes('anniversary') || lower.includes('tier')) {
-    return {
-      reply: "💍 Wedding & Anniversary Tiers (₹1,450 for 1 kg):\n• Wedding Bells Macaron Cake, Roses Anniversary Cake, Rose Garden 2-Tier / 3-Tier.",
+      reply: "💍 Wedding & Milestone Tiers:\n• Bridal Shower Cake: ₹1,200 (1 kg)\n• The Perfect Pair Cake: ₹1,250 (1 kg)\n• 0001 Wedding Bells Macaron Cake: ₹2,200 (2 kg)\n• 0003 Roses Anniversary Cake: ₹2,600 (3 kg)",
       actions: [{ label: '🟢 Order Wedding Tier', query: 'Inquire Wedding Tier Cake' }]
     };
   }
