@@ -139,14 +139,12 @@ export default async function handler(req, res) {
         }
       };
 
-      // Fast ordered list of models (no pre-fetch needed for sub-500ms speed)
+      // Fast ordered list of models (working models first for instant sub-500ms response)
       const fastModels = [
+        'gemini-flash-latest',
+        'gemini-flash-lite-latest',
         'gemini-2.0-flash',
-        'gemini-1.5-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-flash-8b',
-        'gemini-2.0-flash-lite',
-        'gemini-1.5-pro'
+        'gemini-1.5-flash-latest'
       ];
 
       for (const model of fastModels) {
