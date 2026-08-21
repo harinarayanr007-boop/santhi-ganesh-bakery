@@ -125,11 +125,22 @@ export default async function handler(req, res) {
           });
         }
       } else {
-        console.warn('Gemini API status:', response.status);
+        const errorText = await response.text();
+        console.warn('Gemini API status:', response.status, 'body:', errorText);
+        return res.status(200).json({
+          reply: `[Gemini API Error: ${response.status}] ${errorText}`,
+          source: 'gemini_api_error'
+        });
       }
     } catch (err) {
       console.warn('Gemini API error, falling back to smart rules:', err);
+      return res.status(200).json({
+        reply: `[Gemini Exception: ${err.message}]`,
+        source: 'gemini_exception'
+      });
     }
+  } else {
+    console.warn('No GEMINI_API_KEY found in process.env. Keys available:', Object.keys(process.env).filter(k => !k.includes('SECRET')));
   }
 
   // 2. High-speed Smart Fallback (when no key or offline)
@@ -140,7 +151,11 @@ export default async function handler(req, res) {
     reply: ruleResponse.reply,
     actions: ruleResponse.actions || [],
     whatsappUrl,
-    source: 'rule_engine'
+    source: 'rule_engine',
+    debug: {
+      hasKey: !!GEMINI_API_KEY,
+      envKeyLength: GEMINI_API_KEY.length
+    }
   });
 }
 
