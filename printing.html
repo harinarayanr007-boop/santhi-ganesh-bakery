@@ -1966,7 +1966,7 @@
       // Lock exact page size for zero paper waste
       let pageSizeCSS = 'A4 portrait';
       if (isSingle || isThermal) {
-        pageSizeCSS = `${rollWidth} 44mm`;
+        pageSizeCSS = 'portrait';
       }
 
       let printBodyHTML = '';
@@ -2025,14 +2025,15 @@
                   margin: 0 !important;
                   padding: 0 !important;
                   width: ${isThermal ? rollWidth : '100%'} !important;
+                  max-width: ${isThermal ? rollWidth : '100%'} !important;
                   height: auto !important;
-                  max-height: max-content !important;
-                  overflow: hidden !important;
+                  overflow: visible !important;
                   font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
                 }
                 .print-single-tag-container,
                 .print-thermal-roll-container {
                   width: ${rollWidth} !important;
+                  max-width: ${rollWidth} !important;
                   margin: 0 auto !important;
                   padding: 0 !important;
                   background: #FFFFFF !important;
@@ -2087,13 +2088,18 @@
                   max-height: 44mm;
                   padding: 2.2mm 3.5mm 2.2mm;
                   margin: 0 auto;
-                  page-break-inside: avoid;
-                  break-inside: avoid;
-                  page-break-after: ${isThermal ? 'always' : 'auto'};
-                  break-after: ${isThermal ? 'page' : 'auto'};
+                  page-break-inside: avoid !important;
+                  break-inside: avoid !important;
+                  page-break-after: auto;
+                  break-after: auto;
                   -webkit-print-color-adjust: exact !important;
                   print-color-adjust: exact !important;
                   overflow: hidden;
+                }
+                .print-single-tag-container .tag-card:not(:last-child),
+                .print-thermal-roll-container .tag-card:not(:last-child) {
+                  page-break-after: always !important;
+                  break-after: page !important;
                 }
                 .grid-shelf12 .tag-card,
                 .grid-medium8 .tag-card,
