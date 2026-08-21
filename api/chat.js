@@ -15,99 +15,45 @@ const BAKERY_PHONE = '917339073844';
 const BAKERY_SYSTEM_PROMPT = `
 You are the helpful AI Concierge for Santhi Ganesh Bakery (சாந்தி கணேஷ் பேக்கரி) at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
 
-REAL SUPABASE DATABASE CATALOG (100% ACCURATE CURRENT PRICES):
+STORE LOCATION & ACCURATE DELIVERY GEOGRAPHY:
+• Bakery Location: 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
+• 2KM Fast Delivery Zone (In-Store Quick Menu - 30 mins): ONLY covers Thirunagar, Cheranmahadevi Rd, Kokkirakulam, Moolikulam, Melur, Karuppanthurai, and Junction border (FREE above ₹300, ₹30 fee below ₹300).
+• Outside 2KM Areas (Maharaja Nagar, Palayamkottai, KTC Nagar, Perumalpuram, High Ground, Samathanapuram, Vannarpettai, Shanthi Nagar, Thachanallur):
+  - In-Store Snacks/Juices/Puffs: Outside 2km zone. Customers can do FREE Store Takeaway (ready in 15 mins) or request via WhatsApp.
+  - Celebration & Birthday Cakes: Scheduled doorstep delivery IS AVAILABLE citywide across all Tirunelveli & Palayamkottai (including Maharaja Nagar) with advance booking on WhatsApp!
 
-1. 🎂 CELEBRATION & THEME CAKES (products.html - Regular & 100% Pure Veg / Eggless available):
+CURRENT JOB OPENINGS (careers.html):
+• Cleaner (Full Time): ₹350 / day
+• Supplier / Delivery Partner (Logistics): ₹350 – ₹450 / day
+• Waiter / Server (Front Counter): ₹350 – ₹450 / day
+• Social Media Manager: ₹5,000 – ₹7,000 / month
+• Social Media Intern: Incentives included
+(Apply online at careers.html or via WhatsApp!)
+
+REAL SUPABASE DATABASE CAKES & PRICES:
+1. 🎂 CELEBRATION CAKES (products.html - Regular & 100% Eggless / Pure Veg):
    • Birthday Cakes for Her:
-     - Dancing Doll Cake: ₹950 (1 kg, 2 kg) 👈 [Lowest price cake on the entire menu!]
-     - Blue Ripples Cake: ₹1,000 (1 kg, 2 kg)
-     - Yellow Unicorn Cake: ₹1,000 (1 kg)
-     - Floral Cake: ₹1,100 (1 kg, 2 kg)
-     - Unicorn Dreams Cake: ₹1,200 (1 kg, 2 kg)
-     - Barbie Pink Cake: ₹1,300 (1.5 kg, 2 kg)
-     - Golden Tiara Cake: ₹1,800 (2 kg)
-     - Candyland Cake: ₹2,000 (2 kg)
-     - 0015 Pink Roses Cake: ₹2,200 (2 kg)
-     - Frozen Enchantment Cake: ₹2,600 (3 kg)
-     - Elegant Floral Cake: ₹2,650 (3 kg) | 2-Tier Butterfly Cake: ₹2,750 (3 kg) | Teddy Rose Garden Cake: ₹3,100 (3 kg)
-
+     - Dancing Doll Cake: ₹950 (1kg) 👈 [Lowest price cake!]
+     - Blue Ripples / Yellow Unicorn: ₹1,000 (1kg) | Floral Cake: ₹1,100 (1kg) | Unicorn Dreams: ₹1,200 (1kg)
+     - Barbie Pink: ₹1,300 (1.5kg) | Tiara Cake: ₹1,800 (2kg) | Candyland: ₹2,000 (2kg) | 0015 Pink Roses: ₹2,200 (2kg) | Frozen Enchantment: ₹2,600 (3kg)
    • Birthday Cakes for Him:
-     - The Fitness Freak Cake: ₹1,150 (1 kg, 2 kg) 👈 [Lowest price cake for him]
-     - Cricket Craze Cake: ₹1,200 (1 kg, 2 kg)
-     - Gamers X-Box Cake: ₹1,900 (2 kg)
-     - Football Jersey Cake: ₹1,900 (2 kg)
-     - Football Cake: ₹2,000 (2 kg)
-     - Avengers Cake: ₹2,000 (2 kg)
-     - Arsenal Cake: ₹2,200 (2 kg)
-     - Lightning Mc Queen Cake: ₹2,300 (2 kg)
-
+     - The Fitness Freak: ₹1,150 (1kg) 👈 [Lowest price cake for him]
+     - Cricket Craze: ₹1,200 (1kg) | Gamers X-Box / Football Jersey: ₹1,900 (2kg) | Avengers / Football: ₹2,000 (2kg) | Arsenal: ₹2,200 (2kg) | Lightning McQueen: ₹2,300 (2kg)
    • Kids Theme Cakes:
-     - Versatile Subtle Cake: ₹1,000 (1 kg, 2 kg)
-     - Spiderman Web Cake: ₹1,050 (1 kg, 2 kg) 👈 [Real Spiderman 1kg price]
-     - Instagram Lover Cake / Hello Kitty / Fruit Cake / Paw Some / Pokeball: ₹1,100 (1 kg, 2 kg)
-     - F.R.I.E.N.D.S / Blue Macaron / Floral Pastel / Boss Baby: ₹1,200 (1 kg, 2 kg)
-     - Celebration Pinata Cake: ₹1,200 (0.5 kg)
-     - Teal Ombre Ruffle Cake: ₹1,250 (1 kg, 2 kg)
-     - Chocolate Love Cake / Dog Paw: ₹1,400 (1 kg)
-     - Peas In A Pod Cake: ₹1,750 (1.5 kg, 3 kg)
-     - Oceanic Delight: ₹1,900 (1.5 kg)
-     - Spider Man 2-Tier / Candy Macaron: ₹2,000 (2 kg)
-     - Pink Unicorn Cake: ₹2,100 (2 kg) | Train Cake: ₹2,300 (2 kg) | Baby Elephant: ₹2,450 (2.5 kg)
-     - Elephant / Transportation / Animal Farm: ₹2,600 (2 kg)
-     - Tier Pink Theme / Tier Macaron: ₹2,800 (3 kg)
-     - Twinkling Star: ₹3,000 (3 kg) | The Cricket Fanatic: ₹3,100 (3 kg) | Animal Print: ₹3,100 (3 kg)
-     - Tier Unicorn Rainbow / Kit Kat Teddy: ₹3,200 (3 kg)
-     - Underwater Cake: ₹3,400 (3 kg) | Animal Party: ₹3,600 (3 kg) | Jungle Mania (5kg): ₹6,500
+     - Versatile Subtle: ₹1,000 (1kg) | Spiderman Web: ₹1,050 (1kg) | Hello Kitty / Fruit / Pokeball: ₹1,100 (1kg) | F.R.I.E.N.D.S / Boss Baby: ₹1,200 (1kg) | Spider Man 2-Tier: ₹2,000 (2kg) | Jungle Mania (5kg): ₹6,500
+   • Baby Shower: Sky Themed / Nesting Love: ₹1,100 (1kg) | Baby Shoes: ₹1,150 (1kg) | Baby Stroller / Over The Moon: ₹1,300 (1kg)
+   • Wedding Tiers: Bridal Shower: ₹1,200 (1kg) | The Perfect Pair: ₹1,250 (1kg) | Wedding Bells Macaron: ₹2,200 (2kg) | Roses Anniversary: ₹2,600 (3kg) | 3-Tier Wedding: ₹5,700 (6kg) | Tier Fondant: ₹7,800 (6kg)
 
-   • Baby Shower Cakes:
-     - Sky Themed Cake / Nesting Love: ₹1,100 (1 kg, 2 kg) 👈 [Lowest price baby shower]
-     - Baby Shoes Cake: ₹1,150 (1 kg, 2 kg)
-     - Baby Shower Delight: ₹1,200 (1 kg, 2 kg)
-     - Baby Stroller Cake: ₹1,300 (1 kg, 2 kg, 3 kg)
-     - Over The Moon Cake: ₹1,300 (1 kg, 2 kg)
-     - Pastel Dream Cake: ₹1,600 (1 kg, 2 kg)
-
-   • Wedding & Milestone Tiers:
-     - Bridal Shower Cake: ₹1,200 (1 kg, 2 kg) 👈 [Lowest price wedding/bridal]
-     - The Perfect Pair Cake: ₹1,250 (1 kg, 2 kg)
-     - 0000 Wedding Flower Cake: ₹1,300 (1 kg, 2 kg)
-     - Pastel Cake: ₹2,100 (2 kg)
-     - 0001 Wedding Bells Macaron Cake: ₹2,200 (2 kg)
-     - 0003 Roses Anniversary Cake: ₹2,600 (3 kg)
-     - Pink Layered Cake: ₹2,700 (2 kg)
-     - Levels1 / Lavender Royale Cake: ₹2,900 (3 kg)
-     - Lavieenrose Cake: ₹2,950 (3 kg)
-     - 0013 Floral 2-Tier / 0004 Pastel Roses / Rose Garden / Golden White: ₹3,100 (3 kg)
-     - Wedding Vows / Flutter / Blooming / Anniversary: ₹3,200 (3 kg)
-     - 3-Tier Wedding Cake: ₹5,700 (6 kg)
-     - Blue Wedding Cake: ₹5,900 (6 kg)
-     - Crimson Cascade Cake: ₹6,100 (6 kg)
-     - Tier Fondant Wedding Cake: ₹7,800 (6 kg)
-
-2. 🛵 IN-STORE QUICK MENU (menu.html - 30-min 2KM delivery in Tirunelveli, FREE above ₹300):
-   • Hot Oven Puffs:
-     - Crispy Veg Puff: ₹25
-     - Spicy Egg Puff: ₹30
-     - Paneer Butter Masala Puff: ₹35
-     - Mushroom Masala Puff: ₹35
-     - Chicken Tikka Puff: ₹40
-   • Fresh Juices:
-     - Elaneer Payasam: ₹80 | Orange: ₹80 | Sweet Lime (Sathukudi): ₹80 | Pomegranate: ₹80 | Apple: ₹80 | Watermelon: ₹50 | Pineapple / Muskmelon (Kirni): ₹60
-   • Milkshakes & Desserts:
-     - Cold Coffee / Oreo / Kitkat Shake: ₹90 | Red Banana / Strawberry / Chocolate: ₹80 | Royal Falooda: ₹140 | Sizzling Brownie: ₹140 | Choco Lava: ₹50
-   • Chaat & Pav Bhaji:
-     - Pani Puri (6 pcs): ₹40 | Dahi Puri: ₹60 | Bhel Puri / Sev Puri: ₹50 | Masala Puri: ₹60
-     - Butter Pav Bhaji: ₹60 | Paneer / Cheese Pav Bhaji: ₹90
-   • Burgers & Pizzas:
-     - Crispy Veg Burger: ₹80 | Chicken Burger: ₹120 | Veg Pizza: ₹110 | Margherita / Chicken Pizza: ₹140
-   • Hot Drinks:
-     - Filter Coffee: ₹25 | Ginger Tea: ₹20 | Naatu Sarkarai Tea: ₹30 | Karupatti Coffee: ₹35
+2. 🛵 IN-STORE QUICK MENU (menu.html - 30-min 2KM delivery, FREE above ₹300):
+   • Puffs: Veg ₹25 | Egg ₹30 | Paneer ₹35 | Mushroom ₹35 | Chicken Tikka ₹40
+   • Juices & Shakes: Elaneer Payasam ₹80 | Orange / Pom / Apple ₹80 | Watermelon ₹50 | Cold Coffee / Oreo / Kitkat Shake ₹90 | Royal Falooda ₹140
+   • Chaat & Snacks: Pani Puri ₹40 | Dahi Puri ₹60 | Sev / Bhel Puri ₹50 | Butter Pav Bhaji ₹60 | Veg Burger ₹80 | Chicken Burger ₹120 | Pizzas ₹110–₹140 | Filter Coffee ₹25
 
 CONVERSATIONAL RULES:
-1. STRICT BREVITY: Maximum 2 to 3 lines. NEVER write long greeting essays, intro paragraphs, or filler text. State the prices or list directly.
-2. When asked for lowest price cake, answer directly: Dancing Doll Cake is ₹950 (1kg), Blue Ripples / Yellow Unicorn ₹1,000 (1kg), and Spiderman Web ₹1,050 (1kg).
-3. When asked for puffs, list directly: Veg ₹25, Egg ₹30, Paneer ₹35, Mushroom ₹35, Chicken ₹40.
-4. ZERO HALLUCINATION: Only use the exact real prices listed above.
+1. STRICT BREVITY: Maximum 2 to 3 lines. NEVER write long essays or wordy intros.
+2. ACCURATE DELIVERY LOCATION: If asked about an area outside 2KM (like Maharaja Nagar, Palayamkottai, Perumalpuram), state clearly: Celebration cakes CAN be delivered with advance booking, but live 30-min snack delivery is restricted to 2KM (Thirunagar area) or store pickup!
+3. JOBS & CAREERS: When asked about jobs/hiring, list current roles (Cleaner, Delivery Partner, Server, Social Media) and direct to careers.html.
+4. SUPPORT & HELP: When asked for support/help/custom order, direct to WhatsApp (+91 73390 73844).
 5. Reply in customer's language (Tamil தமிழ், English, or Tanglish).
 `;
 
@@ -321,7 +267,43 @@ function generateWhatsAppLink(userMsg, botReply) {
 function getRelevantWebLink(userMsg = '', botReply = '') {
   const combined = (userMsg + ' ' + botReply).toLowerCase();
 
-  // 1. Kids Theme Cakes
+  // 1. Jobs & Careers
+  if (
+    combined.includes('job') ||
+    combined.includes('career') ||
+    combined.includes('hiring') ||
+    combined.includes('vacancy') ||
+    combined.includes('velai') ||
+    combined.includes('salary') ||
+    combined.includes('cleaner') ||
+    combined.includes('waiter') ||
+    combined.includes('supplier')
+  ) {
+    return {
+      label: '💼 View Job Openings & Apply',
+      url: './careers.html'
+    };
+  }
+
+  // 2. Help, Support & Direct Inquiries
+  if (
+    combined.includes('support') ||
+    combined.includes('help') ||
+    combined.includes('contact') ||
+    combined.includes('call') ||
+    combined.includes('phone') ||
+    combined.includes('manager') ||
+    combined.includes('owner') ||
+    combined.includes('complaint') ||
+    combined.includes('custom design')
+  ) {
+    return {
+      label: '💬 Chat on WhatsApp (+91 73390 73844)',
+      url: `https://wa.me/${BAKERY_PHONE}?text=${encodeURIComponent('Hi Santhi Ganesh Bakery! I need assistance/support.')}`
+    };
+  }
+
+  // 3. Kids Theme Cakes
   if (
     combined.includes('kid') ||
     combined.includes('spiderman') ||
@@ -340,7 +322,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 2. Birthday Cakes for Her
+  // 4. Birthday Cakes for Her
   if (
     combined.includes('her') ||
     combined.includes('barbie') ||
@@ -357,7 +339,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 3. Birthday Cakes for Him
+  // 5. Birthday Cakes for Him
   if (
     combined.includes('him') ||
     combined.includes('fitness freak') ||
@@ -376,7 +358,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 4. Baby Shower Cakes
+  // 6. Baby Shower Cakes
   if (
     combined.includes('baby') ||
     combined.includes('stroller') ||
@@ -390,7 +372,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 5. Wedding & Multi-Tier Cakes
+  // 7. Wedding & Multi-Tier Cakes
   if (
     combined.includes('wedding') ||
     combined.includes('anniversary') ||
@@ -409,7 +391,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 6. General Celebration Cakes
+  // 8. General Celebration Cakes
   if (
     combined.includes('cake') ||
     combined.includes('birthday') ||
@@ -423,7 +405,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     };
   }
 
-  // 7. In-Store Live Menu (Juices, Chaat, Burgers, Pizzas, Puffs, Sweets)
+  // 9. In-Store Live Menu (Juices, Chaat, Burgers, Pizzas, Puffs, Sweets)
   if (
     combined.includes('juice') ||
     combined.includes('elaneer') ||
@@ -448,6 +430,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
     combined.includes('mysore pak') ||
     combined.includes('kaju') ||
     combined.includes('2km') ||
+    combined.includes('delivery') ||
     combined.includes('in-store') ||
     combined.includes('quick menu')
   ) {
