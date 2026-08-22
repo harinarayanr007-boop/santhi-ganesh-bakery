@@ -42,7 +42,15 @@ async function loadProductsFromSupabase() {
     if (res.ok) {
       const data = await res.json();
       if (data && data.length > 0) {
-        PRODUCTS_DATA = data;
+        const supabaseIds = new Set(data.map(p => p.id));
+        const defaultList = (typeof DEFAULT_PRODUCTS_DATA !== 'undefined' ? DEFAULT_PRODUCTS_DATA : []);
+        const missingDefaults = defaultList.filter(p => !supabaseIds.has(p.id));
+        PRODUCTS_DATA = [...data, ...missingDefaults];
+
+        // Sync new default products to Supabase cloud
+        if (missingDefaults.length > 0) {
+          missingDefaults.forEach(p => saveProductToSupabase(p));
+        }
       }
     }
   } catch(e) {

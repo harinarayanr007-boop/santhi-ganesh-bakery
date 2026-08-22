@@ -64,6 +64,7 @@ const TRANSLATIONS = {
 
     // Categories
     cat_all: "All Bakes",
+    cat_signature: "Signature Cakes",
     cat_birthday_her: "Birthday (Her)",
     cat_birthday_him: "Birthday (Him)",
     cat_wedding: "Wedding & Tiers",
@@ -245,6 +246,7 @@ const TRANSLATIONS = {
 
     // Categories
     cat_all: "அனைத்து வகை",
+    cat_signature: "சிக்னேச்சர் கேக்குகள்",
     cat_birthday_her: "பிறந்தநாள் (பெண்கள்)",
     cat_birthday_him: "பிறந்தநாள் (ஆண்கள்)",
     cat_wedding: "திருமண கேக்குகள்",

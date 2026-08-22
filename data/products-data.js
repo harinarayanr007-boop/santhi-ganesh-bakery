@@ -6672,6 +6672,161 @@ const DEFAULT_PRODUCTS_DATA = [
     ],
     "description": "Delicious handcrafted Twin Baby Cake baked fresh with premium ingredients for celebrations in Tirunelveli.",
     "is_available": true
+  },
+  {
+    "id": "prod-sig-1",
+    "title": "Red Velvet Classic Signature Cake",
+    "category": "signature-cakes",
+    "price": 750,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 450
+      },
+      {
+        "weight": "1 kg",
+        "price": 750
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1100
+      },
+      {
+        "weight": "2 kg",
+        "price": 1450
+      }
+    ],
+    "image": "./Signature cakes/001_Red_Velvet_Signature_Cake.jpg",
+    "gallery": [
+      "./Signature cakes/001_Red_Velvet_Signature_Cake.jpg"
+    ],
+    "description": "Velvety soft crimson sponge layered with silky fresh vanilla cream cheese frosting and dusted with rich red velvet crumbles.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-2",
+    "title": "Belgian Dark Chocolate Truffle Cake",
+    "category": "signature-cakes",
+    "price": 800,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 480
+      },
+      {
+        "weight": "1 kg",
+        "price": 800
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1180
+      },
+      {
+        "weight": "2 kg",
+        "price": 1550
+      }
+    ],
+    "image": "./Signature cakes/002_Belgian_Dark_Chocolate_Truffle.jpg",
+    "gallery": [
+      "./Signature cakes/002_Belgian_Dark_Chocolate_Truffle.jpg"
+    ],
+    "description": "Rich, dense chocolate sponge enrobed in glossy Belgian dark chocolate ganache with piped dark rosettes and a ruby cherry crown.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-3",
+    "title": "Strawberry Glaze Red Berry Drip Cake",
+    "category": "signature-cakes",
+    "price": 700,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 420
+      },
+      {
+        "weight": "1 kg",
+        "price": 700
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1020
+      },
+      {
+        "weight": "2 kg",
+        "price": 1350
+      }
+    ],
+    "image": "./Signature cakes/003_Strawberry_Glaze_Drip_Cake.jpg",
+    "gallery": [
+      "./Signature cakes/003_Strawberry_Glaze_Drip_Cake.jpg"
+    ],
+    "description": "Luscious vanilla sponge filled with real strawberry compote, iced with fresh dairy whip cream, dripping strawberry coulis glaze and chocolate fan shards.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-4",
+    "title": "Royal Butterscotch Crunch Praline Cake",
+    "category": "signature-cakes",
+    "price": 700,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 420
+      },
+      {
+        "weight": "1 kg",
+        "price": 700
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1020
+      },
+      {
+        "weight": "2 kg",
+        "price": 1350
+      }
+    ],
+    "image": "./Signature cakes/004_Royal_Butterscotch_Crunch_Cake.jpg",
+    "gallery": [
+      "./Signature cakes/004_Royal_Butterscotch_Crunch_Cake.jpg"
+    ],
+    "description": "Golden vanilla butter sponge layered with butterscotch cream, coated in crunchy caramelized cashew praline and topped with cherry pearls.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-5",
+    "title": "Mocha Choco-Chip Ganache Drip Cake",
+    "category": "signature-cakes",
+    "price": 750,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 450
+      },
+      {
+        "weight": "1 kg",
+        "price": 750
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1100
+      },
+      {
+        "weight": "2 kg",
+        "price": 1450
+      }
+    ],
+    "image": "./Signature cakes/005_Mocha_Choco_Chip_Ganache_Cake.jpg",
+    "gallery": [
+      "./Signature cakes/005_Mocha_Choco_Chip_Ganache_Cake.jpg"
+    ],
+    "description": "Decadent chocolate coffee sponge layered with espresso chocolate cream, cascading dark ganache drip, piped rosettes and crunchy dark chocolate chips.",
+    "is_available": true
   }
 ];
 
