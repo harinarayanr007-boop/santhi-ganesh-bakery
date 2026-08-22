@@ -197,29 +197,52 @@
         </button>
       </div>
 
-      <!-- SORT & BUDGET FILTER CONTROL BAR -->
-      <div class="products-toolbar">
-        <!-- 1. Left: Budget Filter Chips -->
-        <div class="budget-filter-group">
-          <button type="button" class="budget-chip active" data-budget="all">All Budgets</button>
-          <button type="button" class="budget-chip" data-budget="under-1000">Under ₹1,000</button>
-          <button type="button" class="budget-chip" data-budget="1000-2000">₹1,000 – ₹2,000</button>
-          <button type="button" class="budget-chip" data-budget="2000-plus">₹2,000+ Tiers</button>
+      <!-- LUXURY FILTER & SORT TOOLBAR (PRICE, WEIGHT, SORT) -->
+      <div class="products-filter-bar">
+        <div class="filter-bar-left">
+          <!-- Price Filter Dropdown -->
+          <div class="filter-dropdown-pill" id="pill-price-filter">
+            <i class="ph ph-currency-inr filter-icon"></i>
+            <select id="filter-price-select" class="filter-select" aria-label="Filter by Price">
+              <option value="all">Price: All</option>
+              <option value="under-1000">Under ₹1,000</option>
+              <option value="1000-2000">₹1,000 – ₹2,000</option>
+              <option value="2000-3000">₹2,000 – ₹3,000</option>
+              <option value="3000-plus">₹3,000+ Tiers</option>
+            </select>
+            <i class="ph ph-caret-down filter-chevron"></i>
+          </div>
+
+          <!-- Weight Filter Dropdown -->
+          <div class="filter-dropdown-pill" id="pill-weight-filter">
+            <i class="ph ph-scales filter-icon"></i>
+            <select id="filter-weight-select" class="filter-select" aria-label="Filter by Weight">
+              <option value="all">Weight: All</option>
+              <option value="0.5kg">0.5 kg (Small)</option>
+              <option value="1kg">1 kg (Standard)</option>
+              <option value="1.5-2kg">1.5 kg – 2 kg (Party)</option>
+              <option value="3kg-plus">3 kg+ (Grand Multi-Tier)</option>
+            </select>
+            <i class="ph ph-caret-down filter-chevron"></i>
+          </div>
+
+          <!-- Reset Filter Button -->
+          <button type="button" id="btn-reset-filters" class="btn-reset-filters" style="display: none;" title="Reset all filters">
+            <i class="ph ph-arrow-counter-clockwise"></i> <span>Reset</span>
+          </button>
         </div>
 
-        <!-- 2. Right: Sort Dropdown -->
-        <div class="products-sort-wrapper">
-          <label for="product-sort-select" class="sort-label">
-            <i class="ph ph-arrows-down-up" style="color: var(--color-desert);"></i> Sort:
-          </label>
-          <div class="custom-select-pill">
-            <select id="product-sort-select" class="product-sort-select">
-              <option value="default">✨ Recommended</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="title-asc">Name: A to Z</option>
+        <div class="filter-bar-right">
+          <!-- Sort Dropdown -->
+          <div class="filter-dropdown-pill sort-pill" id="pill-sort-filter">
+            <i class="ph ph-arrows-down-up filter-icon"></i>
+            <select id="product-sort-select" class="filter-select" aria-label="Sort Cakes">
+              <option value="default">Sort: Recommended ✨</option>
+              <option value="price-low">Price: Low to High 🔼</option>
+              <option value="price-high">Price: High to Low 🔽</option>
+              <option value="title-asc">Name: A to Z 🔤</option>
             </select>
-            <i class="ph ph-caret-down select-chevron"></i>
+            <i class="ph ph-caret-down filter-chevron"></i>
           </div>
         </div>
       </div>

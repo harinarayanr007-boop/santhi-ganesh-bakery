@@ -255,6 +255,7 @@ let cartItems = (typeof window !== 'undefined' && window.localStorage)
 let activeCategoryFilter = 'all';
 let activeSearchQuery = '';
 let activeBudgetFilter = 'all';
+let activeWeightFilter = 'all';
 let activeSortOption = 'default';
 
 // DOM Initialization
@@ -264,7 +265,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const catParam = urlParams.get('cat');
   const qParam = urlParams.get('q');
   const sortParam = urlParams.get('sort');
-  const budgetParam = urlParams.get('budget');
+  const budgetParam = urlParams.get('budget') || urlParams.get('price');
+  const weightParam = urlParams.get('weight');
 
   if (catParam) {
     activeCategoryFilter = catParam;
@@ -292,9 +294,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (budgetParam) {
     activeBudgetFilter = budgetParam;
-    document.querySelectorAll('.budget-chip').forEach(chip => {
-      chip.classList.toggle('active', chip.dataset.budget === budgetParam);
-    });
+    const priceSelect = document.getElementById('filter-price-select');
+    if (priceSelect) priceSelect.value = budgetParam;
+  }
+
+  if (weightParam) {
+    activeWeightFilter = weightParam;
+    const weightSelect = document.getElementById('filter-weight-select');
+    if (weightSelect) weightSelect.value = weightParam;
   }
 
   // Load from Supabase first, then render
@@ -319,7 +326,7 @@ function renderHomePreviewGrid() {
   container.innerHTML = previewItems.map(product => createProductCardHTML(product)).join('');
 }
 
-// 4. RENDER FULL PRODUCTS PAGE GRID (With Filter, Budget & Sort)
+// 4. RENDER FULL PRODUCTS PAGE GRID (With Category, Price, Weight & Sort)
 function renderFullProductsGrid() {
   const container = document.getElementById('full-products-grid');
   if (!container) return;
@@ -342,16 +349,39 @@ function renderFullProductsGrid() {
     );
   }
 
-  // 3. Apply Budget Filter
+  // 3. Apply Price / Budget Filter
   if (activeBudgetFilter === 'under-1000') {
     filtered = filtered.filter(p => Number(p.price) < 1000);
   } else if (activeBudgetFilter === '1000-2000') {
     filtered = filtered.filter(p => Number(p.price) >= 1000 && Number(p.price) <= 2000);
-  } else if (activeBudgetFilter === '2000-plus') {
-    filtered = filtered.filter(p => Number(p.price) > 2000);
+  } else if (activeBudgetFilter === '2000-3000') {
+    filtered = filtered.filter(p => Number(p.price) > 2000 && Number(p.price) <= 3000);
+  } else if (activeBudgetFilter === '3000-plus') {
+    filtered = filtered.filter(p => Number(p.price) > 3000);
   }
 
-  // 4. Apply Sort Option
+  // 4. Apply Weight Filter
+  if (activeWeightFilter !== 'all') {
+    filtered = filtered.filter(p => {
+      const allWeights = [
+        p.weight || '',
+        ...(p.variants || []).map(v => v.weight || '')
+      ].join(' ').toLowerCase();
+
+      if (activeWeightFilter === '0.5kg') {
+        return allWeights.includes('0.5') || allWeights.includes('500');
+      } else if (activeWeightFilter === '1kg') {
+        return allWeights.includes('1 kg') || allWeights.includes('1kg');
+      } else if (activeWeightFilter === '1.5-2kg') {
+        return allWeights.includes('1.5') || allWeights.includes('2 kg') || allWeights.includes('2kg');
+      } else if (activeWeightFilter === '3kg-plus') {
+        return allWeights.includes('3 kg') || allWeights.includes('4 kg') || allWeights.includes('5 kg') || allWeights.includes('6 kg');
+      }
+      return true;
+    });
+  }
+
+  // 5. Apply Sort Option
   if (activeSortOption === 'price-low') {
     filtered.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
   } else if (activeSortOption === 'price-high') {
@@ -360,14 +390,18 @@ function renderFullProductsGrid() {
     filtered.sort((a, b) => a.title.localeCompare(b.title));
   }
 
-
+  // Update UI visual states for dropdown pills
+  updateFilterBarUIState();
 
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 64px 20px;">
         <p style="font-size: 3rem; margin-bottom: 12px;">🔍</p>
         <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 8px;">No cakes found</h3>
-        <p style="color: var(--color-text-muted);">Try selecting "All Budgets" or another flavor category!</p>
+        <p style="color: var(--color-text-muted);">Try adjusting your Price, Weight or Category filters!</p>
+        <button type="button" onclick="resetAllProductsFilters()" style="margin-top: 16px; background: var(--color-desert); color: #FFF; border: none; padding: 10px 22px; border-radius: 24px; font-weight: 700; cursor: pointer;">
+          Reset All Filters
+        </button>
       </div>
     `;
     return;
@@ -375,6 +409,44 @@ function renderFullProductsGrid() {
 
   container.innerHTML = filtered.map(product => createProductCardHTML(product)).join('');
 }
+
+// Update pill highlight styling & Reset button visibility
+function updateFilterBarUIState() {
+  const pillPrice = document.getElementById('pill-price-filter');
+  const pillWeight = document.getElementById('pill-weight-filter');
+  const pillSort = document.getElementById('pill-sort-filter');
+  const btnReset = document.getElementById('btn-reset-filters');
+
+  if (pillPrice) pillPrice.classList.toggle('has-filter', activeBudgetFilter !== 'all');
+  if (pillWeight) pillWeight.classList.toggle('has-filter', activeWeightFilter !== 'all');
+  if (pillSort) pillSort.classList.toggle('has-filter', activeSortOption !== 'default');
+
+  const hasAnyFilter = (activeBudgetFilter !== 'all' || activeWeightFilter !== 'all' || activeSortOption !== 'default' || activeSearchQuery.trim() !== '');
+  if (btnReset) {
+    btnReset.style.display = hasAnyFilter ? 'inline-flex' : 'none';
+  }
+}
+
+// Global reset helper function
+function resetAllProductsFilters() {
+  activeBudgetFilter = 'all';
+  activeWeightFilter = 'all';
+  activeSortOption = 'default';
+  activeSearchQuery = '';
+
+  const priceSelect = document.getElementById('filter-price-select');
+  const weightSelect = document.getElementById('filter-weight-select');
+  const sortSelect = document.getElementById('product-sort-select');
+  const searchInput = document.getElementById('product-search-input');
+
+  if (priceSelect) priceSelect.value = 'all';
+  if (weightSelect) weightSelect.value = 'all';
+  if (sortSelect) sortSelect.value = 'default';
+  if (searchInput) searchInput.value = '';
+
+  renderFullProductsGrid();
+}
+window.resetAllProductsFilters = resetAllProductsFilters;
 
 // Helper: Product Card HTML Template
 function createProductCardHTML(product) {
@@ -446,16 +518,23 @@ function setupEventListeners() {
     });
   }
 
-  // Budget Filter Chips on Products Page
-  const budgetChips = document.querySelectorAll('.budget-chip');
-  budgetChips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      budgetChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      activeBudgetFilter = chip.getAttribute('data-budget') || 'all';
+  // Price / Budget Filter Dropdown on Products Page
+  const priceSelect = document.getElementById('filter-price-select');
+  if (priceSelect) {
+    priceSelect.addEventListener('change', (e) => {
+      activeBudgetFilter = e.target.value;
       renderFullProductsGrid();
     });
-  });
+  }
+
+  // Weight Filter Dropdown on Products Page
+  const weightSelect = document.getElementById('filter-weight-select');
+  if (weightSelect) {
+    weightSelect.addEventListener('change', (e) => {
+      activeWeightFilter = e.target.value;
+      renderFullProductsGrid();
+    });
+  }
 
   // Sort Dropdown on Products Page
   const sortSelect = document.getElementById('product-sort-select');
@@ -463,6 +542,14 @@ function setupEventListeners() {
     sortSelect.addEventListener('change', (e) => {
       activeSortOption = e.target.value;
       renderFullProductsGrid();
+    });
+  }
+
+  // Reset Filters Button
+  const btnReset = document.getElementById('btn-reset-filters');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      resetAllProductsFilters();
     });
   }
 
