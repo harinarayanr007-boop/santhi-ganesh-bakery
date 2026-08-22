@@ -2471,7 +2471,8 @@ body.chat-modal-open {
   border-radius: 24px;
   padding: 34px 38px;
   color: #26160F;
-  margin-bottom: 32px;
+  margin-top: 48px;
+  margin-bottom: 16px;
   box-shadow: 0 16px 48px rgba(38, 22, 15, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   position: relative;
   overflow: hidden;
@@ -2619,7 +2620,8 @@ body.chat-modal-open {
   .custom-cake-banner {
     padding: 16px 14px !important;
     border-radius: 16px !important;
-    margin-bottom: 14px !important;
+    margin-top: 24px !important;
+    margin-bottom: 8px !important;
   }
   .custom-cake-banner-inner {
     flex-direction: column;
