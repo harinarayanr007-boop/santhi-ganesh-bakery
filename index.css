@@ -2604,83 +2604,83 @@ body.chat-modal-open {
 }
 
 /* ==========================================================================
-   PRODUCTS CATALOG TOOLBAR (LUXURY REDESIGN)
+   PRODUCTS CATALOG TOOLBAR (LEFT BUDGETS • MIDDLE COUNT • RIGHT SORT)
    ========================================================================== */
 .products-toolbar {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(201, 138, 76, 0.25);
-  border-radius: 16px;
-  padding: 10px 18px;
+  background: #FFFFFF;
+  border: 1px solid rgba(201, 138, 76, 0.28);
+  border-radius: 40px;
+  padding: 10px 20px;
   margin: 20px 0 28px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  box-shadow: 0 4px 20px rgba(38, 22, 15, 0.04);
+  box-shadow: 0 4px 16px rgba(38, 22, 15, 0.04);
 }
 
-.products-count-text {
-  font-family: var(--font-body, 'Inter', sans-serif);
-  font-size: 0.9rem;
-  color: #5C4638;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.products-count-text strong {
-  color: #26160F;
-  font-weight: 800;
-}
-
-.budget-filter-segmented {
-  display: inline-flex;
+.budget-filter-group {
+  display: flex;
   align-items: center;
-  background: #F4EFEA;
-  padding: 4px;
-  border-radius: 12px;
-  border: 1px solid rgba(201, 138, 76, 0.15);
-  gap: 2px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .budget-chip {
-  background: transparent;
-  border: none;
-  color: #6E5343;
-  border-radius: 9px;
-  padding: 6px 14px;
+  background: #FAF7F2;
+  border: 1px solid rgba(201, 138, 76, 0.25);
+  color: #3D2216;
+  border-radius: 20px;
+  padding: 7px 15px;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
   user-select: none;
   white-space: nowrap;
 }
 
 .budget-chip:hover {
-  color: #26160F;
-  background: rgba(255, 255, 255, 0.6);
+  background: #EDE4D8;
+  border-color: var(--color-desert, #C98A4C);
 }
 
 .budget-chip.active {
-  background: #FFFFFF;
-  color: #26160F;
+  background: var(--color-desert, #C98A4C);
+  color: #FFFFFF;
+  border-color: var(--color-desert, #C98A4C);
+  box-shadow: 0 2px 8px rgba(201, 138, 76, 0.3);
+}
+
+.products-count-badge {
+  font-size: 0.86rem;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(38, 22, 15, 0.08);
-  border: 1px solid rgba(201, 138, 76, 0.25);
+  color: #3D2216;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(201, 138, 76, 0.12);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(201, 138, 76, 0.3);
+  white-space: nowrap;
+  text-align: center;
 }
 
 .products-sort-wrapper {
   display: flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .sort-label {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #6E5343;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #3D2216;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .custom-select-pill {
@@ -2693,12 +2693,12 @@ body.chat-modal-open {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #F8F4EE;
-  border: 1px solid rgba(201, 138, 76, 0.3);
-  border-radius: 10px;
-  padding: 7px 32px 7px 12px;
-  font-size: 0.84rem;
-  font-weight: 600;
+  background: #FAF7F2;
+  border: 1.5px solid rgba(201, 138, 76, 0.35);
+  border-radius: 20px;
+  padding: 7px 32px 7px 14px;
+  font-size: 0.86rem;
+  font-weight: 700;
   color: #26160F;
   outline: none;
   cursor: pointer;
@@ -2719,31 +2719,34 @@ body.chat-modal-open {
 
 .select-chevron {
   position: absolute;
-  right: 10px;
+  right: 12px;
   pointer-events: none;
   font-size: 0.85rem;
   color: #8C4E14;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .products-toolbar {
     flex-direction: column;
     align-items: stretch;
+    border-radius: 20px;
     padding: 14px;
     gap: 12px;
   }
-  .products-count-text {
-    text-align: center;
-  }
-  .budget-filter-segmented {
+  .budget-filter-group {
     width: 100%;
     overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
     -webkit-overflow-scrolling: touch;
+  }
+  .products-count-badge {
+    align-self: center;
   }
   .products-sort-wrapper {
     justify-content: space-between;
     width: 100%;
-    border-top: 1px solid rgba(201, 138, 76, 0.12);
+    border-top: 1px solid rgba(201, 138, 76, 0.15);
     padding-top: 10px;
   }
 }

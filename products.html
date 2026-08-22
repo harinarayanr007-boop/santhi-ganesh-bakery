@@ -199,19 +199,24 @@
 
       <!-- SORT & BUDGET FILTER CONTROL BAR -->
       <div class="products-toolbar">
-        <div class="products-count-text" id="products-count-badge">
-          Showing <strong>9</strong> Handcrafted Cakes
-        </div>
-
-        <div class="budget-filter-segmented">
+        <!-- 1. Left: Budget Filter Chips -->
+        <div class="budget-filter-group">
           <button type="button" class="budget-chip active" data-budget="all">All Budgets</button>
           <button type="button" class="budget-chip" data-budget="under-1000">Under ₹1,000</button>
           <button type="button" class="budget-chip" data-budget="1000-2000">₹1,000 – ₹2,000</button>
           <button type="button" class="budget-chip" data-budget="2000-plus">₹2,000+ Tiers</button>
         </div>
 
+        <!-- 2. Middle: Cake Count Badge -->
+        <div class="products-count-badge" id="products-count-badge">
+          <i class="ph ph-cake" style="color: var(--color-desert);"></i> <span>Showing <strong>9</strong> cakes</span>
+        </div>
+
+        <!-- 3. Right: Sort Dropdown -->
         <div class="products-sort-wrapper">
-          <label for="product-sort-select" class="sort-label">Sort:</label>
+          <label for="product-sort-select" class="sort-label">
+            <i class="ph ph-arrows-down-up" style="color: var(--color-desert);"></i> Sort:
+          </label>
           <div class="custom-select-pill">
             <select id="product-sort-select" class="product-sort-select">
               <option value="default">✨ Recommended</option>
