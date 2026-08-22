@@ -6827,6 +6827,130 @@ const DEFAULT_PRODUCTS_DATA = [
     ],
     "description": "Decadent chocolate coffee sponge layered with espresso chocolate cream, cascading dark ganache drip, piped rosettes and crunchy dark chocolate chips.",
     "is_available": true
+  },
+  {
+    "id": "prod-sig-6",
+    "title": "White Forest Cake",
+    "category": "signature-cakes",
+    "price": 650,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 380
+      },
+      {
+        "weight": "1 kg",
+        "price": 650
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 950
+      },
+      {
+        "weight": "2 kg",
+        "price": 1250
+      }
+    ],
+    "image": "./Signature cakes/White Forest Cake.jpg",
+    "gallery": [
+      "./Signature cakes/White Forest Cake.jpg"
+    ],
+    "description": "Delicate vanilla sponge layered with white chocolate mousse, snowy white chocolate flakes, and crowned with sweet maraschino cherries.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-7",
+    "title": "Black Forest Cake",
+    "category": "signature-cakes",
+    "price": 650,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 380
+      },
+      {
+        "weight": "1 kg",
+        "price": 650
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 950
+      },
+      {
+        "weight": "2 kg",
+        "price": 1250
+      }
+    ],
+    "image": "./Signature cakes/Black Forest Cake.jpg",
+    "gallery": [
+      "./Signature cakes/Black Forest Cake.jpg"
+    ],
+    "description": "Traditional German chocolate sponge layered with whipped cream, sour cherry filling, dark chocolate shavings and red cherries.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-8",
+    "title": "Fresh Pineapple Cake",
+    "category": "signature-cakes",
+    "price": 600,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 350
+      },
+      {
+        "weight": "1 kg",
+        "price": 600
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 880
+      },
+      {
+        "weight": "2 kg",
+        "price": 1150
+      }
+    ],
+    "image": "./Signature cakes/Fresh Pineapple Cake.jpg",
+    "gallery": [
+      "./Signature cakes/Fresh Pineapple Cake.jpg"
+    ],
+    "description": "Refreshing moist sponge infused with sweet pineapple syrup, layered with fresh tropical pineapple chunks, yellow drip glaze and cherries.",
+    "is_available": true
+  },
+  {
+    "id": "prod-sig-9",
+    "title": "Fresh Mango Cake",
+    "category": "signature-cakes",
+    "price": 700,
+    "weight": "1 kg",
+    "variants": [
+      {
+        "weight": "0.5 kg",
+        "price": 400
+      },
+      {
+        "weight": "1 kg",
+        "price": 700
+      },
+      {
+        "weight": "1.5 kg",
+        "price": 1020
+      },
+      {
+        "weight": "2 kg",
+        "price": 1350
+      }
+    ],
+    "image": "./Signature cakes/Fresh Mango Cake.jpg",
+    "gallery": [
+      "./Signature cakes/Fresh Mango Cake.jpg"
+    ],
+    "description": "Luscious seasonal Alphonso mango cream layered between soft vanilla sponge, dripping mango glaze, fresh mango fruit cubes and white chocolate curls.",
+    "is_available": true
   }
 ];
 

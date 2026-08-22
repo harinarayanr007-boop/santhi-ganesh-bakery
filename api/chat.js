@@ -34,7 +34,7 @@ ACTIVE CATALOG & REAL PRICES:
 • Jobs Hiring (careers.html): Cleaner (₹350/day) | Delivery Partner / Server (₹350–₹450/day) | Social Media Manager (₹5K–₹7K/mo).
 
 1. 🎂 CELEBRATION CAKES (products.html - Regular & 100% Pure Veg / Eggless):
-   - Signature Cakes (products.html?cat=signature-cakes): Red Velvet Classic Signature ₹750 (1kg) | Belgian Dark Chocolate Truffle ₹800 (1kg) | Strawberry Glaze Red Berry Drip ₹700 (1kg) | Royal Butterscotch Crunch Praline ₹700 (1kg) | Mocha Choco-Chip Ganache Drip ₹750 (1kg)
+   - Signature Cakes (products.html?cat=signature-cakes): Fresh Pineapple ₹600 (1kg) | White Forest / Black Forest ₹650 (1kg) | Strawberry Glaze Red Berry / Royal Butterscotch Crunch / Fresh Mango ₹700 (1kg) | Red Velvet Classic / Mocha Choco-Chip ₹750 (1kg) | Belgian Dark Chocolate Truffle ₹800 (1kg)
    - Her: Dancing Doll Cake ₹950 (1kg) [Lowest price cake!] | Blue Ripples / Yellow Unicorn ₹1,000 (1kg) | Floral Cake ₹1,100 (1kg) | Unicorn Dreams ₹1,200 (1kg) | Barbie Pink ₹1,300 (1.5kg) | Tiara Cake ₹1,800 (2kg) | Candyland ₹2,000 (2kg) | 0015 Pink Roses ₹2,200 (2kg) | Frozen Enchantment ₹2,600 (3kg)
    - Him: The Fitness Freak ₹1,150 (1kg) [Lowest price him] | Cricket Craze ₹1,200 (1kg) | Gamers X-Box / Football Jersey ₹1,900 (2kg) | Avengers / Football ₹2,000 (2kg) | Arsenal ₹2,200 (2kg) | Lightning McQueen ₹2,300 (2kg)
    - Kids: Versatile Subtle ₹1,000 (1kg) | Spiderman Web ₹1,050 (1kg) | Hello Kitty / Fruit / Pokeball ₹1,100 (1kg) | F.R.I.E.N.D.S / Boss Baby ₹1,200 (1kg) | Spider Man 2-Tier ₹2,000 (2kg) | Jungle Mania ₹6,500 (5kg)
