@@ -2607,437 +2607,151 @@ body.chat-modal-open {
 }
 
 /* ==========================================================================
-   FLIPKART / AMAZON STYLE FILTER & SORT SYSTEM
+   PRODUCTS CATALOG FILTER & SORT TOOLBAR (HEADINGS OUTSIDE)
    ========================================================================== */
 .products-filter-bar {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1.5px solid rgba(201, 138, 76, 0.28);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(201, 138, 76, 0.25);
   border-radius: 20px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   margin: 18px 0 28px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  box-shadow: 0 4px 20px rgba(38, 22, 15, 0.04);
+  box-shadow: 0 4px 16px rgba(38, 22, 15, 0.04);
 }
 
-.filter-bar-left {
+.filter-controls-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   flex-wrap: wrap;
-  flex: 1 1 auto;
 }
 
-.filter-bar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-/* 1. Main Filters Trigger Button (Flipkart / Amazon style) */
-.btn-filter-trigger {
-  background: #FAF7F2;
-  border: 1.5px solid rgba(201, 138, 76, 0.35);
-  border-radius: 24px;
-  padding: 0 18px 0 15px;
-  height: 42px;
+.filter-field-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.88rem;
+}
+
+.filter-field-label {
+  font-size: 0.85rem;
   font-weight: 700;
-  color: #26160F;
-  cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  font-family: inherit;
-  white-space: nowrap;
-}
-
-.btn-filter-trigger:hover {
-  background: #FFFFFF;
-  border-color: var(--color-desert, #C98A4C);
-  box-shadow: 0 4px 14px rgba(201, 138, 76, 0.18);
-  transform: translateY(-1px);
-}
-
-.btn-filter-trigger.has-active-filters {
-  background: rgba(201, 138, 76, 0.14);
-  border-color: var(--color-desert, #C98A4C);
-  color: #8C4E14;
-}
-
-.filter-trigger-icon {
-  font-size: 1.15rem;
-  color: #8C4E14;
-}
-
-.filter-count-badge {
-  background: var(--color-desert, #C98A4C);
-  color: #FFFFFF;
-  font-size: 0.72rem;
-  font-weight: 800;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  color: #3D2216;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 5px rgba(201, 138, 76, 0.4);
+  gap: 4px;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-/* 2. Active Quick Badges on the Bar */
-.active-filter-chips-container {
-  display: flex;
+.filter-field-label i {
+  color: var(--color-desert, #C98A4C);
+  font-size: 0.95rem;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
 }
 
-.active-filter-chip {
+.custom-filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #FAF7F2;
+  border: 1.5px solid rgba(201, 138, 76, 0.28);
+  border-radius: 12px;
+  padding: 7px 30px 7px 12px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #26160F;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.custom-filter-select:hover {
+  background: #FFFFFF;
+  border-color: var(--color-desert, #C98A4C);
+}
+
+.custom-filter-select:focus {
+  border-color: var(--color-desert, #C98A4C);
+  box-shadow: 0 0 0 3px rgba(201, 138, 76, 0.15);
+  background: #FFFFFF;
+}
+
+.custom-select-wrapper.has-filter .custom-filter-select {
   background: rgba(201, 138, 76, 0.12);
-  border: 1px solid rgba(201, 138, 76, 0.35);
-  color: #7A3F0E;
-  border-radius: 18px;
-  padding: 4px 10px;
-  font-size: 0.78rem;
+  border-color: var(--color-desert, #C98A4C);
+  color: #8C4E14;
+  font-weight: 700;
+}
+
+.select-caret {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  font-size: 0.8rem;
+  color: #8C4E14;
+}
+
+.btn-reset-filters {
+  background: #FAF7F2;
+  border: 1.5px solid rgba(220, 53, 69, 0.3);
+  color: #C0392B;
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.active-filter-chip:hover {
-  background: #FCE8E6;
-  border-color: #E74C3C;
-  color: #C0392B;
-}
-
-.active-filter-chip i {
-  font-size: 0.85rem;
-}
-
-/* 3. Sort Dropdown Outside */
-.filter-dropdown-pill {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  background: #FAF7F2;
-  border: 1.5px solid rgba(201, 138, 76, 0.28);
-  border-radius: 24px;
-  padding: 0 32px 0 36px;
-  height: 42px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-}
-
-.filter-dropdown-pill:hover {
-  background: #FFFFFF;
-  border-color: var(--color-desert, #C98A4C);
-  box-shadow: 0 3px 12px rgba(201, 138, 76, 0.15);
-}
-
-.filter-icon {
-  position: absolute;
-  left: 13px;
-  font-size: 1.05rem;
-  color: #8C4E14;
-  pointer-events: none;
-}
-
-.filter-chevron {
-  position: absolute;
-  right: 12px;
-  font-size: 0.85rem;
-  color: #8C4E14;
-  pointer-events: none;
-}
-
-.filter-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  border: none;
-  outline: none;
   font-family: inherit;
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: #26160F;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  padding: 0;
+  margin-left: auto;
 }
 
-/* ==========================================================================
-   FLIPKART / AMAZON MULTI-FILTER BOTTOM SHEET & MODAL
-   ========================================================================== */
-.filter-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 4, 4, 0.6);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 10000;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
-}
-
-.filter-modal-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.filter-modal-container {
-  background: #FFFFFF;
-  width: 100%;
-  max-width: 540px;
-  max-height: 88vh;
-  border-radius: 28px 28px 0 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transform: translateY(100%);
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.22);
-}
-
-.filter-modal-overlay.open .filter-modal-container {
-  transform: translateY(0);
-}
-
-@media (min-width: 769px) {
-  .filter-modal-overlay {
-    align-items: center;
-  }
-  .filter-modal-container {
-    border-radius: 24px;
-    max-height: 82vh;
-    transform: translateY(20px) scale(0.96);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
-  }
-  .filter-modal-overlay.open .filter-modal-container {
-    transform: translateY(0) scale(1);
-  }
-}
-
-.filter-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid rgba(201, 138, 76, 0.18);
-  background: #FFFDF9;
-}
-
-.modal-clear-text-btn {
-  background: none;
-  border: none;
-  color: #C0392B;
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-  font-family: inherit;
-}
-
-.modal-clear-text-btn:hover {
+.btn-reset-filters:hover {
   background: #FDF2F2;
+  border-color: #C0392B;
+  color: #962D22;
 }
 
-.filter-modal-close {
-  background: #F4EFEA;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #5C4638;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.filter-modal-close:hover {
-  background: #E8DFD5;
-  color: #26160F;
-}
-
-.filter-modal-body {
-  padding: 20px 24px;
-  overflow-y: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  background: #FFFFFF;
-}
-
-.filter-modal-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.filter-section-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #26160F;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.filter-section-title i {
-  color: var(--color-desert, #C98A4C);
-  font-size: 1.1rem;
-}
-
-.filter-options-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 10px;
-}
-
-.filter-radio-card {
-  position: relative;
-  display: block;
-  cursor: pointer;
-}
-
-.filter-radio-card input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.radio-card-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 11px 14px;
-  border-radius: 12px;
-  background: #FAF7F2;
-  border: 1.5px solid rgba(201, 138, 76, 0.25);
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #3D2216;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-}
-
-.filter-radio-card:hover .radio-card-content {
-  background: #FFFFFF;
-  border-color: var(--color-desert, #C98A4C);
-}
-
-.filter-radio-card input:checked + .radio-card-content {
-  background: var(--color-desert, #C98A4C);
-  color: #FFFFFF;
-  border-color: var(--color-desert, #C98A4C);
-  font-weight: 800;
-  box-shadow: 0 4px 12px rgba(201, 138, 76, 0.35);
-}
-
-.filter-modal-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
-  border-top: 1px solid rgba(201, 138, 76, 0.18);
-  background: #FFFDF9;
-}
-
-.btn-filter-modal-reset {
-  flex: 1;
-  background: #FAF7F2;
-  border: 1.5px solid rgba(201, 138, 76, 0.3);
-  color: #5C4638;
-  padding: 13px;
-  border-radius: 14px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.btn-filter-modal-reset:hover {
-  background: #EFE8DF;
-  color: #26160F;
-}
-
-.btn-filter-modal-apply {
-  flex: 2;
-  background: linear-gradient(135deg, #2D180F 0%, #462516 100%);
-  border: 1.5px solid rgba(201, 138, 76, 0.45);
-  color: #FFFFFF;
-  padding: 13px;
-  border-radius: 14px;
-  font-size: 0.95rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-  box-shadow: 0 4px 14px rgba(45, 24, 15, 0.25);
-}
-
-.btn-filter-modal-apply:hover {
-  background: linear-gradient(135deg, #3D2216 0%, #5C321E 100%);
-  transform: translateY(-1px);
-}
-
-/* Mobile Responsiveness (< 768px) */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .products-filter-bar {
     padding: 10px 12px;
     border-radius: 16px;
-    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-  .btn-filter-trigger {
-    height: 38px;
-    padding: 0 14px;
-    font-size: 0.82rem;
+  .products-filter-bar::-webkit-scrollbar {
+    display: none;
   }
-  .filter-dropdown-pill {
-    height: 38px;
-    padding: 0 28px 0 30px;
+  .filter-controls-group {
+    flex-wrap: nowrap;
+    gap: 12px;
+    width: max-content;
+  }
+  .filter-field-item {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .filter-field-label {
     font-size: 0.8rem;
   }
-  .filter-icon {
-    left: 10px;
-    font-size: 0.95rem;
+  .custom-filter-select {
+    padding: 6px 26px 6px 10px;
+    font-size: 0.8rem;
+    min-width: 105px;
   }
-  .filter-chevron {
-    right: 10px;
+  .btn-reset-filters {
+    padding: 6px 10px;
     font-size: 0.78rem;
-  }
-  .filter-select {
-    font-size: 0.8rem;
-  }
-  .filter-options-grid {
-    grid-template-columns: repeat(2, 1fr);
+    flex-shrink: 0;
   }
 }

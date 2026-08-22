@@ -410,81 +410,22 @@ function renderFullProductsGrid() {
   container.innerHTML = filtered.map(product => createProductCardHTML(product)).join('');
 }
 
-// Update pill highlight styling, count badges & Active Filter Chips on the bar
+// Update dropdown wrapper highlight styling & Reset button visibility
 function updateFilterBarUIState() {
-  const triggerBtn = document.getElementById('open-filter-modal-btn');
-  const countBadge = document.getElementById('filter-count-badge');
-  const chipsContainer = document.getElementById('active-filter-chips-container');
+  const wrapPrice = document.getElementById('wrapper-price-filter');
+  const wrapWeight = document.getElementById('wrapper-weight-filter');
+  const wrapSort = document.getElementById('wrapper-sort-filter');
+  const btnReset = document.getElementById('btn-reset-filters');
 
-  let activeCount = (activeBudgetFilter !== 'all' ? 1 : 0) + (activeWeightFilter !== 'all' ? 1 : 0);
+  if (wrapPrice) wrapPrice.classList.toggle('has-filter', activeBudgetFilter !== 'all');
+  if (wrapWeight) wrapWeight.classList.toggle('has-filter', activeWeightFilter !== 'all');
+  if (wrapSort) wrapSort.classList.toggle('has-filter', activeSortOption !== 'default');
 
-  if (countBadge) {
-    countBadge.textContent = activeCount;
-    countBadge.style.display = activeCount > 0 ? 'inline-flex' : 'none';
-  }
-
-  if (triggerBtn) {
-    triggerBtn.classList.toggle('has-active-filters', activeCount > 0);
-  }
-
-  // Render quick removable pill chips outside on the bar
-  if (chipsContainer) {
-    if (activeCount === 0) {
-      chipsContainer.innerHTML = '';
-    } else {
-      let chipsHTML = '';
-      
-      if (activeBudgetFilter !== 'all') {
-        const priceLabels = {
-          'under-1000': 'Under ₹1,000',
-          '1000-2000': '₹1,000 – ₹2,000',
-          '2000-3000': '₹2,000 – ₹3,000',
-          '3000-plus': '₹3,000+ Tiers'
-        };
-        chipsHTML += `
-          <button type="button" class="active-filter-chip" onclick="removeSpecificFilter('price')" title="Remove price filter">
-            <span>${priceLabels[activeBudgetFilter] || activeBudgetFilter}</span>
-            <i class="ph ph-x"></i>
-          </button>
-        `;
-      }
-
-      if (activeWeightFilter !== 'all') {
-        const weightLabels = {
-          '0.5kg': '0.5 kg',
-          '1kg': '1 kg',
-          '1.5-2kg': '1.5 – 2 kg',
-          '3kg-plus': '3 kg+ Grand'
-        };
-        chipsHTML += `
-          <button type="button" class="active-filter-chip" onclick="removeSpecificFilter('weight')" title="Remove weight filter">
-            <span>${weightLabels[activeWeightFilter] || activeWeightFilter}</span>
-            <i class="ph ph-x"></i>
-          </button>
-        `;
-      }
-
-      if (activeCount > 1) {
-        chipsHTML += `
-          <button type="button" class="active-filter-chip" onclick="resetAllProductsFilters()" style="color: #C0392B; border-color: rgba(231, 76, 60, 0.4);" title="Clear all filters">
-            <span>Clear All</span>
-            <i class="ph ph-arrow-counter-clockwise"></i>
-          </button>
-        `;
-      }
-
-      chipsContainer.innerHTML = chipsHTML;
-    }
+  const hasAnyFilter = (activeBudgetFilter !== 'all' || activeWeightFilter !== 'all' || activeSortOption !== 'default' || activeSearchQuery.trim() !== '');
+  if (btnReset) {
+    btnReset.style.display = hasAnyFilter ? 'inline-flex' : 'none';
   }
 }
-
-// Remove a specific active filter
-function removeSpecificFilter(type) {
-  if (type === 'price') activeBudgetFilter = 'all';
-  if (type === 'weight') activeWeightFilter = 'all';
-  renderFullProductsGrid();
-}
-window.removeSpecificFilter = removeSpecificFilter;
 
 // Global reset helper function
 function resetAllProductsFilters() {
@@ -493,17 +434,15 @@ function resetAllProductsFilters() {
   activeSortOption = 'default';
   activeSearchQuery = '';
 
+  const priceSelect = document.getElementById('filter-price-select');
+  const weightSelect = document.getElementById('filter-weight-select');
   const sortSelect = document.getElementById('product-sort-select');
   const searchInput = document.getElementById('product-search-input');
 
+  if (priceSelect) priceSelect.value = 'all';
+  if (weightSelect) weightSelect.value = 'all';
   if (sortSelect) sortSelect.value = 'default';
   if (searchInput) searchInput.value = '';
-
-  // Reset modal radio inputs
-  const defaultPriceRadio = document.querySelector('input[name="modal-price"][value="all"]');
-  const defaultWeightRadio = document.querySelector('input[name="modal-weight"][value="all"]');
-  if (defaultPriceRadio) defaultPriceRadio.checked = true;
-  if (defaultWeightRadio) defaultWeightRadio.checked = true;
 
   renderFullProductsGrid();
 }
@@ -579,7 +518,25 @@ function setupEventListeners() {
     });
   }
 
-  // Sort Dropdown on Products Page (Outside)
+  // Price Filter Dropdown
+  const priceSelect = document.getElementById('filter-price-select');
+  if (priceSelect) {
+    priceSelect.addEventListener('change', (e) => {
+      activeBudgetFilter = e.target.value;
+      renderFullProductsGrid();
+    });
+  }
+
+  // Weight Filter Dropdown
+  const weightSelect = document.getElementById('filter-weight-select');
+  if (weightSelect) {
+    weightSelect.addEventListener('change', (e) => {
+      activeWeightFilter = e.target.value;
+      renderFullProductsGrid();
+    });
+  }
+
+  // Sort Dropdown
   const sortSelect = document.getElementById('product-sort-select');
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
@@ -588,71 +545,11 @@ function setupEventListeners() {
     });
   }
 
-  // Filter Modal Controls (Inside Button)
-  const openFilterModalBtn = document.getElementById('open-filter-modal-btn');
-  const filterModalOverlay = document.getElementById('filter-modal-overlay');
-  const closeFilterModalBtn = document.getElementById('close-filter-modal-btn');
-  const modalClearAllBtn = document.getElementById('modal-clear-all-btn');
-  const modalResetBtn = document.getElementById('modal-reset-btn');
-  const modalApplyBtn = document.getElementById('modal-apply-btn');
-
-  const openFilterModal = () => {
-    if (!filterModalOverlay) return;
-    // Sync current values to modal radio inputs
-    const currentPriceRadio = document.querySelector(`input[name="modal-price"][value="${activeBudgetFilter}"]`);
-    const currentWeightRadio = document.querySelector(`input[name="modal-weight"][value="${activeWeightFilter}"]`);
-    if (currentPriceRadio) currentPriceRadio.checked = true;
-    if (currentWeightRadio) currentWeightRadio.checked = true;
-
-    filterModalOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeFilterModal = () => {
-    if (!filterModalOverlay) return;
-    filterModalOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  if (openFilterModalBtn) {
-    openFilterModalBtn.addEventListener('click', openFilterModal);
-  }
-
-  if (closeFilterModalBtn) {
-    closeFilterModalBtn.addEventListener('click', closeFilterModal);
-  }
-
-  if (filterModalOverlay) {
-    filterModalOverlay.addEventListener('click', (e) => {
-      if (e.target === filterModalOverlay) closeFilterModal();
-    });
-  }
-
-  if (modalClearAllBtn) {
-    modalClearAllBtn.addEventListener('click', () => {
-      const defaultPriceRadio = document.querySelector('input[name="modal-price"][value="all"]');
-      const defaultWeightRadio = document.querySelector('input[name="modal-weight"][value="all"]');
-      if (defaultPriceRadio) defaultPriceRadio.checked = true;
-      if (defaultWeightRadio) defaultWeightRadio.checked = true;
-    });
-  }
-
-  if (modalResetBtn) {
-    modalResetBtn.addEventListener('click', () => {
+  // Reset Filters Button
+  const btnReset = document.getElementById('btn-reset-filters');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
       resetAllProductsFilters();
-      closeFilterModal();
-    });
-  }
-
-  if (modalApplyBtn) {
-    modalApplyBtn.addEventListener('click', () => {
-      const selectedPriceRadio = document.querySelector('input[name="modal-price"]:checked');
-      const selectedWeightRadio = document.querySelector('input[name="modal-weight"]:checked');
-      if (selectedPriceRadio) activeBudgetFilter = selectedPriceRadio.value;
-      if (selectedWeightRadio) activeWeightFilter = selectedWeightRadio.value;
-      
-      closeFilterModal();
-      renderFullProductsGrid();
     });
   }
 
