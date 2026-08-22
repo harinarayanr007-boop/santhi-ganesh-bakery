@@ -254,6 +254,8 @@ let cartItems = (typeof window !== 'undefined' && window.localStorage)
   : [];
 let activeCategoryFilter = 'all';
 let activeSearchQuery = '';
+let activeBudgetFilter = 'all';
+let activeSortOption = 'default';
 
 // DOM Initialization
 document.addEventListener('DOMContentLoaded', async () => {
@@ -261,6 +263,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const catParam = urlParams.get('cat');
   const qParam = urlParams.get('q');
+  const sortParam = urlParams.get('sort');
+  const budgetParam = urlParams.get('budget');
 
   if (catParam) {
     activeCategoryFilter = catParam;
@@ -278,6 +282,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     activeSearchQuery = qParam;
     const searchInput = document.getElementById('product-search-input');
     if (searchInput) searchInput.value = qParam;
+  }
+
+  if (sortParam) {
+    activeSortOption = sortParam;
+    const sortSelect = document.getElementById('product-sort-select');
+    if (sortSelect) sortSelect.value = sortParam;
+  }
+
+  if (budgetParam) {
+    activeBudgetFilter = budgetParam;
+    document.querySelectorAll('.budget-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.budget === budgetParam);
+    });
   }
 
   // Load from Supabase first, then render
@@ -302,7 +319,7 @@ function renderHomePreviewGrid() {
   container.innerHTML = previewItems.map(product => createProductCardHTML(product)).join('');
 }
 
-// 4. RENDER FULL PRODUCTS PAGE GRID (With Filter & Search)
+// 4. RENDER FULL PRODUCTS PAGE GRID (With Filter, Budget & Sort)
 function renderFullProductsGrid() {
   const container = document.getElementById('full-products-grid');
   if (!container) return;
@@ -310,12 +327,12 @@ function renderFullProductsGrid() {
   // Filter only active/available items for the store
   let filtered = PRODUCTS_DATA.filter(p => p.is_available !== false);
 
-  // Apply Category Filter
+  // 1. Apply Category Filter
   if (activeCategoryFilter !== 'all') {
     filtered = filtered.filter(p => p.category === activeCategoryFilter);
   }
 
-  // Apply Search Query Filter
+  // 2. Apply Search Query Filter
   if (activeSearchQuery.trim() !== '') {
     const q = activeSearchQuery.toLowerCase();
     filtered = filtered.filter(p => 
@@ -325,12 +342,36 @@ function renderFullProductsGrid() {
     );
   }
 
+  // 3. Apply Budget Filter
+  if (activeBudgetFilter === 'under-1000') {
+    filtered = filtered.filter(p => Number(p.price) < 1000);
+  } else if (activeBudgetFilter === '1000-2000') {
+    filtered = filtered.filter(p => Number(p.price) >= 1000 && Number(p.price) <= 2000);
+  } else if (activeBudgetFilter === '2000-plus') {
+    filtered = filtered.filter(p => Number(p.price) > 2000);
+  }
+
+  // 4. Apply Sort Option
+  if (activeSortOption === 'price-low') {
+    filtered.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+  } else if (activeSortOption === 'price-high') {
+    filtered.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
+  } else if (activeSortOption === 'title-asc') {
+    filtered.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  // Update live products count badge
+  const countBadge = document.getElementById('products-count-badge');
+  if (countBadge) {
+    countBadge.innerHTML = `<i class="ph ph-cake" style="color: var(--color-desert);"></i> <span>Showing <strong>${filtered.length}</strong> cakes</span>`;
+  }
+
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 64px 20px;">
         <p style="font-size: 3rem; margin-bottom: 12px;">🔍</p>
         <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 8px;">No cakes found</h3>
-        <p style="color: var(--color-text-muted);">Try searching for another flavor or category!</p>
+        <p style="color: var(--color-text-muted);">Try selecting "All Budgets" or another flavor category!</p>
       </div>
     `;
     return;
@@ -405,6 +446,26 @@ function setupEventListeners() {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       activeSearchQuery = e.target.value;
+      renderFullProductsGrid();
+    });
+  }
+
+  // Budget Filter Chips on Products Page
+  const budgetChips = document.querySelectorAll('.budget-chip');
+  budgetChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      budgetChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeBudgetFilter = chip.getAttribute('data-budget') || 'all';
+      renderFullProductsGrid();
+    });
+  });
+
+  // Sort Dropdown on Products Page
+  const sortSelect = document.getElementById('product-sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      activeSortOption = e.target.value;
       renderFullProductsGrid();
     });
   }

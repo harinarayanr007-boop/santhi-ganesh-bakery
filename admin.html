@@ -923,6 +923,7 @@
               <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 4px; color: #555;">Filter Category:</label>
               <select id="admin-category-filter" onchange="filterAndRenderCakesTable()" class="form-control" style="padding: 6px 12px; font-size: 0.9rem; width: auto; min-width: 150px;">
                 <option value="all">All Categories</option>
+                <option value="signature-cakes">Signature Cakes</option>
                 <option value="kids">Kids Cakes</option>
                 <option value="birthday-her">Birthday (Her)</option>
                 <option value="birthday-him">Birthday (Him)</option>
@@ -1407,6 +1408,7 @@
       <div class="form-group">
         <label>Category</label>
         <select id="modal-cake-category" class="form-control">
+          <option value="signature-cakes">Signature Cakes</option>
           <option value="birthday-her">Birthday (Her)</option>
           <option value="birthday-him">Birthday (Him)</option>
           <option value="wedding">Wedding & Tiers</option>
@@ -2700,11 +2702,12 @@
       // 2. Cakes from productsList
       if (Array.isArray(productsList)) {
         productsList.forEach(p => {
-          const catTitle = p.category === 'kids' ? 'Kids Cakes' :
-                           p.category === 'birthday_her' ? 'Birthday (Her)' :
-                           p.category === 'birthday_him' ? 'Birthday (Him)' :
+          const catTitle = p.category === 'signature-cakes' ? 'Signature Cakes' :
+                           p.category === 'kids' ? 'Kids Cakes' :
+                           p.category === 'birthday-her' || p.category === 'birthday_her' ? 'Birthday (Her)' :
+                           p.category === 'birthday-him' || p.category === 'birthday_him' ? 'Birthday (Him)' :
                            p.category === 'wedding' ? 'Wedding & Tiers' :
-                           p.category === 'baby_shower' ? 'Baby Shower' : 'All Bakes';
+                           p.category === 'baby-shower' || p.category === 'baby_shower' ? 'Baby Shower' : 'All Bakes';
           unified.push({
             id: 'cake-' + (p.id || p.title || Math.random()),
             source: 'cakes',
