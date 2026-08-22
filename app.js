@@ -350,16 +350,14 @@ function renderFullProductsGrid() {
   }
 
   // 3. Apply Price / Budget Filter
-  if (activeBudgetFilter === 'under-700') {
-    filtered = filtered.filter(p => Number(p.price) < 700);
-  } else if (activeBudgetFilter === '700-1000') {
-    filtered = filtered.filter(p => Number(p.price) >= 700 && Number(p.price) <= 1000);
-  } else if (activeBudgetFilter === '1000-plus') {
-    filtered = filtered.filter(p => Number(p.price) > 1000);
-  } else if (activeBudgetFilter === 'under-1000') {
+  if (activeBudgetFilter === 'under-1000') {
     filtered = filtered.filter(p => Number(p.price) < 1000);
   } else if (activeBudgetFilter === '1000-2000') {
     filtered = filtered.filter(p => Number(p.price) >= 1000 && Number(p.price) <= 2000);
+  } else if (activeBudgetFilter === '2000-3000') {
+    filtered = filtered.filter(p => Number(p.price) > 2000 && Number(p.price) <= 3000);
+  } else if (activeBudgetFilter === '3000-plus') {
+    filtered = filtered.filter(p => Number(p.price) > 3000);
   }
 
   // 4. Apply Weight Filter
@@ -374,10 +372,10 @@ function renderFullProductsGrid() {
         return allWeights.includes('0.5') || allWeights.includes('500');
       } else if (activeWeightFilter === '1kg') {
         return allWeights.includes('1 kg') || allWeights.includes('1kg') || (p.variants && p.variants.some(v => v.weight && v.weight.includes('1 kg')));
-      } else if (activeWeightFilter === '1.5kg' || activeWeightFilter === '1.5-2kg') {
-        return allWeights.includes('1.5') || (p.variants && p.variants.some(v => v.weight && v.weight.includes('1.5')));
-      } else if (activeWeightFilter === '2kg' || activeWeightFilter === '3kg-plus') {
-        return allWeights.includes('2 kg') || allWeights.includes('2kg') || (p.variants && p.variants.some(v => v.weight && (v.weight.includes('2') || v.weight.includes('3'))));
+      } else if (activeWeightFilter === '1.5-2kg' || activeWeightFilter === '1.5kg') {
+        return allWeights.includes('1.5') || allWeights.includes('2 kg') || allWeights.includes('2kg') || (p.variants && p.variants.some(v => v.weight && (v.weight.includes('1.5') || v.weight.includes('2'))));
+      } else if (activeWeightFilter === '3kg-plus') {
+        return allWeights.includes('3') || allWeights.includes('4') || allWeights.includes('tier') || allWeights.includes('grand') || p.category === 'wedding';
       }
       return true;
     });

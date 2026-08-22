@@ -749,11 +749,17 @@ h3, .text-h3 {
   color: var(--color-desert);
 }
 
+.category-tab {
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
 /* Active State (Soft, Delicate Highlight) */
 .category-tab.active {
-  transform: translateY(-4px);
-  border: 1.5px solid var(--color-desert);
-  box-shadow: 0 10px 26px rgba(166, 96, 27, 0.2);
+  transform: translateY(-2px);
+  border: 2px solid var(--color-desert);
+  box-shadow: 0 8px 22px rgba(166, 96, 27, 0.22);
 }
 
 .category-tab.active .category-card-overlay {
@@ -1014,8 +1020,9 @@ html[lang="ta"] .hero-title {
     margin-right: -12px !important;
     padding-left: 12px !important;
     padding-right: 20px !important;
-    padding-top: 2px !important;
-    padding-bottom: 6px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    margin-top: -4px !important;
     margin-bottom: 12px !important;
     gap: 8px !important;
     -webkit-overflow-scrolling: touch !important;
@@ -1041,6 +1048,14 @@ html[lang="ta"] .hero-title {
     width: 135px !important;
     height: 102px !important;
     border-radius: 14px !important;
+    box-sizing: border-box !important;
+    border: 2px solid transparent !important;
+  }
+
+  .category-tab.active {
+    border: 2px solid var(--color-desert) !important;
+    box-shadow: 0 4px 16px rgba(166, 96, 27, 0.25) !important;
+    transform: translateY(-2px) !important;
   }
 
   .category-card-name {
