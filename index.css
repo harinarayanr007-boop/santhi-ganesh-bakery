@@ -698,6 +698,21 @@ h3, .text-h3 {
   background-repeat: no-repeat;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
+  filter: brightness(1.14) contrast(0.95) saturate(1.05);
+}
+
+.category-card-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 235, 205, 0.38) 0%,
+    rgba(255, 242, 225, 0.18) 32%,
+    rgba(255, 255, 255, 0.0) 60%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .category-card-overlay {
