@@ -360,11 +360,7 @@ function renderFullProductsGrid() {
     filtered.sort((a, b) => a.title.localeCompare(b.title));
   }
 
-  // Update live products count badge
-  const countBadge = document.getElementById('products-count-badge');
-  if (countBadge) {
-    countBadge.innerHTML = `<i class="ph ph-cake" style="color: var(--color-desert);"></i> <span>Showing <strong>${filtered.length}</strong> cakes</span>`;
-  }
+
 
   if (filtered.length === 0) {
     container.innerHTML = `
