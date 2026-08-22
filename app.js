@@ -1003,8 +1003,8 @@ function initBakeryChatWidget() {
       <!-- Floating Trigger Pill -->
       <button class="chat-trigger-btn" id="chat-trigger-btn" onclick="toggleBakeryChat()" aria-label="Open Bakery Assistant">
         <div class="chat-trigger-badge"></div>
-        <i class="ph ph-chat-centered-dots chat-trigger-icon"></i>
-        <span>Bakery Assistant</span>
+        <i class="ph ph-sparkle chat-trigger-icon"></i>
+        <span>Ask Bakery AI ✨</span>
       </button>
 
       <!-- Chat Modal Window -->
@@ -1014,9 +1014,12 @@ function initBakeryChatWidget() {
           <div class="chat-header-info">
             <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="chat-header-logo">
             <div>
-              <div class="chat-header-title">Santhi Ganesh Bakery</div>
+              <div class="chat-header-title">
+                Santhi Ganesh AI
+                <i class="ph ph-seal-check" style="color: #E3A857; font-size: 1.05rem;" title="Verified Bakery Concierge"></i>
+              </div>
               <div class="chat-header-sub">
-                <span style="width:6px;height:6px;background:#22C55E;border-radius:50%;display:inline-block;"></span>
+                <span style="width:7px;height:7px;background:#22C55E;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22C55E;"></span>
                 <span>Online • Tirunelveli</span>
               </div>
             </div>
@@ -1029,19 +1032,20 @@ function initBakeryChatWidget() {
           <!-- Initial Welcome Message -->
           <div class="chat-msg chat-msg-bot">
             <div class="chat-bubble">
-              <strong>Vanakkam! 🙏</strong> Welcome to Santhi Ganesh Bakery.<br><br>How can we assist you today? Please let us know if you'd like to explore:
+              <strong style="color: #A6601B;">Vanakkam! 🙏</strong> Welcome to Santhi Ganesh Bakery.<br><br>
+              How can I assist your celebration or food order today?
             </div>
             <div class="chat-quick-chips">
               <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Tell me about Celebration & Custom Birthday Cakes')">🎂 Celebration Cakes</button>
-              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)')">🛵 In-Store Quick Menu</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)')">🛵 30-Min In-Store Menu</button>
               <button type="button" class="chat-quick-chip" onclick="handleQuickChip('What are the rules for 2KM Express Delivery?')">⚡ 2KM Express Delivery</button>
-              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Where is your store located and what are the timings?')">📍 Store Location & Hours</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Where is your store located and what are the timings?')">📍 Location & Hours</button>
             </div>
           </div>
 
           <!-- Typing Indicator -->
           <div class="chat-typing-indicator" id="chat-typing-indicator">
-            <i class="ph ph-circle-notch" style="animation: spin 1s linear infinite;"></i>
+            <i class="ph ph-circle-notch" style="animation: spin 1s linear infinite; color: var(--color-desert, #C98A4C);"></i>
             <span>Assistant is thinking...</span>
           </div>
         </div>
@@ -1049,7 +1053,7 @@ function initBakeryChatWidget() {
         <!-- Footer Input -->
         <form class="chat-footer-input" onsubmit="event.preventDefault(); sendChatMessage();">
           <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
-          <button type="submit" class="chat-send-btn" aria-label="Send Message"><i class="ph ph-paper-plane-right"></i></button>
+          <button type="submit" class="chat-send-btn" aria-label="Send Message"><i class="ph ph-paper-plane-right" style="font-size: 1.15rem;"></i></button>
         </form>
       </div>
     `;
@@ -1144,7 +1148,8 @@ function appendBotChatMessage(replyText, actions, whatsappUrl, webLink) {
       <div class="chat-actions-container">
         ${actions.map(act => `
           <button type="button" class="chat-action-btn" onclick="handleQuickChip('${escapeChatHTML(act.query || act.label)}')">
-            <i class="ph ph-arrow-circle-right"></i> ${escapeChatHTML(act.label)}
+            <span><i class="ph ph-chat-circle-dots" style="color: var(--color-desert, #C98A4C); margin-right: 6px;"></i> ${escapeChatHTML(act.label)}</span>
+            <i class="ph ph-arrow-right" style="font-size: 0.9rem; opacity: 0.7;"></i>
           </button>
         `).join('')}
       </div>
@@ -1154,8 +1159,9 @@ function appendBotChatMessage(replyText, actions, whatsappUrl, webLink) {
   let webLinkHTML = '';
   if (webLink && webLink.url && webLink.label) {
     webLinkHTML = `
-      <a href="${escapeChatHTML(webLink.url)}" class="chat-action-btn" style="background: #A6601B; color: #FFFFFF; border-color: #A6601B; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-        <i class="ph ph-arrow-square-out" style="font-size: 1rem;"></i> ${escapeChatHTML(webLink.label)}
+      <a href="${escapeChatHTML(webLink.url)}" class="chat-action-btn" style="background: linear-gradient(135deg, #A6601B 0%, #8C4E14 100%); color: #FFFFFF; border-color: #8C4E14; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: space-between;">
+        <span><i class="ph ph-arrow-square-out" style="font-size: 1.05rem; margin-right: 6px;"></i> ${escapeChatHTML(webLink.label)}</span>
+        <i class="ph ph-arrow-right" style="font-size: 0.9rem;"></i>
       </a>
     `;
   }
@@ -1163,8 +1169,9 @@ function appendBotChatMessage(replyText, actions, whatsappUrl, webLink) {
   let waHTML = '';
   if (whatsappUrl) {
     waHTML = `
-      <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: #25D366; color: #FFFFFF; border-color: #25D366; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-        <i class="ph ph-whatsapp-logo" style="font-size: 1rem;"></i> Order on WhatsApp
+      <a href="${whatsappUrl}" target="_blank" class="chat-action-btn" style="background: linear-gradient(135deg, #1F9D55 0%, #128C7E 100%); color: #FFFFFF; border-color: #128C7E; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; justify-content: space-between;">
+        <span><i class="ph ph-whatsapp-logo" style="font-size: 1.1rem; margin-right: 6px;"></i> Order via WhatsApp</span>
+        <i class="ph ph-arrow-right" style="font-size: 0.9rem;"></i>
       </a>
     `;
   }
@@ -1172,7 +1179,7 @@ function appendBotChatMessage(replyText, actions, whatsappUrl, webLink) {
   let buttonsRow = '';
   if (webLinkHTML || waHTML) {
     buttonsRow = `
-      <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 10px; width: 100%;">
         ${webLinkHTML}
         ${waHTML}
       </div>
