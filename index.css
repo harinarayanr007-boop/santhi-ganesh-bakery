@@ -2542,27 +2542,38 @@ body.chat-modal-open {
 }
 
 .btn-custom-whatsapp {
-  background: linear-gradient(135deg, #1F9D55 0%, #128C7E 100%);
+  background: linear-gradient(135deg, #2D180F 0%, #462516 100%);
   color: #FFFFFF;
-  font-weight: 800;
-  font-size: 1.02rem;
-  padding: 16px 28px;
-  border-radius: 40px;
-  border: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 138, 76, 0.45);
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
-  box-shadow: 0 10px 28px rgba(18, 140, 126, 0.35);
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(45, 24, 15, 0.18);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
+.btn-custom-whatsapp i {
+  color: #E5A968;
+  font-size: 1.3rem;
+  transition: transform 0.25s ease;
+}
+
 .btn-custom-whatsapp:hover {
-  background: linear-gradient(135deg, #25B362 0%, #159F8F 100%);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 34px rgba(18, 140, 126, 0.45);
+  background: linear-gradient(135deg, #3D2216 0%, #5C321E 100%);
+  border-color: var(--color-desert, #C98A4C);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(45, 24, 15, 0.26), 0 0 0 1px rgba(201, 138, 76, 0.35);
   color: #FFFFFF;
+}
+
+.btn-custom-whatsapp:hover i {
+  transform: scale(1.15);
 }
 
 @media (max-width: 640px) {
