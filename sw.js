@@ -1,5 +1,5 @@
 // Santhi Ganesh Bakery Service Worker
-const CACHE_NAME = 'sg-bakery-v2';
+const CACHE_NAME = 'sg-bakery-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
