@@ -187,12 +187,11 @@
               <i class="ph ph-currency-inr"></i> Price:
             </label>
             <div class="custom-select-wrapper" id="wrapper-price-filter">
-              <select id="filter-price-select" class="custom-filter-select" aria-label="Filter by Price">
+              <select id="filter-price-select" class="custom-filter-select" aria-label="Filter by Price" onchange="handleFilterDropdownChange('price', this.value)">
                 <option value="all">All Prices</option>
-                <option value="under-1000">Under ₹1,000</option>
-                <option value="1000-2000">₹1,000 – ₹2,000</option>
-                <option value="2000-3000">₹2,000 – ₹3,000</option>
-                <option value="3000-plus">₹3,000+ Tiers</option>
+                <option value="under-700">Under ₹700</option>
+                <option value="700-1000">₹700 – ₹1,000</option>
+                <option value="1000-plus">₹1,000+ Premium</option>
               </select>
               <i class="ph ph-caret-down select-caret"></i>
             </div>
@@ -204,12 +203,12 @@
               <i class="ph ph-scales"></i> Weight:
             </label>
             <div class="custom-select-wrapper" id="wrapper-weight-filter">
-              <select id="filter-weight-select" class="custom-filter-select" aria-label="Filter by Weight">
+              <select id="filter-weight-select" class="custom-filter-select" aria-label="Filter by Weight" onchange="handleFilterDropdownChange('weight', this.value)">
                 <option value="all">All Weights</option>
-                <option value="0.5kg">0.5 kg (Small)</option>
+                <option value="0.5kg">0.5 kg (Mini)</option>
                 <option value="1kg">1 kg (Standard)</option>
-                <option value="1.5-2kg">1.5 kg – 2 kg</option>
-                <option value="3kg-plus">3 kg+ (Grand)</option>
+                <option value="1.5kg">1.5 kg (Medium)</option>
+                <option value="2kg">2 kg+ (Party)</option>
               </select>
               <i class="ph ph-caret-down select-caret"></i>
             </div>
@@ -221,7 +220,7 @@
               <i class="ph ph-arrows-down-up"></i> Sort:
             </label>
             <div class="custom-select-wrapper" id="wrapper-sort-filter">
-              <select id="product-sort-select" class="custom-filter-select" aria-label="Sort Cakes">
+              <select id="product-sort-select" class="custom-filter-select" aria-label="Sort Cakes" onchange="handleFilterDropdownChange('sort', this.value)">
                 <option value="default">Recommended ✨</option>
                 <option value="price-low">Price: Low to High 🔼</option>
                 <option value="price-high">Price: High to Low 🔽</option>
@@ -232,7 +231,7 @@
           </div>
 
           <!-- 4. Reset Filters Button -->
-          <button type="button" id="btn-reset-filters" class="btn-reset-filters" style="display: none;" title="Reset all filters">
+          <button type="button" id="btn-reset-filters" class="btn-reset-filters" style="display: none;" onclick="resetAllProductsFilters()" title="Reset all filters">
             <i class="ph ph-arrow-counter-clockwise"></i> <span>Reset</span>
           </button>
         </div>
@@ -340,8 +339,8 @@
   </footer>
 
   <!-- Utility, Data & Interactivity Scripts -->
-  <script src="./js/utils.js?v=2.2"></script>
-  <script src="./data/products-data.js?v=2.2"></script>
-  <script src="./app.js?v=2.2"></script>
+  <script src="./js/utils.js?v=2.6"></script>
+  <script src="./data/products-data.js?v=2.6"></script>
+  <script src="./app.js?v=2.6"></script>
 </body>
 </html>

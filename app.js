@@ -350,14 +350,16 @@ function renderFullProductsGrid() {
   }
 
   // 3. Apply Price / Budget Filter
-  if (activeBudgetFilter === 'under-1000') {
+  if (activeBudgetFilter === 'under-700') {
+    filtered = filtered.filter(p => Number(p.price) < 700);
+  } else if (activeBudgetFilter === '700-1000') {
+    filtered = filtered.filter(p => Number(p.price) >= 700 && Number(p.price) <= 1000);
+  } else if (activeBudgetFilter === '1000-plus') {
+    filtered = filtered.filter(p => Number(p.price) > 1000);
+  } else if (activeBudgetFilter === 'under-1000') {
     filtered = filtered.filter(p => Number(p.price) < 1000);
   } else if (activeBudgetFilter === '1000-2000') {
     filtered = filtered.filter(p => Number(p.price) >= 1000 && Number(p.price) <= 2000);
-  } else if (activeBudgetFilter === '2000-3000') {
-    filtered = filtered.filter(p => Number(p.price) > 2000 && Number(p.price) <= 3000);
-  } else if (activeBudgetFilter === '3000-plus') {
-    filtered = filtered.filter(p => Number(p.price) > 3000);
   }
 
   // 4. Apply Weight Filter
@@ -371,11 +373,11 @@ function renderFullProductsGrid() {
       if (activeWeightFilter === '0.5kg') {
         return allWeights.includes('0.5') || allWeights.includes('500');
       } else if (activeWeightFilter === '1kg') {
-        return allWeights.includes('1 kg') || allWeights.includes('1kg');
-      } else if (activeWeightFilter === '1.5-2kg') {
-        return allWeights.includes('1.5') || allWeights.includes('2 kg') || allWeights.includes('2kg');
-      } else if (activeWeightFilter === '3kg-plus') {
-        return allWeights.includes('3 kg') || allWeights.includes('4 kg') || allWeights.includes('5 kg') || allWeights.includes('6 kg');
+        return allWeights.includes('1 kg') || allWeights.includes('1kg') || (p.variants && p.variants.some(v => v.weight && v.weight.includes('1 kg')));
+      } else if (activeWeightFilter === '1.5kg' || activeWeightFilter === '1.5-2kg') {
+        return allWeights.includes('1.5') || (p.variants && p.variants.some(v => v.weight && v.weight.includes('1.5')));
+      } else if (activeWeightFilter === '2kg' || activeWeightFilter === '3kg-plus') {
+        return allWeights.includes('2 kg') || allWeights.includes('2kg') || (p.variants && p.variants.some(v => v.weight && (v.weight.includes('2') || v.weight.includes('3'))));
       }
       return true;
     });
@@ -395,11 +397,11 @@ function renderFullProductsGrid() {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 64px 20px;">
+      <div style="grid-column: 1 / -1; text-align: center; padding: 56px 20px;">
         <p style="font-size: 3rem; margin-bottom: 12px;">🔍</p>
-        <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 8px;">No cakes found</h3>
-        <p style="color: var(--color-text-muted);">Try adjusting your Price, Weight or Category filters!</p>
-        <button type="button" onclick="resetAllProductsFilters()" style="margin-top: 16px; background: var(--color-desert); color: #FFF; border: none; padding: 10px 22px; border-radius: 24px; font-weight: 700; cursor: pointer;">
+        <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; color: #26160F;">No cakes found with selected filters</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">Try adjusting your Price, Weight or Category filters!</p>
+        <button type="button" onclick="resetAllProductsFilters()" style="background: var(--color-desert); color: #FFF; border: none; padding: 11px 24px; border-radius: 14px; font-weight: 700; font-size: 0.92rem; cursor: pointer; box-shadow: 0 4px 14px rgba(201, 138, 76, 0.35);">
           Reset All Filters
         </button>
       </div>
@@ -409,6 +411,24 @@ function renderFullProductsGrid() {
 
   container.innerHTML = filtered.map(product => createProductCardHTML(product)).join('');
 }
+
+// Global Filter Dropdown Change Handler
+function handleFilterDropdownChange(type, value) {
+  if (type === 'price') activeBudgetFilter = value;
+  if (type === 'weight') activeWeightFilter = value;
+  if (type === 'sort') activeSortOption = value;
+
+  const priceSelect = document.getElementById('filter-price-select');
+  const weightSelect = document.getElementById('filter-weight-select');
+  const sortSelect = document.getElementById('product-sort-select');
+
+  if (priceSelect && type === 'price') priceSelect.value = value;
+  if (weightSelect && type === 'weight') weightSelect.value = value;
+  if (sortSelect && type === 'sort') sortSelect.value = value;
+
+  renderFullProductsGrid();
+}
+window.handleFilterDropdownChange = handleFilterDropdownChange;
 
 // Update dropdown wrapper highlight styling & Reset button visibility
 function updateFilterBarUIState() {
