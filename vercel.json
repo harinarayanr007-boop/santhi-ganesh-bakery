@@ -4,6 +4,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/cakes", "destination": "/products.html" },
-    { "source": "/cakes.html", "destination": "/products.html" }
+    { "source": "/cakes.html", "destination": "/products.html" },
+    { "source": "/wholesale", "destination": "/b2b.html" },
+    { "source": "/wholesale.html", "destination": "/b2b.html" }
   ]
 }
