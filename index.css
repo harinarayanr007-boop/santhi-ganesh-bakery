@@ -675,7 +675,7 @@ h3, .text-h3 {
   border-radius: 18px;
   overflow: hidden;
   box-sizing: border-box;
-  border: 1.5px solid var(--brown-300, #E6D7C7);
+  border: 1.5px solid rgba(140, 78, 20, 0.42);
   box-shadow: 0 4px 14px rgba(46, 23, 12, 0.05);
   cursor: pointer;
   padding: 0;
@@ -1092,7 +1092,7 @@ html[lang="ta"] .hero-title {
     height: 112px !important;
     border-radius: 16px !important;
     box-sizing: border-box !important;
-    border: 1.5px solid rgba(140, 78, 20, 0.25) !important;
+    border: 1.5px solid rgba(140, 78, 20, 0.48) !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 4px 12px rgba(46, 23, 12, 0.07) !important;
   }
 
