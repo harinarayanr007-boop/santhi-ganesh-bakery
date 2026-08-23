@@ -1718,7 +1718,7 @@ html[lang="ta"] .hero-title {
   max-width: 440px;
   height: 100vh;
   background-color: var(--color-bg-primary);
-  z-index: 2000;
+  z-index: 100000;
   box-shadow: -6px 0 32px rgba(10, 4, 4, 0.2);
   transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
@@ -1734,7 +1734,7 @@ html[lang="ta"] .hero-title {
   inset: 0;
   background: rgba(10, 4, 4, 0.45);
   backdrop-filter: blur(3px);
-  z-index: 1999;
+  z-index: 99999;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -1886,7 +1886,7 @@ html[lang="ta"] .hero-title {
   height: 100vh;
   background-color: rgba(10, 4, 4, 0.65);
   backdrop-filter: blur(4px);
-  z-index: 9999;
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2115,8 +2115,29 @@ h3, .text-h3 {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 9999;
+  z-index: 990;
   font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+/* Automatically hide the AI floating button when any modal, cart drawer, or mobile menu is open */
+body:has(.cart-drawer.open) .bakery-chat-widget,
+body:has(.cart-drawer-overlay.open) .bakery-chat-widget,
+body:has(.mobile-drawer.open) .bakery-chat-widget,
+body:has(.mobile-drawer-overlay.open) .bakery-chat-widget,
+body:has(.modal-overlay.open) .bakery-chat-widget,
+body:has(.modal-overlay.active) .bakery-chat-widget,
+body:has(.whatsapp-name-modal-overlay.active) .bakery-chat-widget,
+body:has(#checkout-modal.active) .bakery-chat-widget,
+body:has(#checkout-modal.open) .bakery-chat-widget,
+body:has(.custom-modal.open) .bakery-chat-widget,
+body.cart-drawer-open .bakery-chat-widget,
+body.modal-open .bakery-chat-widget,
+body.drawer-open .bakery-chat-widget {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.75) translateY(18px) !important;
+  visibility: hidden !important;
 }
 
 body.chat-modal-open {
@@ -2193,7 +2214,7 @@ body.chat-modal-open {
   transform: scale(0.92) translateY(20px);
   pointer-events: none;
   transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 10000;
+  z-index: 100001;
 }
 
 .chat-modal-window.active {

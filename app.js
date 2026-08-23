@@ -589,11 +589,13 @@ function setupEventListeners() {
     menuToggleBtn.addEventListener('click', () => {
       drawer.classList.add('open');
       overlay.classList.add('open');
+      document.body.classList.add('drawer-open');
     });
 
     const closeMobileNav = () => {
       drawer.classList.remove('open');
       overlay.classList.remove('open');
+      document.body.classList.remove('drawer-open');
     };
 
     if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeMobileNav);
@@ -616,11 +618,13 @@ function setupEventListeners() {
   const openCart = () => {
     if (cartDrawer) cartDrawer.classList.add('open');
     if (cartOverlay) cartOverlay.classList.add('open');
+    document.body.classList.add('cart-drawer-open');
   };
 
   const closeCart = () => {
     if (cartDrawer) cartDrawer.classList.remove('open');
     if (cartOverlay) cartOverlay.classList.remove('open');
+    document.body.classList.remove('cart-drawer-open');
   };
 
   cartBtns.forEach(btn => btn.addEventListener('click', openCart));
