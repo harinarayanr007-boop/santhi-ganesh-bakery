@@ -334,18 +334,19 @@ function renderFullProductsGrid() {
   // Filter only active/available items for the store
   let filtered = PRODUCTS_DATA.filter(p => p.is_available !== false);
 
-  // 1. Apply Category Filter
-  if (activeCategoryFilter !== 'all') {
+  // 1. Apply Category Filter (only when not actively searching)
+  if (activeSearchQuery.trim() === '' && activeCategoryFilter !== 'all') {
     filtered = filtered.filter(p => p.category === activeCategoryFilter);
   }
 
-  // 2. Apply Search Query Filter
+  // 2. Apply Search Query Filter across all products globally
   if (activeSearchQuery.trim() !== '') {
     const q = activeSearchQuery.toLowerCase();
     filtered = filtered.filter(p => 
-      p.title.toLowerCase().includes(q) || 
-      p.description.toLowerCase().includes(q) ||
-      p.weight.toLowerCase().includes(q)
+      (p.title && p.title.toLowerCase().includes(q)) || 
+      (p.description && p.description.toLowerCase().includes(q)) ||
+      (p.weight && p.weight.toLowerCase().includes(q)) ||
+      (p.category && p.category.toLowerCase().includes(q))
     );
   }
 
@@ -540,6 +541,19 @@ function setupEventListeners() {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       activeSearchQuery = e.target.value;
+      if (activeSearchQuery.trim() !== '') {
+        // Automatically shift active category tab to 'all' so search covers the entire catalog
+        activeCategoryFilter = 'all';
+        document.querySelectorAll('.category-tab').forEach(tab => {
+          const isAll = tab.getAttribute('data-category') === 'all';
+          tab.classList.toggle('active', isAll);
+          if (isAll) {
+            try {
+              tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            } catch (err) {}
+          }
+        });
+      }
       renderFullProductsGrid();
     });
   }
