@@ -2,10 +2,17 @@
   "version": 2,
   "framework": null,
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/products", "destination": "/cakes", "permanent": true },
+    { "source": "/products.html", "destination": "/cakes", "permanent": true },
+    { "source": "/b2b", "destination": "/wholesale", "permanent": true },
+    { "source": "/b2b.html", "destination": "/wholesale", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/cakes", "destination": "/products.html" },
-    { "source": "/cakes.html", "destination": "/products.html" },
-    { "source": "/wholesale", "destination": "/b2b.html" },
-    { "source": "/wholesale.html", "destination": "/b2b.html" }
+    { "source": "/cakes", "destination": "/cakes.html" },
+    { "source": "/wholesale", "destination": "/wholesale.html" },
+    { "source": "/menu", "destination": "/menu.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/careers", "destination": "/careers.html" }
   ]
 }

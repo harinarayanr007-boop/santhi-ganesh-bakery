@@ -52,12 +52,12 @@ function buildDynamicSystemPrompt(products = []) {
   let catalogSection = '';
   if (Array.isArray(products) && products.length > 0) {
     const categoryNames = {
-      'signature-cakes': 'Signature Cakes (products.html?cat=signature-cakes)',
-      'birthday-her': 'Birthday (Her) (products.html?cat=birthday-her)',
-      'birthday-him': 'Birthday (Him) (products.html?cat=birthday-him)',
-      'kids': 'Kids Cakes (products.html?cat=kids)',
-      'baby-shower': 'Baby Shower (products.html?cat=baby-shower)',
-      'wedding': 'Wedding & Tiers (products.html?cat=wedding)'
+      'signature-cakes': 'Signature Cakes (cakes?cat=signature-cakes)',
+      'birthday-her': 'Birthday (Her) (cakes?cat=birthday-her)',
+      'birthday-him': 'Birthday (Him) (cakes?cat=birthday-him)',
+      'kids': 'Kids Cakes (cakes?cat=kids)',
+      'baby-shower': 'Baby Shower (cakes?cat=baby-shower)',
+      'wedding': 'Wedding & Tiers (cakes?cat=wedding)'
     };
     const grouped = {};
     for (const p of products) {
@@ -437,7 +437,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Signature Cakes Catalog',
-      url: './products.html?cat=signature-cakes'
+      url: './cakes?cat=signature-cakes'
     };
   }
 
@@ -456,7 +456,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Kids Cakes Catalog',
-      url: './products.html?cat=kids'
+      url: './cakes?cat=kids'
     };
   }
 
@@ -473,7 +473,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Cakes for Her',
-      url: './products.html?cat=birthday-her'
+      url: './cakes?cat=birthday-her'
     };
   }
 
@@ -492,7 +492,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Cakes for Him',
-      url: './products.html?cat=birthday-him'
+      url: './cakes?cat=birthday-him'
     };
   }
 
@@ -506,7 +506,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Baby Shower Cakes',
-      url: './products.html?cat=baby-shower'
+      url: './cakes?cat=baby-shower'
     };
   }
 
@@ -525,7 +525,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Wedding Tier Cakes',
-      url: './products.html?cat=wedding'
+      url: './cakes?cat=wedding'
     };
   }
 
@@ -539,7 +539,7 @@ function getRelevantWebLink(userMsg = '', botReply = '') {
   ) {
     return {
       label: '🎂 View Celebration Cakes Catalog',
-      url: './products.html'
+      url: './cakes'
     };
   }
 
