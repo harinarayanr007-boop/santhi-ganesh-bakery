@@ -1189,12 +1189,19 @@ function initBakeryChatWidget() {
                 <i class="ph ph-seal-check" style="color: #E3A857; font-size: 1.05rem;" title="Verified Bakery Concierge"></i>
               </div>
               <div class="chat-header-sub">
-                <span style="width:7px;height:7px;background:#22C55E;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22C55E;"></span>
-                <span>Online • Tirunelveli</span>
+                <span class="chat-status-pulse"></span>
+                <span>Online • Instant Answers</span>
               </div>
             </div>
           </div>
-          <button class="chat-close-btn" onclick="toggleBakeryChat()" aria-label="Close Assistant"><i class="ph ph-x"></i></button>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <a href="https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery!%20Need%20help." target="_blank" class="chat-header-wa-btn" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+              <i class="ph ph-whatsapp-logo"></i>
+            </a>
+            <button class="chat-close-btn" onclick="toggleBakeryChat()" aria-label="Close Assistant">
+              <i class="ph ph-x"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Messages Body -->
@@ -1207,7 +1214,7 @@ function initBakeryChatWidget() {
             </div>
             <div class="chat-quick-chips">
               <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Tell me about Celebration & Custom Birthday Cakes')">🎂 Celebration Cakes</button>
-              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)')">🛵 30-Min In-Store Menu</button>
+              <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Show me In-Store Menu (Juices, Chaat, Burgers, Pizzas, Shakes)')">🛵 30-Min Menu</button>
               <button type="button" class="chat-quick-chip" onclick="handleQuickChip('What are the rules for 2KM Express Delivery?')">⚡ 2KM Express Delivery</button>
               <button type="button" class="chat-quick-chip" onclick="handleQuickChip('Where is your store located and what are the timings?')">📍 Location & Hours</button>
             </div>
@@ -1222,12 +1229,30 @@ function initBakeryChatWidget() {
 
         <!-- Footer Input -->
         <form class="chat-footer-input" onsubmit="event.preventDefault(); sendChatMessage();">
-          <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
-          <button type="submit" class="chat-send-btn" aria-label="Send Message"><i class="ph ph-paper-plane-right" style="font-size: 1.15rem;"></i></button>
+          <div class="chat-input-wrapper">
+            <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
+            <button type="submit" class="chat-send-btn" aria-label="Send Message">
+              <i class="ph ph-paper-plane-right"></i>
+            </button>
+          </div>
         </form>
       </div>
     `;
     document.body.appendChild(widget);
+
+    // Setup visual viewport listeners for modern mobile keyboards
+    if (window.visualViewport) {
+      const updateMobileChatViewport = () => {
+        const modal = document.getElementById('chat-modal-window');
+        if (modal && isBakeryChatOpen && window.innerWidth <= 768) {
+          modal.style.height = `${window.visualViewport.height}px`;
+          modal.style.top = `${window.visualViewport.offsetTop}px`;
+          scrollChatMessagesToBottom();
+        }
+      };
+      window.visualViewport.addEventListener('resize', updateMobileChatViewport);
+      window.visualViewport.addEventListener('scroll', updateMobileChatViewport);
+    }
   }
 }
 
@@ -1237,10 +1262,27 @@ window.toggleBakeryChat = function() {
   if (modal) {
     modal.classList.toggle('active', isBakeryChatOpen);
     document.body.classList.toggle('chat-modal-open', isBakeryChatOpen);
+
     if (isBakeryChatOpen) {
-      setTimeout(() => {
-        document.getElementById('chat-user-input')?.focus();
-      }, 180);
+      if (window.innerWidth <= 768 && window.visualViewport) {
+        modal.style.height = `${window.visualViewport.height}px`;
+        modal.style.top = `${window.visualViewport.offsetTop}px`;
+      } else {
+        modal.style.height = '';
+        modal.style.top = '';
+      }
+      scrollChatMessagesToBottom();
+      
+      // Auto-focus only on desktop screens so mobile keyboard doesn't violently obscure the greeting
+      if (window.innerWidth > 768) {
+        setTimeout(() => {
+          document.getElementById('chat-user-input')?.focus();
+        }, 180);
+      }
+    } else {
+      modal.style.height = '';
+      modal.style.top = '';
+      document.getElementById('chat-user-input')?.blur();
     }
   }
 };
