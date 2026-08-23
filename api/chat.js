@@ -1,4 +1,4 @@
-// api/chat.js - Ultra-Lean Zero-Hallucination AI Concierge with Web Links
+// api/chat.js - Real-Time Zero-Hallucination AI Concierge with Live Database Pricing
 const GEMINI_API_KEY = (
   process.env.GEMINI_API_KEY ||
   process.env.GEMINI_KEY ||
@@ -10,9 +10,71 @@ const GEMINI_API_KEY = (
 ).trim();
 
 const BAKERY_PHONE = '917339073844';
+const SUPABASE_URL = 'https://hkkdeowfoyejfifeftme.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhra2Rlb3dmb3llamZpZmVmdG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjQ1NzYsImV4cCI6MjA5OTEwMDU3Nn0.EBw0t2IZoM8koDaV2AOFj6rQbyQINSo_mkrvhhhd0nU';
 
-// Ultra-compressed prompt (~250 tokens) to minimize token consumption
-const BAKERY_SYSTEM_PROMPT = `
+// Lightweight in-memory cache to keep serverless responses ultra-fast (<2ms)
+let cachedProducts = null;
+let lastProductsFetchTime = 0;
+const PRODUCTS_CACHE_TTL = 30 * 1000; // 30 seconds cache for instant price reflection
+
+async function getLiveProducts() {
+  const now = Date.now();
+  if (cachedProducts && (now - lastProductsFetchTime < PRODUCTS_CACHE_TTL)) {
+    return cachedProducts;
+  }
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=id,title,category,price,weight,is_available`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        cachedProducts = data;
+        lastProductsFetchTime = now;
+        return data;
+      }
+    }
+  } catch (err) {
+    console.warn('Supabase fetch in chat error:', err.message);
+  }
+  return cachedProducts || [];
+}
+
+function buildDynamicSystemPrompt(products = []) {
+  let catalogSection = '';
+  if (Array.isArray(products) && products.length > 0) {
+    const categoryNames = {
+      'signature-cakes': 'Signature Cakes (products.html?cat=signature-cakes)',
+      'birthday-her': 'Birthday (Her) (products.html?cat=birthday-her)',
+      'birthday-him': 'Birthday (Him) (products.html?cat=birthday-him)',
+      'kids': 'Kids Cakes (products.html?cat=kids)',
+      'baby-shower': 'Baby Shower (products.html?cat=baby-shower)',
+      'wedding': 'Wedding & Tiers (products.html?cat=wedding)'
+    };
+    const grouped = {};
+    for (const p of products) {
+      if (p.is_available === false) continue;
+      const cat = p.category || 'other';
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(`${p.title} ₹${p.price}${p.weight ? ` (${p.weight})` : ''}`);
+    }
+
+    catalogSection = Object.entries(categoryNames).map(([catKey, label]) => {
+      const items = grouped[catKey] || [];
+      if (items.length === 0) return '';
+      return `   - ${label}: ${items.slice(0, 12).join(' | ')}`;
+    }).filter(Boolean).join('\n');
+  }
+
+  return `
 You are the helpful AI Concierge for Santhi Ganesh Bakery (சாந்தி கணேஷ் பேக்கரி) at 92 Cheranmahadevi Rd, Thirunagar, Tirunelveli.
 
 STORE LOCATION, ADDRESS & HOURS:
@@ -27,25 +89,27 @@ STRICT BEHAVIOR & LENGTH CONSTRAINTS:
    - NEVER say "Yes" or "No".
    - State strictly: "We deliver within a 2 km radius around Santhi Ganesh Bakery (92 Cheranmahadevi Rd, Thirunagar). For deliveries beyond 2 km or custom cake orders, please check with us directly on WhatsApp (+91 73390 73844)."
 2. NO "YES" OR "NO" FOR UNLISTED ITEMS: If an item is not in the catalog, do not say Yes or No; suggest available alternatives or WhatsApp.
-3. STRICT LENGTH: Maximum 3 to 4 short sentences. Keep it direct and helpful.
-4. Reply in customer's language (Tamil தமிழ், English, or Tanglish).
+3. ALWAYS USE THE EXACT CURRENT LIVE DATABASE PRICES LISTED BELOW. NEVER INVENT OR GUESS PRICES.
+4. STRICT LENGTH: Maximum 3 to 4 short sentences. Keep it direct and helpful.
+5. Reply in customer's language (Tamil தமிழ், English, or Tanglish).
 
-ACTIVE CATALOG & REAL PRICES:
+ACTIVE CATALOG & REAL-TIME DATABASE PRICES:
 • Jobs Hiring (careers.html): Cleaner (₹350/day) | Delivery Partner / Server (₹350–₹450/day) | Social Media Manager (₹5K–₹7K/mo).
 
 1. 🎂 CELEBRATION CAKES (products.html - Regular & 100% Pure Veg / Eggless):
-   - Signature Cakes (products.html?cat=signature-cakes): Fresh Pineapple ₹600 (1kg) | White Forest / Black Forest ₹650 (1kg) | Strawberry Glaze Red Berry / Royal Butterscotch Crunch / Fresh Mango ₹700 (1kg) | Red Velvet Classic / Mocha Choco-Chip ₹750 (1kg) | Belgian Dark Chocolate Truffle ₹800 (1kg)
-   - Her: Dancing Doll Cake ₹950 (1kg) [Lowest price cake!] | Blue Ripples / Yellow Unicorn ₹1,000 (1kg) | Floral Cake ₹1,100 (1kg) | Unicorn Dreams ₹1,200 (1kg) | Barbie Pink ₹1,300 (1.5kg) | Tiara Cake ₹1,800 (2kg) | Candyland ₹2,000 (2kg) | 0015 Pink Roses ₹2,200 (2kg) | Frozen Enchantment ₹2,600 (3kg)
-   - Him: The Fitness Freak ₹1,150 (1kg) [Lowest price him] | Cricket Craze ₹1,200 (1kg) | Gamers X-Box / Football Jersey ₹1,900 (2kg) | Avengers / Football ₹2,000 (2kg) | Arsenal ₹2,200 (2kg) | Lightning McQueen ₹2,300 (2kg)
-   - Kids: Versatile Subtle ₹1,000 (1kg) | Spiderman Web ₹1,050 (1kg) | Hello Kitty / Fruit / Pokeball ₹1,100 (1kg) | F.R.I.E.N.D.S / Boss Baby ₹1,200 (1kg) | Spider Man 2-Tier ₹2,000 (2kg) | Jungle Mania ₹6,500 (5kg)
-   - Baby Shower: Sky Themed / Nesting Love ₹1,100 (1kg) | Baby Shoes ₹1,150 (1kg) | Baby Stroller / Over The Moon ₹1,300 (1kg)
-   - Wedding Tiers: Bridal Shower ₹1,200 (1kg) | The Perfect Pair ₹1,250 (1kg) | Wedding Bells Macaron ₹2,200 (2kg) | Roses Anniversary ₹2,600 (3kg) | 3-Tier Wedding ₹5,700 (6kg) | Tier Fondant ₹7,800 (6kg)
+${catalogSection || `   - Signature Cakes: Fresh Pineapple ₹600 (1kg) | White Forest / Black Forest ₹650 (1kg) | Strawberry Glaze Red Berry ₹700 (1kg) | Red Velvet ₹750 (1kg) | Truffle ₹800 (1kg)
+   - Her: Dancing Doll Cake ₹950 (1kg) | Blue Ripples ₹1,000 (1kg) | Barbie Pink ₹1,300 (1.5kg) | Tiara Cake ₹1,800 (2kg)
+   - Him: The Fitness Freak ₹1,150 (1kg) | Cricket Craze ₹1,200 (1kg) | Gamers X-Box ₹1,900 (2kg)
+   - Kids: Spiderman Web ₹1,050 (1kg) | Hello Kitty ₹1,100 (1kg) | F.R.I.E.N.D.S ₹1,200 (1kg)
+   - Baby Shower: Sky Themed ₹1,100 (1kg) | Baby Shoes ₹1,150 (1kg) | Baby Stroller ₹1,300 (1kg)
+   - Wedding Tiers: Bridal Shower ₹1,200 (1kg) | The Perfect Pair ₹1,250 (1kg) | Wedding Bells ₹2,200 (2kg)`}
 
 2. 🛵 IN-STORE QUICK MENU (menu.html - 30-min 2KM delivery, FREE above ₹300):
    - Puffs: Veg ₹25 | Egg ₹30 | Paneer ₹35 | Mushroom ₹35 | Chicken Tikka ₹40
    - Juices & Shakes: Elaneer Payasam ₹80 | Orange / Pom / Apple ₹80 | Watermelon ₹50 | Cold Coffee / Oreo / Kitkat Shake ₹90 | Royal Falooda ₹140
    - Chaat & Snacks: Pani Puri ₹40 | Dahi Puri ₹60 | Sev / Bhel Puri ₹50 | Butter Pav Bhaji ₹60 | Veg Burger ₹80 | Chicken Burger ₹120 | Pizzas ₹110–₹140 | Filter Coffee ₹25
 `;
+}
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -64,6 +128,9 @@ export default async function handler(req, res) {
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'Message is required' });
   }
+
+  // Fetch live products from Supabase database (cached 30s)
+  const liveProducts = await getLiveProducts();
 
   // 1. Try Cheapest & Fastest Flash-Lite Models directly
   if (GEMINI_API_KEY) {
@@ -86,9 +153,11 @@ export default async function handler(req, res) {
         parts: [{ text: message }]
       });
 
+      const dynamicSystemPrompt = buildDynamicSystemPrompt(liveProducts);
+
       const payload = {
         systemInstruction: {
-          parts: [{ text: BAKERY_SYSTEM_PROMPT }]
+          parts: [{ text: dynamicSystemPrompt }]
         },
         contents: formattedContents,
         generationConfig: {
@@ -150,8 +219,8 @@ export default async function handler(req, res) {
     }
   }
 
-  // 2. High-speed Offline Rule Engine
-  const ruleResponse = processRuleEngine(message);
+  // 2. High-speed Live Database Rule Engine
+  const ruleResponse = processRuleEngine(message, liveProducts);
   const whatsappUrl = generateWhatsAppLink(message, ruleResponse.reply);
   const dynamicWebLink = getRelevantWebLink(message, ruleResponse.reply);
 
@@ -164,7 +233,17 @@ export default async function handler(req, res) {
   });
 }
 
-function processRuleEngine(msg) {
+function findCakeInfo(products, keyword, fallbackPrice, defaultWeight = '1 kg') {
+  if (Array.isArray(products) && products.length > 0) {
+    const match = products.find(p => p.title && p.title.toLowerCase().includes(keyword.toLowerCase()));
+    if (match && match.price) {
+      return { price: match.price, weight: match.weight || defaultWeight, title: match.title };
+    }
+  }
+  return { price: fallbackPrice, weight: defaultWeight, title: keyword };
+}
+
+function processRuleEngine(msg, liveProducts = []) {
   const lower = msg.toLowerCase().trim();
 
   // 1. Store Location, Address, Hours & Timings
@@ -209,15 +288,28 @@ function processRuleEngine(msg) {
     };
   }
 
-  // Specific Celebration Cakes
+  // Specific Celebration Cakes using live database prices
   if (lower.includes('barbie')) {
+    const barbie = findCakeInfo(liveProducts, 'barbie', 1300, '1.5 kg');
     return {
-      reply: "🎂 Barbie Pink Cake is priced at ₹1,300 (1.5 kg, 2 kg). Crafted fresh in both Regular & 100% Pure Veg (Eggless).",
+      reply: `🎂 ${barbie.title} is currently priced at ₹${barbie.price} (${barbie.weight}). Crafted fresh in both Regular & 100% Pure Veg (Eggless).`,
       actions: [{ label: '🟢 Order Barbie Cake', query: 'Book Barbie Pink Cake for birthday' }]
     };
   }
 
   if (lower.includes('lowest') || lower.includes('cheap') || lower.includes('budget') || lower.includes('kammi')) {
+    if (Array.isArray(liveProducts) && liveProducts.length > 0) {
+      const sorted = liveProducts.filter(p => p.is_available !== false && p.price > 0).sort((a, b) => a.price - b.price);
+      if (sorted.length >= 3) {
+        return {
+          reply: `🎂 Our lowest price celebration cake in the catalog is the **${sorted[0].title} at ₹${sorted[0].price} (${sorted[0].weight || '1 kg'})**, followed by ${sorted[1].title} (₹${sorted[1].price}) and ${sorted[2].title} (₹${sorted[2].price})!`,
+          actions: [
+            { label: `🎂 Order ${sorted[0].title} (₹${sorted[0].price})`, query: `Book ${sorted[0].title}` },
+            { label: `🎂 Order ${sorted[1].title} (₹${sorted[1].price})`, query: `Book ${sorted[1].title}` }
+          ]
+        };
+      }
+    }
     return {
       reply: "🎂 Our lowest price celebration cake in the catalog is the **Dancing Doll Cake at ₹950 (1 kg)**, followed by Blue Ripples Cake / Yellow Unicorn (₹1,000) and Spiderman Web Cake (₹1,050)!",
       actions: [
@@ -228,22 +320,29 @@ function processRuleEngine(msg) {
   }
 
   if (lower.includes('fitness freak') || lower.includes('cricket') || lower.includes('xbox') || lower.includes('him')) {
+    const ff = findCakeInfo(liveProducts, 'fitness freak', 1150, '1 kg');
+    const cc = findCakeInfo(liveProducts, 'cricket', 1200, '1 kg');
+    const xb = findCakeInfo(liveProducts, 'x-box', 1900, '2 kg');
     return {
-      reply: "🎂 Birthday Cakes for Him:\n• The Fitness Freak Cake: ₹1,150 (1 kg)\n• Cricket Craze Cake: ₹1,200 (1 kg)\n• Gamers X-Box Cake: ₹1,900 (2 kg)\n• Football Jersey Cake: ₹1,900 (2 kg)",
+      reply: `🎂 Birthday Cakes for Him:\n• ${ff.title}: ₹${ff.price} (${ff.weight})\n• ${cc.title}: ₹${cc.price} (${cc.weight})\n• ${xb.title}: ₹${xb.price} (${xb.weight})`,
       actions: [{ label: '🟢 Order Cake for Him', query: 'Book Birthday Cake for Him' }]
     };
   }
 
   if (lower.includes('spiderman') || lower.includes('kids')) {
+    const sm = findCakeInfo(liveProducts, 'spiderman web', 1050, '1 kg');
+    const hk = findCakeInfo(liveProducts, 'hello kitty', 1100, '1 kg');
     return {
-      reply: "🧒 Kids Theme Cakes:\n• Spiderman Web Cake: ₹1,050 (1 kg)\n• Hello Kitty / Fruit / Pokeball Cake: ₹1,100 (1 kg)\n• F.R.I.E.N.D.S / Boss Baby: ₹1,200 (1 kg)\n• Spider Man 2-Tier: ₹2,000 (2 kg)",
+      reply: `🧒 Kids Theme Cakes:\n• ${sm.title}: ₹${sm.price} (${sm.weight})\n• ${hk.title}: ₹${hk.price} (${hk.weight})`,
       actions: [{ label: '🟢 Order Kids Theme Cake', query: 'Book Kids Theme Cake' }]
     };
   }
 
   if (lower.includes('wedding') || lower.includes('anniversary') || lower.includes('tier') || lower.includes('bridal')) {
+    const bs = findCakeInfo(liveProducts, 'bridal shower', 1200, '1 kg');
+    const pp = findCakeInfo(liveProducts, 'perfect pair', 1250, '1 kg');
     return {
-      reply: "💍 Wedding & Milestone Tiers:\n• Bridal Shower Cake: ₹1,200 (1 kg)\n• The Perfect Pair Cake: ₹1,250 (1 kg)\n• 0001 Wedding Bells Macaron Cake: ₹2,200 (2 kg)\n• 0003 Roses Anniversary Cake: ₹2,600 (3 kg)",
+      reply: `💍 Wedding & Milestone Tiers:\n• ${bs.title}: ₹${bs.price} (${bs.weight})\n• ${pp.title}: ₹${pp.price} (${pp.weight})`,
       actions: [{ label: '🟢 Order Wedding Tier', query: 'Inquire Wedding Tier Cake' }]
     };
   }
