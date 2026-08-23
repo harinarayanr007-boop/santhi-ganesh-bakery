@@ -21,7 +21,7 @@
   <meta name="apple-mobile-web-app-title" content="SG Bakery">
   
   <!-- Master Stylesheet & Phosphor Icons -->
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./index.css?v=3.1">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script src="./i18n.js"></script>
 </head>
@@ -69,16 +69,18 @@
     </div>
   </header>
 
-  <!-- Mobile Drawer Overlay & Sidebar -->
+  <!-- MOBILE DRAWER & OVERLAY -->
   <div id="mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
   <aside id="mobile-drawer" class="mobile-drawer">
-    <div class="mobile-drawer-header">
-      <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 48px;">
-      <button id="close-drawer-btn" class="close-drawer-btn">&times;</button>
-    </div>
-    <div style="margin-top: 24px;">
-      <ul class="mobile-nav-links">
-        <li><a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a></li>
+    <div>
+      <div class="mobile-drawer-header">
+        <a href="./index.html" class="brand-logo">
+          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 52px;">
+        </a>
+        <button id="close-drawer-btn" style="font-size: 1.5rem;">✕</button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="./index.html" class="mobile-nav-link active" style="color: var(--color-desert);" data-i18n="nav_home">Home</a></li>
         <li><a href="./index.html#about" class="mobile-nav-link" data-i18n="nav_about">About Us</a></li>
         <li><a href="./products.html" class="mobile-nav-link" data-i18n="nav_cakes">Celebration Cakes</a></li>
         <li><a href="./b2b.html" class="mobile-nav-link" data-i18n="nav_b2b">B2B Wholesale</a></li>
@@ -713,8 +715,8 @@
   </footer>
 
   <!-- Utility, Data & Interactivity Scripts -->
-  <script src="./js/utils.js?v=2.2"></script>
-  <script src="./data/products-data.js?v=2.2"></script>
-  <script src="./app.js?v=2.2"></script>
+  <script src="./js/utils.js?v=3.1"></script>
+  <script src="./data/products-data.js?v=3.1"></script>
+  <script src="./app.js?v=3.1"></script>
 </body>
 </html>

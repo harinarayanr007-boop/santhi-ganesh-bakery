@@ -539,7 +539,8 @@ h3, .text-h3 {
   transform: scale(1.06);
 }
 
-.mobile-nav-list {
+.mobile-nav-list,
+.mobile-nav-links {
   list-style: none !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -548,7 +549,8 @@ h3, .text-h3 {
   gap: 6px;
 }
 
-.mobile-nav-list li {
+.mobile-nav-list li,
+.mobile-nav-links li {
   list-style: none !important;
   margin: 0 !important;
   padding: 0 !important;
