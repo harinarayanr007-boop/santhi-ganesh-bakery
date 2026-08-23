@@ -1163,6 +1163,7 @@ let isBakeryChatOpen = false;
 
 function initBakeryChatWidget() {
   if (typeof document === 'undefined') return;
+  if (typeof window !== 'undefined' && (window.location.pathname.includes('admin') || window.location.href.includes('admin.html'))) return;
 
   let widget = document.getElementById('bakery-chat-widget');
   if (!widget) {
