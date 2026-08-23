@@ -670,10 +670,10 @@
 
     <!-- 5. B2B FORM SECTION (Primary Form Action: Request Free Sample Box) -->
     <section id="b2b-form" class="section-padding">
-      <div class="container" style="max-width: 840px;">
+      <div class="container" style="max-width: 620px;">
         
-        <div class="b2b-form-card">
-          <div style="text-align: center; margin-bottom: 32px;">
+        <div class="b2b-form-card" style="padding: clamp(24px, 5vw, 44px);">
+          <div style="text-align: center; margin-bottom: 28px;">
             <div style="width: 64px; height: 64px; background: rgba(166, 96, 27, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--color-desert); margin-bottom: 16px;">
               <i class="ph ph-package" style="font-size: 2.2rem;"></i>
             </div>
@@ -687,44 +687,45 @@
             <!-- Invisible Honeypot Trap Field -->
             <input type="text" id="b2b-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-              <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_name">Business / Shop Name *</label>
-                <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
-              </div>
-
-              <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_contact_person">Contact Person Name *</label>
-                <input type="text" id="b2b-contact-person" required placeholder="Contact Person Name" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
-              </div>
+            <!-- Field 1: Business Name -->
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_biz_name">Business / Shop Name *</label>
+              <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-              <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number *</label>
-                <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
-              </div>
-
-              <div>
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_biz_type">Business Category *</label>
-                <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
-                  <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
-                  <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
-                  <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
-                  <option value="Hotel / Restaurant" data-i18n="b2b_opt_hotel">Hotel / Restaurant</option>
-                  <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
-                  <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
-                </select>
-              </div>
+            <!-- Field 2: Contact Person -->
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_contact_person">Contact Person Name *</label>
+              <input type="text" id="b2b-contact-person" required placeholder="Contact Person Name" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
             </div>
 
+            <!-- Field 3: Phone / WhatsApp Number -->
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number *</label>
+              <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+            </div>
+
+            <!-- Field 4: Business Category -->
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_biz_type">Business Category *</label>
+              <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
+                <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
+                <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
+                <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
+                <option value="Hotel / Restaurant" data-i18n="b2b_opt_hotel">Hotel / Restaurant</option>
+                <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
+                <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
+              </select>
+            </div>
+
+            <!-- Field 5: Daily Requirement -->
             <div style="margin-bottom: 24px;">
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement (Optional):</label>
-              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 13px; font-size: 0.95rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
+              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement (Optional):</label>
+              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
             </div>
 
             <!-- Single Primary Form CTA Button -->
-            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 15px; font-size: 1.08rem; border-radius: 16px;" data-i18n="b2b_btn_submit_sample">
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 16px; font-size: 1.1rem; border-radius: 16px;" data-i18n="b2b_btn_submit_sample">
               <i class="ph ph-package" style="font-size: 1.3rem;"></i> Request Free Sample Box 📦
             </button>
           </form>
