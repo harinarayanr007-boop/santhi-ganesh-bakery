@@ -512,12 +512,20 @@ function setupEventListeners() {
       activeCategoryFilter = target.getAttribute('data-category');
       renderFullProductsGrid();
 
-      // If user has already scrolled down, scroll smoothly back to the top of products grid
-      const gridContainer = document.getElementById('full-products-grid') || document.querySelector('.products-page-tabs');
-      if (gridContainer) {
-        const headerOffset = 100;
-        const targetScrollY = gridContainer.offsetTop - headerOffset;
-        if (window.scrollY > targetScrollY) {
+      // Center the clicked tab horizontally in mobile scroll bar
+      try {
+        target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      } catch (err) {}
+
+      // If user has scrolled down, scroll smoothly back to the top of cake categories/grid
+      const categoryAnchor = document.querySelector('.category-section-header') || document.querySelector('.products-page-tabs') || document.getElementById('full-products');
+      if (categoryAnchor) {
+        const navHeight = window.innerWidth <= 768 ? 52 : 88;
+        const rect = categoryAnchor.getBoundingClientRect();
+        const absoluteTop = rect.top + window.scrollY;
+        const targetScrollY = Math.max(0, absoluteTop - navHeight - 10);
+
+        if (window.scrollY > targetScrollY + 15) {
           window.scrollTo({
             top: targetScrollY,
             behavior: 'smooth'
