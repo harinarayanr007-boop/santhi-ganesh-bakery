@@ -127,7 +127,7 @@ const TRANSLATIONS = {
     // Product Detail Page
     shop_all: "Shop all",
     select_weight: "Select Weight / Variant:",
-    freshness_guarantee: "Freshness guaranteed • Doorstep delivery across Tirunelveli",
+    freshness_guarantee: "Freshness guaranteed",
     btn_add_to_cart: "Add to Cart",
     btn_order_whatsapp: "Order via WhatsApp",
     acc_details: "Details",
@@ -309,7 +309,7 @@ const TRANSLATIONS = {
     // Product Detail Page
     shop_all: "அனைத்தும்",
     select_weight: "எடை / அளவைத் தேர்ந்தெடுக்கவும்:",
-    freshness_guarantee: "புதிய சுவை உத்தரவாதம் • திருநெல்வேலி முழுவதும் டோர் டெலிவரி",
+    freshness_guarantee: "புதிய சுவை உத்தரவாதம்",
     btn_add_to_cart: "கூடையில் சேர்",
     btn_order_whatsapp: "வாட்ஸ்அப் மூலம் ஆர்டர் செய்ய",
     acc_details: "விவரங்கள்",
