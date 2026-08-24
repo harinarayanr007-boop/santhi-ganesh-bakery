@@ -1367,13 +1367,6 @@ function initBakeryChatWidget() {
     widget.className = 'bakery-chat-widget';
     widget.id = 'bakery-chat-widget';
     widget.innerHTML = `
-      <!-- Floating Trigger Pill -->
-      <button class="chat-trigger-btn" id="chat-trigger-btn" onclick="toggleBakeryChat()" aria-label="Open Bakery Assistant">
-        <div class="chat-trigger-badge"></div>
-        <i class="ph ph-sparkle chat-trigger-icon"></i>
-        <span>Ask Bakery AI ✨</span>
-      </button>
-
       <!-- Chat Modal Window -->
       <div class="chat-modal-window" id="chat-modal-window">
         <!-- Header -->

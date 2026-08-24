@@ -2722,32 +2722,50 @@ body.chat-modal-open {
   touch-action: none;
 }
 
-/* Floating Trigger Button */
+/* Floating Trigger Button - Hidden in favor of Header AI Icon */
 .chat-trigger-btn {
-  background: rgba(38, 22, 15, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  color: #FFFFFF;
-  border: 1.5px solid rgba(201, 138, 76, 0.65);
-  border-radius: 40px;
-  padding: 11px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  font-weight: 700;
-  font-size: 0.92rem;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  display: none !important;
 }
 
-.chat-trigger-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.38), 0 0 16px rgba(201, 138, 76, 0.3);
-  background: #3A2218;
-  border-color: var(--color-desert, #C98A4C);
+/* AI Header Nav Button */
+.nav-ai-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(166, 96, 27, 0.08);
+  border: 1.5px solid rgba(166, 96, 27, 0.22);
+  color: #8B4513;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.22rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  flex-shrink: 0;
+  text-decoration: none;
+  padding: 0;
+}
+
+.nav-ai-btn i {
+  color: #F5A623;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-ai-btn:hover {
+  background: #8B4513;
+  border-color: #8B4513;
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(166, 96, 27, 0.2);
+}
+
+.nav-ai-btn:hover i {
+  color: #FFE082;
+  transform: scale(1.15) rotate(15deg);
+}
+
+.nav-ai-btn:active {
+  transform: scale(0.95);
 }
 
 .chat-trigger-icon {

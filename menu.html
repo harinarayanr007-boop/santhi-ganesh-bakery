@@ -240,6 +240,18 @@
       text-decoration: none;
     }
 
+    .nav-icon-btn.nav-ai-btn {
+      background: linear-gradient(135deg, rgba(166, 96, 27, 0.1) 0%, rgba(245, 166, 35, 0.16) 100%);
+      border-color: rgba(166, 96, 27, 0.3);
+    }
+    .nav-icon-btn.nav-ai-btn:hover {
+      background: #8B4513;
+      border-color: #8B4513;
+    }
+    .nav-icon-btn.nav-ai-btn:hover i {
+      color: #FFE082 !important;
+    }
+
     /* Delivery Info Banner Hero */
     .menu-hero {
       padding: 8px 12px 6px;
@@ -2343,6 +2355,9 @@
       <div class="top-nav-actions">
         <button id="menu-lang-toggle" class="lang-toggle-pill" onclick="toggleMenuLanguage()" title="Switch Language">
           <i class="ph ph-translate"></i> <span id="menu-lang-label">தமிழ்</span>
+        </button>
+        <button class="nav-icon-btn nav-ai-btn" onclick="toggleBakeryChat()" title="Ask Bakery AI" aria-label="Ask Bakery AI">
+          <i class="ph ph-sparkle" style="color: #F5A623;"></i>
         </button>
         <a href="tel:+917339073844" class="nav-icon-btn" title="Call Store">
           <i class="ph ph-phone"></i>
