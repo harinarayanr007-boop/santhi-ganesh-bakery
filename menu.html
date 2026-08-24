@@ -3670,7 +3670,9 @@
         return;
       }
 
-      container.innerHTML = deliveryCart.map(item => `
+      container.innerHTML = deliveryCart.map(item => {
+        const safeId = escapeHTML(String(item.id));
+        return `
         <div class="clean-item-row">
           <div class="clean-item-left">
             <span class="clean-item-name">${escapeHTML(item.name)}</span>
@@ -3678,16 +3680,17 @@
           </div>
           <div class="clean-item-actions">
             <div class="checkout-stepper-btn-group">
-              <button type="button" class="checkout-qty-btn" onclick="updateItemQty(${JSON.stringify(item.id)}, -1)" title="Reduce" aria-label="Decrease quantity">
+              <button type="button" class="checkout-qty-btn" onclick="updateItemQty('${safeId}', -1)" title="Reduce" aria-label="Decrease quantity">
                 ${item.qty === 1 ? '<i class="ph ph-trash" style="font-size: 0.72rem; color: #C94C4C;"></i>' : '−'}
               </button>
               <span class="checkout-qty-val">${item.qty}</span>
-              <button type="button" class="checkout-qty-btn" onclick="updateItemQty(${JSON.stringify(item.id)}, 1)" title="Add" aria-label="Increase quantity">+</button>
+              <button type="button" class="checkout-qty-btn" onclick="updateItemQty('${safeId}', 1)" title="Add" aria-label="Increase quantity">+</button>
             </div>
             <span class="clean-item-line-total">₹${Number(item.price) * item.qty}</span>
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
 
       subtotalEl.textContent = `₹${subtotal}`;
       if (isTakeaway) {
