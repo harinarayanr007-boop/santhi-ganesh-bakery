@@ -13,6 +13,7 @@ const TRANSLATIONS = {
     nav_explore: "Explore Cakes",
 
     // Hero Section
+    hero_customers_count: "200+ Happy Customers",
     hero_tagline: "Tirunelveli's Favorite Bakery",
     hero_title: "Handcrafted Cakes & Fresh Daily Bakes",
     hero_sub: "Baked fresh before dawn across our local Tirunelveli branches using pure butter, rich chocolate, and natural ingredients.",
@@ -201,6 +202,7 @@ const TRANSLATIONS = {
     nav_explore: "கேக்குகளை பார்க்க",
 
     // Hero Section
+    hero_customers_count: "200+ மகிழ்ச்சியான வாடிக்கையாளர்கள்",
     hero_tagline: "திருநெல்வேலியின் அன்பான பேக்கரி",
     hero_title: "கைவினை கேக்குகள் மற்றும் புதிய பேக்கரி சுவைகள்",
     hero_sub: "தூய வெண்ணெய், சுவையான சாக்லேட் மற்றும் இயற்கை பொருட்களுடன் தினமும் அதிகாலையில் புதிதாக சுடப்படும் கேக்குகள்.",

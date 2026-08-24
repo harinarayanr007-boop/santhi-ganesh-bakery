@@ -686,6 +686,82 @@ h3, .text-h3 {
   margin: 0 auto 64px auto;
 }
 
+/* ==========================================================================
+   HERO SOCIAL PROOF AVATAR CLUSTER (FIGMA NODE 708:3001)
+   ========================================================================== */
+.hero-social-proof {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.hero-avatar-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.hero-avatar-item {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--color-bg-primary, #F6EFE8);
+  margin-left: -12px;
+  box-shadow: 0 3px 10px rgba(26, 13, 7, 0.14);
+  transition: transform var(--transition-fast), z-index var(--transition-fast);
+  position: relative;
+  background-color: var(--brown-100);
+}
+
+.hero-avatar-item:first-child {
+  margin-left: 0;
+}
+
+.hero-avatar-item:hover {
+  transform: scale(1.18) translateY(-3px);
+  z-index: 10;
+  box-shadow: 0 6px 14px rgba(26, 13, 7, 0.2);
+}
+
+.hero-customer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border: 1px solid rgba(26, 13, 7, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 89px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: 0.15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.hero-customer-pill .stars {
+  color: #F59E0B;
+  font-size: 0.88rem;
+  letter-spacing: 1.5px;
+}
+
+@media (max-width: 768px) {
+  .hero-avatar-item {
+    width: 40px;
+    height: 40px;
+    margin-left: -10px;
+  }
+  .hero-customer-pill {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+  }
+}
+
 .hero-tagline {
   margin-bottom: 16px;
 }
