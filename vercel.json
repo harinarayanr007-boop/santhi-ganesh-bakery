@@ -11,6 +11,8 @@
   ],
   "rewrites": [
     { "source": "/scan", "destination": "/api/scan" },
+    { "source": "/cart", "destination": "/cakes.html?open_cart=true" },
+    { "source": "/checkout", "destination": "/cakes.html?open_cart=true" },
     { "source": "/product-detail", "destination": "/product-detail.html" },
     { "source": "/product-detail/:id", "destination": "/product-detail.html?id=:id" },
     { "source": "/cakes/:category/:id", "destination": "/product-detail.html?cat=:category&id=:id" },

@@ -699,6 +699,14 @@ function setupEventListeners() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeCart();
   });
+
+  // Auto-open cart drawer if URL parameter or hash is present
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('open_cart') === 'true' || urlParams.get('cart') === 'true' || window.location.hash === '#cart') {
+      setTimeout(openCart, 150);
+    }
+  } catch(e) {}
 }
 
 // 6. SHOPPING CART OPERATIONS

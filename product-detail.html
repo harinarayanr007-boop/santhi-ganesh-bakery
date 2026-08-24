@@ -621,15 +621,7 @@
           canonical.rel = 'canonical';
           document.head.appendChild(canonical);
         }
-        canonical.href = `https://santhiganeshbakery.in/cakes/${catSlug}/${currentProduct.id}`;
-
-        // Keep Browser Address Bar clean as /cakes/category/prod-id
-        if (typeof history !== 'undefined' && history.replaceState) {
-          const targetUrl = `/cakes/${catSlug}/${currentProduct.id}`;
-          if (window.location.pathname !== targetUrl && !window.location.pathname.endsWith('.html')) {
-            window.history.replaceState({ id: currentProduct.id }, document.title, targetUrl);
-          }
-        }
+        canonical.href = `https://santhiganeshbakery.in/product-detail.html?cat=${encodeURIComponent(catSlug)}&id=${encodeURIComponent(currentProduct.id)}`;
 
         document.getElementById('detail-product-img').src = currentProduct.image;
         document.getElementById('detail-product-img').alt = currentProduct.title;
