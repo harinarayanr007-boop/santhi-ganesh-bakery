@@ -862,9 +862,11 @@
       max-width: 550px;
       border-top-left-radius: 24px;
       border-top-right-radius: 24px;
-      max-height: 88vh;
+      max-height: 90vh;
+      max-height: 90dvh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       box-shadow: 0 8px 32px rgba(10, 4, 4, 0.2);
       animation: sheetSlideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
       border-top: 1px solid rgba(166, 96, 27, 0.15);
@@ -884,6 +886,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-shrink: 0;
     }
 
     .modal-title-clean {
@@ -918,6 +921,7 @@
       background: #FAF6F2;
       border-bottom: 1px solid rgba(166, 96, 27, 0.12);
       position: relative;
+      flex-shrink: 0;
     }
 
     .checkout-step-item {
@@ -1095,11 +1099,30 @@
     }
 
     .modal-body-clean {
-      padding: 14px 16px 22px;
+      padding: 14px 16px 20px;
       overflow-y: auto;
+      flex: 1 1 auto;
+      min-height: 0;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    .checkout-sticky-footer {
+      position: sticky;
+      bottom: -20px;
+      background: #F6EFE8;
+      padding: 12px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+      margin: 12px -16px -20px -16px;
+      border-top: 1px solid rgba(166, 96, 27, 0.18);
+      box-shadow: 0 -8px 24px rgba(10, 4, 4, 0.12);
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      box-sizing: border-box;
     }
 
     /* Minimal Segmented Switch with Brand Styling */
@@ -2687,10 +2710,12 @@
               </div>
             </div>
 
-            <!-- STEP 1 NEXT BUTTON -->
-            <button type="button" class="btn-step-next" onclick="goToCheckoutStep(2)">
-              <span id="lbl-btn-step1-next">Next: Contact & Payment</span> <i class="ph ph-arrow-right"></i>
-            </button>
+            <!-- STEP 1 STICKY FOOTER BUTTON -->
+            <div class="checkout-sticky-footer">
+              <button type="button" class="btn-step-next" onclick="goToCheckoutStep(2)">
+                <span id="lbl-btn-step1-next">Next: Contact & Payment</span> <i class="ph ph-arrow-right"></i>
+              </button>
+            </div>
           </div>
 
           <!-- ==========================================
@@ -2758,8 +2783,8 @@
               </div>
             </div>
 
-            <!-- STEP 2 ACTION BUTTONS (Back + WhatsApp Order) -->
-            <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+            <!-- STEP 2 STICKY FOOTER BUTTONS (Back + WhatsApp Order) -->
+            <div class="checkout-sticky-footer">
               <button type="button" class="btn-step-back" onclick="goToCheckoutStep(1)">
                 <i class="ph ph-arrow-left"></i> <span id="lbl-btn-back">Back</span>
               </button>
