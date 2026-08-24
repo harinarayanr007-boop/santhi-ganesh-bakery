@@ -298,34 +298,42 @@
 
     /* Form Card & FAQ Styling */
 
-    /* Clean, Compact Luxury FAQ Accordion */
+    /* Unified Ultra-Compact Modern FAQ Container */
     .b2b-faq-accordion {
-      max-width: 760px;
+      max-width: 680px;
       margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(166, 96, 27, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(10, 4, 4, 0.04);
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
 
     .b2b-faq-item {
       background: #FFFFFF;
-      border-radius: 14px;
-      border: 1px solid rgba(166, 96, 27, 0.16);
-      box-shadow: 0 2px 8px rgba(10, 4, 4, 0.02);
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(166, 96, 27, 0.12);
+      box-shadow: none;
       overflow: hidden;
       cursor: pointer;
-      margin-bottom: 0;
+      margin: 0;
       padding: 0;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      transition: background-color 0.2s ease;
+    }
+
+    .b2b-faq-item:last-child {
+      border-bottom: none;
     }
 
     .b2b-faq-item:hover {
-      border-color: rgba(166, 96, 27, 0.38);
-      box-shadow: 0 4px 14px rgba(139, 69, 19, 0.06);
+      background: rgba(166, 96, 27, 0.03);
     }
 
     .faq-question-row {
-      padding: 14px 18px;
+      padding: 13px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -335,7 +343,7 @@
 
     .faq-question-row h4 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.94rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: #1A120B;
       margin: 0;
@@ -345,16 +353,9 @@
     }
 
     .faq-chevron {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: #8B4513;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(166, 96, 27, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
       flex-shrink: 0;
     }
 
@@ -362,14 +363,12 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.25s ease;
+      transition: max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
       padding: 0 18px;
     }
 
     .b2b-faq-item.active {
-      border-color: #A6601B;
-      background: #FFFFFF;
-      box-shadow: 0 4px 16px rgba(166, 96, 27, 0.08);
+      background: rgba(166, 96, 27, 0.03);
     }
 
     .b2b-faq-item.active .faq-question-row h4 {
@@ -378,23 +377,20 @@
 
     .b2b-faq-item.active .faq-chevron {
       transform: rotate(180deg);
-      background: #8B4513;
-      color: #FFFFFF;
+      color: #A6601B;
     }
 
     .b2b-faq-item.active .faq-answer-content {
-      max-height: 250px;
+      max-height: 220px;
       opacity: 1;
       padding: 0 18px 14px 18px;
     }
 
     .faq-answer-content p {
       color: #555555;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       line-height: 1.55;
       margin: 0;
-      border-top: 1px solid rgba(166, 96, 27, 0.08);
-      padding-top: 10px;
     }
 
     .b2b-form-card {
@@ -785,7 +781,7 @@
 
         <!-- 6. B2B INTERACTIVE FAQS -->
     <section class="section-padding" style="padding-top: 0;">
-      <div class="container" style="max-width: 840px;">
+      <div class="container" style="max-width: 700px;">
         <div class="catalog-header" style="margin-bottom: 36px; text-align: center;">
           <p class="text-tagline" style="margin-bottom: 8px;">Frequently Asked Questions</p>
           <h2 class="text-h2" style="font-family: 'Aboreto', serif; text-transform: uppercase;">Wholesale Supply Information</h2>
