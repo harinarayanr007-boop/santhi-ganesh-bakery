@@ -44,12 +44,15 @@ const TRANSLATIONS = {
     proof_title: "Trusted by local businesses and event organizers across Tirunelveli",
 
     // Dual CTA Columns
-    cta_col1_title: "SEE THE FULL COLLECTION",
-    cta_col1_sub: "Birthday cakes, wedding cakes, pastries, and puffs. All of it is waiting for you.",
-    cta_col2_title: "FIND YOUR CAKE",
-    cta_col2_sub: "Birthday cakes, wedding cakes, pastries, and puffs. All of it is waiting for you.",
+    cta_col1_title: "CUSTOM CELEBRATION CAKES",
+    cta_col1_sub: "Birthday cakes, multi-tier wedding centerpieces, kids theme cakes & anniversary specials baked fresh.",
+    cta_col2_title: "DAILY BAKES & DELIVERY MENU",
+    cta_col2_sub: "Hot savory puffs, fresh juices, thick shakes, burgers, pizzas, sandwiches, tea rusks & pastries delivered to your door.",
+    btn_cakes_catalog: "Explore Cakes →",
+    btn_cake_custom: "Custom Inquiry",
+    btn_order_delivery: "Order Delivery Menu →",
     btn_products: "Products",
-    btn_chat: "Chat",
+    btn_chat: "WhatsApp Order",
 
     // Heritage Section
     heritage_tagline: "Pure Ingredients & Tradition",
@@ -229,12 +232,15 @@ const TRANSLATIONS = {
     proof_title: "திருநெல்வேலியின் முன்னணி நிறுவனங்கள் மற்றும் விழாக்களின் நம்பிக்கை பெற்ற பேக்கரி",
 
     // Dual CTA Columns
-    cta_col1_title: "முழு தயாரிப்புகளையும் பார்க்க",
-    cta_col1_sub: "பிறந்தநாள் கேக்குகள், திருமண கேக்குகள், பேஸ்ட்ரிகள் மற்றும் பஃப்ஸ். அனைத்தும் உங்களுக்காக.",
-    cta_col2_title: "உங்களுக்கு பிடித்த கேக்கை தேர்ந்தெடுக்க",
-    cta_col2_sub: "பிறந்தநாள் கேக்குகள், திருமண கேக்குகள், பேஸ்ட்ரிகள் மற்றும் பஃப்ஸ். அனைத்தும் உங்களுக்காக.",
+    cta_col1_title: "சிறப்பு கொண்டாட்ட கேக்குகள்",
+    cta_col1_sub: "பிறந்தநாள் கேக்குகள், அடுக்கு திருமண கேக்குகள், கார்ட்டூன் மற்றும் தீம் கேக்குகள் அனைத்தும் ஆர்டரின் பேரில் சுடப்படுகிறது.",
+    cta_col2_title: "தினசரி பேக்கரி & டெலிவரி மெனு",
+    cta_col2_sub: "சூடான பஃப்ஸ், சமோசா, பழச்சாறுகள், மில்க் ஷேக்ஸ், பர்கர், பீட்சா மற்றும் பேஸ்ட்ரிகள் உங்கள் வீடு தேடி டெலிவரி செய்யப்படும்.",
+    btn_cakes_catalog: "கேக்குகள் பார்க்க →",
+    btn_cake_custom: "விருப்ப கேக் கேட்க",
+    btn_order_delivery: "டெலிவரி மெனு ஆர்டர் →",
     btn_products: "தயாரிப்புகள்",
-    btn_chat: "வாட்ஸ்அப் சாட்",
+    btn_chat: "வாட்ஸ்அப் ஆர்டர்",
     heritage_tagline: "தூய பொருட்கள் & பாரம்பரியம்",
     heritage_title: "திருநெல்வேலியில் இனிப்பான நினைவுகளை உருவாக்குகிறது",
     heritage_desc: "முதல் நாளில் இருந்தே, சாந்தி கணேஷ் பேக்கரி புதிய சுவைக்கும் தரம் சார்ந்த தயாரிப்புகளுக்கும் பெயர் பெற்றது. பிளாக் ஃபாரஸ்ட் முதல் திருமண கேக்குகள் வரை அன்புடன் சுடப்படுகிறது.",
