@@ -2375,7 +2375,7 @@
       <section class="search-filter-wrapper">
         <div class="search-box" id="menu-search-box">
           <i class="ph ph-magnifying-glass"></i>
-          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)" onfocus="triggerSearchScroll()" onclick="triggerSearchScroll()">
           <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
         </div>
       </section>
@@ -3214,18 +3214,25 @@
 
     function scrollToSearchBar() {
       const controls = document.getElementById('sticky-menu-controls');
+      const topNav = document.querySelector('.top-nav');
       if (controls) {
-        const topNavHeight = 46;
+        const navHeight = topNav ? topNav.offsetHeight : 46;
         const rect = controls.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop - topNavHeight;
-        if (Math.abs(scrollTop - targetY) > 8) {
-          window.scrollTo({
-            top: targetY,
-            behavior: 'smooth'
-          });
-        }
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const targetY = currentScroll + rect.top - navHeight;
+        
+        window.scrollTo({
+          top: Math.max(0, targetY),
+          behavior: 'smooth'
+        });
       }
+    }
+
+    function triggerSearchScroll() {
+      scrollToSearchBar();
+      setTimeout(scrollToSearchBar, 80);
+      setTimeout(scrollToSearchBar, 200);
+      setTimeout(scrollToSearchBar, 400);
     }
 
     function handleMenuSearch(val) {
@@ -3233,7 +3240,7 @@
       const clearBtn = document.getElementById('search-clear-btn');
       if (clearBtn) clearBtn.style.display = val.trim() ? 'block' : 'none';
       if (val.trim()) {
-        scrollToSearchBar();
+        triggerSearchScroll();
       }
       renderMenu();
     }
