@@ -1398,10 +1398,11 @@
     }
 
     /* Form Fields Grid */
-    .form-two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    .form-two-col,
+    .form-single-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .field-wrap {
@@ -2601,7 +2602,7 @@
                 <span class="card-header-badge badge-gray" id="lbl-badge-required">Required</span>
               </div>
               
-              <div class="form-two-col">
+              <div class="form-single-col">
                 <div class="field-wrap">
                   <label id="lbl-label-name">Full Name *</label>
                   <input type="text" id="cust-name" class="clean-input-box" placeholder="Your name" oninput="saveCustomerProfile(); this.classList.remove('input-error');">
