@@ -20,8 +20,6 @@
     { "source": "/order", "destination": "/menu.html" },
     { "source": "/order-online", "destination": "/menu.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/careers", "destination": "/careers.html" },
-    { "source": "/go", "destination": "/go.html" },
-    { "source": "/qr", "destination": "/qr.html" }
+    { "source": "/careers", "destination": "/careers.html" }
   ]
 }
