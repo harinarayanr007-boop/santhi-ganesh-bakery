@@ -1164,12 +1164,15 @@ function switchProtoTab(key, btnElem) {
   }, 120);
 }
 
-// Auto-initialize default prototype tab on load & PWA registration
+// Auto-initialize default prototype tab on load, testimonial slider & PWA registration
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('figma-proto-content')) {
       switchProtoTab('kirana', document.querySelector('.figma-proto-tab'));
     }
+
+    // Initialize 5-Second Horizontal Testimonial Slider
+    initTestimonialSlider();
 
     // Initialize Responsive AI Chatbot on all public pages
     initBakeryChatWidget();
@@ -1179,6 +1182,123 @@ if (typeof document !== 'undefined') {
       navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Registration:', err));
     }
   });
+}
+
+/* ==========================================================================
+   HORIZONTAL AUTO-ADVANCING TESTIMONIAL SLIDER (5s Per Slide + Controls)
+   ========================================================================== */
+function initTestimonialSlider() {
+  if (typeof document === 'undefined') return;
+  const track = document.getElementById('testimonial-slider-track');
+  const viewport = document.getElementById('testimonial-slider-viewport');
+  if (!track || !viewport) return;
+
+  const slides = track.querySelectorAll('.h-testimonial-slide');
+  const dotsContainer = document.getElementById('testi-dots-container');
+  const prevBtn = document.getElementById('testi-prev-btn');
+  const nextBtn = document.getElementById('testi-next-btn');
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  const slideInterval = 5000; // 5 seconds on screen
+
+  // Render dots
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Go to testimonial ${idx + 1}`);
+      dot.addEventListener('click', () => {
+        goToSlide(idx);
+        restartTimer();
+      });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateDots() {
+    if (!dotsContainer) return;
+    const dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  function goToSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateDots();
+  }
+
+  function nextSlide() {
+    goToSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentIndex - 1);
+  }
+
+  function startTimer() {
+    stopTimer();
+    autoTimer = setInterval(nextSlide, slideInterval);
+  }
+
+  function stopTimer() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function restartTimer() {
+    stopTimer();
+    startTimer();
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      restartTimer();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      restartTimer();
+    });
+  }
+
+  // Pause on hover
+  viewport.addEventListener('mouseenter', stopTimer);
+  viewport.addEventListener('mouseleave', startTimer);
+
+  // Touch Swipe Support for Mobile
+  let startX = 0;
+  let endX = 0;
+
+  viewport.addEventListener('touchstart', (e) => {
+    stopTimer();
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextSlide(); // Swiped left -> show next
+      } else {
+        prevSlide(); // Swiped right -> show prev
+      }
+    }
+    startTimer();
+  }, { passive: true });
+
+  // Start initial auto-timer
+  startTimer();
 }
 
 /* ==========================================================================
