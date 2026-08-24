@@ -693,20 +693,22 @@ h3, .text-h3 {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 0px;
+  margin-bottom: 20px;
 }
 
 .hero-avatar-cluster {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 0;
+  margin-bottom: -6px;
+  z-index: 1;
 }
 
 .hero-avatar-item {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
   border: 2.5px solid var(--color-bg-primary, #F6EFE8);
@@ -728,20 +730,22 @@ h3, .text-h3 {
 }
 
 .hero-customer-pill {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 16px;
-  border: 1px solid rgba(26, 13, 7, 0.25);
-  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 14px;
+  border: 1px solid rgba(26, 13, 7, 0.2);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-radius: 89px;
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--color-text-main);
   letter-spacing: 0.15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(26, 13, 7, 0.08);
 }
 
 .hero-customer-pill .stars {
