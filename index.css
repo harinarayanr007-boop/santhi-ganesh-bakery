@@ -3514,57 +3514,94 @@ body.chat-modal-open {
 }
 
 .delivery-card {
-  background: var(--color-bg-primary);
+  background: #FFFFFF;
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-  padding: 22px 18px;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   text-decoration: none;
   color: inherit;
+  box-shadow: 0 4px 16px rgba(26, 13, 7, 0.05);
 }
 
 .delivery-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--color-desert);
-  box-shadow: 0 12px 28px rgba(166, 96, 27, 0.1);
+  box-shadow: 0 14px 32px rgba(166, 96, 27, 0.15);
 }
 
-.delivery-card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(166, 96, 27, 0.08);
+.delivery-card-image-box {
+  width: 100%;
+  height: 145px;
+  position: relative;
+  overflow: hidden;
+  background: var(--brown-100);
+}
+
+.delivery-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.delivery-card:hover .delivery-card-img {
+  transform: scale(1.08);
+}
+
+.delivery-card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(26, 13, 7, 0.78);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.2px;
+}
+
+.delivery-card-body {
+  padding: 16px 14px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  margin-bottom: 12px;
+  flex-direction: column;
+  flex: 1;
 }
 
 .delivery-card-title {
   font-family: var(--font-heading);
-  font-size: 1.12rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 800;
   margin-bottom: 6px;
-  color: var(--color-text-primary);
+  color: var(--color-text-main);
+  line-height: 1.25;
 }
 
 .delivery-card-desc {
   font-size: 0.84rem;
   color: var(--color-text-muted);
-  line-height: 1.4;
-  margin-bottom: 12px;
+  line-height: 1.45;
+  margin-bottom: 14px;
+  flex: 1;
 }
 
 .delivery-card-link {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--color-desert);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  margin-top: auto;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.delivery-card:hover .delivery-card-link {
+  gap: 9px;
+  color: var(--color-desert-dark);
 }
 
