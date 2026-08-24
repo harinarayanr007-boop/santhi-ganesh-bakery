@@ -1495,7 +1495,8 @@ html[lang="ta"] .hero-title {
     height: auto;
     min-height: auto;
     max-height: none;
-    padding: 32px 24px;
+    padding: 40px 24px;
+    border-radius: 28px;
   }
 
   .testimonial-left-col {
@@ -1505,32 +1506,66 @@ html[lang="ta"] .hero-title {
     align-items: center;
   }
 
+  .testimonial-cta-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .testimonial-right-col {
     padding: 0;
-    height: 420px;
-    margin-top: 24px;
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    margin-top: 28px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+
+  .vertical-track-down {
+    display: none !important;
+  }
+
+  .vertical-track {
+    width: 100% !important;
+  }
+
+  .v-testimonial-card {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 22px 20px;
+    border-radius: 20px;
+  }
+
+  .v-testimonial-quote {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-top: 10px;
+    margin-bottom: 16px;
   }
 }
 
 @media (max-width: 640px) {
   .testimonial-container-card {
-    padding: 24px 16px;
+    padding: 32px 18px;
+    border-radius: 24px;
   }
 
   .testimonial-right-col {
     height: 360px;
-  }
-
-  .vertical-track-down {
-    display: none;
+    margin-top: 24px;
   }
 
   .v-testimonial-card {
-    padding: 18px 16px;
+    padding: 20px 16px;
+    border-radius: 18px;
   }
 
   .v-testimonial-quote {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
     margin-top: 8px;
     margin-bottom: 12px;
   }
