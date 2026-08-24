@@ -727,6 +727,17 @@
       transform: translateY(0) scale(0.985);
     }
 
+    /* Automatically hide floating cart bar & AI chatbot when mobile keyboard is open / searching */
+    body.search-typing .floating-cart-bar,
+    body:has(#menu-search-input:focus) .floating-cart-bar,
+    body.search-typing .bakery-chat-widget,
+    body:has(#menu-search-input:focus) .bakery-chat-widget {
+      transform: translateY(180%) !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
     .cart-bar-main-row {
       display: flex;
       align-items: center;
@@ -2375,7 +2386,7 @@
       <section class="search-filter-wrapper">
         <div class="search-box" id="menu-search-box">
           <i class="ph ph-magnifying-glass"></i>
-          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)" onfocus="document.body.classList.add('search-typing'); scrollToSearchBar();" onblur="setTimeout(() => document.body.classList.remove('search-typing'), 150);">
           <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
         </div>
       </section>
@@ -3212,10 +3223,29 @@
       });
     }
 
+    function scrollToSearchBar() {
+      const controls = document.getElementById('sticky-menu-controls');
+      if (controls) {
+        const topNavHeight = 46;
+        const rect = controls.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - topNavHeight;
+        if (Math.abs(scrollTop - targetY) > 6) {
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+
     function handleMenuSearch(val) {
       searchQuery = val;
       const clearBtn = document.getElementById('search-clear-btn');
       if (clearBtn) clearBtn.style.display = val.trim() ? 'block' : 'none';
+      if (val.trim()) {
+        scrollToSearchBar();
+      }
       renderMenu();
     }
 
