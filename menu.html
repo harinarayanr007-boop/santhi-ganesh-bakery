@@ -241,15 +241,26 @@
     }
 
     .nav-icon-btn.nav-ai-btn {
-      background: linear-gradient(135deg, rgba(166, 96, 27, 0.1) 0%, rgba(245, 166, 35, 0.16) 100%);
-      border-color: rgba(166, 96, 27, 0.3);
+      background: linear-gradient(135deg, #FFF8F0 0%, #FEF0E1 100%);
+      border-color: rgba(217, 148, 62, 0.4);
+      box-shadow: 0 2px 8px rgba(166, 96, 27, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      position: relative;
+    }
+    .nav-icon-btn.nav-ai-btn i {
+      color: #E58E26 !important;
+      filter: drop-shadow(0 1px 2px rgba(229, 142, 38, 0.35));
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
     }
     .nav-icon-btn.nav-ai-btn:hover {
-      background: #8B4513;
+      background: linear-gradient(135deg, #8B4513 0%, #6E320A 100%);
       border-color: #8B4513;
+      transform: scale(1.08) translateY(-1px);
+      box-shadow: 0 6px 18px rgba(166, 96, 27, 0.3);
     }
     .nav-icon-btn.nav-ai-btn:hover i {
-      color: #FFE082 !important;
+      color: #FFD54F !important;
+      filter: drop-shadow(0 0 6px rgba(255, 213, 79, 0.8));
+      transform: scale(1.18) rotate(12deg);
     }
 
     /* Delivery Info Banner Hero */
@@ -2447,7 +2458,8 @@
           <i class="ph ph-translate"></i> <span id="menu-lang-label">தமிழ்</span>
         </button>
         <button class="nav-icon-btn nav-ai-btn" onclick="toggleBakeryChat()" title="Ask Bakery AI" aria-label="Ask Bakery AI">
-          <i class="ph ph-sparkle" style="color: #F5A623;"></i>
+          <i class="ph-fill ph-sparkle ai-sparkle-icon"></i>
+          <span class="ai-live-pulse"></span>
         </button>
         <a href="tel:+917339073844" class="nav-icon-btn" title="Call Store">
           <i class="ph ph-phone"></i>
