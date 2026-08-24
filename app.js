@@ -892,7 +892,7 @@ function promptWhatsAppCustomerName(onComplete) {
 
         <div style="margin-bottom: 20px;">
           <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text-main);">${labelText}</label>
-          <input type="text" id="whatsapp-cust-name-input" placeholder="${placeholderText}" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px;">
+          <input type="text" id="whatsapp-cust-name-input" placeholder="${placeholderText}" inputmode="text" enterkeyhint="done" autocomplete="name" style="width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 16px; -webkit-user-select: text; user-select: text;">
         </div>
 
         <div style="display: flex; gap: 10px;">
@@ -907,7 +907,12 @@ function promptWhatsAppCustomerName(onComplete) {
   const savedName = localStorage.getItem('sg_customer_name') || '';
   const inputEl = document.getElementById('whatsapp-cust-name-input');
   const skipBtn = document.getElementById('whatsapp-skip-btn');
-  if (inputEl) inputEl.value = savedName;
+  if (inputEl) {
+    inputEl.value = savedName;
+    setTimeout(() => {
+      inputEl.focus();
+    }, 150);
+  }
 
   window._pendingWhatsAppCallback = onComplete;
   modalOverlay.classList.add('active');
@@ -1428,7 +1433,7 @@ function initBakeryChatWidget() {
         <!-- Footer Input -->
         <form class="chat-footer-input" onsubmit="event.preventDefault(); sendChatMessage();">
           <div class="chat-input-wrapper">
-            <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off">
+            <input type="text" id="chat-user-input" class="chat-input-field" placeholder="Ask in English or தமிழ்..." autocomplete="off" inputmode="text" enterkeyhint="send">
             <button type="submit" class="chat-send-btn" aria-label="Send Message">
               <i class="ph ph-paper-plane-right"></i>
             </button>
@@ -1438,18 +1443,13 @@ function initBakeryChatWidget() {
     `;
     document.body.appendChild(widget);
 
-    // Setup visual viewport listeners for modern mobile keyboards
-    if (window.visualViewport) {
-      const updateMobileChatViewport = () => {
-        const modal = document.getElementById('chat-modal-window');
-        if (modal && isBakeryChatOpen && window.innerWidth <= 768) {
-          modal.style.height = `${window.visualViewport.height}px`;
-          modal.style.top = `${window.visualViewport.offsetTop}px`;
-          scrollChatMessagesToBottom();
-        }
-      };
-      window.visualViewport.addEventListener('resize', updateMobileChatViewport);
-      window.visualViewport.addEventListener('scroll', updateMobileChatViewport);
+    // Setup tap handler on mobile input for reliable keyboard triggering
+    const chatInput = document.getElementById('chat-user-input');
+    if (chatInput) {
+      chatInput.addEventListener('click', () => chatInput.focus());
+      chatInput.addEventListener('touchend', () => {
+        setTimeout(() => chatInput.focus(), 50);
+      });
     }
   }
 }
@@ -1462,24 +1462,16 @@ window.toggleBakeryChat = function() {
     document.body.classList.toggle('chat-modal-open', isBakeryChatOpen);
 
     if (isBakeryChatOpen) {
-      if (window.innerWidth <= 768 && window.visualViewport) {
-        modal.style.height = `${window.visualViewport.height}px`;
-        modal.style.top = `${window.visualViewport.offsetTop}px`;
-      } else {
-        modal.style.height = '';
-        modal.style.top = '';
-      }
       scrollChatMessagesToBottom();
       
-      // Auto-focus only on desktop screens so mobile keyboard doesn't violently obscure the greeting
-      if (window.innerWidth > 768) {
-        setTimeout(() => {
-          document.getElementById('chat-user-input')?.focus();
-        }, 180);
-      }
+      // Auto-focus input immediately so keyboard triggers seamlessly
+      setTimeout(() => {
+        const input = document.getElementById('chat-user-input');
+        if (input) {
+          input.focus();
+        }
+      }, 150);
     } else {
-      modal.style.height = '';
-      modal.style.top = '';
       document.getElementById('chat-user-input')?.blur();
     }
   }

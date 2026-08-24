@@ -3143,6 +3143,10 @@ body.chat-modal-open {
   color: #1A0D07;
   min-height: 42px;
   box-sizing: border-box;
+  -webkit-user-select: text;
+  user-select: text;
+  pointer-events: auto !important;
+  touch-action: manipulation;
 }
 
 .chat-input-field:focus {
