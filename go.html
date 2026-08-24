@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Santhi Ganesh Bakery</title>
+  <script>
+    // Instant seamless redirect (0ms delay)
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var to = params.get('to') || params.get('r') || params.get('target');
+      
+      var targets = {
+        'menu': '/menu',
+        'delivery': '/menu',
+        'cakes': '/cakes',
+        'catalog': '/cakes',
+        'wholesale': '/wholesale',
+        'b2b': '/wholesale',
+        'whatsapp': 'https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20scanned%20your%20QR%20code!',
+        'review': 'https://maps.app.goo.gl/uX38UuQ9aFqF3c1s8',
+        'contact': '/contact'
+      };
+
+      var destination = (to && targets[to.toLowerCase()]) ? targets[to.toLowerCase()] : '/menu';
+      window.location.replace(destination);
+    })();
+  </script>
+</head>
+<body style="margin:0; background:#F6EFE8;"></body>
+</html>

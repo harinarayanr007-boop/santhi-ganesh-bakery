@@ -6,7 +6,9 @@
     { "source": "/products", "destination": "/cakes", "permanent": true },
     { "source": "/products.html", "destination": "/cakes", "permanent": true },
     { "source": "/b2b", "destination": "/wholesale", "permanent": true },
-    { "source": "/b2b.html", "destination": "/wholesale", "permanent": true }
+    { "source": "/b2b.html", "destination": "/wholesale", "permanent": true },
+    { "source": "/scan", "destination": "/menu", "permanent": false },
+    { "source": "/qr-order", "destination": "/menu", "permanent": false }
   ],
   "rewrites": [
     { "source": "/cakes/:category/:id", "destination": "/product-detail.html?cat=:category&id=:id" },
@@ -18,6 +20,8 @@
     { "source": "/order", "destination": "/menu.html" },
     { "source": "/order-online", "destination": "/menu.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/careers", "destination": "/careers.html" }
+    { "source": "/careers", "destination": "/careers.html" },
+    { "source": "/go", "destination": "/go.html" },
+    { "source": "/qr", "destination": "/qr.html" }
   ]
 }
