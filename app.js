@@ -314,7 +314,55 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderFullProductsGrid();
   updateCartUI();
   setupEventListeners();
+  initIndustryPillRotator();
 });
+
+// Dynamic Industry Pill Ramp-Up Rotator (Figma Node 304:1272 & 313:6)
+function initIndustryPillRotator() {
+  const wrapper = document.getElementById('hero-cycler-wrapper');
+  if (!wrapper) return;
+  const pills = Array.from(wrapper.querySelectorAll('.hero-cycler-pill'));
+  if (pills.length < 2) return;
+
+  let currentIndex = 0;
+
+  function updateWrapperSize(targetPill) {
+    if (!targetPill) return;
+    const pillWidth = targetPill.offsetWidth;
+    if (pillWidth > 0) {
+      wrapper.style.width = `${pillWidth}px`;
+    }
+  }
+
+  // Initial sizing after brief layout render
+  setTimeout(() => {
+    updateWrapperSize(pills[0]);
+  }, 100);
+
+  setInterval(() => {
+    const prevPill = pills[currentIndex];
+    currentIndex = (currentIndex + 1) % pills.length;
+    const nextPill = pills[currentIndex];
+
+    prevPill.classList.remove('active');
+    prevPill.classList.add('exiting');
+
+    setTimeout(() => {
+      prevPill.classList.remove('exiting');
+    }, 550);
+
+    nextPill.classList.add('active');
+    updateWrapperSize(nextPill);
+  }, 2400);
+
+  // Auto resize on viewport changes or language toggle
+  window.addEventListener('resize', () => {
+    updateWrapperSize(pills[currentIndex]);
+  });
+  window.addEventListener('languageChanged', () => {
+    setTimeout(() => updateWrapperSize(pills[currentIndex]), 80);
+  });
+}
 
 // 3. RENDER HOME PAGE PREVIEW GRID (First 8 Items)
 function renderHomePreviewGrid() {

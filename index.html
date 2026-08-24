@@ -65,10 +65,10 @@
   }
   </script>
   
-  <!-- Google Fonts: Aboreto & Lora -->
+  <!-- Google Fonts: Aboreto, Lora & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Website Favicon & PWA Manifest -->
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
@@ -202,7 +202,42 @@
         </div>
 
         <p class="text-tagline hero-tagline" data-i18n="hero_tagline">Tirunelveli's Favorite Bakery</p>
-        <h1 class="hero-title" data-i18n="hero_title">Handcrafted Cakes & Fresh Daily Bakes</h1>
+        
+        <!-- Figma Node 304:1272 & 313:6 Animated Dynamic Industry Header -->
+        <h1 class="hero-title hero-title-figma">
+          <span class="hero-title-top" data-i18n="hero_title_line_1">FRESH BREAD & BAKES</span>
+          <span class="hero-title-bottom">
+            <span class="hero-kw-for" data-i18n="hero_for_word">FOR</span>
+            <span class="hero-cycler-wrapper" id="hero-cycler-wrapper" aria-label="Target Industries">
+              <span class="hero-cycler-pill pill-gifting active" data-pill-index="0">
+                <span class="pill-icon-circle"><i class="ph-bold ph-gift"></i></span>
+                <span class="pill-text" data-i18n="pill_gifting">Gifting</span>
+              </span>
+              <span class="hero-cycler-pill pill-schools" data-pill-index="1">
+                <span class="pill-icon-circle"><i class="ph-bold ph-graduation-cap"></i></span>
+                <span class="pill-text" data-i18n="pill_schools">Schools</span>
+              </span>
+              <span class="hero-cycler-pill pill-retailers" data-pill-index="2">
+                <span class="pill-icon-circle"><i class="ph-bold ph-storefront"></i></span>
+                <span class="pill-text" data-i18n="pill_retailers">Retailers</span>
+              </span>
+              <span class="hero-cycler-pill pill-cafe" data-pill-index="3">
+                <span class="pill-icon-circle"><i class="ph-bold ph-coffee"></i></span>
+                <span class="pill-text" data-i18n="pill_cafe">Cafe</span>
+              </span>
+              <span class="hero-cycler-pill pill-events" data-pill-index="4">
+                <span class="pill-icon-circle"><i class="ph-bold ph-sparkle"></i></span>
+                <span class="pill-text" data-i18n="pill_events">Events</span>
+              </span>
+              <span class="hero-cycler-pill pill-fitness" data-pill-index="5">
+                <span class="pill-icon-circle"><i class="ph-bold ph-barbell"></i></span>
+                <span class="pill-text" data-i18n="pill_fitness">Fitness</span>
+              </span>
+            </span>
+            <span class="hero-kw-in" data-i18n="hero_in_word">IN</span>
+            <span class="hero-kw-city" data-i18n="hero_city_word">TIRUNELVELI</span>
+          </span>
+        </h1>
         <p class="hero-subtitle" data-i18n="hero_sub">
           Baked fresh before dawn across our local Tirunelveli branches using pure butter, rich chocolate, and natural ingredients.
         </p>
