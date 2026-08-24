@@ -510,13 +510,49 @@
   <!-- MAIN B2B CONTENT -->
   <main>
     
-    <!-- 2. HERO SECTION -->
+    <!-- 2. HERO SECTION (FIGMA NODE 304:1272 & 313:6) -->
     <section class="section-padding" style="padding-top: 48px; padding-bottom: 32px;">
       <div class="container" style="text-align: center;">
         
-        <div class="b2b-top-eyebrow">Wholesale</div>
-        <h1 class="b2b-main-headline">Supply For Every Shop</h1>
-        <p class="b2b-main-subtext">Fresh bread and bakes for businesses across Tirunelveli.</p>
+        <div class="b2b-top-eyebrow" data-i18n="nav_b2b">Wholesale B2B Supply</div>
+        
+        <!-- Figma Node 304:1272 & 313:6 Animated Dynamic Industry Header -->
+        <h1 class="hero-title hero-title-figma">
+          <span class="hero-title-top" data-i18n="hero_title_line_1">FRESH BREAD & BAKES</span>
+          <span class="hero-title-bottom">
+            <span class="hero-kw-for" data-i18n="hero_for_word">FOR</span>
+            <span class="hero-cycler-wrapper" id="hero-cycler-wrapper" aria-label="Target Industries">
+              <span class="hero-cycler-pill pill-gifting active" data-pill-index="0">
+                <span class="pill-icon-circle"><i class="ph-bold ph-gift"></i></span>
+                <span class="pill-text" data-i18n="pill_gifting">Gifting</span>
+              </span>
+              <span class="hero-cycler-pill pill-schools" data-pill-index="1">
+                <span class="pill-icon-circle"><i class="ph-bold ph-graduation-cap"></i></span>
+                <span class="pill-text" data-i18n="pill_schools">Schools</span>
+              </span>
+              <span class="hero-cycler-pill pill-retailers" data-pill-index="2">
+                <span class="pill-icon-circle"><i class="ph-bold ph-storefront"></i></span>
+                <span class="pill-text" data-i18n="pill_retailers">Retailers</span>
+              </span>
+              <span class="hero-cycler-pill pill-cafe" data-pill-index="3">
+                <span class="pill-icon-circle"><i class="ph-bold ph-coffee"></i></span>
+                <span class="pill-text" data-i18n="pill_cafe">Cafe</span>
+              </span>
+              <span class="hero-cycler-pill pill-events" data-pill-index="4">
+                <span class="pill-icon-circle"><i class="ph-bold ph-sparkle"></i></span>
+                <span class="pill-text" data-i18n="pill_events">Events</span>
+              </span>
+              <span class="hero-cycler-pill pill-fitness" data-pill-index="5">
+                <span class="pill-icon-circle"><i class="ph-bold ph-barbell"></i></span>
+                <span class="pill-text" data-i18n="pill_fitness">Fitness</span>
+              </span>
+            </span>
+            <span class="hero-kw-in" data-i18n="hero_in_word">IN</span>
+            <span class="hero-kw-city" data-i18n="hero_city_word">TIRUNELVELI</span>
+          </span>
+        </h1>
+
+        <p class="b2b-main-subtext">Direct daily oven-fresh dispatch at 5:30 AM with guaranteed replacement on unsold fresh loaves across Tirunelveli district.</p>
 
         <!-- Single Primary Top CTA -->
         <div>
@@ -973,19 +1009,14 @@
   <script src="./app.js"></script>
   
   <script>
-    // Notion-style Hero Word Rotator
-    const rotKeywords = ["Your Business", "Kirana Stores", "Supermarkets", "Canteens", "Hotels & Cafes", "Event Caterers"];
-    let rotIdx = 0;
-    setInterval(() => {
-      const el = document.getElementById('rotator-word');
-      if (!el) return;
-      el.style.opacity = '0';
-      setTimeout(() => {
-        rotIdx = (rotIdx + 1) % rotKeywords.length;
-        el.textContent = rotKeywords[rotIdx];
-        el.style.opacity = '1';
-      }, 250);
-    }, 2500);
+    // Initialize Figma Industry Pill Rotator
+    if (typeof initIndustryPillRotator === 'function') {
+      initIndustryPillRotator();
+    } else {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof initIndustryPillRotator === 'function') initIndustryPillRotator();
+      });
+    }
 
     function toggleB2BFaq(itemEl) {
       if (!itemEl) return;
