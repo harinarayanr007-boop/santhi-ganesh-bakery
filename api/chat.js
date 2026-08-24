@@ -167,12 +167,13 @@ export default async function handler(req, res) {
         }
       };
 
-      // Cheapest and lightest models first
+      // High-quota free tier models first (500 to 14,400 Requests Per Day)
       const fastModels = [
-        'gemini-flash-lite-latest',
         'gemini-3.5-flash-lite',
-        'gemini-flash-latest',
-        'gemini-2.0-flash'
+        'gemini-2.5-flash-lite',
+        'gemini-flash-lite-latest',
+        'gemini-2.0-flash',
+        'gemini-flash-latest'
       ];
 
       for (const model of fastModels) {
