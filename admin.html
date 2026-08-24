@@ -17,8 +17,68 @@
   
   <link rel="stylesheet" href="./index.css">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
   
   <style>
+    .qr-admin-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .qr-admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .qr-preset-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .qr-preset-pill {
+      background: rgba(10, 4, 4, 0.05);
+      border: 1.5px solid transparent;
+      border-radius: 8px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0A0404;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .qr-preset-pill:hover {
+      background: #FFFFFF;
+      border-color: #A6601B;
+    }
+    .qr-preset-pill.active {
+      background: #A6601B;
+      color: #FFFFFF;
+      border-color: #8B4513;
+    }
+    .qr-preview-box {
+      background: #FFFFFF;
+      border: 2px solid #A6601B;
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(166, 96, 27, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #admin-qr-canvas-container {
+      background: #FFFFFF;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 16px 0;
+    }
     body {
       background-color: #F6EFE8;
       color: #0A0404;
@@ -901,6 +961,7 @@
       <div class="admin-tabs">
         <button class="admin-tab-btn active" onclick="switchTab('cakes', this)"><i class="ph ph-cake"></i> Cakes & Pricing</button>
         <button class="admin-tab-btn" onclick="switchTab('cafe', this)"><i class="ph ph-fork-knife"></i> In-Store Cafe Menu</button>
+        <button class="admin-tab-btn" onclick="switchTab('qr', this)"><i class="ph ph-qr-code"></i> QR Standees</button>
         <button class="admin-tab-btn" onclick="switchTab('jobs', this)"><i class="ph ph-briefcase"></i> Job Openings</button>
         <button class="admin-tab-btn" onclick="switchTab('b2b', this)"><i class="ph ph-buildings"></i> B2B Wholesale Leads</button>
         <button class="admin-tab-btn" onclick="switchTab('backup', this)"><i class="ph ph-gear"></i> Settings & Backup</button>
@@ -1306,6 +1367,93 @@
               <tr><td colspan="8" style="text-align: center; color: #666; padding: 24px;">Loading cafe menu items from Supabase...</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- TAB 7: QR CODE & STANDS GENERATOR -->
+      <div id="tab-qr" class="tab-content" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2>QR Code Generator & Tabletop Standees</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 2px;">
+              Generate high-resolution branded QR codes for counter stands, cake boxes, table tents, and delivery stickers.
+            </p>
+          </div>
+        </div>
+
+        <div class="qr-admin-grid">
+          <!-- Controls Column -->
+          <div style="background-color: #EDDFD1; padding: 24px; border-radius: 12px; border: 1px solid rgba(10, 4, 4, 0.12);">
+            <h3 style="font-size: 1.1rem; margin-bottom: 14px; font-family: 'Aboreto';">1. Select Preset Destination</h3>
+            
+            <div class="qr-preset-pill-grid">
+              <button type="button" class="qr-preset-pill active" onclick="selectAdminQRPreset('dynamic', 'https://santhiganeshbakery.in/scan', 'Scan to Order', 'Fast Doorstep Food & Cake Delivery', this)">
+                <i class="ph ph-lightning" style="font-size: 1.3rem;"></i>
+                <span>Dynamic Short Link</span>
+              </button>
+              <button type="button" class="qr-preset-pill" onclick="selectAdminQRPreset('menu', 'https://santhiganeshbakery.in/menu', 'Doorstep Food Menu', 'Puffs, Juices, Burgers & Bakes', this)">
+                <i class="ph ph-moped" style="font-size: 1.3rem;"></i>
+                <span>Delivery Menu</span>
+              </button>
+              <button type="button" class="qr-preset-pill" onclick="selectAdminQRPreset('cakes', 'https://santhiganeshbakery.in/cakes', 'Celebration Cakes', 'Birthday & Wedding Cake Catalog', this)">
+                <i class="ph ph-cake" style="font-size: 1.3rem;"></i>
+                <span>Cake Catalog</span>
+              </button>
+              <button type="button" class="qr-preset-pill" onclick="selectAdminQRPreset('review', 'https://maps.app.goo.gl/uX38UuQ9aFqF3c1s8', 'Rate Us on Google', 'Share Your 5-Star Sweet Experience', this)">
+                <i class="ph ph-star" style="font-size: 1.3rem;"></i>
+                <span>Google Review</span>
+              </button>
+              <button type="button" class="qr-preset-pill" onclick="selectAdminQRPreset('whatsapp', 'https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20scanned%20your%20QR%20code!', 'Chat on WhatsApp', 'Instant Orders & Customer Support', this)">
+                <i class="ph ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
+                <span>WhatsApp Order</span>
+              </button>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label style="font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 6px;">Target URL (Customizable):</label>
+              <input type="text" id="admin-qr-url" class="form-control" value="https://santhiganeshbakery.in/scan" oninput="updateAdminQR()" style="background: #FFFFFF;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label style="font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 6px;">Standee Header Title:</label>
+              <input type="text" id="admin-qr-title" class="form-control" value="Scan to Order" oninput="updateAdminQRText()" style="background: #FFFFFF;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label style="font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 6px;">Standee Subtitle:</label>
+              <input type="text" id="admin-qr-sub" class="form-control" value="Fast Doorstep Food & Cake Delivery" oninput="updateAdminQRText()" style="background: #FFFFFF;">
+            </div>
+
+            <div style="background: rgba(166, 96, 27, 0.12); padding: 12px; border-radius: 8px; border-left: 3px solid #A6601B; margin-top: 16px;">
+              <p style="font-size: 0.82rem; color: #8B4513; margin: 0; line-height: 1.4;">
+                💡 <strong>Dynamic Redirect Tip:</strong> The <code>santhiganeshbakery.in/scan</code> link is already set up on your Vercel server to forward to your Delivery Menu. You can print this QR on physical cake boxes and acrylic stands without ever having to reprint when changing menus!
+              </p>
+            </div>
+          </div>
+
+          <!-- Preview & Action Column -->
+          <div>
+            <div class="qr-preview-box" id="admin-standee-card">
+              <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 44px; margin-bottom: 8px;">
+              <h3 id="admin-preview-title" style="font-family: 'Aboreto'; font-size: 1.3rem; margin-bottom: 2px; color: #0A0404;">Scan to Order</h3>
+              <p id="admin-preview-sub" style="font-size: 0.82rem; color: #666; margin-bottom: 12px;">Fast Doorstep Food & Cake Delivery</p>
+              
+              <div id="admin-qr-canvas-container"></div>
+              
+              <div style="background: rgba(166, 96, 27, 0.12); color: #8B4513; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                <i class="ph ph-camera"></i> Point Camera to Open
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 18px;">
+              <button type="button" onclick="downloadAdminQR()" class="btn btn-primary" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <i class="ph ph-download-simple"></i> Download QR (PNG)
+              </button>
+              <button type="button" onclick="printAdminStandee()" class="btn btn-secondary" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <i class="ph ph-printer"></i> Print Standee
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1752,9 +1900,139 @@
         initPrintStudio();
       }
 
+      if (tabName === 'qr') {
+        setTimeout(initAdminQR, 50);
+      }
+
       if ((tabName === 'tracking' || tabName === 'b2b') && typeof loadTrackingAnalytics === 'function') {
         loadTrackingAnalytics();
       }
+    }
+
+    // ==========================================================================
+    // ADMIN QR CODE GENERATOR & TABLETOP STANDEE LOGIC
+    // ==========================================================================
+    let adminQRCode = null;
+
+    function initAdminQR() {
+      const container = document.getElementById("admin-qr-canvas-container");
+      if (!container) return;
+
+      const targetUrl = (document.getElementById('admin-qr-url') && document.getElementById('admin-qr-url').value) 
+        ? document.getElementById('admin-qr-url').value 
+        : 'https://santhiganeshbakery.in/scan';
+
+      if (typeof QRCodeStyling === 'undefined') {
+        console.warn('QRCodeStyling library loading...');
+        return;
+      }
+
+      adminQRCode = new QRCodeStyling({
+        width: 200,
+        height: 200,
+        type: "canvas",
+        data: targetUrl,
+        image: "./sg-bakery-logo.png",
+        dotsOptions: {
+          color: "#1A0D07",
+          type: "rounded"
+        },
+        backgroundOptions: {
+          color: "#FFFFFF",
+        },
+        imageOptions: {
+          crossOrigin: "anonymous",
+          margin: 4,
+          imageSize: 0.35
+        },
+        cornersSquareOptions: {
+          color: "#A6601B",
+          type: "extra-rounded"
+        },
+        cornersDotOptions: {
+          color: "#8B4513",
+          type: "dot"
+        }
+      });
+
+      container.innerHTML = "";
+      adminQRCode.append(container);
+    }
+
+    function selectAdminQRPreset(type, url, title, sub, btn) {
+      document.querySelectorAll('.qr-preset-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.getElementById('admin-qr-url').value = url;
+      document.getElementById('admin-qr-title').value = title;
+      document.getElementById('admin-qr-sub').value = sub;
+
+      document.getElementById('admin-preview-title').textContent = title;
+      document.getElementById('admin-preview-sub').textContent = sub;
+
+      if (!adminQRCode) {
+        initAdminQR();
+      } else {
+        adminQRCode.update({ data: url });
+      }
+    }
+
+    function updateAdminQR() {
+      const url = document.getElementById('admin-qr-url').value;
+      if (!adminQRCode) {
+        initAdminQR();
+      } else if (url) {
+        adminQRCode.update({ data: url });
+      }
+    }
+
+    function updateAdminQRText() {
+      document.getElementById('admin-preview-title').textContent = document.getElementById('admin-qr-title').value;
+      document.getElementById('admin-preview-sub').textContent = document.getElementById('admin-qr-sub').value;
+    }
+
+    function downloadAdminQR() {
+      if (!adminQRCode) initAdminQR();
+      if (adminQRCode) {
+        adminQRCode.download({ name: "santhi-ganesh-bakery-qr", extension: "png" });
+      }
+    }
+
+    function printAdminStandee() {
+      const printWindow = window.open('', '_blank');
+      const title = document.getElementById('admin-qr-title').value;
+      const sub = document.getElementById('admin-qr-sub').value;
+      const canvas = document.querySelector('#admin-qr-canvas-container canvas');
+      const qrDataUrl = canvas ? canvas.toDataURL('image/png') : '';
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Print Standee - Santhi Ganesh Bakery</title>
+          <style>
+            @page { size: A6 portrait; margin: 10mm; }
+            body { font-family: 'Lora', Georgia, serif; text-align: center; padding: 20px; margin: 0; background: #FFF; color: #0A0404; }
+            .card { border: 2px solid #A6601B; border-radius: 16px; padding: 24px 16px; width: 85mm; margin: 0 auto; box-sizing: border-box; }
+            .logo { height: 48px; margin-bottom: 12px; }
+            h2 { font-family: 'Aboreto', sans-serif; font-size: 18px; margin: 0 0 4px 0; color: #0A0404; }
+            p { font-size: 11px; color: #555; margin: 0 0 16px 0; }
+            .qr { width: 160px; height: 160px; margin: 0 auto 16px auto; display: block; }
+            .pill { background: #F6EFE8; color: #8B4513; padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: bold; display: inline-block; }
+          </style>
+        </head>
+        <body onload="window.print()">
+          <div class="card">
+            <img src="./sg-bakery-logo.png" class="logo">
+            <h2>\${title}</h2>
+            <p>\${sub}</p>
+            <img src="\${qrDataUrl}" class="qr">
+            <div class="pill">📷 Point Camera to Open</div>
+          </div>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
     // Load Products and Jobs into Admin Tables with robust error handling
