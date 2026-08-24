@@ -421,33 +421,191 @@
       }
     }
 
+    /* Elite B2B Sample Request Form */
     .b2b-form-card {
-      background: var(--color-bg-secondary);
-      border-radius: 28px;
-      padding: 44px;
-      border: 1px solid var(--color-border-subtle);
-      box-shadow: var(--shadow-card);
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: clamp(24px, 5vw, 44px);
+      border: 1.5px solid rgba(166, 96, 27, 0.18);
+      box-shadow: 0 16px 40px rgba(10, 4, 4, 0.05);
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Tablet & Mobile Breakpoints */
-    @media (min-width: 768px) and (max-width: 1024px) {
-      .asymmetric-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-      .b2b-card-tall { min-height: 330px; }
-      .b2b-card-med { min-height: 250px; }
-      .b2b-form-card { padding: 36px 28px; }
+    .b2b-form-top-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #A6601B 0%, #F5A623 50%, #A6601B 100%);
     }
 
-    @media (max-width: 767px) {
-      .asymmetric-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+    .b2b-form-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(46, 125, 50, 0.1);
+      color: #2E7D32;
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .b2b-form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    @media (min-width: 640px) {
+      .b2b-form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 18px;
       }
-      .b2b-style-card { padding: 28px 24px; }
-      .b2b-card-tall, .b2b-card-med { min-height: auto; }
-      .b2b-form-card { padding: 28px 20px; }
+      .b2b-grid-full {
+        grid-column: span 2;
+      }
+    }
+
+    .b2b-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .b2b-form-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1A120B;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .b2b-form-label .req-star {
+      color: #C94C4C;
+    }
+
+    .b2b-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .b2b-input-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 1.15rem;
+      color: #8B4513;
+      opacity: 0.7;
+      pointer-events: none;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .b2b-input-wrap:focus-within .b2b-input-icon {
+      opacity: 1;
+      color: #A6601B;
+    }
+
+    .b2b-input-field {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 14px 13px 42px;
+      font-size: 0.94rem;
+      font-family: inherit;
+      color: #1A120B;
+      background: #FAF8F5;
+      border: 1.5px solid rgba(166, 96, 27, 0.2);
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .b2b-input-field:focus {
+      background: #FFFFFF;
+      border-color: #8B4513;
+      box-shadow: 0 0 0 3.5px rgba(139, 69, 19, 0.12);
+      outline: none;
+    }
+
+    .b2b-input-field::placeholder {
+      color: #9E9E9E;
+      font-weight: 400;
+    }
+
+    select.b2b-input-field {
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B4513' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      cursor: pointer;
+    }
+
+    textarea.b2b-input-field {
+      padding-top: 12px;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .b2b-input-wrap.textarea-wrap .b2b-input-icon {
+      top: 14px;
+      transform: none;
+    }
+
+    .b2b-submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 28px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #8B4513 0%, #A6601B 100%);
+      color: #FFFFFF;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(139, 69, 19, 0.25);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 8px;
+    }
+
+    .b2b-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.35);
+      background: linear-gradient(135deg, #7A3C10 0%, #955416 100%);
+    }
+
+    .b2b-submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .b2b-form-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #666666;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .b2b-form-trust i {
+      color: #2E7D32;
+      font-size: 0.95rem;
     }
   </style>
 </head>
@@ -699,17 +857,19 @@
     </section>
 
     <!-- 5. B2B FORM SECTION (Primary Form Action: Request Free Sample Box) -->
-    <section id="b2b-form" class="section-padding">
-      <div class="container" style="max-width: 620px;">
+    <section id="b2b-form" class="section-padding" style="padding-top: 20px;">
+      <div class="container" style="max-width: 740px;">
         
-        <div class="b2b-form-card" style="padding: clamp(24px, 5vw, 44px);">
-          <div style="text-align: center; margin-bottom: 28px;">
-            <div style="width: 64px; height: 64px; background: rgba(166, 96, 27, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--color-desert); margin-bottom: 16px;">
-              <i class="ph ph-package" style="font-size: 2.2rem;"></i>
+        <div class="b2b-form-card">
+          <div class="b2b-form-top-accent"></div>
+          
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div class="b2b-form-badge">
+              <i class="ph-bold ph-package"></i> 100% Free Commercial Sample • No Obligation
             </div>
-            <h2 class="text-h2" style="font-size: 1.65rem;" data-i18n="b2b_form_title">Request Free Commercial Sample Box</h2>
-            <p class="text-regular" style="color: var(--color-text-muted); margin-top: 8px;" data-i18n="b2b_form_sub">
-              Enter your business details below to receive a free sample box delivered directly to your store or canteen in Tirunelveli.
+            <h2 class="text-h2" style="font-size: clamp(1.5rem, 3.5vw, 1.95rem); margin-bottom: 8px;" data-i18n="b2b_form_title">Request Free Commercial Sample Box</h2>
+            <p class="text-regular" style="color: var(--color-text-muted); max-width: 540px; margin: 0 auto; font-size: 0.92rem; line-height: 1.55;" data-i18n="b2b_form_sub">
+              Enter your business details below to receive a free bakery sample box delivered directly to your store, hotel, or canteen anywhere in Tirunelveli.
             </p>
           </div>
 
@@ -717,47 +877,80 @@
             <!-- Invisible Honeypot Trap Field -->
             <input type="text" id="b2b-honeypot-trap" name="website_url_check" tabindex="-1" autocomplete="off" style="position: absolute !important; opacity: 0 !important; left: -9999px !important; width: 0 !important; height: 0 !important; pointer-events: none !important;">
 
-            <!-- Field 1: Business Name -->
-            <div style="margin-bottom: 18px;">
-              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_biz_name">Business / Shop Name *</label>
-              <input type="text" id="b2b-biz-name" required placeholder="e.g. Nellai Supermarket" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
+            <div class="b2b-form-grid">
+              <!-- Field 1: Business Name -->
+              <div class="b2b-form-group">
+                <label class="b2b-form-label" for="b2b-biz-name">
+                  <span data-i18n="b2b_label_biz_name">Business / Shop Name</span> <span class="req-star">*</span>
+                </label>
+                <div class="b2b-input-wrap">
+                  <i class="ph ph-storefront b2b-input-icon"></i>
+                  <input type="text" id="b2b-biz-name" class="b2b-input-field" required placeholder="e.g. Nellai Supermarket / Tea Stall">
+                </div>
+              </div>
+
+              <!-- Field 2: Contact Person -->
+              <div class="b2b-form-group">
+                <label class="b2b-form-label" for="b2b-contact-person">
+                  <span data-i18n="b2b_label_contact_person">Contact Person Name</span> <span class="req-star">*</span>
+                </label>
+                <div class="b2b-input-wrap">
+                  <i class="ph ph-user b2b-input-icon"></i>
+                  <input type="text" id="b2b-contact-person" class="b2b-input-field" required placeholder="Your full name">
+                </div>
+              </div>
+
+              <!-- Field 3: Phone / WhatsApp Number -->
+              <div class="b2b-form-group">
+                <label class="b2b-form-label" for="b2b-phone">
+                  <span data-i18n="b2b_label_phone">Phone / WhatsApp Number</span> <span class="req-star">*</span>
+                </label>
+                <div class="b2b-input-wrap">
+                  <i class="ph ph-whatsapp-logo b2b-input-icon"></i>
+                  <input type="tel" id="b2b-phone" class="b2b-input-field" required placeholder="10-digit mobile number" maxlength="10" inputmode="numeric">
+                </div>
+              </div>
+
+              <!-- Field 4: Business Category -->
+              <div class="b2b-form-group">
+                <label class="b2b-form-label" for="b2b-biz-type">
+                  <span data-i18n="b2b_label_biz_type">Business Category</span> <span class="req-star">*</span>
+                </label>
+                <div class="b2b-input-wrap">
+                  <i class="ph ph-tag b2b-input-icon"></i>
+                  <select id="b2b-biz-type" class="b2b-input-field">
+                    <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
+                    <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
+                    <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
+                    <option value="Hotel / Restaurant" data-i18n="b2b_opt_hotel">Hotel / Restaurant</option>
+                    <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
+                    <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Field 5: Daily Requirement (Full Width) -->
+              <div class="b2b-form-group b2b-grid-full">
+                <label class="b2b-form-label" for="b2b-requirement">
+                  <span data-i18n="b2b_label_requirement">Estimated Daily Requirement</span> <span style="font-size: 0.72rem; color: #888; font-weight: normal;">(Optional)</span>
+                </label>
+                <div class="b2b-input-wrap textarea-wrap">
+                  <i class="ph ph-note-pencil b2b-input-icon"></i>
+                  <textarea id="b2b-requirement" class="b2b-input-field" rows="2" placeholder="e.g. 30 Sliced Bread Packets + 50 Sweet Buns daily"></textarea>
+                </div>
+              </div>
             </div>
 
-            <!-- Field 2: Contact Person -->
-            <div style="margin-bottom: 18px;">
-              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_contact_person">Contact Person Name *</label>
-              <input type="text" id="b2b-contact-person" required placeholder="Contact Person Name" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
-            </div>
-
-            <!-- Field 3: Phone / WhatsApp Number -->
-            <div style="margin-bottom: 18px;">
-              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_phone">Phone / WhatsApp Number *</label>
-              <input type="tel" id="b2b-phone" required placeholder="10-digit mobile number" maxlength="10" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md);">
-            </div>
-
-            <!-- Field 4: Business Category -->
-            <div style="margin-bottom: 18px;">
-              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_biz_type">Business Category *</label>
-              <select id="b2b-biz-type" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); background: #FFF;">
-                <option value="Kirana / Grocery Shop" data-i18n="b2b_opt_kirana">Kirana / Grocery Shop</option>
-                <option value="Supermarket / Retail Store" data-i18n="b2b_opt_supermarket">Supermarket / Retail Store</option>
-                <option value="University / College Canteen" data-i18n="b2b_opt_univ">University / College Canteen</option>
-                <option value="Hotel / Restaurant" data-i18n="b2b_opt_hotel">Hotel / Restaurant</option>
-                <option value="Event Caterer / Hall" data-i18n="b2b_opt_caterer">Event Caterer / Hall</option>
-                <option value="Other Business" data-i18n="b2b_opt_other">Other Business</option>
-              </select>
-            </div>
-
-            <!-- Field 5: Daily Requirement -->
-            <div style="margin-bottom: 24px;">
-              <label style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px;" data-i18n="b2b_label_requirement">Estimated Daily Requirement (Optional):</label>
-              <textarea id="b2b-requirement" rows="3" placeholder="e.g. 30 Bread Packets + 50 Tea Buns daily" style="width: 100%; box-sizing: border-box; padding: 14px; font-size: 0.98rem; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); font-family: inherit;"></textarea>
-            </div>
-
-            <!-- Single Primary Form CTA Button -->
-            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 16px; font-size: 1.1rem; border-radius: 16px;" data-i18n="b2b_btn_submit_sample">
-              <i class="ph ph-package" style="font-size: 1.3rem;"></i> Request Free Sample Box 📦
+            <!-- Submit CTA -->
+            <button type="submit" class="b2b-submit-btn" data-i18n="b2b_btn_submit_sample">
+              <i class="ph-bold ph-package"></i> Request Free Sample Box via WhatsApp ➔
             </button>
+
+            <!-- Trust Microcopy -->
+            <div class="b2b-form-trust">
+              <i class="ph-fill ph-shield-check"></i>
+              <span>Doorstep 5:30 AM delivery across Tirunelveli district • Zero sales pressure</span>
+            </div>
           </form>
         </div>
 
