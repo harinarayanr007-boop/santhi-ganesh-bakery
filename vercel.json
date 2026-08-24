@@ -9,6 +9,8 @@
     { "source": "/b2b.html", "destination": "/wholesale", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/cakes/:category/:id", "destination": "/product-detail.html?cat=:category&id=:id" },
+    { "source": "/cakes/:id", "destination": "/product-detail.html?id=:id" },
     { "source": "/cakes", "destination": "/cakes.html" },
     { "source": "/wholesale", "destination": "/wholesale.html" },
     { "source": "/menu", "destination": "/menu.html" },

@@ -490,11 +490,57 @@
       }
 
       const urlParams = new URLSearchParams(window.location.search);
-      const prodId = urlParams.get('id') || 'prod-1';
+      let prodId = urlParams.get('id');
+
+      // Check if product ID is in path format: /cakes/category/prod-1 or /cakes/prod-1
+      if (!prodId) {
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0) {
+          const lastPart = pathParts[pathParts.length - 1].replace(/\.html$/, '');
+          if (lastPart && lastPart !== 'cakes' && lastPart !== 'product-detail') {
+            prodId = lastPart;
+          }
+        }
+      }
+      if (!prodId) prodId = 'prod-1';
       
-      currentProduct = PRODUCTS_DATA.find(p => p.id === prodId) || PRODUCTS_DATA[0];
+      const allProducts = (typeof PRODUCTS_DATA !== 'undefined' && PRODUCTS_DATA.length) 
+        ? PRODUCTS_DATA 
+        : (typeof DEFAULT_PRODUCTS_DATA !== 'undefined' ? DEFAULT_PRODUCTS_DATA : []);
+
+      currentProduct = allProducts.find(p => p.id === prodId || p.id === decodeURIComponent(prodId)) || allProducts[0];
 
       if (currentProduct) {
+        // Dynamic Page Title for Google Search
+        document.title = `${currentProduct.title} | Santhi Ganesh Bakery Tirunelveli`;
+
+        // Dynamic Meta Description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement('meta');
+          metaDesc.name = 'description';
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = currentProduct.description || `Order delicious fresh ${currentProduct.title} online from Santhi Ganesh Bakery in Tirunelveli. Pure butter & natural ingredients.`;
+
+        // Dynamic Canonical URL
+        const catSlug = currentProduct.category || 'celebration-cakes';
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+          canonical = document.createElement('link');
+          canonical.rel = 'canonical';
+          document.head.appendChild(canonical);
+        }
+        canonical.href = `https://santhiganeshbakery.in/cakes/${catSlug}/${currentProduct.id}`;
+
+        // Keep Browser Address Bar clean as /cakes/category/prod-id
+        if (typeof history !== 'undefined' && history.replaceState) {
+          const targetUrl = `/cakes/${catSlug}/${currentProduct.id}`;
+          if (window.location.pathname !== targetUrl && !window.location.pathname.endsWith('.html')) {
+            window.history.replaceState({ id: currentProduct.id }, document.title, targetUrl);
+          }
+        }
+
         document.getElementById('detail-product-img').src = currentProduct.image;
         document.getElementById('detail-product-img').alt = currentProduct.title;
 
@@ -502,7 +548,13 @@
 
         document.getElementById('detail-title').textContent = currentProduct.title;
         document.getElementById('detail-title-crumb').textContent = currentProduct.title;
-        document.getElementById('detail-category-crumb').textContent = (currentProduct.category || '').toUpperCase();
+        
+        const categoryCrumb = document.getElementById('detail-category-crumb');
+        if (categoryCrumb) {
+          categoryCrumb.textContent = (currentProduct.category || '').toUpperCase().replace(/-/g, ' ');
+          categoryCrumb.href = `./cakes?cat=${currentProduct.category}`;
+        }
+
         document.getElementById('detail-price').textContent = `₹${currentProduct.price}`;
         document.getElementById('detail-desc').textContent = currentProduct.description;
 

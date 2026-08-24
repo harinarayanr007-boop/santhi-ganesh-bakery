@@ -475,16 +475,18 @@ function createProductCardHTML(product) {
 
   const safeTitle = typeof escapeHTML === 'function' ? escapeHTML(product.title) : product.title;
   const safeId = typeof escapeHTML === 'function' ? escapeHTML(product.id) : product.id;
+  const safeCat = product.category ? encodeURIComponent(product.category) : 'celebration-cakes';
+  const detailUrl = `./cakes/${safeCat}/${safeId}`;
   const safePrice = Number(product.price) || 0;
 
   return `
     <article class="product-card">
-      <a href="./product-detail.html?id=${safeId}" class="product-image-box" style="display: block; text-decoration: none;">
+      <a href="${detailUrl}" class="product-image-box" style="display: block; text-decoration: none;">
         <img src="${product.image}" alt="${safeTitle}" loading="lazy" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';" />
       </a>
       <div class="product-info">
         <h3 class="product-title">
-          <a href="./product-detail.html?id=${safeId}" style="color: inherit; text-decoration: none;">${safeTitle}</a>
+          <a href="${detailUrl}" style="color: inherit; text-decoration: none;">${safeTitle}</a>
         </h3>
         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
           <p class="product-weight">Weight: ${displayWeight}</p>
