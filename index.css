@@ -349,47 +349,130 @@ h3, .text-h3 {
 }
 
 
-.nav-links {
+/* ==========================================================================
+   CHUNKED NAVBAR ARCHITECTURE
+   ========================================================================== */
+.nav-center-chunk {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 2vw, 32px);
-  list-style: none;
-  flex-wrap: nowrap;
+  gap: 16px;
 }
 
-.nav-link {
-  font-size: 1.05rem !important;
-  font-weight: 700 !important;
-  color: var(--color-text-main);
-  transition: color var(--transition-fast);
-  white-space: nowrap;
+/* Chunk 1: Core Channels Segmented Island */
+.nav-pill-group {
+  display: flex;
+  align-items: center;
+  background: rgba(46, 23, 12, 0.05);
+  border: 1px solid rgba(46, 23, 12, 0.09);
+  border-radius: 50px;
+  padding: 4px 6px;
+  gap: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.nav-pill-item {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  padding: 7px 15px;
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.nav-link:hover {
+.nav-pill-item i {
+  font-size: 1.1rem;
   color: var(--color-desert);
+}
+
+.nav-pill-item:hover {
+  background: #FFFFFF;
+  color: var(--color-desert);
+  box-shadow: 0 2px 8px rgba(46, 23, 12, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-pill-item.active {
+  background: #FFFFFF;
+  color: var(--color-desert-dark);
+  box-shadow: 0 2px 6px rgba(46, 23, 12, 0.08);
+}
+
+/* Delivery Menu Pill Accent */
+.nav-pill-item.delivery-pill {
+  color: #A6601B;
+}
+
+.nav-pill-item.delivery-pill i {
+  color: #D95338;
+}
+
+.nav-pill-item.delivery-pill:hover {
+  background: #FFFFFF;
+  color: #D95338;
+}
+
+/* Chunk Vertical Divider */
+.nav-chunk-divider {
+  width: 1.5px;
+  height: 22px;
+  background: rgba(46, 23, 12, 0.14);
+  margin: 0 4px;
+}
+
+/* Chunk 2: Store Info Links */
+.nav-info-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-info-link {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  padding: 4px 6px;
+}
+
+.nav-info-link:hover {
+  color: var(--color-text-main);
+}
+
+.nav-info-link.active {
+  color: var(--color-desert);
+  font-weight: 700;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .nav-actions .btn,
 .nav-actions .nav-cta-btn,
 .nav-actions a.btn {
-  font-size: 0.95rem;
-  padding: 9px 20px;
-  height: 42px;
+  font-size: 0.9rem;
+  padding: 8px 18px;
+  height: 40px;
   border-bottom: 3px solid var(--color-desert-dark);
   border-radius: var(--radius-sm);
   line-height: 1;
   white-space: nowrap;
   font-weight: 700;
   box-shadow: 0 3px 10px rgba(166, 96, 27, 0.22);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-actions .btn:hover,
@@ -413,8 +496,8 @@ h3, .text-h3 {
   padding: 8px;
 }
 
-@media (max-width: 1080px) {
-  .nav-links {
+@media (max-width: 1120px) {
+  .nav-center-chunk {
     display: none;
   }
   .mobile-menu-toggle {

@@ -124,20 +124,33 @@
   <header class="navbar">
     <div class="container navbar-inner">
       <!-- Brand Logo -->
-      <a href="./index.html" class="brand-logo">
+      <a href="./" class="brand-logo">
         <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery - The Best Bakery Tirunelveli" class="brand-logo-img">
       </a>
 
-      <!-- Desktop Nav Links -->
-      <nav>
-        <ul class="nav-links">
-          <li><a href="./index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
-          <li><a href="./cakes" class="nav-link" data-i18n="nav_cakes">Celebration Cakes</a></li>
-          <li><a href="./menu.html" class="nav-link" data-i18n="nav_menu">Cafe & Delivery Menu</a></li>
-          <li><a href="./wholesale" class="nav-link" data-i18n="nav_b2b">B2B Wholesale</a></li>
-          <li><a href="./careers.html" class="nav-link active" style="color: var(--color-desert); font-weight: 600;" data-i18n="nav_careers">Careers</a></li>
-          <li><a href="./contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
-        </ul>
+      <!-- Desktop Chunked Navigation -->
+      <nav class="nav-center-chunk">
+        <!-- Chunk 1: Core Channels Segmented Island -->
+        <div class="nav-pill-group">
+          <a href="./cakes" class="nav-pill-item" data-i18n="nav_cakes">
+            <i class="ph ph-cake"></i> <span data-i18n="nav_cakes">Celebration Cakes</span>
+          </a>
+          <a href="./menu" class="nav-pill-item delivery-pill" data-i18n="nav_menu">
+            <i class="ph ph-moped"></i> <span data-i18n="nav_menu">Delivery Menu</span>
+          </a>
+          <a href="./wholesale" class="nav-pill-item" data-i18n="nav_b2b">
+            <i class="ph ph-truck"></i> <span data-i18n="nav_b2b">Wholesale B2B</span>
+          </a>
+        </div>
+
+        <!-- Vertical Chunk Divider -->
+        <div class="nav-chunk-divider"></div>
+
+        <!-- Chunk 2: Store Info Links -->
+        <div class="nav-info-group">
+          <a href="./contact" class="nav-info-link" data-i18n="nav_contact">Store Location</a>
+          <a href="./careers" class="nav-info-link active" data-i18n="nav_careers">Careers</a>
+        </div>
       </nav>
 
       <!-- Nav Actions -->
@@ -152,9 +165,11 @@
           <i class="ph ph-shopping-bag" style="font-size: 1.3rem;"></i>
           <span class="cart-badge cart-badge-count">0</span>
         </button>
-        <a href="./cakes" class="btn btn-primary" data-i18n="nav_explore">Order Now</a>
+        <a href="https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20would%20like%20to%20place%20an%20order!" target="_blank" class="btn btn-primary nav-cta-btn">
+          <i class="ph ph-whatsapp-logo" style="font-size: 1.2rem;"></i> <span data-i18n="nav_whatsapp">Order on WhatsApp</span>
+        </a>
         <button id="mobile-menu-toggle-btn" class="mobile-menu-toggle" aria-label="Toggle Menu">
-          ☰
+          <i class="ph ph-list" style="font-size: 1.5rem;"></i>
         </button>
       </div>
     </div>
@@ -165,19 +180,38 @@
   <aside id="mobile-drawer" class="mobile-drawer">
     <div>
       <div class="mobile-drawer-header">
-        <a href="./index.html" class="brand-logo">
+        <a href="./" class="brand-logo">
           <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 52px;">
         </a>
         <button id="close-drawer-btn" style="font-size: 1.5rem;">✕</button>
       </div>
-      <ul class="mobile-nav-list">
-        <li><a href="./index.html" class="mobile-nav-link" data-i18n="nav_home">Home</a></li>
-        <li><a href="./cakes" class="mobile-nav-link" data-i18n="nav_cakes">Celebration Cakes</a></li>
-        <li><a href="./menu.html" class="mobile-nav-link" data-i18n="nav_menu">Cafe & Delivery Menu</a></li>
-        <li><a href="./wholesale" class="mobile-nav-link" data-i18n="nav_b2b">B2B Wholesale</a></li>
-        <li><a href="./careers.html" class="mobile-nav-link active" style="color: var(--color-desert);" data-i18n="nav_careers">Careers</a></li>
-        <li><a href="./contact.html" class="mobile-nav-link" data-i18n="nav_contact">Contact & Delivery</a></li>
+
+      <!-- Drawer Chunk 1: Main Order Channels -->
+      <p style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); font-weight: 700; margin: 16px 0 8px 16px;">
+        Order & Catalog
+      </p>
+      <ul class="mobile-nav-list" style="margin-bottom: 20px;">
+        <li><a href="./" class="mobile-nav-link" data-i18n="nav_home"><i class="ph ph-house"></i> Home</a></li>
+        <li><a href="./cakes" class="mobile-nav-link" data-i18n="nav_cakes"><i class="ph ph-cake"></i> Celebration Cakes</a></li>
+        <li><a href="./menu" class="mobile-nav-link" style="font-weight: 700; color: #D95338;" data-i18n="nav_menu"><i class="ph ph-moped"></i> Delivery Menu</a></li>
+        <li><a href="./wholesale" class="mobile-nav-link" data-i18n="nav_b2b"><i class="ph ph-truck"></i> Wholesale B2B</a></li>
       </ul>
+
+      <!-- Drawer Chunk 2: Info & Store -->
+      <p style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); font-weight: 700; margin: 0 0 8px 16px;">
+        Store & Info
+      </p>
+      <ul class="mobile-nav-list">
+        <li><a href="./contact" class="mobile-nav-link" data-i18n="nav_contact"><i class="ph ph-map-pin"></i> Store Location</a></li>
+        <li><a href="./careers" class="mobile-nav-link active" style="color: var(--color-desert);" data-i18n="nav_careers"><i class="ph ph-briefcase"></i> Careers & Hiring</a></li>
+      </ul>
+    </div>
+    <div style="margin-top: 32px;">
+      <a href="https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20would%20like%20to%20place%20an%20order!" target="_blank" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <i class="ph ph-whatsapp-logo" style="font-size: 1.2rem;"></i> <span data-i18n="nav_whatsapp">Order on WhatsApp</span>
+      </a>
+    </div>
+  </aside>
     </div>
     <div style="margin-top: 32px;">
       <a href="./cakes" class="btn btn-primary" style="width: 100%;" data-i18n="nav_explore">Explore Cakes</a>

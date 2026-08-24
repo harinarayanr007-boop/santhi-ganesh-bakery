@@ -5,10 +5,11 @@ const TRANSLATIONS = {
     nav_home: "Home",
     nav_about: "About Us",
     nav_cakes: "Celebration Cakes",
-    nav_menu: "Order Online Menu",
-    nav_b2b: "B2B Wholesale",
+    nav_menu: "Delivery Menu",
+    nav_b2b: "Wholesale B2B",
     nav_careers: "Careers",
-    nav_contact: "Contact",
+    nav_contact: "Store Location",
+    nav_whatsapp: "Order on WhatsApp",
     nav_explore: "Explore Cakes",
 
     // Hero Section
@@ -189,10 +190,11 @@ const TRANSLATIONS = {
     nav_home: "முகப்பு",
     nav_about: "எங்களைப் பற்றி",
     nav_cakes: "கேக்குகள்",
-    nav_menu: "உணவக மெனு",
+    nav_menu: "டெலிவரி மெனு",
     nav_b2b: "மொத்த விற்பனை",
     nav_careers: "வேலைவாய்ப்பு",
-    nav_contact: "தொடர்பு",
+    nav_contact: "கடை இருப்பிடம்",
+    nav_whatsapp: "வாட்ஸ்அப் ஆர்டர்",
     nav_explore: "கேக்குகளை பார்க்க",
 
     // Hero Section
