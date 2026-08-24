@@ -212,7 +212,7 @@ const TRANSLATIONS = {
     nav_explore: "கேக்குகள்",
 
     // Hero Section
-    hero_customers_count: "200+ மகிழ்ச்சியான வாடிக்கையாளர்கள்",
+    hero_customers_count: "200+ வாடிக்கையாளர்கள்",
     hero_tagline: "திருநெல்வேலியின் அன்பான பேக்கரி",
     hero_title: "கைவினை கேக்குகள் மற்றும் புதிய பேக்கரி சுவைகள்",
     hero_title_line_1: "புதிய பிரெட் & பேக்ஸ்",
