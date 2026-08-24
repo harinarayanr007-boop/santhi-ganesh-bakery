@@ -1,6 +1,11 @@
-﻿User-agent: *
-Allow: /
+User-agent: *
+Disallow: /admin
 Disallow: /admin.html
+Disallow: /printing
 Disallow: /printing.html
+Disallow: /api/
+Disallow: /pay.html
+Disallow: /scan.html
+Allow: /
 
 Sitemap: https://santhiganeshbakery.in/sitemap.xml

@@ -1552,9 +1552,27 @@
     }
 
     async function verifyStudioPIN() {
-      const pin = (document.getElementById('studio-pin-input')?.value || '').trim();
+      const pinInput = document.getElementById('studio-pin-input');
+      const pin = (pinInput?.value || '').trim();
+
+      const lockoutUntil = parseInt(localStorage.getItem('sg_print_lockout_until') || '0', 10);
+      const now = Date.now();
+      if (lockoutUntil && now < lockoutUntil) {
+        const remainingMinutes = Math.ceil((lockoutUntil - now) / (60 * 1000));
+        alert(`🔒 Studio locked due to multiple failed attempts. Try again in ${remainingMinutes} minute(s).`);
+        return;
+      }
+
+      if (!pin) {
+        alert('Please enter your Studio PIN.');
+        if (pinInput) pinInput.focus();
+        return;
+      }
+
       const validPin = (pin === STUDIO_PIN || pin === '2026' || pin === window.CLOUD_ADMIN_PIN);
       if (validPin) {
+        localStorage.removeItem('sg_print_failed_attempts');
+        localStorage.removeItem('sg_print_lockout_until');
         sessionStorage.setItem('sg_printing_authed', 'true');
         document.getElementById('auth-screen').style.display = 'none';
         const main = document.getElementById('studio-main');
@@ -1563,9 +1581,21 @@
         await fetchStudioCloudData();
         loadMasterDatabase();
       } else {
-        alert('Incorrect PIN code!');
-        document.getElementById('studio-pin-input').value = '';
-        document.getElementById('studio-pin-input').focus();
+        let failedAttempts = parseInt(localStorage.getItem('sg_print_failed_attempts') || '0', 10) + 1;
+        localStorage.setItem('sg_print_failed_attempts', failedAttempts.toString());
+
+        if (failedAttempts >= 5) {
+          const lockTime = Date.now() + 15 * 60 * 1000;
+          localStorage.setItem('sg_print_lockout_until', lockTime.toString());
+          alert('⚠️ Security Alert: Too many failed PIN attempts. Studio locked for 15 minutes.');
+        } else {
+          const remaining = 5 - failedAttempts;
+          alert(`Access Denied: Incorrect PIN code. (${remaining} attempts remaining)`);
+        }
+        if (pinInput) {
+          pinInput.value = '';
+          pinInput.focus();
+        }
       }
     }
 
@@ -2472,6 +2502,24 @@
     // Initializer
     document.addEventListener('DOMContentLoaded', () => {
       initAuth();
+    });
+
+    // Anti-Scrape & Anti-Inspect Security Shield
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
     });
   </script>
 </body>

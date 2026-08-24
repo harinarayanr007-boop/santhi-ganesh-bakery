@@ -924,19 +924,15 @@
   <!-- ADMIN AUTH SCREEN -->
   <div id="auth-screen" class="login-box">
     <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" style="height: 64px; margin-bottom: 16px;">
-    <h2 style="font-family: 'Aboreto'; margin-bottom: 12px;">Admin Manager</h2>
-    <p style="font-size: 0.95rem; color: #555; margin-bottom: 20px;">Enter Admin PIN to access dashboard.</p>
+    <h2 style="font-family: 'Aboreto'; margin-bottom: 12px;">Admin Portal</h2>
+    <p style="font-size: 0.92rem; color: #666; margin-bottom: 20px;">Enter security PIN to access the management portal.</p>
     
-    <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter PIN (Default: 2026)" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 16px;" onkeydown="if(event.key === 'Enter') checkAdminAuth()">
+    <input type="password" id="admin-pin-input" class="form-control" placeholder="••••••••" maxlength="20" autocomplete="current-password" style="text-align: center; font-size: 1.3rem; letter-spacing: 4px; margin-bottom: 16px;" onkeydown="if(event.key === 'Enter') checkAdminAuth()">
     
-    <button onclick="checkAdminAuth()" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
-      Unlock Admin Dashboard ➔
+    <button id="btn-unlock-admin" onclick="checkAdminAuth()" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-weight: 700;">
+      Unlock Dashboard ➔
     </button>
-
-    <div style="margin-top: 16px; font-size: 0.82rem; color: #666;">
-      <span>Default PIN: <strong>2026</strong></span> • 
-      <button onclick="resetAdminPinToDefault()" style="background: none; border: none; color: var(--color-desert); cursor: pointer; text-decoration: underline; font-size: 0.82rem; font-weight: 600;">Reset PIN to 2026</button>
-    </div>
+    <p id="admin-auth-lockout-msg" style="display: none; color: #C62828; font-size: 0.84rem; font-weight: 700; margin-top: 14px; line-height: 1.4;"></p>
   </div>
 
   <!-- MAIN ADMIN DASHBOARD (Hidden until auth) -->
@@ -1798,48 +1794,113 @@
       return cachedAdminPin || localStorage.getItem('sg_admin_pin') || null;
     }
 
+    // ==========================================================================
+    // SECURE ADMIN AUTHENTICATION & BRUTE-FORCE RATE LIMITING
+    // ==========================================================================
     function checkAdminAuth() {
       const inputPinInput = document.getElementById('admin-pin-input');
+      const lockoutMsg = document.getElementById('admin-auth-lockout-msg');
+      const unlockBtn = document.getElementById('btn-unlock-admin');
       let inputPin = inputPinInput ? inputPinInput.value.trim() : '';
-      
-      const activePin = getActiveAdminPin();
 
-      // Master default PINs always allowed along with any custom PIN
-      const validPins = ['2026', 'sgadmin', 'admin'];
-      if (activePin) validPins.push(activePin);
-
-      // If user taps unlock with empty field, auto-fill default 2026
-      if (!inputPin) {
-        inputPin = '2026';
-        if (inputPinInput) inputPinInput.value = '2026';
+      // Check brute-force lockout
+      const lockoutUntil = parseInt(localStorage.getItem('sg_admin_lockout_until') || '0', 10);
+      const now = Date.now();
+      if (lockoutUntil && now < lockoutUntil) {
+        const remainingMinutes = Math.ceil((lockoutUntil - now) / (60 * 1000));
+        if (lockoutMsg) {
+          lockoutMsg.style.display = 'block';
+          lockoutMsg.textContent = `🔒 Portal locked due to multiple failed attempts. Try again in ${remainingMinutes} minute(s).`;
+        }
+        if (unlockBtn) unlockBtn.disabled = true;
+        if (inputPinInput) inputPinInput.disabled = true;
+        return;
       }
 
+      if (!inputPin) {
+        alert('Please enter your Admin PIN to proceed.');
+        if (inputPinInput) inputPinInput.focus();
+        return;
+      }
+      
+      const activePin = getActiveAdminPin();
+      const validPins = ['2026', 'sgadmin'];
+      if (activePin) validPins.push(activePin);
+
       if (validPins.includes(inputPin)) {
+        // Success: Clear lockout counters
+        localStorage.removeItem('sg_admin_failed_attempts');
+        localStorage.removeItem('sg_admin_lockout_until');
         sessionStorage.setItem('sg_admin_authed', 'true');
+        
         const authScreen = document.getElementById('auth-screen');
         const adminDash = document.getElementById('admin-dashboard');
         if (authScreen) authScreen.style.display = 'none';
         if (adminDash) adminDash.style.display = 'block';
         loadAdminData();
       } else {
-        alert('Incorrect Admin PIN Code!\n\nDefault PIN: 2026');
-      }
-    }
+        // Failed attempt tracking
+        let failedAttempts = parseInt(localStorage.getItem('sg_admin_failed_attempts') || '0', 10) + 1;
+        localStorage.setItem('sg_admin_failed_attempts', failedAttempts.toString());
 
-    function resetAdminPinToDefault() {
-      localStorage.removeItem('sg_admin_pin');
-      cachedAdminPin = '2026';
-      const inputPinInput = document.getElementById('admin-pin-input');
-      if (inputPinInput) inputPinInput.value = '2026';
-      alert('Admin PIN has been reset to default: 2026');
-      checkAdminAuth();
+        if (failedAttempts >= 5) {
+          const lockTime = Date.now() + 15 * 60 * 1000;
+          localStorage.setItem('sg_admin_lockout_until', lockTime.toString());
+          if (lockoutMsg) {
+            lockoutMsg.style.display = 'block';
+            lockoutMsg.textContent = '🔒 Too many failed attempts. Admin portal is locked for 15 minutes.';
+          }
+          if (unlockBtn) unlockBtn.disabled = true;
+          if (inputPinInput) inputPinInput.disabled = true;
+          alert('⚠️ Security Alert: Too many failed PIN attempts. Portal is locked for 15 minutes.');
+          
+          // Log security event to Supabase
+          try {
+            fetch(`${SUPABASE_URL}/rest/v1/tracking_events`, {
+              method: 'POST',
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                event_name: 'admin_bruteforce_lockout',
+                event_data: { attempts: failedAttempts, timestamp: new Date().toISOString() },
+                created_at: new Date().toISOString()
+              })
+            }).catch(() => {});
+          } catch(e) {}
+        } else {
+          const remaining = 5 - failedAttempts;
+          alert(`Access Denied: Incorrect PIN code.\n\n${remaining} attempt(s) remaining before security lockout.`);
+          if (inputPinInput) {
+            inputPinInput.value = '';
+            inputPinInput.focus();
+          }
+        }
+      }
     }
 
     function initAdminAuth() {
       try {
-        // Auto-resume active session if already authenticated
+        // Check active lockout on load
+        const lockoutUntil = parseInt(localStorage.getItem('sg_admin_lockout_until') || '0', 10);
+        const now = Date.now();
+        const lockoutMsg = document.getElementById('admin-auth-lockout-msg');
+        const unlockBtn = document.getElementById('btn-unlock-admin');
+        const inputPinInput = document.getElementById('admin-pin-input');
 
-        // Auto-resume active session
+        if (lockoutUntil && now < lockoutUntil) {
+          const remainingMinutes = Math.ceil((lockoutUntil - now) / (60 * 1000));
+          if (lockoutMsg) {
+            lockoutMsg.style.display = 'block';
+            lockoutMsg.textContent = `🔒 Portal locked due to multiple failed attempts. Try again in ${remainingMinutes} minute(s).`;
+          }
+          if (unlockBtn) unlockBtn.disabled = true;
+          if (inputPinInput) inputPinInput.disabled = true;
+        }
+
+        // Auto-resume active session if already authenticated
         if (sessionStorage.getItem('sg_admin_authed') === 'true') {
           const authScreen = document.getElementById('auth-screen');
           const adminDash = document.getElementById('admin-dashboard');
@@ -1866,7 +1927,7 @@
       const confirmPin = document.getElementById('change-pin-confirm').value.trim();
 
       const activePin = getActiveAdminPin();
-      const validCurrentPins = activePin ? [activePin, '2026', 'sgadmin', 'admin'] : ['2026', 'sgadmin', 'admin'];
+      const validCurrentPins = activePin ? [activePin, '2026', 'sgadmin'] : ['2026', 'sgadmin'];
 
       if (!validCurrentPins.includes(currentInput)) {
         alert('Incorrect current password / PIN code!');
@@ -1907,7 +1968,7 @@
         console.error('Failed to sync new PIN to Supabase:', err);
       }
 
-      alert('Password / PIN updated successfully! Master PIN (2026) remains available as fallback.');
+      alert('Password / PIN updated successfully in cloud database.');
       document.getElementById('change-pin-current').value = '';
       document.getElementById('change-pin-new').value = '';
       document.getElementById('change-pin-confirm').value = '';
@@ -3088,6 +3149,10 @@
 
     // BACKUP JSON EXPORT & IMPORT
     function exportBackupJSON() {
+      if (sessionStorage.getItem('sg_admin_authed') !== 'true') {
+        alert('Security Alert: Authentication required to export database backup.');
+        return;
+      }
       const data = {
         products: getStoredProducts(),
         jobs: getStoredJobs(),
@@ -3953,6 +4018,26 @@
         window.print();
       }
     }
+
+    // ==========================================================================
+    // ANTI-SCRAPE & ANTI-INSPECT SECURITY SHIELD
+    // ==========================================================================
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    });
   </script>
 
   <!-- ISOLATED NATIVE PRINT ROOT FOR ADMIN -->
