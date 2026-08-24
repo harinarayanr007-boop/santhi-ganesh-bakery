@@ -425,7 +425,7 @@
     .b2b-form-card {
       background: #FFFFFF;
       border-radius: 24px;
-      padding: clamp(24px, 5vw, 44px);
+      padding: clamp(32px, 6vw, 48px) clamp(18px, 4vw, 36px);
       border: 1.5px solid rgba(166, 96, 27, 0.18);
       box-shadow: 0 16px 40px rgba(10, 4, 4, 0.05);
       position: relative;
@@ -437,8 +437,13 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
+      height: 5px;
       background: linear-gradient(90deg, #A6601B 0%, #F5A623 50%, #A6601B 100%);
+    }
+
+    .b2b-form-header {
+      text-align: center;
+      margin-bottom: 22px;
     }
 
     .b2b-form-badge {
@@ -450,11 +455,30 @@
       border: 1px solid rgba(46, 125, 50, 0.25);
       border-radius: 100px;
       padding: 5px 14px;
-      font-size: 0.78rem;
+      font-size: clamp(0.7rem, 2.4vw, 0.76rem);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
+    }
+
+    .b2b-form-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: clamp(1.2rem, 3.8vw, 1.6rem) !important;
+      font-weight: 800 !important;
+      color: #1A120B !important;
+      text-transform: none !important;
+      letter-spacing: -0.02em !important;
+      line-height: 1.28 !important;
+      margin: 8px 0 8px 0 !important;
+    }
+
+    .b2b-form-subtitle {
+      font-size: clamp(0.82rem, 2.5vw, 0.92rem) !important;
+      line-height: 1.55 !important;
+      color: var(--color-text-muted) !important;
+      max-width: 520px;
+      margin: 0 auto;
     }
 
     .b2b-form-grid {
@@ -863,12 +887,12 @@
         <div class="b2b-form-card">
           <div class="b2b-form-top-accent"></div>
           
-          <div style="text-align: center; margin-bottom: 24px;">
+          <div class="b2b-form-header">
             <div class="b2b-form-badge">
-              <i class="ph-bold ph-package"></i> 100% Free Commercial Sample • No Obligation
+              <i class="ph-bold ph-package"></i> 100% Free Sample • No Obligation
             </div>
-            <h2 class="text-h2" style="font-size: clamp(1.5rem, 3.5vw, 1.95rem); margin-bottom: 8px;" data-i18n="b2b_form_title">Request Free Commercial Sample Box</h2>
-            <p class="text-regular" style="color: var(--color-text-muted); max-width: 540px; margin: 0 auto; font-size: 0.92rem; line-height: 1.55;" data-i18n="b2b_form_sub">
+            <h2 class="b2b-form-title" data-i18n="b2b_form_title">Request Free Sample Box</h2>
+            <p class="b2b-form-subtitle" data-i18n="b2b_form_sub">
               Enter your business details below to receive a free bakery sample box delivered directly to your store, hotel, or canteen anywhere in Tirunelveli.
             </p>
           </div>
