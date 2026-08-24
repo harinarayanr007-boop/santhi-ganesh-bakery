@@ -1070,10 +1070,10 @@ html[lang="ta"] .hero-title {
     margin-bottom: 28px;
   }
 
-  .hero-title {
-    font-size: clamp(1.85rem, 6.5vw, 2.75rem);
-    line-height: 1.25;
-    margin-bottom: 16px;
+  .hero-title, h1, .text-h1 {
+    font-size: clamp(2.35rem, 8.5vw, 3.4rem);
+    line-height: 1.15;
+    margin-bottom: 18px;
     word-break: normal;
     overflow-wrap: break-word;
   }
@@ -1083,7 +1083,7 @@ html[lang="ta"] .hero-title {
   [data-lang="ta"] .hero-title,
   html[lang="ta"] h1,
   html[lang="ta"] .hero-title {
-    font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem) !important;
     line-height: 1.35;
   }
 
@@ -1249,7 +1249,7 @@ html[lang="ta"] .hero-title {
   }
 
   .products-header-flex .text-h2 {
-    font-size: 1.5rem !important;
+    font-size: clamp(2rem, 7vw, 2.6rem) !important;
     margin-bottom: 0 !important;
   }
 
@@ -2450,7 +2450,7 @@ html[lang="ta"] .hero-title {
 
 @media (max-width: 767px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .container {
@@ -2458,12 +2458,19 @@ html[lang="ta"] .hero-title {
     padding-right: 16px;
   }
 
-  .text-h1 {
-    font-size: 2.1rem;
+  .text-h1, h1 {
+    font-size: clamp(2.35rem, 8.5vw, 3.4rem);
+    line-height: 1.15;
   }
 
-  .text-h2 {
-    font-size: 1.6rem;
+  .text-h2, h2, .section-title, .feature-title {
+    font-size: clamp(1.95rem, 7vw, 2.75rem);
+    line-height: 1.2;
+  }
+
+  .text-h3, h3 {
+    font-size: clamp(1.35rem, 4.8vw, 1.8rem);
+    line-height: 1.3;
   }
 }
 
