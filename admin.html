@@ -1424,9 +1424,52 @@
               <input type="text" id="admin-qr-sub" class="form-control" value="Fast Doorstep Food & Cake Delivery" oninput="updateAdminQRText()" style="background: #FFFFFF;">
             </div>
 
+            <!-- Dynamic Short Link Target Manager -->
+            <div style="background: #FFFFFF; padding: 18px; border-radius: 10px; border: 1.5px solid #A6601B; margin-top: 20px; box-shadow: 0 4px 14px rgba(166,96,27,0.08);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="background: #A6601B; color: #FFF; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">⚡</span>
+                  <div>
+                    <strong style="font-size: 0.95rem; color: #1A120B; display: block;">Dynamic QR Target Destination</strong>
+                    <span style="font-size: 0.78rem; color: #666;">Where <code>santhiganeshbakery.in/scan</code> redirects in real-time</span>
+                  </div>
+                </div>
+                <span id="dynamic-redirect-badge" style="font-size: 0.76rem; background: rgba(46,125,50,0.12); color: #2E7D32; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(46,125,50,0.25);">
+                  🟢 Live Active
+                </span>
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label style="font-weight: 700; font-size: 0.84rem; color: #444; display: block; margin-bottom: 5px;">Redirect Customers To:</label>
+                <select id="dynamic-redirect-select" class="form-control" onchange="handleDynamicPresetChange(this.value)" style="background: #FAF6F0; font-weight: 600; padding: 9px 12px;">
+                  <option value="https://santhiganeshbakery.in/menu">🛵 Delivery Menu (https://santhiganeshbakery.in/menu)</option>
+                  <option value="https://santhiganeshbakery.in/cakes">🎂 Cake Catalog (https://santhiganeshbakery.in/cakes)</option>
+                  <option value="https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20scanned%20your%20QR%20code!">💬 WhatsApp Direct Chat (https://wa.me/917339073844)</option>
+                  <option value="https://maps.app.goo.gl/uX38UuQ9aFqF3c1s8">⭐ Google Review (https://maps.app.goo.gl/...)</option>
+                  <option value="https://santhiganeshbakery.in/wholesale">🏢 Wholesale B2B Supply (https://santhiganeshbakery.in/wholesale)</option>
+                  <option value="custom">🔗 Custom URL / Festival Offer Link...</option>
+                </select>
+              </div>
+
+              <div id="dynamic-custom-url-group" style="display: none; margin-bottom: 12px;">
+                <label style="font-weight: 700; font-size: 0.84rem; color: #444; display: block; margin-bottom: 5px;">Custom Redirect URL:</label>
+                <input type="url" id="dynamic-custom-url-input" class="form-control" placeholder="https://..." style="background: #FAF6F0;">
+              </div>
+
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" id="btn-save-dynamic-redirect" class="btn btn-primary" onclick="saveDynamicScanRedirect()" style="flex: 1; padding: 10px 14px; font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                  <i class="ph ph-floppy-disk"></i> Update Live Redirect
+                </button>
+                <a href="https://santhiganeshbakery.in/scan" target="_blank" class="btn btn-secondary" style="padding: 10px 14px; font-size: 0.88rem; display: flex; align-items: center; gap: 4px;" title="Test current /scan redirect in new tab">
+                  <i class="ph ph-arrow-square-out"></i> Test /scan
+                </a>
+              </div>
+              <p id="dynamic-redirect-status-msg" style="font-size: 0.8rem; margin: 10px 0 0 0; color: #2E7D32; font-weight: 600; display: none; line-height: 1.4;"></p>
+            </div>
+
             <div style="background: rgba(166, 96, 27, 0.12); padding: 12px; border-radius: 8px; border-left: 3px solid #A6601B; margin-top: 16px;">
               <p style="font-size: 0.82rem; color: #8B4513; margin: 0; line-height: 1.4;">
-                💡 <strong>Dynamic Redirect Tip:</strong> The <code>santhiganeshbakery.in/scan</code> link is already set up on your Vercel server to forward to your Delivery Menu. You can print this QR on physical cake boxes and acrylic stands without ever having to reprint when changing menus!
+                💡 <strong>Dynamic Redirect Tip:</strong> You can print this <code>santhiganeshbakery.in/scan</code> QR code on physical cake boxes, table tents, and delivery stickers once. Whenever you want to redirect customers to a new festival offer or menu, just update the destination right above without ever having to reprint!
               </p>
             </div>
           </div>
@@ -1902,6 +1945,7 @@
 
       if (tabName === 'qr') {
         setTimeout(initAdminQR, 50);
+        setTimeout(loadDynamicScanRedirect, 60);
       }
 
       if ((tabName === 'tracking' || tabName === 'b2b') && typeof loadTrackingAnalytics === 'function') {
@@ -2035,6 +2079,156 @@
       printWindow.document.close();
     }
 
+    // ==========================================================================
+    // DYNAMIC /SCAN SHORT LINK REDIRECT DESTINATION CONTROLLER
+    // ==========================================================================
+    let currentDynamicScanTarget = 'https://santhiganeshbakery.in/menu';
+
+    function handleDynamicPresetChange(val) {
+      const customGroup = document.getElementById('dynamic-custom-url-group');
+      const customInput = document.getElementById('dynamic-custom-url-input');
+      if (val === 'custom') {
+        if (customGroup) customGroup.style.display = 'block';
+        if (customInput) customInput.focus();
+      } else {
+        if (customGroup) customGroup.style.display = 'none';
+      }
+    }
+
+    async function loadDynamicScanRedirect() {
+      const select = document.getElementById('dynamic-redirect-select');
+      const badge = document.getElementById('dynamic-redirect-badge');
+      const customGroup = document.getElementById('dynamic-custom-url-group');
+      const customInput = document.getElementById('dynamic-custom-url-input');
+      
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings?key=eq.dynamic_scan_redirect&select=value`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0 && data[0].value) {
+            currentDynamicScanTarget = data[0].value.trim();
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load dynamic scan redirect from Supabase, using localStorage/default:', err);
+        currentDynamicScanTarget = localStorage.getItem('sg_dynamic_scan_redirect') || 'https://santhiganeshbakery.in/menu';
+      }
+
+      if (badge) {
+        let displayLabel = currentDynamicScanTarget;
+        if (displayLabel.includes('/menu')) displayLabel = '🛵 Delivery Menu';
+        else if (displayLabel.includes('/cakes')) displayLabel = '🎂 Cakes Catalog';
+        else if (displayLabel.includes('wa.me')) displayLabel = '💬 WhatsApp';
+        else if (displayLabel.includes('google') || displayLabel.includes('goo.gl')) displayLabel = '⭐ Google Review';
+        else if (displayLabel.includes('/wholesale')) displayLabel = '🏢 Wholesale';
+        badge.innerHTML = `🟢 Live: <strong>${displayLabel}</strong>`;
+      }
+
+      if (select) {
+        let matched = false;
+        for (let opt of select.options) {
+          if (opt.value === currentDynamicScanTarget) {
+            select.value = currentDynamicScanTarget;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched && currentDynamicScanTarget) {
+          select.value = 'custom';
+          if (customGroup) customGroup.style.display = 'block';
+          if (customInput) customInput.value = currentDynamicScanTarget;
+        } else {
+          if (customGroup) customGroup.style.display = 'none';
+        }
+      }
+    }
+
+    async function saveDynamicScanRedirect() {
+      const select = document.getElementById('dynamic-redirect-select');
+      const customInput = document.getElementById('dynamic-custom-url-input');
+      const btn = document.getElementById('btn-save-dynamic-redirect');
+      const statusMsg = document.getElementById('dynamic-redirect-status-msg');
+      const badge = document.getElementById('dynamic-redirect-badge');
+
+      let target = select ? select.value : 'https://santhiganeshbakery.in/menu';
+      if (target === 'custom') {
+        target = (customInput && customInput.value) ? customInput.value.trim() : '';
+        if (!target) {
+          alert('Please enter a valid destination URL (e.g. https://santhiganeshbakery.in/menu)');
+          if (customInput) customInput.focus();
+          return;
+        }
+      }
+
+      const origBtnHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Saving...';
+      }
+
+      try {
+        // Save to Supabase Cloud Database (Upsert)
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_settings`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            key: 'dynamic_scan_redirect',
+            value: target,
+            updated_at: new Date().toISOString()
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error(`Supabase returned status ${res.status}`);
+        }
+
+        // Save to localStorage as backup
+        localStorage.setItem('sg_dynamic_scan_redirect', target);
+        currentDynamicScanTarget = target;
+
+        if (badge) {
+          let displayLabel = target;
+          if (displayLabel.includes('/menu')) displayLabel = '🛵 Delivery Menu';
+          else if (displayLabel.includes('/cakes')) displayLabel = '🎂 Cakes Catalog';
+          else if (displayLabel.includes('wa.me')) displayLabel = '💬 WhatsApp';
+          else if (displayLabel.includes('google') || displayLabel.includes('goo.gl')) displayLabel = '⭐ Google Review';
+          else if (displayLabel.includes('/wholesale')) displayLabel = '🏢 Wholesale';
+          badge.innerHTML = `🟢 Live: <strong>${displayLabel}</strong>`;
+        }
+
+        if (statusMsg) {
+          statusMsg.style.display = 'block';
+          statusMsg.style.color = '#2E7D32';
+          statusMsg.innerHTML = `✅ <strong>Live destination updated!</strong> Anyone scanning your printed QR code (or opening <code>/scan</code>) is now instantly forwarded to: <em>${target}</em>`;
+          setTimeout(() => {
+            if (statusMsg) statusMsg.style.display = 'none';
+          }, 8000);
+        }
+      } catch (err) {
+        console.error('Failed to update dynamic scan redirect:', err);
+        if (statusMsg) {
+          statusMsg.style.display = 'block';
+          statusMsg.style.color = '#C62828';
+          statusMsg.innerHTML = `⚠️ Failed to sync to cloud: ${err.message}. Saved locally.`;
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origBtnHtml;
+        }
+      }
+    }
+
     // Load Products and Jobs into Admin Tables with robust error handling
     let productsList = [];
     let jobsList = [];
@@ -2052,6 +2246,10 @@
       try {
         if (typeof loadCafeMenuItems === 'function') await loadCafeMenuItems();
       } catch(e) { console.warn('Cafe fetch error:', e); }
+
+      try {
+        loadDynamicScanRedirect();
+      } catch(e) { console.warn('Dynamic redirect fetch error:', e); }
 
       try {
         if (typeof loadTrackingAnalytics === 'function') await loadTrackingAnalytics();

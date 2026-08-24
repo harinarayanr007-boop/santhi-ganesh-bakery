@@ -7,10 +7,10 @@
     { "source": "/products.html", "destination": "/cakes", "permanent": true },
     { "source": "/b2b", "destination": "/wholesale", "permanent": true },
     { "source": "/b2b.html", "destination": "/wholesale", "permanent": true },
-    { "source": "/scan", "destination": "/menu", "permanent": false },
     { "source": "/qr-order", "destination": "/menu", "permanent": false }
   ],
   "rewrites": [
+    { "source": "/scan", "destination": "/api/scan" },
     { "source": "/cakes/:category/:id", "destination": "/product-detail.html?cat=:category&id=:id" },
     { "source": "/cakes/:id", "destination": "/product-detail.html?id=:id" },
     { "source": "/cakes", "destination": "/cakes.html" },
