@@ -814,63 +814,100 @@
 
   </main>
 
-    <!-- 7. SITE FOOTER -->
+  <!-- 7. SITE FOOTER (SITEMAP ALIGNED) -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <!-- Brand Info -->
+        <!-- Brand & Highlights -->
         <div>
-          <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 64px; margin-bottom: 18px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-          <p style="color: rgba(246, 239, 232, 0.8); max-width: 320px; font-size: 0.95rem; line-height: 1.6;">
-            Handcrafted cakes, fresh daily bakes, and commercial wholesale bakery supply across Tirunelveli since day one.
+          <a href="./" class="brand-logo" style="margin-bottom: 16px; display: inline-block;">
+            <img src="./sg-bakery-logo.png" alt="Santhi Ganesh Bakery" class="brand-logo-img" style="height: 68px;">
+          </a>
+          <p class="text-small" style="opacity: 0.85; max-width: 320px; line-height: 1.6; margin-bottom: 16px;" data-i18n="footer_desc">
+            Crafting Tirunelveli's favorite custom celebration cakes, fresh daily pastries, and wholesale supplies with pure butter & premium ingredients since 1980.
           </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 0.76rem; background: rgba(212,175,55,0.12); color: #D4AF37; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.25);">
+              🎂 Fresh Daily
+            </span>
+            <span style="font-size: 0.76rem; background: rgba(212,175,55,0.12); color: #D4AF37; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.25);">
+              ⚡ Doorstep Delivery
+            </span>
+          </div>
         </div>
 
-        <!-- Quick Links -->
+        <!-- Sitemap Quick Links -->
         <div>
-          <h4 class="footer-col-title" data-i18n="footer_explore">Quick Links</h4>
+          <h4 class="footer-col-title" data-i18n="quick_links">Sitemap</h4>
           <ul class="footer-links">
-            <li><a href="./index.html" data-i18n="nav_home">Home</a></li>
-            <li><a href="./index.html#about" data-i18n="nav_about">About Us</a></li>
-            <li><a href="./cakes" data-i18n="nav_cakes">Celebration Cakes</a></li>
-            <li><a href="./menu.html">Order Online Menu</a></li>
-            <li><a href="./wholesale" data-i18n="nav_b2b">Wholesale Partner</a></li>
-            <li><a href="./careers.html" data-i18n="nav_careers">Careers</a></li>
+            <li><a href="./" data-i18n="footer_home"><i class="ph ph-house"></i> Home</a></li>
+            <li><a href="./cakes" data-i18n="nav_celebration_cakes"><i class="ph ph-cake"></i> Cake Catalog</a></li>
+            <li><a href="./menu" data-i18n="nav_menu"><i class="ph ph-coffee"></i> Cafe & Menu</a></li>
+            <li><a href="./wholesale" data-i18n="nav_b2b"><i class="ph ph-truck"></i> Wholesale B2B</a></li>
+            <li><a href="./contact" data-i18n="nav_contact"><i class="ph ph-map-pin"></i> Contact Store</a></li>
+            <li><a href="./careers" data-i18n="nav_careers"><i class="ph ph-briefcase"></i> Careers & Jobs</a></li>
           </ul>
         </div>
 
-        <!-- Commercial Services -->
+        <!-- Cake Collections -->
         <div>
-          <h4 class="footer-col-title">Services</h4>
+          <h4 class="footer-col-title" data-i18n="categories">Cake Collections</h4>
           <ul class="footer-links">
-            <li><a href="./wholesale">Kirana Wholesale Supply</a></li>
-            <li><a href="./wholesale">Supermarket Retail Supply</a></li>
-            <li><a href="./wholesale">University Canteen Supply</a></li>
-            <li><a href="./wholesale">Hotel & Restaurant Bakes</a></li>
-            <li><a href="./wholesale">Event Party Boxes</a></li>
-            <li><a href="./admin.html">Admin Portal</a></li>
+            <li><a href="./cakes?cat=signature-cakes" data-i18n="cat_signature">Signature Cakes</a></li>
+            <li><a href="./cakes?cat=birthday-her" data-i18n="cat_birthday_her">Cakes for Her</a></li>
+            <li><a href="./cakes?cat=birthday-him" data-i18n="cat_birthday_him">Cakes for Him</a></li>
+            <li><a href="./cakes?cat=kids" data-i18n="cat_kids">Kids & Cartoon</a></li>
+            <li><a href="./cakes?cat=wedding" data-i18n="cat_wedding_tier">Wedding Tiers</a></li>
+            <li><a href="./cakes?cat=baby-shower" data-i18n="cat_baby">Baby Shower</a></li>
           </ul>
         </div>
 
-        <!-- Contact Info -->
+        <!-- Wholesale & Services -->
         <div>
-          <h4 class="footer-col-title" data-i18n="footer_contact">Contact Us</h4>
-          <ul class="footer-links" style="font-size: 0.92rem;">
-            <li style="display: flex; gap: 8px; color: rgba(246, 239, 232, 0.85);">
-              <span>📍</span> <span>92, Cheranmahadevi Rd, Thirunagar, Tirunelveli</span>
-            </li>
-            <li style="display: flex; gap: 8px;">
-              <span>📞</span> <a href="tel:917339073844" style="color: #F5A623; font-weight: 700;">+91 733 907 3844</a>
-            </li>
-            <li style="display: flex; gap: 8px;">
-              <span>✉️</span> <a href="mailto:Orders@santhiganesh.com" style="color: rgba(246, 239, 232, 0.85);">Orders@santhiganesh.com</a>
-            </li>
+          <h4 class="footer-col-title" data-i18n="wholesale_title">Wholesale B2B</h4>
+          <ul class="footer-links">
+            <li><a href="./wholesale#categories">Bread & Buns Supply</a></li>
+            <li><a href="./wholesale#categories">Savory Puffs & Samosas</a></li>
+            <li><a href="./wholesale#categories">Tea Rusks & Cookies</a></li>
+            <li><a href="./wholesale#categories">Party Pastry Platters</a></li>
+            <li><a href="./wholesale#inquiry">Bulk Order Inquiry</a></li>
           </ul>
+        </div>
+
+        <!-- Store & Contact -->
+        <div>
+          <h4 class="footer-col-title" data-i18n="store_contact">Store & Contact</h4>
+          <div class="footer-contact-item">
+            <i class="ph ph-map-pin"></i>
+            <div>
+              <a href="https://maps.app.goo.gl/FGe2HwZbjZGf6ieB8" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                92 Cheranmahadevi Rd, Thirunagar, Tirunelveli - 627006
+              </a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="ph ph-phone"></i>
+            <div>+91 733 907 3844</div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="ph ph-clock"></i>
+            <div>Open Daily: 8:00 AM – 10:00 PM</div>
+          </div>
+          <a href="https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery,%20I%20would%20like%20to%20place%20an%20order!" target="_blank" class="footer-whatsapp-btn">
+            <i class="ph ph-whatsapp-logo" style="font-size: 1.2rem;"></i> Order on WhatsApp
+          </a>
         </div>
       </div>
 
+      <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <p>© 2026 Santhi Ganesh Bakery. All rights reserved. Tirunelveli, Tamil Nadu.</p>
+        <p data-i18n="copyright">© 2026 Santhi Ganesh Bakery, Tirunelveli. All rights reserved.</p>
+        <ul class="footer-bottom-links">
+          <li><a href="./sitemap.xml" target="_blank">Sitemap XML</a></li>
+          <li><a href="./cakes">All Cakes</a></li>
+          <li><a href="./wholesale">Wholesale</a></li>
+          <li><a href="./contact">Location</a></li>
+        </ul>
       </div>
     </div>
   </footer>
