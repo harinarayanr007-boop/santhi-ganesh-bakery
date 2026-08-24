@@ -524,7 +524,7 @@ function createProductCardHTML(product) {
   const safeTitle = typeof escapeHTML === 'function' ? escapeHTML(product.title) : product.title;
   const safeId = typeof escapeHTML === 'function' ? escapeHTML(product.id) : product.id;
   const safeCat = product.category ? encodeURIComponent(product.category) : 'celebration-cakes';
-  const detailUrl = `./cakes/${safeCat}/${safeId}`;
+  const detailUrl = `/product-detail.html?cat=${safeCat}&id=${encodeURIComponent(safeId)}`;
   const safePrice = Number(product.price) || 0;
 
   return `
