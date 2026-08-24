@@ -14,6 +14,9 @@
     { "source": "/cakes", "destination": "/cakes.html" },
     { "source": "/wholesale", "destination": "/wholesale.html" },
     { "source": "/menu", "destination": "/menu.html" },
+    { "source": "/delivery", "destination": "/menu.html" },
+    { "source": "/order", "destination": "/menu.html" },
+    { "source": "/order-online", "destination": "/menu.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/careers", "destination": "/careers.html" }
   ]
