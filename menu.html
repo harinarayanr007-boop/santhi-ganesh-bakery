@@ -727,15 +727,6 @@
       transform: translateY(0) scale(0.985);
     }
 
-    /* Automatically hide floating cart bar & AI chatbot ONLY when mobile keyboard is actively open on screen */
-    body.keyboard-open .floating-cart-bar,
-    body.keyboard-open .bakery-chat-widget {
-      transform: translateY(180%) !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
-    }
-
     .cart-bar-main-row {
       display: flex;
       align-items: center;
@@ -2384,7 +2375,7 @@
       <section class="search-filter-wrapper">
         <div class="search-box" id="menu-search-box">
           <i class="ph ph-magnifying-glass"></i>
-          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)" onfocus="scrollToSearchBar();" onkeydown="if(event.key==='Enter') this.blur();">
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search juices, burgers, chat, shakes, tea..." oninput="handleMenuSearch(this.value)">
           <button id="search-clear-btn" class="search-clear-btn" onclick="clearMenuSearch()"><i class="ph ph-x"></i></button>
         </div>
       </section>
@@ -3228,7 +3219,7 @@
         const rect = controls.getBoundingClientRect();
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const targetY = rect.top + scrollTop - topNavHeight;
-        if (Math.abs(scrollTop - targetY) > 6) {
+        if (Math.abs(scrollTop - targetY) > 8) {
           window.scrollTo({
             top: targetY,
             behavior: 'smooth'
@@ -3236,31 +3227,6 @@
         }
       }
     }
-
-    // Real-time mobile virtual keyboard detection via Visual Viewport API
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        const isKeyboardOpen = window.visualViewport.height < (window.innerHeight - 130);
-        document.body.classList.toggle('keyboard-open', isKeyboardOpen);
-      });
-    }
-
-    // Dismiss keyboard on scroll or outside tap so cart immediately returns
-    window.addEventListener('scroll', () => {
-      const activeEl = document.activeElement;
-      if (activeEl && activeEl.id === 'menu-search-input') {
-        activeEl.blur();
-        document.body.classList.remove('keyboard-open');
-      }
-    }, { passive: true });
-
-    document.addEventListener('touchstart', (e) => {
-      const activeEl = document.activeElement;
-      if (activeEl && activeEl.id === 'menu-search-input' && !e.target.closest('#menu-search-box')) {
-        activeEl.blur();
-        document.body.classList.remove('keyboard-open');
-      }
-    }, { passive: true });
 
     function handleMenuSearch(val) {
       searchQuery = val;
@@ -3276,8 +3242,6 @@
       searchQuery = '';
       document.getElementById('menu-search-input').value = '';
       document.getElementById('search-clear-btn').style.display = 'none';
-      document.getElementById('menu-search-input').blur();
-      document.body.classList.remove('keyboard-open');
       renderMenu();
     }
 
