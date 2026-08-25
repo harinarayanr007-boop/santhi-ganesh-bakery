@@ -2620,54 +2620,232 @@ html[lang="ta"] .hero-title {
    ========================================================================== */
 @media (min-width: 768px) and (max-width: 1024px) {
   html {
-    font-size: 15px;
+    font-size: 15.5px;
   }
   
   :root {
-    --page-padding-desktop: 32px;
+    --page-padding-desktop: 28px;
     --section-padding-desktop: 44px;
   }
 
   .container {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 28px;
+    padding-right: 28px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
-  /* Navbar Adjustments */
+  .section-padding {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  /* Navbar Adjustments on Tablet */
   .navbar-inner {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  .nav-links {
-    gap: 16px;
-  }
-
-  .nav-link {
-    font-size: 0.88rem;
+    height: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .brand-logo-img {
-    height: 48px !important;
+    height: 42px !important;
+    max-width: 160px;
   }
 
-  /* Typography Scale */
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .lang-toggle-btn {
+    height: 36px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+
+  .btn-icon-pill,
+  .nav-ai-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mobile-menu-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
+  }
+
+  .mobile-drawer {
+    max-width: 360px;
+  }
+
+  /* Hero Section on Tablet */
+  .hero-section {
+    padding-top: 40px;
+    padding-bottom: 36px;
+  }
+
+  .hero-content-wrapper {
+    margin-bottom: 28px;
+  }
+
+  .hero-title-figma,
+  .hero-title:not(.hero-title-figma),
+  h1:not(.hero-title-figma),
   .text-h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.35rem, 5.5vw, 3.4rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 16px;
   }
 
-  .text-h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  .hero-subtitle {
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin-bottom: 24px;
   }
 
-  .text-regular {
-    font-size: 0.95rem;
+  .hero-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 14px;
+    width: auto;
   }
 
-  /* Buttons & Controls */
-  .btn {
-    padding: 10px 22px;
-    font-size: 0.9rem;
+  .marquee-card {
+    width: 240px;
+    height: 170px;
+  }
+
+  /* Category Filter Tabs on Tablet */
+  .category-tabs,
+  .products-page-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 12px !important;
+    padding: 8px 12px !important;
+    position: sticky !important;
+    top: 60px !important;
+    z-index: 85 !important;
+    background: var(--color-bg-primary, #FAF7F2) !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .category-tabs::-webkit-scrollbar,
+  .products-page-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .category-tab {
+    flex: 0 0 135px !important;
+    width: 135px !important;
+    height: 100px !important;
+    border-radius: 14px !important;
+  }
+
+  /* Product & Cake Catalog Grid on Tablet */
+  .products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
+  }
+
+  .product-card {
+    padding: 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .product-image-box {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+  }
+
+  .product-title {
+    font-size: 0.98rem !important;
+  }
+
+  .product-price {
+    font-size: 1.08rem !important;
+  }
+
+  /* Fast Food & Bakery Delivery Section on Tablet */
+  .delivery-promo-banner {
+    padding: 28px 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .delivery-cta-btn {
+    width: auto;
+    padding: 12px 22px;
+    font-size: 0.98rem;
+    white-space: nowrap;
+  }
+
+  .delivery-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* Features & Metrics on Tablet */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .b2b-metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .b2b-catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+  }
+
+  .b2b-form-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 36px 32px;
+  }
+
+  .b2b-form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  /* Footer on Tablet */
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px 24px !important;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Shopping Cart Drawer on Tablet */
+  .cart-drawer {
+    width: 440px;
+    max-width: 440px;
+  }
+
+  /* Chat Concierge Widget on Tablet */
+  .chat-modal-window {
+    width: 400px;
+    height: 580px;
+    max-height: 80vh;
+    border-radius: 22px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+    position: absolute;
+    bottom: 68px;
+    right: 0;
   }
 }
 
