@@ -196,9 +196,43 @@ const TRANSLATIONS = {
     b2b_opt_caterer: "Event Caterer / Hall",
     b2b_opt_other: "Other Business",
     b2b_label_requirement: "Estimated Daily Requirement:",
-    b2b_ph_requirement: "e.g. 30 Bread Packets + 50 Tea Buns daily",
     b2b_btn_submit_quote: "Send WhatsApp B2B Inquiry ➔",
-    b2b_btn_submit_sample: "Request Free Sample Box"
+    b2b_btn_submit_sample: "Request Free Sample Box",
+
+    // Custom Cake Studio
+    nav_custom_cake: "Custom Studio",
+    nav_track: "Track Order",
+    custom_studio_tag: "Interactive 3D Cake Visualizer",
+    custom_studio_title: "Design Your Custom Celebration Cake",
+    custom_studio_sub: "Upload your Instagram/Pinterest reference photo, customize flavors, tiers & weight, and get an instant estimate.",
+    custom_upload_title: "1. Upload Inspiration Photo",
+    custom_upload_sub: "Drag & drop or tap to select reference cake design",
+    custom_config_title: "2. Choose Flavor & Options",
+    custom_flavor_label: "Sponge & Flavor:",
+    custom_frosting_label: "Frosting / Icing Type:",
+    custom_weight_label: "Cake Weight & Tiers:",
+    custom_eggless_label: "100% Eggless Preparation",
+    custom_msg_label: "Message on Cake / Plaque:",
+    custom_msg_ph: "e.g. Happy 1st Birthday Aadhya!",
+    custom_date_label: "Preferred Delivery / Pickup Date:",
+    custom_est_title: "Estimated Price:",
+    custom_btn_whatsapp: "Order Custom Cake on WhatsApp ➔",
+
+    // Order Tracking
+    track_title: "Live Order Status & Tracking",
+    track_sub: "Watch your fresh bakes move from kitchen oven to doorstep in Tirunelveli.",
+    track_order_id: "Order ID:",
+    track_step1_title: "Order Placed & Confirmed",
+    track_step1_sub: "Received by master baking team",
+    track_step2_title: "Baking & Fresh Preparation",
+    track_step2_sub: "In the kitchen oven & decorating table",
+    track_step3_title: "Out for 2KM Express Delivery",
+    track_step3_sub: "Rider dispatched with thermal box",
+    track_step4_title: "Delivered to Your Doorstep",
+    track_step4_sub: "Enjoy your delicious bakes!",
+    track_est_time: "Estimated Delivery Arrival",
+    track_call_store: "Call Store",
+    track_wa_support: "WhatsApp Support"
   },
   ta: {
     // Navigation
@@ -393,10 +427,43 @@ const TRANSLATIONS = {
     b2b_opt_hotel: "ஹோட்டல் / உணவகம் / கஃபே",
     b2b_opt_caterer: "கேட்டரிங் / திருமண மஹால்",
     b2b_opt_other: "மற்ற நிறுவனங்கள்",
-    b2b_label_requirement: "தினசரி தேவைப்படும் அளவு:",
-    b2b_ph_requirement: "எ.கா. தினமும் 30 பிரெட் பாக்கெட்டுகள் + 50 டீ பன்கள்",
     b2b_btn_submit_quote: "வாட்ஸ்அப் மூலம் விலை கேட்க ➔",
-    b2b_btn_submit_sample: "இலவச மாதிரி பாக்ஸ் கேட்க"
+    b2b_btn_submit_sample: "இலவச மாதிரி பாக்ஸ் கேட்க",
+
+    // Custom Cake Studio
+    nav_custom_cake: "தனிப்பயன் கேக்",
+    nav_track: "ஆர்டர் கண்காணிப்பு",
+    custom_studio_tag: "3D கேக் வடிவமைப்பாளர்",
+    custom_studio_title: "உங்கள் கனவு கொண்டாட்ட கேக்கை வடிவமைக்கவும்",
+    custom_studio_sub: "இன்ஸ்டாகிராம்/பின்ட்ரெஸ்ட் கேக் புகைப்படத்தைப் பதிவேற்றி, சுவை, அடுக்கு மற்றும் எடையைத் தேர்வு செய்து உடனடி விலை மதிப்பீட்டைப் பெறுங்கள்.",
+    custom_upload_title: "1. கேக் புகைப்படத்தைப் பதிவேற்றவும்",
+    custom_upload_sub: "விருப்பமான கேக் புகைப்படத்தை இழுத்துப் போடவும் அல்லது தேர்ந்தெடுக்கவும்",
+    custom_config_title: "2. சுவை மற்றும் விருப்பங்களைத் தேர்வு செய்க",
+    custom_flavor_label: "கேக் சுவை & ஸ்பாஞ்ச்:",
+    custom_frosting_label: "க்ரீம் / ஐசிங் வகை:",
+    custom_weight_label: "கேக் எடை & அடுக்குகள்:",
+    custom_eggless_label: "100% முட்டையற்ற (Eggless) தயாரிப்பு",
+    custom_msg_label: "கேக்கில் எழுத வேண்டிய பெயர் / வாழ்த்து:",
+    custom_msg_ph: "எ.கா. பிறந்தநாள் நல்வாழ்த்துகள் பிரியா!",
+    custom_date_label: "தேவைப்படும் தேதி & நேரம்:",
+    custom_est_title: "மதிப்பிடப்பட்ட விலை:",
+    custom_btn_whatsapp: "வாட்ஸ்அப்பில் தனிப்பயன் கேக் ஆர்டர் செய்ய ➔",
+
+    // Order Tracking
+    track_title: "நேரலை ஆர்டர் நிலை & கண்காணிப்பு",
+    track_sub: "உங்கள் சுவையான பேக்ஸ் சமையலறையிலிருந்து உங்கள் வீட்டு வாசலை அடையும் வரை கண்காணிக்கவும்.",
+    track_order_id: "ஆர்டர் எண்:",
+    track_step1_title: "ஆர்டர் பெறப்பட்டு உறுதி செய்யப்பட்டது",
+    track_step1_sub: "பேக்கிங் குழுவினரால் சரிபார்க்கப்பட்டது",
+    track_step2_title: "சமையலறையில் புதிய பேக்கிங் & அலங்காரம்",
+    track_step2_sub: "அவனில் சூடாக தயாராகி வருகிறது",
+    track_step3_title: "2KM விரைவு டெலிவரிக்கு புறப்பட்டது",
+    track_step3_sub: "டெலிவரி ரைடர் பாதுகாப்பாக எடுத்து வருகிறார்",
+    track_step4_title: "உங்கள் வீட்டு வாசலில் டெலிவரி செய்யப்பட்டது",
+    track_step4_sub: "சுவைத்து மகிழுங்கள்!",
+    track_est_time: "எதிர்பார்க்கப்படும் டெலிவரி நேரம்",
+    track_call_store: "கடையை அழைக்க",
+    track_wa_support: "வாட்ஸ்அப் உதவி"
   }
 };
 

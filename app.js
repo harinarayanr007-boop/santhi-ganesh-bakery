@@ -740,6 +740,11 @@ function addToCart(productId, customWeight = null, customPrice = null, btnElemen
   saveCart();
   updateCartUI();
 
+  // Trigger floating toast notification
+  if (typeof showToast === 'function') {
+    showToast(`Added ${product.title || 'Cake'} (${itemWeight}) to your cart!`, 'ph-cake', 'success');
+  }
+
   // Button micro-interaction feedback
   if (btnElement) {
     const origHTML = btnElement.innerHTML;
@@ -1627,4 +1632,51 @@ function getLocalChatFallback(msg) {
     whatsappUrl: 'https://wa.me/917339073844?text=Hi%20Santhi%20Ganesh%20Bakery!'
   };
 }
+
+/* ==========================================================================
+   TOAST NOTIFICATION ENGINE (UNIVERSAL & BEAUTIFUL)
+   ========================================================================== */
+function showToast(message, iconClass = 'ph-check-circle', type = 'info', duration = 3500) {
+  if (typeof document === 'undefined') return;
+
+  let container = document.getElementById('sg-toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'sg-toast-container';
+    container.className = 'sg-toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `sg-toast sg-toast-${type}`;
+  toast.innerHTML = `
+    <div class="sg-toast-icon">
+      <i class="ph-fill ${iconClass}"></i>
+    </div>
+    <div class="sg-toast-message">${escapeChatHTML(message)}</div>
+    <button class="sg-toast-close" onclick="this.parentElement.remove()" aria-label="Close Notification">
+      <i class="ph ph-x"></i>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  // Trigger entering animation
+  requestAnimationFrame(() => {
+    toast.classList.add('sg-toast-visible');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('sg-toast-visible');
+    setTimeout(() => {
+      if (toast.parentElement) toast.remove();
+    }, 300);
+  }, duration);
+}
+
+// Expose globally
+if (typeof window !== 'undefined') {
+  window.showToast = showToast;
+}
+
 
