@@ -4438,18 +4438,6 @@
       const bakeryPhone = "917339073844";
       window.open(`https://wa.me/${bakeryPhone}?text=${encodeURIComponent(text)}`, '_blank');
 
-      // Save last order payload to localStorage for live tracking page
-      try {
-        localStorage.setItem('sg_last_order', JSON.stringify({
-          id: orderTag,
-          items: [...deliveryCart],
-          subtotal: subtotal,
-          deliveryFee: deliveryFee,
-          total: grandTotal,
-          timestamp: new Date().toISOString()
-        }));
-      } catch(e) {}
-
       setTimeout(() => {
         deliveryCart = [];
         localStorage.removeItem('sg_delivery_cart');
@@ -4459,11 +4447,11 @@
           showBrandModal({
             title: currentMenuLang === 'ta' ? 'ஆர்டர் சமர்ப்பிக்கப்பட்டது!' : 'Order Dispatched!',
             message: currentMenuLang === 'ta' 
-              ? `🎉 உங்கள் ஆர்டர் (${orderTag}) வாட்ஸ்அப்பில் அனுப்பப்பட்டுள்ளது. சமையலறையில் தயார் செய்யத் தொடங்குவோம்!<br><br><a href="./order-status?id=${orderTag}" class="btn btn-primary" style="display:inline-block; margin-top:10px; font-size:0.88rem;">🛵 நேரலை ஆர்டர் நிலையைக் கண்காணிக்க ➔</a>` 
-              : `🎉 Your order (${orderTag}) has been dispatched to WhatsApp. We'll start preparing it right away!<br><br><a href="./order-status?id=${orderTag}" class="btn btn-primary" style="display:inline-block; margin-top:10px; font-size:0.88rem;">🛵 Track Live Order Status ➔</a>`,
+              ? '🎉 உங்கள் ஆர்டர் விவரங்கள் வாட்ஸ்அப்பில் அனுப்பப்பட்டுள்ளன. நாங்கள் உடனடியாக தயார் செய்யத் தொடங்குவோம்!' 
+              : "🎉 Your order details have been dispatched to WhatsApp. We'll start preparing your order right away!",
             icon: '🎉',
             type: 'success',
-            confirmText: currentMenuLang === 'ta' ? 'சரி' : 'Close'
+            confirmText: currentMenuLang === 'ta' ? 'அருமை' : 'Awesome'
           });
         }
       }, 500);

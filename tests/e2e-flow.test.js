@@ -8,7 +8,6 @@ const pagesToTest = [
   'index.html',
   'cakes.html',
   'custom-cake.html',
-  'order-status.html',
   'menu.html',
   'wholesale.html',
   'contact.html'
@@ -40,20 +39,14 @@ pagesToTest.forEach(page => {
   }
 });
 
-// Test Headless Edge Render for Custom Cake Studio and Order Status
+// Test Headless Edge Render for Custom Cake Studio
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
 const studioHtml = `file:///${path.resolve(__dirname, '..', 'custom-cake.html').replace(/\\/g, '/')}`;
-const statusHtml = `file:///${path.resolve(__dirname, '..', 'order-status.html').replace(/\\/g, '/')}`;
-
 const outStudioPng = 'C:\\Users\\harin\\.gemini\\antigravity\\brain\\9e045b8a-66e7-49a4-a96e-0967cc09a05d\\studio_preview.png';
-const outStatusPng = 'C:\\Users\\harin\\.gemini\\antigravity\\brain\\9e045b8a-66e7-49a4-a96e-0967cc09a05d\\status_preview.png';
 
 try {
   execSync(`"${edgePath}" --headless=new --disable-gpu --window-size=1440,1100 --screenshot="${outStudioPng}" --virtual-time-budget=4000 "${studioHtml}"`, { stdio: 'inherit' });
   console.log(`📸 Rendered Custom Cake Studio screenshot: ${outStudioPng}`);
-
-  execSync(`"${edgePath}" --headless=new --disable-gpu --window-size=1440,1100 --screenshot="${outStatusPng}" --virtual-time-budget=4000 "${statusHtml}"`, { stdio: 'inherit' });
-  console.log(`📸 Rendered Order Status screenshot: ${outStatusPng}`);
 } catch (e) {
   console.error('Render error:', e.message);
 }
