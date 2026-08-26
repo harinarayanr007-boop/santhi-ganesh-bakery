@@ -76,125 +76,209 @@
   <!-- MAIN CAKE STUDIO CONTENT -->
   <main class="container section-padding">
     <div class="cake-studio-hero">
-      <p class="text-tagline" data-i18n="custom_studio_tag">Interactive 3D Cake Visualizer</p>
-      <h1 class="text-h2" style="margin-top: 8px;" data-i18n="custom_studio_title">Design Your Custom Celebration Cake</h1>
-      <p class="text-sub" style="max-width: 680px; margin: 12px auto 0;" data-i18n="custom_studio_sub">
-        Upload your Instagram/Pinterest reference photo, customize flavors, tiers & weight, and get an instant estimate.
+      <span class="hero-pill hero-pill-delivery" style="margin-bottom: 12px;">
+        <i class="ph ph-sparkle"></i> Artisanal Cake Atelier
+      </span>
+      <h1 class="text-h2" style="font-size: 2.2rem; margin-top: 6px;" data-i18n="custom_studio_title">Design Your Custom Celebration Cake</h1>
+      <p class="text-sub" style="max-width: 680px; margin: 10px auto 0;" data-i18n="custom_studio_sub">
+        Upload your Instagram or Pinterest reference photo, pick flavors, tiers & weight, and get an instant real-time estimate.
       </p>
     </div>
 
     <div class="cake-studio-layout">
-      <!-- LEFT: INTERACTIVE 3D/LIVE PREVIEW -->
-      <div class="cake-preview-card">
-        <div class="cake-preview-canvas" id="preview-canvas">
-          <span class="cake-preview-badge" id="preview-tier-badge">Single Tier • 1.5 kg</span>
-          <img src="./assets/why_cake_artistry.jpg" alt="Custom Cake Preview" id="cake-preview-img" class="cake-preview-img">
-          <div class="cake-preview-msg-plaque" id="preview-msg-plaque">Happy Birthday!</div>
+      <!-- LEFT: LUXURY 3D STAGE & ESTIMATE POD -->
+      <div class="cake-stage-pod">
+        <div class="cake-stage-canvas" id="preview-canvas">
+          <span class="cake-stage-badge" id="preview-tier-badge">
+            <i class="ph ph-crown"></i> Single Tier • 1.5 kg
+          </span>
+          <div class="cake-stage-pedestal"></div>
+          <img src="./assets/why_cake_artistry.jpg" alt="Custom Cake Preview" id="cake-preview-img" class="cake-stage-img">
+          <div class="cake-stage-msg-plaque" id="preview-msg-plaque">Happy Birthday!</div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div class="price-estimate-box">
-            <div>
-              <span style="font-size: 0.82rem; opacity: 0.8;" data-i18n="custom_est_title">Estimated Price:</span>
-              <div class="price-estimate-val" id="est-price-display">₹1,350</div>
-            </div>
-            <div style="text-align: right; font-size: 0.8rem; opacity: 0.8;">
-              <span id="est-weight-display">1.5 kg</span> • <span id="est-flavor-display">Belgian Truffle</span>
+        <!-- Luxury Live Estimate Pod -->
+        <div class="cake-price-pod">
+          <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 4px;" data-i18n="custom_est_title">
+            Estimated Price:
+          </div>
+          <div class="cake-price-breakdown">
+            <div class="cake-price-num" id="est-price-display">₹1,425</div>
+            <div style="text-align: right; font-size: 0.82rem; color: rgba(255,255,255,0.85);">
+              <span id="est-weight-display">1.5 kg (Single Tier)</span><br>
+              <span id="est-flavor-display" style="color: #FFD54F;">Belgian Truffle</span>
             </div>
           </div>
-
-          <button type="button" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1rem;" onclick="generateCustomWhatsAppOrder()">
-            <i class="ph-fill ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
-            <span data-i18n="custom_btn_whatsapp">Order Custom Cake on WhatsApp ➔</span>
-          </button>
         </div>
+
+        <button type="button" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1rem; box-shadow: 0 8px 24px rgba(139, 69, 19, 0.3);" onclick="generateCustomWhatsAppOrder()">
+          <i class="ph-fill ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
+          <span data-i18n="custom_btn_whatsapp">Order Custom Cake on WhatsApp ➔</span>
+        </button>
       </div>
 
-      <!-- RIGHT: CONFIGURATOR FORM -->
-      <div class="cake-config-form">
-        <!-- Step 1: Photo Upload -->
-        <div>
-          <h3 class="config-section-title">
-            <i class="ph-fill ph-image" style="color: var(--color-desert);"></i>
-            <span data-i18n="custom_upload_title">1. Upload Inspiration Photo</span>
-          </h3>
-          <p class="text-small" style="color: var(--color-text-muted); margin: 4px 0 12px;" data-i18n="custom_upload_sub">
-            Drag & drop or tap to select reference cake design
-          </p>
-          <div class="upload-dropzone" onclick="document.getElementById('cake-file-input').click()">
+      <!-- RIGHT: EDITORIAL STEP CARDS -->
+      <div>
+        <!-- STEP 01: INSPIRATION PHOTO -->
+        <div class="studio-step-card">
+          <div class="studio-step-header">
+            <span class="studio-step-num">01</span>
+            <div>
+              <h3 class="studio-step-title" data-i18n="custom_upload_title">1. Upload Inspiration Photo</h3>
+              <p class="text-small" style="color: var(--color-text-muted);" data-i18n="custom_upload_sub">
+                Drag & drop or tap to select reference cake design
+              </p>
+            </div>
+          </div>
+
+          <div class="studio-upload-box" onclick="document.getElementById('cake-file-input').click()">
             <input type="file" id="cake-file-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-            <i class="ph ph-upload-simple" style="font-size: 2.2rem; color: var(--color-desert); margin-bottom: 8px;"></i>
-            <p style="font-weight: 600; font-size: 0.92rem; color: var(--color-text-main);" id="upload-status-text">Click to choose image or drag here</p>
-            <span style="font-size: 0.78rem; color: var(--color-text-muted);">Supports PNG, JPG, WEBP (Max 10MB)</span>
+            <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(217, 148, 62, 0.18); color: #8B4513; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 8px;">
+              <i class="ph ph-camera-plus"></i>
+            </div>
+            <p style="font-weight: 700; font-size: 0.95rem; color: var(--color-text-main);" id="upload-status-text">Click to upload photo or drag & drop</p>
+            <span style="font-size: 0.78rem; color: var(--color-text-muted);">Supports Instagram / Pinterest screenshots (JPG, PNG, WEBP)</span>
           </div>
         </div>
 
-        <!-- Step 2: Flavor Selection -->
-        <div>
-          <h3 class="config-section-title">
-            <i class="ph-fill ph-cake" style="color: var(--color-desert);"></i>
-            <span data-i18n="custom_flavor_label">Sponge & Flavor:</span>
-          </h3>
-          <div class="chip-select-grid" style="margin-top: 10px;" id="flavor-selector">
-            <div class="chip-option selected" data-flavor="Belgian Chocolate Truffle" data-rate="900" onclick="selectFlavor(this)">🍫 Belgian Truffle</div>
-            <div class="chip-option" data-flavor="Rich Black Forest" data-rate="750" onclick="selectFlavor(this)">🍒 Black Forest</div>
-            <div class="chip-option" data-flavor="Red Velvet Cream Cheese" data-rate="950" onclick="selectFlavor(this)">❤️ Red Velvet</div>
-            <div class="chip-option" data-flavor="Butterscotch Crunch" data-rate="750" onclick="selectFlavor(this)">🍯 Butterscotch</div>
-            <div class="chip-option" data-flavor="Fresh Vanilla Bean" data-rate="650" onclick="selectFlavor(this)">🍦 Pure Vanilla</div>
-            <div class="chip-option" data-flavor="Fresh Mango / Fruit" data-rate="850" onclick="selectFlavor(this)">🥭 Fresh Fruit</div>
+        <!-- STEP 02: GOURMET FLAVOR ATELIER -->
+        <div class="studio-step-card">
+          <div class="studio-step-header">
+            <span class="studio-step-num">02</span>
+            <div>
+              <h3 class="studio-step-title" data-i18n="custom_flavor_label">2. Sponge & Gourmet Flavor</h3>
+              <p class="text-small" style="color: var(--color-text-muted);">Baked fresh with pure butter, couverture cocoa & real fruit puree</p>
+            </div>
+          </div>
+
+          <div class="flavor-cards-grid" id="flavor-selector">
+            <div class="flavor-card selected" data-flavor="Belgian Chocolate Truffle" data-rate="900" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">🍫</span>
+              <div class="flavor-card-name">Belgian Truffle</div>
+              <div class="flavor-card-rate">₹900 / kg • 100% Cocoa</div>
+            </div>
+
+            <div class="flavor-card" data-flavor="Rich Black Forest" data-rate="750" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">🍒</span>
+              <div class="flavor-card-name">Black Forest</div>
+              <div class="flavor-card-rate">₹750 / kg • Red Cherries</div>
+            </div>
+
+            <div class="flavor-card" data-flavor="Red Velvet Cream Cheese" data-rate="950" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">❤️</span>
+              <div class="flavor-card-name">Red Velvet</div>
+              <div class="flavor-card-rate">₹950 / kg • Cheese Frosting</div>
+            </div>
+
+            <div class="flavor-card" data-flavor="Butterscotch Crunch" data-rate="750" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">🍯</span>
+              <div class="flavor-card-name">Butterscotch</div>
+              <div class="flavor-card-rate">₹750 / kg • Cashew Praline</div>
+            </div>
+
+            <div class="flavor-card" data-flavor="Fresh Madagascar Vanilla" data-rate="650" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">🍦</span>
+              <div class="flavor-card-name">Pure Vanilla</div>
+              <div class="flavor-card-rate">₹650 / kg • Real Pods</div>
+            </div>
+
+            <div class="flavor-card" data-flavor="Fresh Alphonso Mango" data-rate="850" onclick="selectFlavor(this)">
+              <span style="font-size: 1.5rem;">🥭</span>
+              <div class="flavor-card-name">Fresh Fruit</div>
+              <div class="flavor-card-rate">₹850 / kg • Seasonal Fruit</div>
+            </div>
           </div>
         </div>
 
-        <!-- Step 3: Weight & Tiers -->
-        <div>
-          <h3 class="config-section-title">
-            <i class="ph-fill ph-scales" style="color: var(--color-desert);"></i>
-            <span data-i18n="custom_weight_label">Cake Weight & Tiers:</span>
-          </h3>
-          <div class="chip-select-grid" style="margin-top: 10px;" id="weight-selector">
-            <div class="chip-option" data-weight="1" data-tier="Single Tier" onclick="selectWeight(this)">1.0 kg (Single)</div>
-            <div class="chip-option selected" data-weight="1.5" data-tier="Single Tier" onclick="selectWeight(this)">1.5 kg (Single)</div>
-            <div class="chip-option" data-weight="2" data-tier="Single Tier" onclick="selectWeight(this)">2.0 kg (Single)</div>
-            <div class="chip-option" data-weight="2.5" data-tier="2-Tier" onclick="selectWeight(this)">2.5 kg (2-Tier)</div>
-            <div class="chip-option" data-weight="3" data-tier="2-Tier" onclick="selectWeight(this)">3.0 kg (2-Tier)</div>
-            <div class="chip-option" data-weight="5" data-tier="3-Tier Grand" onclick="selectWeight(this)">5.0 kg (3-Tier)</div>
+        <!-- STEP 03: WEIGHT & TIER ARCHITECTURE -->
+        <div class="studio-step-card">
+          <div class="studio-step-header">
+            <span class="studio-step-num">03</span>
+            <div>
+              <h3 class="studio-step-title" data-i18n="custom_weight_label">3. Cake Weight & Tier Architecture</h3>
+              <p class="text-small" style="color: var(--color-text-muted);">From intimate birthdays to grand multi-tier wedding centerpieces</p>
+            </div>
+          </div>
+
+          <div class="tier-cards-grid" id="weight-selector">
+            <div class="tier-card" data-weight="1" data-tier="Single Tier" onclick="selectWeight(this)">
+              <div class="tier-weight-val">1.0 kg</div>
+              <div class="tier-sub">Single Tier</div>
+            </div>
+            <div class="tier-card selected" data-weight="1.5" data-tier="Single Tier" onclick="selectWeight(this)">
+              <div class="tier-weight-val">1.5 kg</div>
+              <div class="tier-sub">Single Tier</div>
+            </div>
+            <div class="tier-card" data-weight="2" data-tier="Single Tier" onclick="selectWeight(this)">
+              <div class="tier-weight-val">2.0 kg</div>
+              <div class="tier-sub">Single Tier</div>
+            </div>
+            <div class="tier-card" data-weight="2.5" data-tier="2-Tier Castle" onclick="selectWeight(this)">
+              <div class="tier-weight-val">2.5 kg</div>
+              <div class="tier-sub">2-Tier Castle</div>
+            </div>
+            <div class="tier-card" data-weight="3" data-tier="2-Tier Castle" onclick="selectWeight(this)">
+              <div class="tier-weight-val">3.0 kg</div>
+              <div class="tier-sub">2-Tier Castle</div>
+            </div>
+            <div class="tier-card" data-weight="5" data-tier="3-Tier Royal" onclick="selectWeight(this)">
+              <div class="tier-weight-val">5.0 kg</div>
+              <div class="tier-sub">3-Tier Royal</div>
+            </div>
+          </div>
+
+          <!-- Eggless Toggle Switch -->
+          <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(16, 185, 129, 0.08); border: 1.5px solid rgba(16, 185, 129, 0.25); border-radius: 14px; padding: 14px 18px; margin-top: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #10B981; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                <i class="ph-fill ph-plant"></i>
+              </div>
+              <div>
+                <span style="font-weight: 800; font-size: 0.92rem; color: #065F46;" data-i18n="custom_eggless_label">100% Eggless Preparation</span>
+                <div style="font-size: 0.76rem; color: #047857;">Pure vegetarian kitchen standard</div>
+              </div>
+            </div>
+            <input type="checkbox" id="eggless-checkbox" checked style="width: 22px; height: 22px; accent-color: #10B981; cursor: pointer;" onchange="updateCustomEstimator()">
           </div>
         </div>
 
-        <!-- Step 4: Eggless Toggle -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 14px 18px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <i class="ph-fill ph-plant" style="color: #10B981; font-size: 1.3rem;"></i>
-            <span style="font-weight: 700; font-size: 0.9rem; color: #065F46;" data-i18n="custom_eggless_label">100% Eggless Preparation</span>
+        <!-- STEP 04: INSCRIPTION & DELIVERY DATE -->
+        <div class="studio-step-card">
+          <div class="studio-step-header">
+            <span class="studio-step-num">04</span>
+            <div>
+              <h3 class="studio-step-title" data-i18n="custom_config_title">4. Personal Inscription & Delivery Slot</h3>
+              <p class="text-small" style="color: var(--color-text-muted);">Custom greeting written in chocolate on gold plaque</p>
+            </div>
           </div>
-          <input type="checkbox" id="eggless-checkbox" checked style="width: 20px; height: 20px; accent-color: #10B981; cursor: pointer;" onchange="updateCustomEstimator()">
-        </div>
 
-        <!-- Step 5: Custom Message & Date -->
-        <div>
-          <label style="font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 6px;" data-i18n="custom_msg_label">
-            Message on Cake / Plaque:
-          </label>
-          <input type="text" id="cake-custom-msg" class="form-input" style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--color-border-subtle); border-radius: 10px;" placeholder="e.g. Happy 1st Birthday Aadhya!" value="Happy Birthday!" oninput="handleMsgInput(this.value)">
-        </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 6px;" data-i18n="custom_msg_label">
+                Writing on Cake / Plaque:
+              </label>
+              <input type="text" id="cake-custom-msg" class="form-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid rgba(166, 96, 27, 0.25); border-radius: 12px; font-weight: 600;" placeholder="e.g. Happy 1st Birthday Aadhya!" value="Happy Birthday!" oninput="handleMsgInput(this.value)">
+            </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <div>
-            <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;" data-i18n="custom_date_label">
-              Delivery Date:
-            </label>
-            <input type="date" id="cake-delivery-date" class="form-input" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--color-border-subtle); border-radius: 10px;">
-          </div>
-          <div>
-            <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;">
-              Delivery Time Slot:
-            </label>
-            <select id="cake-delivery-time" class="form-input" style="width: 100%; padding: 10px 12px; border: 1.5px solid var(--color-border-subtle); border-radius: 10px;">
-              <option value="12:00 PM - 03:00 PM">12:00 PM - 03:00 PM</option>
-              <option value="03:00 PM - 06:00 PM">03:00 PM - 06:00 PM</option>
-              <option value="06:00 PM - 09:00 PM" selected>06:00 PM - 09:00 PM (Evening Party)</option>
-              <option value="Store Pickup (8 AM - 10 PM)">Store Pickup (8 AM - 10 PM)</option>
-            </select>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;" data-i18n="custom_date_label">
+                  Delivery / Pickup Date:
+                </label>
+                <input type="date" id="cake-delivery-date" class="form-input" style="width: 100%; padding: 12px 14px; border: 1.5px solid rgba(166, 96, 27, 0.25); border-radius: 12px; font-weight: 600;">
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;">
+                  Delivery Time Slot:
+                </label>
+                <select id="cake-delivery-time" class="form-input" style="width: 100%; padding: 12px 14px; border: 1.5px solid rgba(166, 96, 27, 0.25); border-radius: 12px; font-weight: 600;">
+                  <option value="12:00 PM - 03:00 PM">12:00 PM - 03:00 PM</option>
+                  <option value="03:00 PM - 06:00 PM">03:00 PM - 06:00 PM</option>
+                  <option value="06:00 PM - 09:00 PM (Evening Party)" selected>06:00 PM - 09:00 PM (Evening Party)</option>
+                  <option value="Store Pickup (8 AM - 10 PM)">Store Pickup (8 AM - 10 PM)</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -232,7 +316,7 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
-        uploadedImageBase64 = evt.target.result;
+        uploadedImageBase64 = evt.result;
         document.getElementById('cake-preview-img').src = uploadedImageBase64;
         document.getElementById('upload-status-text').textContent = "✓ Image attached: " + file.name;
         if (typeof showToast === 'function') {
@@ -243,7 +327,7 @@
     }
 
     function selectFlavor(el) {
-      document.querySelectorAll('#flavor-selector .chip-option').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('#flavor-selector .flavor-card').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
       selectedFlavorName = el.getAttribute('data-flavor');
       selectedFlavorRate = Number(el.getAttribute('data-rate'));
@@ -251,7 +335,7 @@
     }
 
     function selectWeight(el) {
-      document.querySelectorAll('#weight-selector .chip-option').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('#weight-selector .tier-card').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
       selectedWeightKg = Number(el.getAttribute('data-weight'));
       selectedTierName = el.getAttribute('data-tier');
@@ -273,7 +357,7 @@
       document.getElementById('est-price-display').textContent = `₹${totalPrice.toLocaleString('en-IN')}`;
       document.getElementById('est-weight-display').textContent = `${selectedWeightKg} kg (${selectedTierName})`;
       document.getElementById('est-flavor-display').textContent = selectedFlavorName;
-      document.getElementById('preview-tier-badge').textContent = `${selectedTierName} • ${selectedWeightKg} kg`;
+      document.getElementById('preview-tier-badge').innerHTML = `<i class="ph ph-crown"></i> ${selectedTierName} • ${selectedWeightKg} kg`;
     }
 
     function generateCustomWhatsAppOrder() {
