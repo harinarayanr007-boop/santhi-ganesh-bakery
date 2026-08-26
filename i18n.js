@@ -11,6 +11,7 @@ const TRANSLATIONS = {
     nav_contact: "Location",
     nav_whatsapp: "Order on WhatsApp",
     nav_explore: "Cakes",
+    nav_ai: "Ask AI",
 
     // Hero Section
     hero_customers_count: "200+ Happy Customers",
@@ -210,6 +211,7 @@ const TRANSLATIONS = {
     nav_contact: "இருப்பிடம்",
     nav_whatsapp: "வாட்ஸ்அப்",
     nav_explore: "கேக்குகள்",
+    nav_ai: "AI உதவி",
 
     // Hero Section
     hero_customers_count: "200+ வாடிக்கையாளர்கள்",
