@@ -515,7 +515,7 @@ function resetAllProductsFilters() {
 }
 window.resetAllProductsFilters = resetAllProductsFilters;
 
-// Helper: Product Card HTML Template
+// Helper: Product Card HTML Template (KokonutUI Glass & Spotlight Edition)
 function createProductCardHTML(product) {
   const displayWeight = (product.variants && product.variants.length > 0)
     ? product.variants.map(v => (typeof escapeHTML === 'function' ? escapeHTML(v.weight) : v.weight)).join(', ')
@@ -528,7 +528,7 @@ function createProductCardHTML(product) {
   const safePrice = Number(product.price) || 0;
 
   return `
-    <article class="product-card">
+    <article class="product-card kokonut-glass kokonut-spotlight" data-product-id="${safeId}">
       <a href="${detailUrl}" class="product-image-box" style="display: block; text-decoration: none;">
         <img src="${product.image}" alt="${safeTitle}" loading="lazy" onerror="this.onerror=null; this.src='./sg-bakery-logo.png';" />
       </a>
@@ -542,7 +542,7 @@ function createProductCardHTML(product) {
       </div>
       <div class="product-footer">
         <span class="product-price">₹${safePrice}</span>
-        <button class="btn-add-cart" onclick="addToCart('${safeId}', null, null, this)" title="Add to order cart">
+        <button class="btn-add-cart btn-kokonut-shimmer" style="padding: 6px 14px; font-size: 0.85rem;" onclick="addToCart('${safeId}', null, null, this)" title="Add to order cart">
           + Add
         </button>
       </div>
@@ -1677,6 +1677,75 @@ function showToast(message, iconClass = 'ph-check-circle', type = 'info', durati
 // Expose globally
 if (typeof window !== 'undefined') {
   window.showToast = showToast;
+
+  // KokonutUI Interactive Spotlight Cursor Tracking (Optimized with RAF)
+  let spotlightTicking = false;
+  document.addEventListener('mousemove', (e) => {
+    if (!spotlightTicking) {
+      window.requestAnimationFrame(() => {
+        const spotlights = document.querySelectorAll('.kokonut-spotlight:hover');
+        spotlights.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          el.style.setProperty('--mouse-x', `${x}px`);
+          el.style.setProperty('--mouse-y', `${y}px`);
+        });
+        spotlightTicking = false;
+      });
+      spotlightTicking = true;
+    }
+  }, { passive: true });
+
+  // Motion System Initializer (IntersectionObserver & Spring Micro-interactions)
+  function initMotionSystem() {
+    // 1. Automatic Scroll Reveal Observer
+    if ('IntersectionObserver' in window) {
+      const motionObserver = new IntersectionObserver((entries, observer) => {
+        for (let i = 0; i < entries.length; i++) {
+          const entry = entries[i];
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        }
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      // Target all sections, bento cards, product grids, and explicit motion-reveal elements
+      const revealTargets = document.querySelectorAll(
+        '.motion-reveal, .motion-stagger, .bento-item, .category-promo-card, .kokonut-glass, .heritage-card, .testimonial-card, section:not(.hero-section)'
+      );
+
+      revealTargets.forEach(el => {
+        if (!el.classList.contains('motion-reveal') && !el.classList.contains('motion-stagger')) {
+          el.classList.add('motion-reveal');
+        }
+        motionObserver.observe(el);
+      });
+    }
+
+    // 2. Add-to-cart & CTA Tactile Spring Feedback
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-primary, .btn-kokonut-shimmer, .btn-kokonut-gold, .add-to-cart-btn, .card-action-btn');
+      if (btn) {
+        btn.classList.remove('motion-add-burst');
+        void btn.offsetWidth; // force reflow
+        btn.classList.add('motion-add-burst');
+        setTimeout(() => btn.classList.remove('motion-add-burst'), 450);
+      }
+    }, { passive: true });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMotionSystem);
+  } else {
+    initMotionSystem();
+  }
 }
+
 
 

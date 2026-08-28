@@ -114,6 +114,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="SG Bakery">
+  <link rel="stylesheet" href="./index.css?v=4.0">
 
   <style>
     :root {
@@ -297,11 +298,14 @@
     }
 
     .hero-banner-card {
-      background: linear-gradient(135deg, #24140B 0%, #3D2211 100%);
-      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(26, 13, 7, 0.95) 0%, rgba(46, 23, 12, 0.95) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(217, 148, 62, 0.35);
+      border-radius: 16px;
       color: #FFFFFF;
-      box-shadow: var(--shadow-sm);
-      padding: 12px 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 213, 79, 0.2) inset;
+      padding: 14px 16px;
       position: relative;
       overflow: hidden;
     }
@@ -405,17 +409,23 @@
     .search-box {
       display: flex;
       align-items: center;
-      background: var(--color-surface);
-      border-radius: 20px;
-      padding: 4px 12px;
-      border: 1px solid var(--color-border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-      height: 34px;
+      background: rgba(255, 253, 249, 0.95);
+      border-radius: 9999px;
+      padding: 4px 14px;
+      border: 1.5px solid rgba(230, 215, 199, 0.9);
+      box-shadow: 0 2px 8px rgba(46, 23, 12, 0.04);
+      height: 36px;
+      transition: all 0.2s ease;
+    }
+
+    .search-box:focus-within {
+      border-color: #8B4513;
+      box-shadow: 0 0 0 3px rgba(217, 148, 62, 0.2);
     }
 
     .search-box i {
       font-size: 0.95rem;
-      color: var(--color-text-muted);
+      color: #8B4513;
       margin-right: 8px;
     }
 
@@ -424,9 +434,10 @@
       background: transparent;
       outline: none;
       font-family: var(--font-main);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
+      font-weight: 600;
       width: 100%;
-      color: var(--color-text-main);
+      color: #1A0D07;
     }
 
     .search-clear-btn {
@@ -446,6 +457,46 @@
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       scroll-padding-right: 20px;
+    }
+
+    /* Items List & Item Card KokonutUI Glass */
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item-card {
+      background: rgba(255, 253, 249, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(230, 215, 199, 0.85);
+      box-shadow: 0 2px 10px rgba(46, 23, 12, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .item-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 148, 62, 0.45);
+      box-shadow: 0 6px 18px rgba(94, 38, 5, 0.08);
+    }
+
+    .item-thumb-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--color-surface-soft);
+      border: 1px solid rgba(166, 96, 27, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .category-nav-bar::-webkit-scrollbar {

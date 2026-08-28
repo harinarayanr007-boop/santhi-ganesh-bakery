@@ -19,9 +19,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="icon" type="image/png" href="./sg-bakery-logo.png">
-  <link rel="stylesheet" href="./index.css?v=3.5">
+  <link rel="stylesheet" href="./index.css?v=4.0">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script src="./i18n.js"></script>
+  <script src="./i18n.js?v=4.0"></script>
 </head>
 <body>
 
@@ -73,32 +73,40 @@
     </div>
   </header>
 
-  <!-- MAIN CAKE STUDIO CONTENT -->
-  <main class="container section-padding">
-    <div class="cake-studio-hero">
+  <!-- MAIN CAKE STUDIO CONTENT (KokonutUI Atelier Edition) -->
+  <main class="container section-padding kokonut-ambient-container" style="position: relative;">
+    <!-- Ambient Beams Background -->
+    <div class="kokonut-beams-canvas">
+      <div class="kokonut-beam-glow kokonut-beam-1"></div>
+      <div class="kokonut-beam-glow kokonut-beam-2"></div>
+    </div>
+
+    <div class="cake-studio-hero" style="position: relative; z-index: 1;">
       <span class="hero-pill hero-pill-delivery" style="margin-bottom: 12px;">
         <i class="ph ph-sparkle"></i> Artisanal Cake Atelier
       </span>
-      <h1 class="text-h2" style="font-size: 2.2rem; margin-top: 6px;" data-i18n="custom_studio_title">Design Your Custom Celebration Cake</h1>
+      <h1 class="text-h2" style="font-size: 2.2rem; margin-top: 6px;" data-i18n="custom_studio_title">
+        <span class="kokonut-shimmer-text">Design Your Custom</span> Celebration Cake
+      </h1>
       <p class="text-sub" style="max-width: 680px; margin: 10px auto 0;" data-i18n="custom_studio_sub">
-        Upload your Instagram or Pinterest reference photo, pick flavors, tiers & weight, and get an instant real-time estimate.
+        Upload your Instagram or Pinterest reference photo, pick flavors, tiers &amp; weight, and get an instant real-time estimate.
       </p>
     </div>
 
-    <div class="cake-studio-layout">
+    <div class="cake-studio-layout" style="position: relative; z-index: 1;">
       <!-- LEFT: LUXURY 3D STAGE & ESTIMATE POD -->
-      <div class="cake-stage-pod">
+      <div class="cake-stage-pod kokonut-glass-dark kokonut-spotlight">
         <div class="cake-stage-canvas" id="preview-canvas">
           <span class="cake-stage-badge" id="preview-tier-badge">
             <i class="ph ph-crown"></i> Single Tier • 1.5 kg
           </span>
           <div class="cake-stage-pedestal"></div>
-          <img src="./assets/why_cake_artistry.jpg" alt="Custom Cake Preview" id="cake-preview-img" class="cake-stage-img">
+          <img src="./assets/why_cake_artistry.jpg" alt="Custom Cake Preview" id="cake-preview-img" class="cake-stage-img cake-3d-turntable">
           <div class="cake-stage-msg-plaque" id="preview-msg-plaque">Happy Birthday!</div>
         </div>
 
         <!-- Luxury Live Estimate Pod -->
-        <div class="cake-price-pod">
+        <div class="cake-price-pod" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(217, 148, 62, 0.35);">
           <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 4px;" data-i18n="custom_est_title">
             Estimated Price:
           </div>
@@ -111,22 +119,22 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1rem; box-shadow: 0 8px 24px rgba(139, 69, 19, 0.3);" onclick="generateCustomWhatsAppOrder()">
+        <button type="button" class="btn btn-kokonut-shimmer" style="width: 100%; padding: 16px; font-size: 1rem;" onclick="generateCustomWhatsAppOrder()">
           <i class="ph-fill ph-whatsapp-logo" style="font-size: 1.3rem;"></i>
           <span data-i18n="custom_btn_whatsapp">Order Custom Cake on WhatsApp ➔</span>
         </button>
       </div>
 
       <!-- RIGHT: EDITORIAL STEP CARDS -->
-      <div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
         <!-- STEP 01: INSPIRATION PHOTO -->
-        <div class="studio-step-card">
+        <div class="studio-step-card kokonut-glass kokonut-spotlight">
           <div class="studio-step-header">
             <span class="studio-step-num">01</span>
             <div>
               <h3 class="studio-step-title" data-i18n="custom_upload_title">1. Upload Inspiration Photo</h3>
               <p class="text-small" style="color: var(--color-text-muted);" data-i18n="custom_upload_sub">
-                Drag & drop or tap to select reference cake design
+                Drag &amp; drop or tap to select reference cake design
               </p>
             </div>
           </div>
@@ -136,18 +144,18 @@
             <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(217, 148, 62, 0.18); color: #8B4513; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 8px;">
               <i class="ph ph-camera-plus"></i>
             </div>
-            <p style="font-weight: 700; font-size: 0.95rem; color: var(--color-text-main);" id="upload-status-text">Click to upload photo or drag & drop</p>
+            <p style="font-weight: 700; font-size: 0.95rem; color: var(--color-text-main);" id="upload-status-text">Click to upload photo or drag &amp; drop</p>
             <span style="font-size: 0.78rem; color: var(--color-text-muted);">Supports Instagram / Pinterest screenshots (JPG, PNG, WEBP)</span>
           </div>
         </div>
 
         <!-- STEP 02: GOURMET FLAVOR ATELIER -->
-        <div class="studio-step-card">
+        <div class="studio-step-card kokonut-glass kokonut-spotlight">
           <div class="studio-step-header">
             <span class="studio-step-num">02</span>
             <div>
-              <h3 class="studio-step-title" data-i18n="custom_flavor_label">2. Sponge & Gourmet Flavor</h3>
-              <p class="text-small" style="color: var(--color-text-muted);">Baked fresh with pure butter, couverture cocoa & real fruit puree</p>
+              <h3 class="studio-step-title" data-i18n="custom_flavor_label">2. Sponge &amp; Gourmet Flavor</h3>
+              <p class="text-small" style="color: var(--color-text-muted);">Baked fresh with pure butter, couverture cocoa &amp; real fruit puree</p>
             </div>
           </div>
 
@@ -191,11 +199,11 @@
         </div>
 
         <!-- STEP 03: WEIGHT & TIER ARCHITECTURE -->
-        <div class="studio-step-card">
+        <div class="studio-step-card kokonut-glass kokonut-spotlight">
           <div class="studio-step-header">
             <span class="studio-step-num">03</span>
             <div>
-              <h3 class="studio-step-title" data-i18n="custom_weight_label">3. Cake Weight & Tier Architecture</h3>
+              <h3 class="studio-step-title" data-i18n="custom_weight_label">3. Cake Weight &amp; Tier Architecture</h3>
               <p class="text-small" style="color: var(--color-text-muted);">From intimate birthdays to grand multi-tier wedding centerpieces</p>
             </div>
           </div>
@@ -243,11 +251,11 @@
         </div>
 
         <!-- STEP 04: INSCRIPTION & DELIVERY DATE -->
-        <div class="studio-step-card">
+        <div class="studio-step-card kokonut-glass kokonut-spotlight">
           <div class="studio-step-header">
             <span class="studio-step-num">04</span>
             <div>
-              <h3 class="studio-step-title" data-i18n="custom_config_title">4. Personal Inscription & Delivery Slot</h3>
+              <h3 class="studio-step-title" data-i18n="custom_config_title">4. Personal Inscription &amp; Delivery Slot</h3>
               <p class="text-small" style="color: var(--color-text-muted);">Custom greeting written in chocolate on gold plaque</p>
             </div>
           </div>
@@ -354,10 +362,20 @@
 
       const totalPrice = Math.round((selectedFlavorRate + egglessPremium) * selectedWeightKg + tierPremium);
 
-      document.getElementById('est-price-display').textContent = `₹${totalPrice.toLocaleString('en-IN')}`;
+      const priceEl = document.getElementById('est-price-display');
+      priceEl.textContent = `₹${totalPrice.toLocaleString('en-IN')}`;
+      priceEl.classList.remove('badge-pop');
+      void priceEl.offsetWidth;
+      priceEl.classList.add('badge-pop');
+
       document.getElementById('est-weight-display').textContent = `${selectedWeightKg} kg (${selectedTierName})`;
       document.getElementById('est-flavor-display').textContent = selectedFlavorName;
-      document.getElementById('preview-tier-badge').innerHTML = `<i class="ph ph-crown"></i> ${selectedTierName} • ${selectedWeightKg} kg`;
+      
+      const badgeEl = document.getElementById('preview-tier-badge');
+      badgeEl.innerHTML = `<i class="ph ph-crown"></i> ${selectedTierName} • ${selectedWeightKg} kg`;
+      badgeEl.classList.remove('badge-pop');
+      void badgeEl.offsetWidth;
+      badgeEl.classList.add('badge-pop');
     }
 
     function generateCustomWhatsAppOrder() {
@@ -396,5 +414,8 @@
       updateCustomEstimator();
     });
   </script>
+  <script src="./js/utils.js?v=4.0"></script>
+  <script src="./data/products-data.js?v=4.0"></script>
+  <script src="./app.js?v=4.0"></script>
 </body>
 </html>

@@ -80,9 +80,9 @@
   <meta name="apple-mobile-web-app-title" content="SG Bakery">
   
   <!-- Master Stylesheet & Phosphor Icons -->
-  <link rel="stylesheet" href="./index.css?v=3.5">
+  <link rel="stylesheet" href="./index.css?v=4.0">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script src="./i18n.js"></script>
+  <script src="./i18n.js?v=4.0"></script>
 </head>
 <body>
 
@@ -189,12 +189,19 @@
     </div>
   </aside>
 
-  <!-- 2. EDITORIAL HERO SECTION -->
-  <section id="hero" class="hero-section">
-    <div class="container">
+  <!-- 2. EDITORIAL HERO SECTION (KokonutUI Beams & Shimmer Edition) -->
+  <section id="hero" class="hero-section kokonut-ambient-container">
+    <!-- Ambient Beams & Light Paths -->
+    <div class="kokonut-beams-canvas">
+      <div class="kokonut-beam-glow kokonut-beam-1"></div>
+      <div class="kokonut-beam-glow kokonut-beam-2"></div>
+      <div class="kokonut-beam-glow kokonut-beam-3"></div>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
       <div class="hero-content-wrapper">
-        <!-- Figma Node 708:3001 Social Proof Cluster -->
-        <div class="hero-social-proof">
+        <!-- Social Proof Cluster -->
+        <div class="hero-social-proof hero-badge-motion">
           <div class="hero-avatar-cluster">
             <img src="./assets/avatars/priya.jpg" alt="Priya Chandran" class="hero-avatar-item" decoding="async">
             <img src="./assets/avatars/deepak.jpg" alt="Deepak Sundaram" class="hero-avatar-item" decoding="async">
@@ -209,14 +216,16 @@
           </div>
         </div>
 
-        <p class="text-tagline hero-tagline" data-i18n="hero_tagline">Tirunelveli's Favorite Bakery</p>
-        <h1 class="hero-title" data-i18n="hero_title">Handcrafted Cakes & Fresh Daily Bakes</h1>
-        <p class="hero-subtitle" data-i18n="hero_sub">
+        <p class="text-tagline hero-tagline hero-title-motion" data-i18n="hero_tagline">Tirunelveli's Favorite Bakery</p>
+        <h1 class="hero-title hero-title-motion" data-i18n="hero_title">
+          <span class="kokonut-shimmer-text">Handcrafted Cakes</span> &amp; Fresh Daily Bakes
+        </h1>
+        <p class="hero-subtitle hero-sub-motion" data-i18n="hero_sub">
           Baked fresh before dawn across our local Tirunelveli branches using pure butter, rich chocolate, and natural ingredients.
         </p>
-        <div class="hero-actions">
-          <a href="https://wa.me/917339073844" target="_blank" class="btn btn-secondary"><i class="ph ph-whatsapp-logo"></i> <span data-i18n="hero_btn_whatsapp">Order via WhatsApp</span></a>
-          <a href="./cakes" class="btn btn-primary" data-i18n="hero_btn_explore">Browse Cake Catalog</a>
+        <div class="hero-actions hero-cta-motion">
+          <a href="https://wa.me/917339073844" target="_blank" class="btn btn-kokonut-shimmer"><i class="ph ph-whatsapp-logo" style="font-size: 1.25rem;"></i> <span data-i18n="hero_btn_whatsapp">Order via WhatsApp</span></a>
+          <a href="./cakes" class="btn btn-kokonut-shimmer btn-kokonut-gold" data-i18n="hero_btn_explore">Browse Cake Catalog ➔</a>
         </div>
       </div>
     </div>
@@ -413,76 +422,76 @@
     </div>
   </section>
 
-  <!-- 3.5 FAST FOOD & BAKERY DELIVERY SHOWCASE (SEO & HIGH-CONVERSION) -->
+  <!-- 3.5 FAST FOOD & BAKERY DELIVERY SHOWCASE (KokonutUI Bento & Liquid Glass) -->
   <section id="delivery" class="delivery-section section-padding">
     <div class="container">
-      <!-- Delivery Promo Banner -->
-      <div class="delivery-promo-banner">
+      <!-- Delivery Promo Banner (Kokonut Liquid Glass Dark) -->
+      <div class="delivery-promo-banner kokonut-glass-dark kokonut-spotlight" style="padding: 28px 32px;">
         <div>
-          <span style="font-size: 0.8rem; background: rgba(255,179,0,0.18); color: #FFD54F; padding: 5px 14px; border-radius: 12px; font-weight: 700; border: 1px solid rgba(255,179,0,0.35); display: inline-block; margin-bottom: 12px;">
+          <span style="font-size: 0.8rem; background: rgba(255,179,0,0.2); color: #FFD54F; padding: 5px 14px; border-radius: 12px; font-weight: 700; border: 1px solid rgba(255,179,0,0.45); display: inline-block; margin-bottom: 12px;">
             ⚡ Fast Doorstep Food Delivery
           </span>
           <h2 style="font-family: var(--font-heading); font-size: 1.65rem; color: #FFFFFF; line-height: 1.35; margin-bottom: 8px;">
-            Craving Fresh Bakery Snacks & Cafe Favorites?
+            Craving Fresh Bakery Snacks &amp; Cafe Favorites?
           </h2>
           <p style="color: rgba(255,255,255,0.9); font-size: 0.95rem; max-width: 540px; margin: 0; line-height: 1.5;">
             Order hot savory puffs, fresh juices, thick shakes, pav bhaji, burgers, pizzas, and pastries delivered straight to your door across Tirunelveli!
           </p>
         </div>
-        <a href="./menu" class="btn delivery-cta-btn" style="white-space: nowrap; flex-shrink: 0;">
+        <a href="./menu" class="btn btn-kokonut-shimmer btn-kokonut-gold" style="white-space: nowrap; flex-shrink: 0;">
           <i class="ph ph-moped" style="font-size: 1.3rem;"></i> Explore Delivery Menu →
         </a>
       </div>
 
-      <!-- 4 Delivery Category Cards -->
-      <div class="delivery-grid-4">
+      <!-- 4 Delivery Category Cards (Kokonut Liquid Glass + Spotlight) -->
+      <div class="delivery-grid-4" style="margin-top: 28px;">
         <!-- Card 1: Juices & Shakes -->
-        <a href="./menu" class="delivery-card">
+        <a href="./menu" class="delivery-card kokonut-glass kokonut-spotlight">
           <div class="delivery-card-image-box">
             <img src="./assets/categories/menu-juices.jpg" alt="Fresh Juices & Milkshakes" class="delivery-card-img" loading="lazy" decoding="async">
             <span class="delivery-card-badge">🧃 Fresh Juices</span>
           </div>
           <div class="delivery-card-body">
-            <h3 class="delivery-card-title">Fresh Juices & Shakes</h3>
-            <p class="delivery-card-desc">100% natural cold fruit juices, thick chocolate & fruit milkshakes, and faloodas.</p>
+            <h3 class="delivery-card-title">Fresh Juices &amp; Shakes</h3>
+            <p class="delivery-card-desc">100% natural cold fruit juices, thick chocolate &amp; fruit milkshakes, and faloodas.</p>
             <span class="delivery-card-link">Order Juices <i class="ph ph-arrow-right"></i></span>
           </div>
         </a>
 
         <!-- Card 2: Chaat, Puffs & Savories -->
-        <a href="./menu" class="delivery-card">
+        <a href="./menu" class="delivery-card kokonut-glass kokonut-spotlight">
           <div class="delivery-card-image-box">
             <img src="./assets/categories/menu-chat.jpg" alt="Chaat, Puffs & Savories" class="delivery-card-img" loading="lazy" decoding="async">
             <span class="delivery-card-badge">🫓 Hot Bakes</span>
           </div>
           <div class="delivery-card-body">
-            <h3 class="delivery-card-title">Chaat, Puffs & Savories</h3>
-            <p class="delivery-card-desc">Hot egg & veg puffs, samosas, cutlets, pani puri, bhel puri, and butter pav bhaji.</p>
+            <h3 class="delivery-card-title">Chaat, Puffs &amp; Savories</h3>
+            <p class="delivery-card-desc">Hot egg &amp; veg puffs, samosas, cutlets, pani puri, bhel puri, and butter pav bhaji.</p>
             <span class="delivery-card-link">Order Snacks <i class="ph ph-arrow-right"></i></span>
           </div>
         </a>
 
         <!-- Card 3: Burgers, Pizzas & Sandwiches -->
-        <a href="./menu" class="delivery-card">
+        <a href="./menu" class="delivery-card kokonut-glass kokonut-spotlight">
           <div class="delivery-card-image-box">
             <img src="./assets/categories/menu-burger.jpg" alt="Burgers, Pizzas & Sandwiches" class="delivery-card-img" loading="lazy" decoding="async">
             <span class="delivery-card-badge">🍔 Cafe Specials</span>
           </div>
           <div class="delivery-card-body">
-            <h3 class="delivery-card-title">Burgers, Pizzas & Sandwiches</h3>
+            <h3 class="delivery-card-title">Burgers, Pizzas &amp; Sandwiches</h3>
             <p class="delivery-card-desc">Cheesy loaded pizzas, fresh grilled burgers, and crispy toasted club sandwiches.</p>
             <span class="delivery-card-link">Order Cafe Bites <i class="ph ph-arrow-right"></i></span>
           </div>
         </a>
 
         <!-- Card 4: Brownies & Pastry Slices -->
-        <a href="./menu" class="delivery-card">
+        <a href="./menu" class="delivery-card kokonut-glass kokonut-spotlight">
           <div class="delivery-card-image-box">
             <img src="./assets/categories/menu-brownie.jpg" alt="Brownies & Pastry Slices" class="delivery-card-img" loading="lazy" decoding="async">
             <span class="delivery-card-badge">🍫 Sweet Bakes</span>
           </div>
           <div class="delivery-card-body">
-            <h3 class="delivery-card-title">Brownies & Pastry Slices</h3>
+            <h3 class="delivery-card-title">Brownies &amp; Pastry Slices</h3>
             <p class="delivery-card-desc">Rich fudge brownies, Black Forest cake slices, cupcakes, and chocolate treats.</p>
             <span class="delivery-card-link">Order Desserts <i class="ph ph-arrow-right"></i></span>
           </div>
@@ -491,7 +500,7 @@
     </div>
   </section>
 
-  <!-- 4. HERITAGE & QUALITY SECTION -->
+  <!-- 4. HERITAGE & QUALITY SECTION (Kokonut Bento Cards) -->
   <section id="about" class="heritage-section section-padding">
     <div class="container">
       <div class="catalog-header" style="margin-bottom: 56px;">
@@ -500,26 +509,26 @@
       </div>
 
       <div class="heritage-grid">
-        <div class="heritage-card">
+        <div class="heritage-card kokonut-glass kokonut-spotlight">
           <div class="heritage-card-media">
             <img src="./assets/why_fresh_ingredients.jpg" alt="Pure & Fresh Ingredients" loading="lazy" decoding="async">
             <span class="heritage-card-badge">100% Farm-Fresh</span>
           </div>
           <div class="heritage-card-body">
             <span class="heritage-card-num">01</span>
-            <h3 class="heritage-title" data-i18n="why_card1_title">Pure & Fresh Ingredients</h3>
+            <h3 class="heritage-title" data-i18n="why_card1_title">Pure &amp; Fresh Ingredients</h3>
             <p class="text-small heritage-card-desc" data-i18n="why_card1_text">
               We use 100% farm-fresh butter, rich couverture cocoa, and fresh fruits with zero artificial preservatives.
             </p>
             <ul class="heritage-feature-list">
-              <li><span>✓</span> 100% Pure Butter & Milk</li>
+              <li><span>✓</span> 100% Pure Butter &amp; Milk</li>
               <li><span>✓</span> Zero Artificial Flavors</li>
               <li><span>✓</span> Farm-Fresh Daily Sourcing</li>
             </ul>
           </div>
         </div>
 
-        <div class="heritage-card">
+        <div class="heritage-card kokonut-glass kokonut-spotlight">
           <div class="heritage-card-media">
             <img src="./assets/why_cake_artistry.jpg" alt="Custom Cake Artistry" loading="lazy" decoding="async">
             <span class="heritage-card-badge">Master Artisans</span>
@@ -538,7 +547,7 @@
           </div>
         </div>
 
-        <div class="heritage-card">
+        <div class="heritage-card kokonut-glass kokonut-spotlight">
           <div class="heritage-card-media">
             <img src="./assets/why_doorstep_delivery.jpg" alt="Same-Day Doorstep Delivery" loading="lazy" decoding="async">
             <span class="heritage-card-badge">Express Delivery</span>
@@ -560,10 +569,10 @@
     </div>
   </section>
 
-  <!-- 5. VERTICAL SCROLLING TESTIMONIALS (FIGMA NODE 10314-68369) -->
+  <!-- 5. VERTICAL SCROLLING TESTIMONIALS -->
   <section class="section-padding">
     <div class="container">
-      <div class="testimonial-container-card">
+      <div class="testimonial-container-card kokonut-glass kokonut-spotlight">
         <!-- Left Column: Header -->
         <div class="testimonial-left-col">
           <p class="text-tagline" data-i18n="testi_tagline">Loved across town</p>
@@ -954,8 +963,8 @@
   </footer>
 
   <!-- Utility, Data & Interactivity Scripts -->
-  <script src="./js/utils.js?v=3.5"></script>
-  <script src="./data/products-data.js?v=3.5"></script>
-  <script src="./app.js?v=3.5"></script>
+  <script src="./js/utils.js?v=4.0"></script>
+  <script src="./data/products-data.js?v=4.0"></script>
+  <script src="./app.js?v=4.0"></script>
 </body>
 </html>

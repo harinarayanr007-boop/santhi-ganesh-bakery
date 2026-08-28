@@ -4581,4 +4581,680 @@ body.chat-modal-open {
   }
 }
 
+/* ==========================================================================
+   KOKONUT UI DESIGN SYSTEM SUITE (Luxe Bakery Edition)
+   Liquid Glass Cards, Spotlight Mouse Effects, Bento Grids, Shimmer Buttons,
+   Background Paths & Beams, and Morphic Floating Docks
+   ========================================================================== */
+
+/* 1. Background Paths & Ambient Beams */
+.kokonut-ambient-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.kokonut-beams-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.kokonut-beam-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: kokonut-beam-float 12s ease-in-out infinite alternate;
+}
+
+.kokonut-beam-1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #D9943E 0%, rgba(217, 148, 62, 0) 70%);
+  top: -100px;
+  right: -50px;
+}
+
+.kokonut-beam-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8B4513 0%, rgba(139, 69, 19, 0) 70%);
+  bottom: -150px;
+  left: -80px;
+  animation-delay: -6s;
+}
+
+.kokonut-beam-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #FFD54F 0%, rgba(255, 213, 79, 0) 70%);
+  top: 40%;
+  left: 30%;
+  opacity: 0.2;
+  animation-delay: -3s;
+}
+
+@keyframes kokonut-beam-float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.08); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* 2. Liquid Glass Cards & Bento Grids */
+.kokonut-glass {
+  background: rgba(255, 253, 249, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(230, 215, 199, 0.85);
+  box-shadow: 0 10px 30px -10px rgba(46, 23, 12, 0.08), 
+              0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.kokonut-glass-dark {
+  background: rgba(26, 13, 7, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 148, 62, 0.25);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.45),
+              0 1px 0 0 rgba(255, 213, 79, 0.2) inset;
+  border-radius: 20px;
+  color: #FFFFFF;
+}
+
+.kokonut-glass:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(94, 38, 5, 0.15),
+              0 0 0 1px rgba(217, 148, 62, 0.4) inset;
+  border-color: rgba(217, 148, 62, 0.5);
+}
+
+/* 3. Interactive Spotlight Card */
+.kokonut-spotlight {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(217, 148, 62, 0.15);
+}
+
+.kokonut-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.kokonut-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* 4. Bento Grid Layouts */
+.kokonut-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.kokonut-bento-col-4 { grid-column: span 4; }
+.kokonut-bento-col-6 { grid-column: span 6; }
+.kokonut-bento-col-8 { grid-column: span 8; }
+.kokonut-bento-col-12 { grid-column: span 12; }
+
+@media (max-width: 960px) {
+  .kokonut-bento-col-4,
+  .kokonut-bento-col-6,
+  .kokonut-bento-col-8 {
+    grid-column: span 12;
+  }
+}
+
+/* 5. Shimmer Button & Particle Glows */
+.btn-kokonut-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #8B4513 0%, #5E2605 100%);
+  color: #FFFFFF !important;
+  font-weight: 800;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 18px rgba(94, 38, 5, 0.35),
+              0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+  border: 1px solid rgba(255, 213, 79, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.btn-kokonut-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 45%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.25) 55%,
+    transparent 80%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  animation: kokonut-shimmer-sweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes kokonut-shimmer-sweep {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  25%, 100% { transform: translateX(100%) rotate(25deg); }
+}
+
+.btn-kokonut-shimmer:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(94, 38, 5, 0.45),
+              0 0 20px rgba(217, 148, 62, 0.5);
+  border-color: rgba(255, 213, 79, 0.8);
+}
+
+.btn-kokonut-shimmer:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-kokonut-gold {
+  background: linear-gradient(135deg, #D49C24 0%, #8A5200 100%);
+  color: #1A0D07 !important;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* 6. Shimmer Typography */
+.kokonut-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #1A0D07 0%,
+    #8B4513 25%,
+    #D9943E 50%,
+    #8B4513 75%,
+    #1A0D07 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: kokonut-text-shimmer 6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes kokonut-text-shimmer {
+  to { background-position: 200% center; }
+}
+
+/* 7. Kokonut Action Search Bar & Filter Chips */
+.kokonut-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+}
+
+.kokonut-search-input {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  background: rgba(255, 253, 249, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(230, 215, 199, 0.9);
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1A0D07;
+  outline: none;
+  box-shadow: 0 4px 16px rgba(46, 23, 12, 0.05);
+  transition: all 0.25s ease;
+}
+
+.kokonut-search-input:focus {
+  border-color: #8B4513;
+  box-shadow: 0 0 0 4px rgba(217, 148, 62, 0.18),
+              0 8px 24px rgba(46, 23, 12, 0.08);
+  background: #FFFFFF;
+}
+
+.kokonut-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8B4513;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.kokonut-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 253, 249, 0.85);
+  border: 1.5px solid rgba(230, 215, 199, 0.8);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5C3218;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.kokonut-filter-chip:hover {
+  border-color: #8B4513;
+  color: #1A0D07;
+  transform: translateY(-1px);
+}
+
+.kokonut-filter-chip.active {
+  background: #8B4513;
+  border-color: #5E2605;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(94, 38, 5, 0.25);
+}
+
+/* 8. Kokonut Product Card Enhancement */
+.kokonut-product-card {
+  background: #FFFDF9;
+  border-radius: 18px;
+  border: 1px solid rgba(230, 215, 199, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(46, 23, 12, 0.04);
+  position: relative;
+}
+
+.kokonut-product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(217, 148, 62, 0.6);
+  box-shadow: 0 16px 32px -8px rgba(94, 38, 5, 0.14),
+              0 0 0 1px rgba(217, 148, 62, 0.3) inset;
+}
+
+.kokonut-product-media {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #F7EFE4;
+}
+
+.kokonut-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kokonut-product-card:hover .kokonut-product-media img {
+  transform: scale(1.06);
+}
+
+/* 9. Kokonut Live Delivery Progress Ticker */
+.kokonut-delivery-ticker {
+  background: linear-gradient(135deg, #1A0D07 0%, #2E170C 100%);
+  border: 1px solid rgba(217, 148, 62, 0.35);
+  border-radius: 16px;
+  padding: 14px 20px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.kokonut-progress-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.kokonut-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D49C24, #FFD54F);
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 10px rgba(255, 213, 79, 0.6);
+}
+
+/* 10. Kokonut Morphic Floating Cart Dock */
+.kokonut-floating-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(26, 13, 7, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(217, 148, 62, 0.4);
+  padding: 8px 12px 8px 20px;
+  border-radius: 9999px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(217, 148, 62, 0.2);
+  animation: kokonut-dock-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes kokonut-dock-in {
+  from { opacity: 0; transform: translate(-50%, 20px) scale(0.95); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* ==========================================================================
+   MOTION ANIMATION SYSTEM (Motion.dev Best Practices & Physics Springs)
+   ========================================================================== */
+
+:root {
+  /* Motion Spring Physics Easing Tokens */
+  --motion-spring-tactile: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-spring-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --motion-ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --motion-ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* 1. Hardware Accelerated Scroll-Reveal Engine */
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.985);
+  transition: opacity 0.6s var(--motion-ease-out),
+              transform 0.75s var(--motion-spring-tactile);
+  will-change: opacity, transform;
+}
+
+.motion-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger Containers & Automatic Child Cascade */
+.motion-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--motion-ease-out),
+              transform 0.65s var(--motion-spring-tactile);
+}
+
+.motion-stagger.is-revealed > *:nth-child(1) { transition-delay: 0.04s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(2) { transition-delay: 0.10s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(3) { transition-delay: 0.16s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(4) { transition-delay: 0.22s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(5) { transition-delay: 0.28s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(6) { transition-delay: 0.34s; opacity: 1; transform: translateY(0); }
+.motion-stagger.is-revealed > *:nth-child(n+7) { transition-delay: 0.40s; opacity: 1; transform: translateY(0); }
+
+/* 2. Hero Elements Page Load Motion Sequence */
+.hero-badge-motion {
+  animation: heroSlideDown 0.45s var(--motion-spring-tactile) both;
+}
+
+.hero-title-motion {
+  animation: heroFadeUp 0.5s var(--motion-spring-tactile) 0.08s both;
+}
+
+.hero-sub-motion {
+  animation: heroFadeUp 0.5s var(--motion-spring-tactile) 0.12s both;
+}
+
+.hero-cta-motion {
+  animation: heroFadeUp 0.55s var(--motion-spring-bounce) 0.16s both;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroSlideDown {
+  from { opacity: 0; transform: translateY(-14px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 3. Tactile Button Micro-Interactions */
+.btn-primary,
+.btn-secondary,
+.btn-kokonut-shimmer,
+.btn-kokonut-gold,
+.cta-button,
+.cat-tab-btn,
+.product-card .card-action-btn,
+.item-card button {
+  transition: transform 0.25s var(--motion-spring-tactile),
+              box-shadow 0.25s ease,
+              background-color 0.2s ease !important;
+}
+
+.btn-primary:hover,
+.btn-kokonut-shimmer:hover,
+.btn-kokonut-gold:hover,
+.cta-button:hover {
+  transform: translateY(-2.5px) scale(1.02);
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-kokonut-shimmer:active,
+.btn-kokonut-gold:active,
+.cta-button:active,
+.cat-tab-btn:active {
+  transform: scale(0.95) translateY(1px) !important;
+  transition: transform 0.08s ease !important;
+}
+
+/* ==========================================================================
+   DYNAMIC BUTTONS IN MOTION & SITE-WIDE AMBIENT MOTION SUITE
+   ========================================================================== */
+
+/* 1. Continuous Specular Shimmer Sweep on Primary & Action Buttons */
+.btn-primary,
+.btn-kokonut-shimmer,
+.btn-kokonut-gold,
+.cta-button,
+.hero-actions .btn,
+#header-whatsapp-btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.btn-primary::after,
+.btn-kokonut-shimmer::after,
+.cta-button::after,
+#header-whatsapp-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.15) 70%,
+    transparent 100%
+  );
+  transform: rotate(28deg);
+  animation: buttonSpecularSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes buttonSpecularSweep {
+  0% { left: -75%; }
+  35%, 100% { left: 140%; }
+}
+
+/* 2. Rhythmic Breathing Glow Pulse on Key CTA Buttons */
+.btn-motion-pulse,
+.btn-primary,
+#header-whatsapp-btn {
+  animation: buttonAuraPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes buttonAuraPulse {
+  0% {
+    box-shadow: 0 4px 14px rgba(94, 38, 5, 0.25),
+                0 0 0 0 rgba(217, 148, 62, 0.2);
+  }
+  100% {
+    box-shadow: 0 8px 24px rgba(94, 38, 5, 0.45),
+                0 0 0 6px rgba(217, 148, 62, 0.18);
+  }
+}
+
+/* 3. Subtle Floating Levitation on CTAs */
+.hero-actions .btn:first-child,
+.btn-motion-float {
+  animation: ctaFloat 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes ctaFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-3.5px); }
+}
+
+/* 4. Icon Micro-Motions (WhatsApp Waggle, AI Sparkle, Arrow Glide) */
+.btn i.ph-whatsapp-logo,
+#header-whatsapp-btn i.ph-whatsapp-logo,
+.hero-actions a i.ph-whatsapp-logo {
+  display: inline-block;
+  animation: whatsappWaggle 4.5s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes whatsappWaggle {
+  0%, 75%, 100% { transform: rotate(0deg) scale(1); }
+  80% { transform: rotate(-14deg) scale(1.18); }
+  85% { transform: rotate(12deg) scale(1.18); }
+  90% { transform: rotate(-8deg) scale(1.1); }
+  95% { transform: rotate(6deg) scale(1.05); }
+}
+
+.ai-nav-btn i.ph-sparkle,
+.ai-fab-btn i.ph-sparkle,
+#ai-assistant-btn i.ph-sparkle {
+  display: inline-block;
+  animation: aiSparkleSpin 3.5s ease-in-out infinite;
+}
+
+@keyframes aiSparkleSpin {
+  0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 2px #FFD54F); }
+  50% { transform: scale(1.25) rotate(25deg); filter: drop-shadow(0 0 8px #FFD54F); }
+}
+
+/* 5. Continuous Beacon Radar Pulse on Live Status Dots */
+.live-status-dot,
+.online-dot,
+.kokonut-live-dot {
+  position: relative;
+}
+
+.live-status-dot::after,
+.online-dot::after,
+.kokonut-live-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.6;
+  animation: radarBeaconPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes radarBeaconPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  70% { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* 6. Custom Cake Studio 3D Stage Motion (Breathing Turntable) */
+.cake-3d-turntable {
+  animation: stageCakeFloat 4s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes stageCakeFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(0.6deg); }
+  100% { transform: translateY(0px) rotate(-0.6deg); }
+}
+
+/* 7. Active Step Card & Selection Halo in Motion */
+.flavor-card.selected,
+.tier-card.selected,
+.addon-card.selected {
+  position: relative;
+  box-shadow: 0 0 0 2px #D49C24,
+              0 8px 24px rgba(212, 156, 36, 0.35) !important;
+  animation: selectedSelectionPulse 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes selectedSelectionPulse {
+  0% { box-shadow: 0 0 0 2px #D49C24, 0 4px 14px rgba(212, 156, 36, 0.25); }
+  100% { box-shadow: 0 0 0 2.5px #FFD54F, 0 10px 28px rgba(212, 156, 36, 0.5); }
+}
+
+/* 8. Menu Add-to-Cart Buttons Interactive Hover Magnetism */
+.item-card .item-add-btn,
+.product-card .card-action-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s var(--motion-spring-tactile);
+}
+
+.item-card .item-add-btn:hover,
+.product-card .card-action-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(94, 38, 5, 0.3);
+}
+
+.item-card .item-add-btn:active,
+.product-card .card-action-btn:active {
+  transform: scale(0.92);
+}
+
+
+
+
 
