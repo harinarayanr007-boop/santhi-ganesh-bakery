@@ -146,13 +146,17 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      overflow-x: visible !important;
+    }
+
     body {
       font-family: var(--font-main);
       background-color: var(--color-bg);
       color: var(--color-text-main);
       line-height: 1.35;
       padding-bottom: 90px;
-      overflow-x: hidden;
+      overflow-x: visible !important;
       font-size: 13px;
     }
 
@@ -162,14 +166,15 @@
       background-color: var(--color-bg);
       min-height: 100vh;
       position: relative;
+      overflow: visible !important;
     }
 
     /* Top Navigation Bar */
     .top-nav {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 100 !important;
       background: rgba(244, 239, 234, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -392,10 +397,10 @@
 
     /* Sticky Header Controls: Search + Categories */
     .sticky-menu-controls {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 46px;
-      z-index: 95;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 46px !important;
+      z-index: 95 !important;
       background: rgba(244, 239, 234, 0.98);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
