@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./index.css">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
     .qr-admin-grid {
@@ -1228,57 +1229,78 @@
           </div>
         </div>
 
-        <!-- VISUAL CUSTOMER CONVERSION FUNNEL PIPELINE -->
-        <div style="background-color: #EDDFD1; padding: 22px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-            <h3 style="font-size: 1.15rem; font-family: 'Aboreto'; margin: 0;">📊 Customer Journey Funnel & Drop-Off Rates</h3>
-            <span style="font-size: 0.85rem; color: #666;">Step-by-step conversion from site arrival to WhatsApp checkout</span>
+        <!-- VISUAL CHARTS ROW (FUNNEL & TRAFFIC/DEVICES) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; margin-bottom: 24px;">
+          <!-- Chart 1: Conversion Funnel -->
+          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h3 style="font-size: 1.05rem; font-family: 'Aboreto'; margin: 0; color: #0A0404;">
+                📊 Conversion Funnel Drop-off
+              </h3>
+              <span id="funnel-summary-badge" style="font-size: 0.78rem; font-weight: 700; background: rgba(166,96,27,0.15); color: var(--color-desert); padding: 3px 8px; border-radius: 10px;">
+                Visitors ➔ Orders
+              </span>
+            </div>
+            <div style="position: relative; height: 230px; width: 100%;">
+              <canvas id="chart-funnel"></canvas>
+            </div>
           </div>
 
-          <div id="funnel-pipeline-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
-            <!-- Rendered by loadTrackingAnalytics -->
+          <!-- Chart 2: Hourly & Device Distribution -->
+          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h3 style="font-size: 1.05rem; font-family: 'Aboreto'; margin: 0; color: #0A0404;">
+                📈 Customer Traffic & Devices
+              </h3>
+              <div style="display: flex; gap: 8px; font-size: 0.78rem; font-weight: 700;">
+                <span id="badge-device-mob" style="color: var(--color-desert);">📱 Mobile: 0%</span>
+                <span id="badge-device-desk" style="color: #1565C0;">💻 Desktop: 0%</span>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; align-items: center;">
+              <div style="position: relative; height: 230px; width: 100%;">
+                <canvas id="chart-traffic-timeline"></canvas>
+              </div>
+              <div style="position: relative; height: 210px; width: 100%;">
+                <canvas id="chart-device-donut"></canvas>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 3-COLUMN DATA INSIGHTS -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; margin-bottom: 28px;">
-          
-          <!-- Column 1: Top Items Sent to WhatsApp -->
-          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12);">
-            <h3 style="font-size: 1.05rem; margin-bottom: 12px; font-family: 'Aboreto'; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
-              🏆 Top Items Sent to WhatsApp
-            </h3>
-            <div id="top-ordered-items-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto;">
-              <p style="color: #666; font-size: 0.88rem;">Loading ordered items...</p>
+        <!-- VISUAL PRODUCT DEMAND CARDS (WITH HIGH-RES IMAGES & PROGRESS BARS) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; margin-bottom: 24px;">
+          <!-- Top WhatsApp Orders -->
+          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
+              <h3 style="font-size: 1.05rem; font-family: 'Aboreto'; margin: 0; color: #0A0404;">
+                🏆 Top Dishes & Cakes Ordered (WhatsApp)
+              </h3>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #2E7D32;">Highest Conversion</span>
+            </div>
+            <div id="top-ordered-items-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 330px; overflow-y: auto; padding-right: 4px;">
+              <p style="color: #666; font-size: 0.88rem;">Loading ordered dishes...</p>
             </div>
           </div>
 
-          <!-- Column 2: Most Added to Cart Items -->
-          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12);">
-            <h3 style="font-size: 1.05rem; margin-bottom: 12px; font-family: 'Aboreto'; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
-              🛒 Most Added to Cart (High Demand)
-            </h3>
-            <div id="top-cart-items-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto;">
-              <p style="color: #666; font-size: 0.88rem;">Loading cart item activity...</p>
+          <!-- Most Added to Cart -->
+          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
+              <h3 style="font-size: 1.05rem; font-family: 'Aboreto'; margin: 0; color: #0A0404;">
+                🛒 Most Added to Cart (High Intent)
+              </h3>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #E65100;">Customer Interest</span>
+            </div>
+            <div id="top-cart-items-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 330px; overflow-y: auto; padding-right: 4px;">
+              <p style="color: #666; font-size: 0.88rem;">Loading cart additions...</p>
             </div>
           </div>
-
-          <!-- Column 3: Traffic Pages & Devices -->
-          <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12);">
-            <h3 style="font-size: 1.05rem; margin-bottom: 12px; font-family: 'Aboreto'; border-bottom: 1px solid rgba(10,4,4,0.1); padding-bottom: 8px;">
-              📱 Visitors by Device & Top Pages
-            </h3>
-            <div id="traffic-breakdown-container" style="display: flex; flex-direction: column; gap: 10px;">
-              <p style="color: #666; font-size: 0.88rem;">Loading traffic sources...</p>
-            </div>
-          </div>
-
         </div>
 
-        <!-- RECENT LIVE EVENT TRACKING LOG TABLE -->
-        <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12);">
+        <!-- RECENT LIVE EVENT TRACKING LOG (COMPACT SCROLLABLE PANEL) -->
+        <div style="background-color: #EDDFD1; padding: 20px; border-radius: 12px; border: 1px solid rgba(10,4,4,0.12); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-            <h3 style="font-size: 1.1rem; font-family: 'Aboreto'; margin: 0;">📜 Live Customer Activity & Order Log</h3>
+            <h3 style="font-size: 1.05rem; font-family: 'Aboreto'; margin: 0;">📜 Real-Time Customer Activity Stream</h3>
             
             <!-- Filter Pills -->
             <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="tracking-filter-buttons">
@@ -1290,9 +1312,9 @@
             </div>
           </div>
 
-          <div class="table-responsive">
-            <table class="admin-table">
-              <thead>
+          <div class="table-responsive" style="max-height: 290px; overflow-y: auto; border: 1px solid rgba(10,4,4,0.08); border-radius: 8px; background: rgba(255,255,255,0.7);">
+            <table class="admin-table" style="margin: 0;">
+              <thead style="position: sticky; top: 0; background: #E4D3C2; z-index: 2;">
                 <tr>
                   <th style="width: 130px;">Time</th>
                   <th style="width: 140px;">Event</th>
@@ -2588,6 +2610,41 @@
       }).join('');
     }
 
+    let chartFunnelInstance = null;
+    let chartTrafficInstance = null;
+    let chartDeviceInstance = null;
+
+    // Helper: Lookup product image from PRODUCTS_DATA or IN_STORE_MENU
+    function getProductThumb(name) {
+      if (!name) return { img: null, icon: '🍰', price: null };
+      const query = name.toLowerCase().trim();
+
+      // 1. Search in cakes dataset (PRODUCTS_DATA / productsList)
+      const cakePool = (typeof productsList !== 'undefined' && productsList.length) ? productsList : ((typeof PRODUCTS_DATA !== 'undefined') ? PRODUCTS_DATA : []);
+      const matchedCake = cakePool.find(p => p.title && (p.title.toLowerCase() === query || p.title.toLowerCase().includes(query) || query.includes(p.title.toLowerCase())));
+      if (matchedCake && matchedCake.image) {
+        return { img: matchedCake.image, icon: '🎂', price: matchedCake.price };
+      }
+
+      // 2. Search in cafe items dataset (IN_STORE_MENU / liveMenuItems)
+      const cafePool = (typeof liveMenuItems !== 'undefined' && liveMenuItems.length) ? liveMenuItems : ((typeof IN_STORE_MENU !== 'undefined') ? IN_STORE_MENU : []);
+      const matchedCafe = cafePool.find(c => c.name && (c.name.toLowerCase() === query || c.name.toLowerCase().includes(query) || query.includes(c.name.toLowerCase())));
+      if (matchedCafe) {
+        return { img: matchedCafe.image || null, icon: matchedCafe.icon || '🥪', price: matchedCafe.price };
+      }
+
+      // Fallbacks by keywords
+      if (query.includes('burger')) return { img: './posters/sg_epic_burger.jpg', icon: '🍔', price: 120 };
+      if (query.includes('juice') || query.includes('shake') || query.includes('boba')) return { img: './posters/sg_clean_poster_juices_boba.jpg', icon: '🧋', price: 80 };
+      if (query.includes('pizza')) return { img: './posters/sg_clean_poster_pizza.jpg', icon: '🍕', price: 180 };
+      if (query.includes('sandwich')) return { img: './posters/sg_clean_poster_sandwich.jpg', icon: '🥪', price: 90 };
+      if (query.includes('pav') || query.includes('bhaji')) return { img: './posters/sg_clean_poster_pavbhaji.jpg', icon: '🍛', price: 100 };
+      if (query.includes('omelette') || query.includes('egg')) return { img: './posters/sg_clean_poster_omelette.jpg', icon: '🍳', price: 60 };
+      if (query.includes('cake') || query.includes('pastry')) return { img: './posters/sg_clean_poster_cakes.jpg', icon: '🍰', price: 450 };
+
+      return { img: null, icon: '✨', price: null };
+    }
+
     async function loadTrackingAnalytics() {
       let events = [];
       try {
@@ -2626,10 +2683,19 @@
       const addedToCartMap = {};
       const pageVisitsMap = {};
       const deviceMap = { Mobile: 0, Desktop: 0 };
+      const hourlyDistribution = Array(24).fill(0);
 
       events.forEach(item => {
         const type = item.event_type;
         const data = item.event_data || {};
+
+        // Timestamp hour analysis
+        if (item.created_at) {
+          try {
+            const h = new Date(item.created_at).getHours();
+            if (!isNaN(h) && h >= 0 && h < 24) hourlyDistribution[h]++;
+          } catch(e){}
+        }
 
         if (data.visitor_id) {
           uniqueVisitors.add(data.visitor_id);
@@ -2700,131 +2766,233 @@
       const elConv = document.getElementById('kpi-conversion');
       if (elConv) elConv.textContent = `${conversionRate}%`;
 
-      // Render Visual Customer Funnel Pipeline
-      const funnelContainer = document.getElementById('funnel-pipeline-container');
-      if (funnelContainer) {
-        const step1 = visitorCount || pageviews || 1;
-        const step2 = cartAdds;
-        const step3 = checkouts || (whatsappOrders > 0 ? Math.round(whatsappOrders * 1.4) : 0);
-        const step4 = whatsappOrders;
+      // Update Device Badges
+      const totalDev = (deviceMap.Mobile + deviceMap.Desktop) || 1;
+      const mobPct = Math.round((deviceMap.Mobile / totalDev) * 100);
+      const dskPct = 100 - mobPct;
+      const bMob = document.getElementById('badge-device-mob');
+      if (bMob) bMob.textContent = `📱 Mobile: ${mobPct}%`;
+      const bDesk = document.getElementById('badge-device-desk');
+      if (bDesk) bDesk.textContent = `💻 Desktop: ${dskPct}%`;
 
-        const p2 = Math.min(100, Math.round((step2 / (step1 || 1)) * 100));
-        const p3 = Math.min(100, Math.round((step3 / (step2 || 1)) * 100));
-        const p4 = Math.min(100, Math.round((step4 / (step3 || 1)) * 100));
-
-        funnelContainer.innerHTML = `
-          <!-- Step 1: Site Visitors -->
-          <div style="background: rgba(255,255,255,0.7); padding: 16px; border-radius: 10px; border: 1px solid rgba(10,4,4,0.1);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #1565C0; text-transform: uppercase;">1. Site Visitors</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #111; margin: 4px 0;">${step1}</div>
-            <div style="font-size: 0.78rem; color: #666;">100% of traffic</div>
-            <div style="width: 100%; height: 6px; background: #E0E0E0; border-radius: 4px; margin-top: 8px; overflow: hidden;">
-              <div style="width: 100%; height: 100%; background: #1565C0;"></div>
-            </div>
-          </div>
-
-          <!-- Step 2: Add to Cart -->
-          <div style="background: rgba(255,255,255,0.7); padding: 16px; border-radius: 10px; border: 1px solid rgba(10,4,4,0.1);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #E65100; text-transform: uppercase;">2. Added to Cart</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #111; margin: 4px 0;">${step2}</div>
-            <div style="font-size: 0.78rem; color: #666;">${p2}% of visitors</div>
-            <div style="width: 100%; height: 6px; background: #E0E0E0; border-radius: 4px; margin-top: 8px; overflow: hidden;">
-              <div style="width: ${p2}%; height: 100%; background: #E65100;"></div>
-            </div>
-          </div>
-
-          <!-- Step 3: Began Checkout -->
-          <div style="background: rgba(255,255,255,0.7); padding: 16px; border-radius: 10px; border: 1px solid rgba(10,4,4,0.1);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #6A1B9A; text-transform: uppercase;">3. Began Checkout</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #111; margin: 4px 0;">${step3}</div>
-            <div style="font-size: 0.78rem; color: #666;">${p3}% of cart adds</div>
-            <div style="width: 100%; height: 6px; background: #E0E0E0; border-radius: 4px; margin-top: 8px; overflow: hidden;">
-              <div style="width: ${p3}%; height: 100%; background: #6A1B9A;"></div>
-            </div>
-          </div>
-
-          <!-- Step 4: WhatsApp Orders -->
-          <div style="background: rgba(255,255,255,0.7); padding: 16px; border-radius: 10px; border: 1px solid rgba(10,4,4,0.1);">
-            <div style="font-size: 0.75rem; font-weight: 700; color: #2E7D32; text-transform: uppercase;">4. Sent to WhatsApp</div>
-            <div style="font-size: 1.8rem; font-weight: 800; color: #2E7D32; margin: 4px 0;">${step4}</div>
-            <div style="font-size: 0.78rem; color: #666;">${p4}% of checkouts</div>
-            <div style="width: 100%; height: 6px; background: #E0E0E0; border-radius: 4px; margin-top: 8px; overflow: hidden;">
-              <div style="width: ${p4}%; height: 100%; background: #2E7D32;"></div>
-            </div>
-          </div>
-        `;
-      }
-
-      // Render Top Ordered Items Sent to WhatsApp
+      // Render Top Ordered Items Sent to WhatsApp (With images & price)
       const topOrderedContainer = document.getElementById('top-ordered-items-list');
       if (topOrderedContainer) {
-        const sortedOrders = Object.entries(orderedItemsMap).sort((a, b) => b[1] - a[1]).slice(0, 7);
+        const sortedOrders = Object.entries(orderedItemsMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
+        const maxOrderVal = sortedOrders.length ? sortedOrders[0][1] : 1;
         if (sortedOrders.length > 0) {
-          topOrderedContainer.innerHTML = sortedOrders.map(([name, count]) => `
-            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 8px;">
-              <span style="font-weight: 600; font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;">
-                ✅ ${escapeHTML(name)}
-              </span>
-              <span style="background: #2E7D32; color: #FFF; padding: 2px 8px; border-radius: 12px; font-weight: 700; font-size: 0.78rem;">
-                ${count} Ordered
-              </span>
-            </div>
-          `).join('');
+          topOrderedContainer.innerHTML = sortedOrders.map(([name, count]) => {
+            const thumb = getProductThumb(name);
+            const pct = Math.min(100, Math.round((count / maxOrderVal) * 100));
+            const imgHtml = thumb.img 
+              ? `<img src="${thumb.img}" alt="${escapeHTML(name)}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(10,4,4,0.12); flex-shrink: 0;" onerror="this.outerHTML='<div style=\'width:44px;height:44px;border-radius:8px;background:rgba(10,4,4,0.06);display:flex;align-items:center;justify-content:center;font-size:1.4rem;\'>${thumb.icon}</div>'">`
+              : `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(10,4,4,0.06); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">${thumb.icon}</div>`;
+
+            return `
+              <div style="background: rgba(255,255,255,0.75); border: 1px solid rgba(10,4,4,0.08); border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 12px;">
+                ${imgHtml}
+                <div style="flex: 1; min-width: 0;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-weight: 700; font-size: 0.88rem; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      ${escapeHTML(name)}
+                    </span>
+                    <span style="background: #2E7D32; color: #FFF; padding: 2px 8px; border-radius: 10px; font-weight: 700; font-size: 0.75rem; white-space: nowrap;">
+                      ${count} ordered
+                    </span>
+                  </div>
+                  <div style="width: 100%; height: 5px; background: rgba(10,4,4,0.08); border-radius: 3px; overflow: hidden;">
+                    <div style="width: ${pct}%; height: 100%; background: #2E7D32;"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
         } else {
-          topOrderedContainer.innerHTML = '<p style="color: #666; font-size: 0.88rem;">No items sent to WhatsApp yet.</p>';
+          topOrderedContainer.innerHTML = '<p style="color: #666; font-size: 0.88rem; padding: 12px 0;">No items dispatched to WhatsApp yet.</p>';
         }
       }
 
-      // Render Most Added to Cart Items
+      // Render Most Added to Cart Items (With images & demand)
       const topCartContainer = document.getElementById('top-cart-items-list');
       if (topCartContainer) {
-        const sortedCart = Object.entries(addedToCartMap).sort((a, b) => b[1] - a[1]).slice(0, 7);
+        const sortedCart = Object.entries(addedToCartMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
+        const maxCartVal = sortedCart.length ? sortedCart[0][1] : 1;
         if (sortedCart.length > 0) {
-          topCartContainer.innerHTML = sortedCart.map(([name, count]) => `
-            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.6); padding: 8px 12px; border-radius: 8px;">
-              <span style="font-weight: 600; font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;">
-                🛒 ${escapeHTML(name)}
-              </span>
-              <span style="background: #E65100; color: #FFF; padding: 2px 8px; border-radius: 12px; font-weight: 700; font-size: 0.78rem;">
-                ${count} Adds
-              </span>
-            </div>
-          `).join('');
+          topCartContainer.innerHTML = sortedCart.map(([name, count]) => {
+            const thumb = getProductThumb(name);
+            const pct = Math.min(100, Math.round((count / maxCartVal) * 100));
+            const imgHtml = thumb.img 
+              ? `<img src="${thumb.img}" alt="${escapeHTML(name)}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(10,4,4,0.12); flex-shrink: 0;" onerror="this.outerHTML='<div style=\'width:44px;height:44px;border-radius:8px;background:rgba(10,4,4,0.06);display:flex;align-items:center;justify-content:center;font-size:1.4rem;\'>${thumb.icon}</div>'">`
+              : `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(10,4,4,0.06); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">${thumb.icon}</div>`;
+
+            return `
+              <div style="background: rgba(255,255,255,0.75); border: 1px solid rgba(10,4,4,0.08); border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 12px;">
+                ${imgHtml}
+                <div style="flex: 1; min-width: 0;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-weight: 700; font-size: 0.88rem; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      ${escapeHTML(name)}
+                    </span>
+                    <span style="background: #E65100; color: #FFF; padding: 2px 8px; border-radius: 10px; font-weight: 700; font-size: 0.75rem; white-space: nowrap;">
+                      ${count} adds
+                    </span>
+                  </div>
+                  <div style="width: 100%; height: 5px; background: rgba(10,4,4,0.08); border-radius: 3px; overflow: hidden;">
+                    <div style="width: ${pct}%; height: 100%; background: #E65100;"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
         } else {
-          topCartContainer.innerHTML = '<p style="color: #666; font-size: 0.88rem;">No cart activity recorded yet.</p>';
+          topCartContainer.innerHTML = '<p style="color: #666; font-size: 0.88rem; padding: 12px 0;">No cart additions recorded yet.</p>';
         }
       }
 
-      // Render Traffic Breakdown (Device & Pages)
-      const trafficContainer = document.getElementById('traffic-breakdown-container');
-      if (trafficContainer) {
-        const totalDev = (deviceMap.Mobile + deviceMap.Desktop) || 1;
-        const mobPct = Math.round((deviceMap.Mobile / totalDev) * 100);
-        const dskPct = 100 - mobPct;
+      // ==========================================
+      // INITIALIZE OR UPDATE CHART.JS VISUALS
+      // ==========================================
+      if (typeof Chart !== 'undefined') {
+        // Chart 1: Funnel Horizontal Bar Chart
+        const funnelCanvas = document.getElementById('chart-funnel');
+        if (funnelCanvas) {
+          const funnelCtx = funnelCanvas.getContext('2d');
+          const fStep1 = visitorCount || pageviews || 1;
+          const fStep2 = cartAdds;
+          const fStep3 = checkouts || (whatsappOrders > 0 ? Math.round(whatsappOrders * 1.4) : 0);
+          const fStep4 = whatsappOrders;
 
-        const sortedPages = Object.entries(pageVisitsMap).sort((a, b) => b[1] - a[1]).slice(0, 4);
+          if (chartFunnelInstance) chartFunnelInstance.destroy();
+          chartFunnelInstance = new Chart(funnelCtx, {
+            type: 'bar',
+            data: {
+              labels: ['1. Visitors', '2. Cart Adds', '3. Began Checkout', '4. WhatsApp Order'],
+              datasets: [{
+                label: 'Customers',
+                data: [fStep1, fStep2, fStep3, fStep4],
+                backgroundColor: ['#1565C0', '#E65100', '#6A1B9A', '#2E7D32'],
+                borderRadius: 6,
+                barThickness: 20
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  callbacks: {
+                    afterLabel: function(ctx) {
+                      const val = ctx.raw;
+                      const pct = Math.round((val / (fStep1 || 1)) * 100);
+                      return `${pct}% of total visitors`;
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  grid: { color: 'rgba(10,4,4,0.06)' },
+                  ticks: { font: { size: 11 } }
+                },
+                y: {
+                  grid: { display: false },
+                  ticks: { font: { weight: 'bold', size: 11 }, color: '#333' }
+                }
+              }
+            }
+          });
+        }
 
-        trafficContainer.innerHTML = `
-          <div style="margin-bottom: 6px;">
-            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; margin-bottom: 4px;">
-              <span>📱 Mobile: ${mobPct}%</span>
-              <span>💻 Desktop: ${dskPct}%</span>
-            </div>
-            <div style="width: 100%; height: 8px; background: #E0E0E0; border-radius: 4px; display: flex; overflow: hidden;">
-              <div style="width: ${mobPct}%; background: var(--color-desert);"></div>
-              <div style="width: ${dskPct}%; background: #1565C0;"></div>
-            </div>
-          </div>
-          <div style="border-top: 1px solid rgba(10,4,4,0.08); padding-top: 8px;">
-            <div style="font-size: 0.8rem; font-weight: 700; color: #666; margin-bottom: 4px;">Top Visited Pages:</div>
-            ${sortedPages.length > 0 ? sortedPages.map(([page, cnt]) => `
-              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; padding: 2px 0;">
-                <span style="color: #333;">${escapeHTML(page.replace('index.html', 'Home'))}</span>
-                <span style="font-weight: 700; color: #555;">${cnt} views</span>
-              </div>
-            `).join('') : '<span style="font-size: 0.8rem; color: #888;">Traffic logging in progress...</span>'}
-          </div>
-        `;
+        // Chart 2: Hourly Activity Timeline
+        const trafficCanvas = document.getElementById('chart-traffic-timeline');
+        if (trafficCanvas) {
+          const trafficCtx = trafficCanvas.getContext('2d');
+          const hourLabels = ['12a','2a','4a','6a','8a','10a','12p','2p','4p','6p','8p','10p'];
+          // Sample every 2 hours for clarity
+          const sampledData = [
+            hourlyDistribution[0] + hourlyDistribution[1],
+            hourlyDistribution[2] + hourlyDistribution[3],
+            hourlyDistribution[4] + hourlyDistribution[5],
+            hourlyDistribution[6] + hourlyDistribution[7],
+            hourlyDistribution[8] + hourlyDistribution[9],
+            hourlyDistribution[10] + hourlyDistribution[11],
+            hourlyDistribution[12] + hourlyDistribution[13],
+            hourlyDistribution[14] + hourlyDistribution[15],
+            hourlyDistribution[16] + hourlyDistribution[17],
+            hourlyDistribution[18] + hourlyDistribution[19],
+            hourlyDistribution[20] + hourlyDistribution[21],
+            hourlyDistribution[22] + hourlyDistribution[23]
+          ];
+
+          if (chartTrafficInstance) chartTrafficInstance.destroy();
+          chartTrafficInstance = new Chart(trafficCtx, {
+            type: 'line',
+            data: {
+              labels: hourLabels,
+              datasets: [{
+                label: 'Activity',
+                data: sampledData,
+                borderColor: '#A6601B',
+                backgroundColor: 'rgba(166, 96, 27, 0.15)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointBackgroundColor: '#A6601B'
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: false }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: { font: { size: 10 } }
+                },
+                y: {
+                  beginAtZero: true,
+                  grid: { color: 'rgba(10,4,4,0.06)' },
+                  ticks: { stepSize: 1, font: { size: 10 } }
+                }
+              }
+            }
+          });
+        }
+
+        // Chart 3: Device Donut
+        const deviceCanvas = document.getElementById('chart-device-donut');
+        if (deviceCanvas) {
+          const deviceCtx = deviceCanvas.getContext('2d');
+          if (chartDeviceInstance) chartDeviceInstance.destroy();
+          chartDeviceInstance = new Chart(deviceCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Mobile', 'Desktop'],
+              datasets: [{
+                data: [deviceMap.Mobile || 1, deviceMap.Desktop || 0],
+                backgroundColor: ['#A6601B', '#1565C0'],
+                borderWidth: 2,
+                borderColor: '#EDDFD1'
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: { boxWidth: 10, font: { size: 10 } }
+                }
+              },
+              cutout: '68%'
+            }
+          });
+        }
       }
 
       // Render Filtered Table
