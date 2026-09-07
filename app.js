@@ -137,6 +137,38 @@ async function deleteProductFromSupabase(id) {
   }
 }
 
+// Global Visitor & Session ID Generation for Funnel Tracking
+function getOrCreateVisitorId() {
+  try {
+    let vid = localStorage.getItem('sg_visitor_id');
+    if (!vid) {
+      vid = 'v_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+      localStorage.setItem('sg_visitor_id', vid);
+    }
+    return vid;
+  } catch(e) {
+    return 'v_anon';
+  }
+}
+
+function getOrCreateSessionId() {
+  try {
+    let sid = sessionStorage.getItem('sg_session_id');
+    if (!sid) {
+      sid = 's_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+      sessionStorage.setItem('sg_session_id', sid);
+    }
+    return sid;
+  } catch(e) {
+    return 's_anon';
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.getOrCreateVisitorId = getOrCreateVisitorId;
+  window.getOrCreateSessionId = getOrCreateSessionId;
+}
+
 // Global Event Tracking Helper (100% Pure Production Domain Analytics)
 async function trackEvent(eventType, eventData = {}) {
   try {
@@ -145,31 +177,42 @@ async function trackEvent(eventType, eventData = {}) {
     const hostname = window.location.hostname;
     const pathname = window.location.pathname;
 
-    // Exclude localhost & dev testing from polluting analytics
-    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.')) {
-      return;
-    }
-
     // Exclude Admin dashboard pages from polluting customer analytics
     if (pathname.includes('admin')) {
       return;
     }
 
+    const isDev = (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.'));
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceTrack = urlParams.get('test_tracking') === '1';
+
     const payload = {
       event_type: eventType,
       event_data: {
         ...eventData,
+        visitor_id: getOrCreateVisitorId(),
+        session_id: getOrCreateSessionId(),
+        device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
+        referrer: document.referrer ? (new URL(document.referrer, window.location.href).hostname || 'Direct') : 'Direct',
         host: hostname,
         page: pathname.split('/').pop() || 'index.html',
         timestamp: new Date().toISOString()
       }
     };
 
+    // Keep recent events in localStorage for offline resilience & admin preview
     if (window.localStorage) {
-      const history = JSON.parse(localStorage.getItem('sg_tracking_events') || '[]');
-      history.unshift(payload);
-      if (history.length > 200) history.pop();
-      localStorage.setItem('sg_tracking_events', JSON.stringify(history));
+      try {
+        const history = JSON.parse(localStorage.getItem('sg_tracking_events') || '[]');
+        history.unshift(payload);
+        if (history.length > 200) history.pop();
+        localStorage.setItem('sg_tracking_events', JSON.stringify(history));
+      } catch(e) {}
+    }
+
+    // Exclude localhost & dev testing from polluting cloud analytics unless forced
+    if (isDev && !forceTrack) {
+      return;
     }
 
     fetch(`${SUPABASE_URL}/rest/v1/tracking_events`, {
@@ -182,6 +225,27 @@ async function trackEvent(eventType, eventData = {}) {
       body: JSON.stringify(payload)
     }).catch(() => {});
   } catch(e) {}
+}
+
+if (typeof window !== 'undefined') {
+  window.trackEvent = trackEvent;
+
+  // Automatically log page view on initial site arrival
+  const autoLogPageView = () => {
+    if (!window.__sg_pageview_logged && !window.location.pathname.includes('admin')) {
+      window.__sg_pageview_logged = true;
+      trackEvent('page_view', {
+        title: document.title,
+        url: window.location.href
+      });
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoLogPageView);
+  } else {
+    autoLogPageView();
+  }
 }
 
 // Save a single job to Supabase (upsert)
@@ -683,6 +747,16 @@ function setupEventListeners() {
     if (cartDrawer) cartDrawer.classList.add('open');
     if (cartOverlay) cartOverlay.classList.add('open');
     document.body.classList.add('cart-drawer-open');
+
+    if (typeof trackEvent === 'function' && Array.isArray(cartItems) && cartItems.length > 0) {
+      const total = cartItems.reduce((sum, i) => sum + (Number(i.price || 0) * Number(i.quantity || 1)), 0);
+      trackEvent('begin_checkout', {
+        source: 'cart_drawer',
+        count: cartItems.length,
+        total: total,
+        items: cartItems.map(i => `${i.title} (x${i.quantity})`).join(', ')
+      });
+    }
   };
 
   const closeCart = () => {

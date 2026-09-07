@@ -3516,6 +3516,20 @@
         }
       }
 
+      // Track Add to Cart Intent Event
+      if (change > 0 && typeof trackEvent === 'function') {
+        const itm = liveMenuItems.find(i => String(i.id) === String(itemId));
+        if (itm) {
+          trackEvent('add_to_cart', {
+            product_id: itm.id,
+            title: itm.name,
+            price: Number(itm.price) || 0,
+            category: itm.category || 'cafe',
+            source: 'cafe_menu'
+          });
+        }
+      }
+
       localStorage.setItem('sg_delivery_cart', JSON.stringify(deliveryCart));
       renderMenu();
       updateCartUI();
@@ -3750,6 +3764,18 @@
       renderCheckoutModalContent();
       document.getElementById('checkout-modal').classList.add('active');
       document.body.style.overflow = 'hidden';
+
+      // Track Funnel Step: Begin Checkout
+      if (typeof trackEvent === 'function' && Array.isArray(deliveryCart) && deliveryCart.length > 0) {
+        const totals = calculateCartTotals();
+        trackEvent('begin_checkout', {
+          source: 'cafe_menu',
+          items_count: totals.totalItems,
+          subtotal: totals.subtotal,
+          grand_total: totals.grandTotal,
+          items: deliveryCart.map(i => `${i.name} (x${i.qty})`).join(', ')
+        });
+      }
       
       if (currentOrderType === 'delivery') {
         setTimeout(() => initOrUpdateDeliveryMap(), 100);
@@ -4487,12 +4513,27 @@
       }
 
       if (typeof trackEvent === 'function') {
-        trackEvent(isTakeaway ? 'cafe_takeaway_order' : 'cafe_delivery_order', {
+        const itemSummary = deliveryCart.map(i => `${i.name} (x${i.qty})`).join(', ');
+        const orderEventData = {
+          order_ref: isTakeaway ? `#SG-PICKUP-${refId}` : `#SG-CAFE-${refId}`,
           ref_id: isTakeaway ? `#SG-PICKUP-${refId}` : `#SG-CAFE-${refId}`,
-          customer_name: name,
+          customer_name: name || 'Customer',
           phone: phoneClean,
-          grand_total: grandTotal
-        });
+          grand_total: grandTotal,
+          total: grandTotal,
+          subtotal: subtotal,
+          delivery_fee: deliveryFee,
+          order_type: isTakeaway ? 'takeaway' : 'delivery',
+          source: isTakeaway ? 'cafe_takeaway' : 'cafe_delivery',
+          items: itemSummary,
+          title: itemSummary,
+          items_detail: deliveryCart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
+          count: deliveryCart.reduce((sum, i) => sum + i.qty, 0)
+        };
+
+        trackEvent(isTakeaway ? 'cafe_takeaway_order' : 'cafe_delivery_order', orderEventData);
+        // Also log unified whatsapp_order event for holistic tracking across all channels
+        trackEvent('whatsapp_order', orderEventData);
       }
 
       const bakeryPhone = "917339073844";
