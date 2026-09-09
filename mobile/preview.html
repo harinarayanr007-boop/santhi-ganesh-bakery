@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Order Application Simulator | Santhi Ganesh Bakery</title>
+  
+  <link rel="icon" type="image/png" href="../sg-bakery-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- QR Code Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #140E0A;
+      --panel-bg: #221811;
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #A6601B;
+      --text: #F6EFE8;
+      --text-muted: #A3968C;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    /* Top Control Bar */
+    .top-controls {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: var(--panel-bg);
+      padding: 14px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .brand-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-meta img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+    }
+
+    .brand-title {
+      font-family: 'Aboreto', cursive;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .control-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ctrl {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-ctrl:hover, .btn-ctrl.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFF;
+    }
+
+    /* Main Simulator Stage */
+    .simulator-stage {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* Realistic Phone Mockup Shell */
+    .device-mockup {
+      width: 395px;
+      height: 825px;
+      background: #000000;
+      border-radius: 52px;
+      padding: 12px;
+      position: relative;
+      box-shadow: 
+        0 0 0 4px #2b2927,
+        0 0 0 6px #1a1918,
+        0 24px 60px rgba(0, 0, 0, 0.65),
+        0 10px 20px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    /* Speaker & Dynamic Island */
+    .device-notch {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 28px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      pointer-events: none;
+    }
+
+    .camera-lens {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #0d1a2d;
+      border: 1px solid #1c2e4a;
+    }
+
+    .speaker-slot {
+      width: 44px;
+      height: 4px;
+      border-radius: 2px;
+      background: #111;
+    }
+
+    /* Screen Frame */
+    .device-screen-container {
+      width: 100%;
+      height: 100%;
+      background: #F6EFE8;
+      border-radius: 42px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .device-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Side Specs & Screen Tour Panel */
+    .specs-panel {
+      flex: 1;
+      min-width: 320px;
+      max-width: 420px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .specs-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+    }
+
+    .screen-pills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .screen-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .screen-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--primary);
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-bottom: 20px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .feature-list li i {
+      color: #2E7D32;
+      font-size: 1rem;
+      margin-top: 2px;
+    }
+
+    /* QR Scan Card */
+    .qr-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    #qr-container {
+      background: #FFF;
+      padding: 6px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .qr-info h5 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .qr-info p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Controls -->
+  <div class="top-controls">
+    <div class="brand-meta">
+      <img src="../sg-bakery-logo.png" alt="Santhi Ganesh Bakery">
+      <div>
+        <div class="brand-title">Santhi Ganesh Bakery</div>
+        <div class="brand-sub">Mobile Order Application Simulator</div>
+      </div>
+    </div>
+
+    <div class="control-actions">
+      <button class="btn-ctrl active" onclick="setDevicePreset('iphone', this)">
+        <i class="ph ph-device-mobile"></i> iPhone 16 Pro
+      </button>
+      <button class="btn-ctrl" onclick="setDevicePreset('pixel', this)">
+        <i class="ph ph-android-logo"></i> Android Pixel
+      </button>
+      <a href="./index.html" target="_blank" class="btn-ctrl" style="background: var(--primary); border-color: var(--primary);">
+        <i class="ph ph-arrow-square-out"></i> Launch Full Screen
+      </a>
+    </div>
+  </div>
+
+  <!-- Stage -->
+  <div class="simulator-stage">
+    
+    <!-- Phone Mockup -->
+    <div id="device-box" class="device-mockup">
+      <div class="device-notch">
+        <div class="speaker-slot"></div>
+        <div class="camera-lens"></div>
+      </div>
+      
+      <div class="device-screen-container">
+        <iframe id="mobile-iframe" src="./index.html" class="device-iframe"></iframe>
+      </div>
+    </div>
+
+    <!-- Tour & Info Panel -->
+    <div class="specs-panel">
+      <div class="specs-title">
+        <i class="ph ph-sparkle"></i> Application Screens
+      </div>
+      
+      <div class="screen-pills-grid">
+        <button class="screen-pill" onclick="jumpToScreen('home')">
+          <span>🏠</span> Home Explore
+        </button>
+        <button class="screen-pill" onclick="jumpToScreen('menu')">
+          <span>📋</span> Food Menu
+        </button>
+        <button class="screen-pill" onclick="jumpToScreen('offers')">
+          <span>🏷️</span> Promo Offers
+        </button>
+        <button class="screen-pill" onclick="jumpToScreen('cart')">
+          <span>🛒</span> Cart & Bill
+        </button>
+        <button class="screen-pill" onclick="jumpToScreen('track')">
+          <span>📍</span> Live Tracking
+        </button>
+        <button class="screen-pill" onclick="setMode('takeaway')">
+          <span>🛍️</span> Takeaway Mode
+        </button>
+      </div>
+
+      <ul class="feature-list">
+        <li>
+          <i class="ph ph-check-circle"></i>
+          <span><strong>100% Non-destructive:</strong> Created in isolated <code>mobile/</code> directory without altering existing files.</span>
+        </li>
+        <li>
+          <i class="ph ph-check-circle"></i>
+          <span><strong>Unified Catalog:</strong> Reuses live datasets from <code>cafe-menu-data.js</code> and <code>products-data.js</code>.</span>
+        </li>
+        <li>
+          <i class="ph ph-check-circle"></i>
+          <span><strong>Instant WhatsApp Dispatch:</strong> Sends formatted itemized receipts directly to +91 73390 73844.</span>
+        </li>
+        <li>
+          <i class="ph ph-check-circle"></i>
+          <span><strong>Native Feel:</strong> iOS & Android safe-area insets, quantity steppers, bottom sheets, and live order tracking.</span>
+        </li>
+      </ul>
+
+      <!-- QR Code Test on Phone -->
+      <div class="qr-card">
+        <div id="qr-container"></div>
+        <div class="qr-info">
+          <h5>Test on Your Phone</h5>
+          <p>Scan this QR code with your camera to open this mobile application live on your phone!</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const iframe = document.getElementById('mobile-iframe');
+
+    function jumpToScreen(screenId) {
+      if (iframe && iframe.contentWindow && iframe.contentWindow.switchScreen) {
+        iframe.contentWindow.switchScreen(screenId);
+      }
+    }
+
+    function setMode(mode) {
+      if (iframe && iframe.contentWindow && iframe.contentWindow.setDiningMode) {
+        iframe.contentWindow.setDiningMode(mode);
+        iframe.contentWindow.switchScreen('cart');
+      }
+    }
+
+    function setDevicePreset(type, btn) {
+      const box = document.getElementById('device-box');
+      document.querySelectorAll('.btn-ctrl').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      if (type === 'iphone') {
+        box.style.width = '395px';
+        box.style.height = '825px';
+        box.style.borderRadius = '52px';
+      } else if (type === 'pixel') {
+        box.style.width = '412px';
+        box.style.height = '840px';
+        box.style.borderRadius = '40px';
+      }
+    }
+
+    // Generate QR Code pointing to mobile/index.html
+    const appUrl = window.location.href.replace('preview.html', 'index.html');
+    new QRCode(document.getElementById('qr-container'), {
+      text: appUrl,
+      width: 76,
+      height: 76,
+      colorDark: '#140E0A',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+</body>
+</html>
